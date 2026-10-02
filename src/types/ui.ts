@@ -63,3 +63,68 @@ export interface MenuHover {
 	id: string;
 	project?: ProjectSummary;
 }
+
+/** Mascot faces (prototype `living-mascot.html`); Brackets is the site's default. */
+export enum MascotDesign {
+	Brackets = "brackets",
+	Terminal = "terminal",
+}
+
+/** Where the mascot keeps its gaze: `Auto` picks a corner itself every few seconds. */
+export enum MascotZone {
+	Auto = "auto",
+	Center = "center",
+	TopRight = "top-right",
+	TopLeft = "top-left",
+	BottomRight = "bottom-right",
+	BottomLeft = "bottom-left",
+}
+
+/** One shape on the face sphere: x, y in -1..1 (y up), w, h in % of the head width. */
+export interface MascotPart {
+	x: number;
+	y: number;
+	w: number;
+	h: number;
+	/** Degrees. */
+	rot?: number;
+	/** > 1 floats above the surface (moves more). */
+	lift?: number;
+	/** Takes part in blinks (default true). */
+	blink?: boolean;
+	/** Blinks by flattening toward a horizontal line (chevrons). */
+	squash?: boolean;
+	/** Flashes on and off: [speed, phase]. */
+	flash?: [number, number];
+}
+
+export interface MascotFace {
+	/** CSS colours: theme tokens, so the head follows light/dark. */
+	skull: string;
+	ring?: string;
+	ink: string;
+	parts: MascotPart[];
+}
+
+export interface MascotOptions {
+	stiffness: number;
+	damping: number;
+	/** Gaze area size (1 = full face). */
+	range: number;
+	zone: MascotZone;
+	idle: boolean;
+	blink: boolean;
+}
+
+/** Imperative handle of `<Mascot ref>`: react to page events. */
+export interface MascotHandle {
+	poke: (strength?: number) => void;
+	setZone: (zone: MascotZone, range?: number) => void;
+}
+
+/** Side of a mascot speech bubble's tail. */
+export enum BubbleSide {
+	Left = "left",
+	Right = "right",
+	Top = "top",
+}

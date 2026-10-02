@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Outlet } from "react-router";
 import { PillButton } from "@/components/common/buttons/pill-button";
+import { Mascot } from "@/components/common/mascot/mascot";
+import { MascotDesign } from "@/types/ui";
 import { Preloader } from "@/components/shared/shell/preloader";
 import { SiteMenu } from "@/components/shared/shell/site-menu";
 import { SiteNav } from "@/components/shared/shell/site-nav";
@@ -69,6 +71,10 @@ const Layout: React.FC<LayoutProps> = () => {
 					onClick={() => setTerminalOpen(true)}
 					className="fixed bottom-5 left-5 z-98 font-mono text-[13px] font-bold shadow-[0_16px_40px_-16px_rgba(0,0,0,.6)] [view-transition-name:terminal-launcher] max-desk:hidden print:hidden"
 				>
+					<Mascot
+						design={MascotDesign.Terminal}
+						className="-ml-2 size-7"
+					/>
 					{t("shell.terminal.button.label")}
 				</PillButton>
 			) : null}
