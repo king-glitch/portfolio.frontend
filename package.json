@@ -14,7 +14,9 @@
     "build:tokens": "bun scripts/build-token/index.ts",
     "build:portfolio": "bun scripts/build-portfolio/index.ts",
     "test": "bun test",
-    "check": "bun run typecheck && bun run typecheck:scripts && bun run lint:style && bun run lint:tw && bun run test && bun run build"
+    "check": "bun run typecheck && bun run typecheck:scripts && bun run lint:style && bun run lint:tw && bun run test && bun run build",
+    "deploy": "react-router build && firebase deploy --only hosting",
+    "deploy:only": "firebase deploy --only hosting"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

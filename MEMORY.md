@@ -30,6 +30,7 @@ Project memory for agents. Read first, update before finishing any task.
   - **Speed:** after the preloader every project/note detail is prefetched (`prefetchDetails`). Prod click → transition ≈ 50 ms (dev is slower: on-demand modules).
   - **Copy:** `content/ME.md` rewritten in plain, viewer-facing language (hello text from the prototype); block labels "What I did / What was hard / What it does / How it works"; UI copy edited in `en.json`. Real contacts (email, GitHub `king-glitch`, LinkedIn `william-siefert`); placeholder logic removed.
   - **Fixes:** hero is `min-h-svh` and the deck is sized to its cards (no `@game-ready` overlap); vertical header title fits the viewport height; big numbers fit their column; light `--card` is #f5f5f5 (prototype); cursor dot no longer scales toward the corner; skip link only on keyboard focus; buttons `select-none`; terminal launcher hidden on phones (menu still opens it).
+- **Firebase deployment configured:** `.firebaserc` (project `rachamon`), `firebase.json` (site `portfolio-rachamon`, public `build/client`, SPA rewrite `**` -> `/index.html`, immutable cache headers for js/css/assets) matching `ws.archive.client`. `.gitignore` ignores `.firebase/`. `package.json` adds `deploy` and `deploy:only`.
 - Prototype is at `./design/`; source data `content/ME.md`.
 
 ## Plan files
@@ -47,6 +48,8 @@ Project memory for agents. Read first, update before finishing any task.
 
 - Overview §13 answers applied. Slug project ids. No Axios/RHF/toast/lenis/gsap. Terminal = `Dialog`. All copy in `src/locales/en.json` (user asked for one file).
 - Theme toggle added (light + dark requested); first visit follows the OS.
+- Firebase deployment: uses project `rachamon` and site `portfolio-rachamon` matching `ws.archive.client`.
+
 
 ## Customized / generated files
 
