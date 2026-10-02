@@ -13,6 +13,8 @@ interface ProjectViewportProps {
 	/** `animated`: use the page transition (vertical layout); false after the in-place hand-off. */
 	onNext: (animated: boolean) => void;
 	onClose: () => void;
+	/** The push to the next project started. */
+	onPushStart: () => void;
 	barRef: React.RefObject<HTMLDivElement | null>;
 }
 
@@ -22,17 +24,23 @@ export const ProjectViewport: React.FC<ProjectViewportProps> = ({
 	next,
 	onNext,
 	onClose,
+	onPushStart,
 	barRef,
 }) => {
 	const { t } = useTranslation();
 	const viewportRef = useRef<HTMLDivElement>(null);
 	const trackRef = useRef<HTMLDivElement>(null);
 	const nextRef = useRef<HTMLDivElement>(null);
+	const coverRef = useRef<HTMLElement>(null);
+	const percentRef = useRef<HTMLSpanElement>(null);
 	const { vertical, commit } = useHorizontalScroller({
 		viewportRef,
 		trackRef,
 		barRef,
 		nextRef,
+		coverRef,
+		percentRef,
+		onPushStart,
 		onThreshold: () => onNext(vertical),
 		onEscape: onClose,
 	});
@@ -83,6 +91,8 @@ export const ProjectViewport: React.FC<ProjectViewportProps> = ({
 						vertical={vertical}
 						onNext={commit}
 						nextRef={nextRef}
+						coverRef={coverRef}
+						percentRef={percentRef}
 					/>
 				</div>
 			</div>

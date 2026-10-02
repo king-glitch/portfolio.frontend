@@ -29,7 +29,7 @@ export const Spotlight: React.FC<SpotlightProps> = () => {
 				e.preventDefault();
 				setRevealed((v) => !v);
 			}}
-			className="relative mt-[clamp(96px,12vw,180px)] h-[clamp(520px,86vh,900px)] overflow-hidden border-y outline-none focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:ring-inset"
+			className="relative mt-[clamp(96px,12vw,180px)] h-[clamp(520px,86vh,900px)] overflow-hidden border-y outline-none focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:ring-inset max-desk:h-[min(560px,72svh)]"
 		>
 			<SpotlightLayer side={SpotlightSide.See} />
 			<SpotlightLayer side={SpotlightSide.Reveal} ref={layerRef} />

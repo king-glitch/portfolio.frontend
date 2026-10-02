@@ -82,6 +82,9 @@
 	}
 	html {
 		@apply font-sans;
+		/* Mobile: no double-tap zoom delay, no grey tap flash (feedback comes from hover/active styles). */
+		touch-action: manipulation;
+		-webkit-tap-highlight-color: transparent;
 		color-scheme: light;
 	}
 	html.dark {
@@ -211,13 +214,21 @@
 	--animate-art-blink: art-blink 2.4s steps(2, end) infinite;
 	--animate-art-float: art-float 6s ease-in-out infinite;
 	--animate-menu-in: menu-in 1s var(--ease-out-expo) forwards;
-	/* First load: the page rides up glued to the lifting preloader's bottom edge (same 1s and easing as the wipe;
-	   no fill, so no transform stays behind). */
+	/* First load: the preloader lifts away and the page rides up glued to its bottom edge (same 1s and easing).
+	   Keyframed `transform`, not a `translate` transition: Safari skips transitions from `translate: none`. */
+	--animate-loader-out: loader-out 1s var(--ease-wipe) forwards;
 	--animate-content-rise: content-rise 1s var(--ease-wipe);
 
+	@keyframes loader-out {
+		to {
+			transform: translate3d(0, -100%, 0);
+			border-bottom-left-radius: 36px;
+			border-bottom-right-radius: 36px;
+		}
+	}
 	@keyframes content-rise {
 		from {
-			translate: 0 100vh;
+			transform: translate3d(0, 100vh, 0);
 		}
 	}
 

@@ -1,7 +1,9 @@
 import { expect, test } from "bun:test";
 import { config } from "@/config";
 import {
+	decayPull,
 	easeInOut,
+	feedPull,
 	feedTrack,
 	initialScroller,
 	isAtEnd,
@@ -61,4 +63,24 @@ test("push easing starts slow, ends at 1", () => {
 	expect(easeInOut(0.5)).toBeCloseTo(0.5, 5);
 	expect(easeInOut(1)).toBe(1);
 	expect(easeInOut(0.1)).toBeLessThan(0.1);
+});
+
+test("pull resists harder as it grows and caps at the threshold", () => {
+	const first = feedPull(0, 100, cfg);
+	const later =
+		feedPull(cfg.pullThresholdPx * 0.8, 100, cfg) -
+		cfg.pullThresholdPx * 0.8;
+	expect(first).toBeCloseTo(100 * cfg.pullBaseGain, 5);
+	expect(later).toBeLessThan(first);
+	expect(feedPull(cfg.pullThresholdPx, 9999, cfg)).toBe(cfg.pullThresholdPx);
+	expect(feedPull(50, -100, cfg)).toBe(0);
+});
+
+test("pull drains only after idle", () => {
+	expect(decayPull(100, 0, cfg)).toBe(100);
+	expect(decayPull(100, cfg.pullIdleMs, cfg)).toBeCloseTo(
+		100 * cfg.pullDecay,
+		5,
+	);
+	expect(decayPull(0.5, cfg.pullIdleMs, cfg)).toBe(0);
 });

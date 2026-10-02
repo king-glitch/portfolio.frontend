@@ -81,7 +81,6 @@ export const config = {
 		preloader: {
 			durationMs: 1700,
 			holdMs: 180,
-			wipeMs: 1000,
 			unmountDelayMs: 1050,
 			digits: 3,
 		},
@@ -249,6 +248,18 @@ export const config = {
 			wheelLinePx: 32,
 			/** Wheel events further apart than this start a new gesture (trackpad momentum is one gesture). */
 			gestureGapMs: 160,
+			/** Pull past the end needed to push the next project in (px of wheel input, after resistance). */
+			pullThresholdPx: 1100,
+			/** Resistance: gain falls from `pullBaseGain` as the pull grows, never below `pullMinGain`. */
+			pullBaseGain: 0.6,
+			pullSlope: 0.65,
+			pullMinGain: 0.14,
+			/** After this idle time the pull drains by `pullDecay` per frame. */
+			pullIdleMs: 320,
+			pullDecay: 0.94,
+			pullZeroBelowPx: 1,
+			/** Ease of the drawn progress toward the pull. */
+			pullLerp: 0.2,
 			/** Idle time before a mostly visible last panel snaps fully in. */
 			snapIdleMs: 140,
 			snapShare: 0.6,

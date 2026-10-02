@@ -49,7 +49,7 @@ export const SiteNav: React.FC<SiteNavProps> = () => {
 					: "0ms",
 			}}
 			className={cn(
-				"pointer-events-none fixed inset-x-0 top-5 z-100 flex justify-center px-4 transition-opacity duration-500 ease-out invert-scope [view-transition-name:site-nav] print:hidden",
+				"pointer-events-none fixed inset-x-0 top-[max(20px,env(safe-area-inset-top))] z-100 flex justify-center px-4 transition-opacity duration-500 ease-out invert-scope [view-transition-name:site-nav] print:hidden",
 				visible ? "opacity-100" : "opacity-0",
 			)}
 		>

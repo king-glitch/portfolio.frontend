@@ -39,6 +39,10 @@ Project memory for agents. Read first, update before finishing any task.
   - **Cursor:** the system cursor is hidden (`html[data-cursor=custom]`, set on first pointer move). The custom cursor never hides on leave/blur/Space swipe, its dot always shows (except over text fields), and it re-reads its target on scroll.
   - **Selection:** multi-clicks on buttons/links do not select text; the project top bar is `select-none`.
   - **Hidden dashboard gesture (owner only, no link):** on the home hero click "Quiet", then "loud" (within 6s), then press and hold the "behind" box for 1.5s; the box drains, then the browser loads `config.routes.dashboard` (`/dashboard`, not built yet). Logic: `lib/secret.ts`, `hooks/use-secret-unlock.ts`.
+- Review round 6:
+  - **Next project (third design):** the dark cover shows only the next project's name. Scroll gestures that start at the cover build a resisted pull (`pullThresholdPx` 1100, resistance grows, drains after 320ms idle). The engine writes `--pull` (0..1) on the cover: the outlined name fills and leans, a meter and a 00–100% readout fill. At 100% the next project's first panel pushes in (1.1s); the top bar drains to 0 and the title/counter fade out (`data-leaving`), and the next page fades its own in (`starting:opacity-0`).
+  - **Loader:** exit and page rise are keyframed `transform` animations (`loader-out`, `content-rise`), not `translate` transitions. Reason: Safari skipped the transition. Not verified in Safari (no WebKit in the container).
+  - **Mobile (Web Interface Guidelines):** `touch-action: manipulation`, no tap highlight, `viewport-fit=cover` with safe-area insets on the nav, project top bar, About switch and menu; menu `overscroll-contain`; terminal input 16px on phones (no iOS zoom); device-neutral hints ("Hover or tap"); sideways hint only when habits are pinned; shorter spotlight on phones.
 - Prototype is at `./design/`; source data `content/ME.md`.
 
 ## Plan files

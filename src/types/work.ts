@@ -39,6 +39,12 @@ export interface ScrollerOptions {
 	barRef: ElementRef<HTMLElement>;
 	/** The next project's first panel, past the end of the track (pushed in on hand-off). */
 	nextRef: ElementRef<HTMLElement>;
+	/** Next-project cover; the engine writes `--pull` (0..1) on it for the progress UI. */
+	coverRef: ElementRef<HTMLElement>;
+	/** Percentage readout of the pull (textContent). */
+	percentRef: ElementRef<HTMLElement>;
+	/** The push started: the page may fade its chrome. */
+	onPushStart: () => void;
 	/** The push finished: swap in the next project. */
 	onThreshold: () => void;
 	/** Escape key: close the project. */

@@ -23,6 +23,8 @@ interface ProjectTopbarProps {
 	prevTo?: string;
 	nextTo?: string;
 	onClose: () => void;
+	/** Next project is pushing in: title and counter fade out (the next page fades its own in). */
+	leaving: boolean;
 	barRef: React.Ref<HTMLDivElement>;
 }
 
@@ -36,6 +38,7 @@ export const ProjectTopbar: React.FC<ProjectTopbarProps> = ({
 	prevTo,
 	nextTo,
 	onClose,
+	leaving,
 	barRef,
 }) => {
 	const { t } = useTranslation();
@@ -54,7 +57,7 @@ export const ProjectTopbar: React.FC<ProjectTopbarProps> = ({
 		},
 	];
 	return (
-		<header className="absolute inset-x-0 top-0 z-5 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4 bg-background px-[clamp(16px,4vw,56px)] py-5.5 select-none">
+		<header className="absolute inset-x-0 top-0 z-5 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4 bg-background px-[clamp(16px,4vw,56px)] pt-[max(22px,env(safe-area-inset-top))] pb-5.5 select-none">
 			<div className="justify-self-start">
 				<PillButton
 					variant={PillVariant.Outline}
@@ -65,13 +68,15 @@ export const ProjectTopbar: React.FC<ProjectTopbarProps> = ({
 					{t("projects.topbar.close")}
 				</PillButton>
 			</div>
-			<span className="text-sm font-semibold whitespace-nowrap max-desk:hidden">
+			<span className="text-sm font-semibold whitespace-nowrap transition-opacity duration-500 group-data-leaving/topbar:opacity-0 max-desk:hidden starting:opacity-0">
 				{num} — {name}
 			</span>
 			<div className="flex items-center gap-3.5 justify-self-end">
-				{showCounter ? (
-					<RollingCounter position={position} total={total} />
-				) : null}
+				<div className="transition-opacity duration-500 group-data-leaving/topbar:opacity-0 starting:opacity-0">
+					{showCounter ? (
+						<RollingCounter position={position} total={total} />
+					) : null}
+				</div>
 				{steps.map((step) =>
 					step.to ? (
 						<IconButton

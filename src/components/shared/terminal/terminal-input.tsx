@@ -41,7 +41,7 @@ export const TerminalInput: React.FC<TerminalInputProps> = ({
 				autoComplete="off"
 				autoCapitalize="off"
 				spellCheck={false}
-				className="font-mono text-sm text-white caret-white placeholder:text-white/40"
+				className="font-mono text-base text-white caret-white placeholder:text-white/40 desk:text-sm"
 			/>
 		</InputGroup>
 	);

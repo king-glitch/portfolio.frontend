@@ -102,9 +102,11 @@ export const Habits: React.FC<HabitsProps> = () => {
 								]}
 							/>
 						</DisplayHeading>
-						<span className="text-[15px] text-muted-foreground">
-							{t("home.habits.hint")}
-						</span>
+						{pinned ? (
+							<span className="text-[15px] text-muted-foreground">
+								{t("home.habits.hint")}
+							</span>
+						) : null}
 					</div>
 					{renderCards()}
 					<PillButton

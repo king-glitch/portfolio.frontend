@@ -23,7 +23,7 @@ export const ModeSwitch: React.FC<ModeSwitchProps> = ({ children }) => {
 		<div
 			role="group"
 			aria-label={t("about.switch.group.label")}
-			className="fixed bottom-5.5 left-1/2 z-20 flex -translate-x-1/2 items-center gap-1 rounded-pill bg-card p-1 shadow-[0_0_0_1px_var(--border),0_20px_40px_-16px_rgb(0_0_0/0.6)] print:hidden"
+			className="fixed bottom-[max(22px,env(safe-area-inset-bottom))] left-1/2 z-20 flex -translate-x-1/2 items-center gap-1 rounded-pill bg-card p-1 shadow-[0_0_0_1px_var(--border),0_20px_40px_-16px_rgb(0_0_0/0.6)] print:hidden"
 		>
 			{MODES.map(({ to, labelKey }) => (
 				<PillButton
