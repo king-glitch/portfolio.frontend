@@ -74,6 +74,7 @@ export enum MascotDesign {
 export enum MascotZone {
 	Auto = "auto",
 	Center = "center",
+	Bottom = "bottom",
 	TopRight = "top-right",
 	TopLeft = "top-left",
 	BottomRight = "bottom-right",
@@ -127,4 +128,13 @@ export enum BubbleSide {
 	Left = "left",
 	Right = "right",
 	Top = "top",
+}
+
+/** Page the companion mascot is on; picks its lines. */
+export enum CompanionPlace {
+	Home = "home",
+	Project = "project",
+	Notes = "notes",
+	Note = "note",
+	About = "about",
 }

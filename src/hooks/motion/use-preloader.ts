@@ -18,7 +18,7 @@ let played = false;
 
 /**
  * Drives the preloader: count 000..100 over `durationMs`, hold, wipe out, unmount.
- * The number, bar and status line are written straight to the DOM (no re-render per frame);
+ * The number, progress ring and status line are written straight to the DOM (no re-render per frame);
  * the mascot watches the counter, nods at each status and looks up and pops at 100.
  * `loaded` (context) flips when the wipe starts; hero animations wait on it.
  * Reduced motion skips everything.
@@ -30,7 +30,7 @@ export function usePreloaderProgress(statuses: string[]) {
 		played ? PreloaderPhase.Done : PreloaderPhase.Counting,
 	);
 	const numRef = useRef<HTMLSpanElement>(null);
-	const barRef = useRef<HTMLDivElement>(null);
+	const ringRef = useRef<SVGCircleElement>(null);
 	const statusRef = useRef<HTMLSpanElement>(null);
 	const mascotRef = useRef<MascotHandle>(null);
 	const stage = useRef(0);
@@ -47,8 +47,9 @@ export function usePreloaderProgress(statuses: string[]) {
 				numRef.current.textContent = String(
 					Math.round(e * 100),
 				).padStart(digits, "0");
-			if (barRef.current)
-				barRef.current.style.transform = `scaleX(${e.toFixed(4)})`;
+			// Ring around the mascot (pathLength 1): offset 1 = empty, 0 = full.
+			if (ringRef.current)
+				ringRef.current.style.strokeDashoffset = (1 - e).toFixed(4);
 			// Status line steps through its stages; the mascot nods at each one.
 			const next = Math.min(
 				statuses.length - 1,
@@ -111,5 +112,5 @@ export function usePreloaderProgress(statuses: string[]) {
 		}
 	}, [phase, reduced, holdMs, unmountDelayMs, setLoaded]);
 
-	return { phase, numRef, barRef, statusRef, mascotRef };
+	return { phase, numRef, ringRef, statusRef, mascotRef };
 }

@@ -4,9 +4,8 @@ import { DisplayHeading } from "@/components/common/typography/display-heading";
 import { HeroWord } from "@/routes/components/home/hero/hero-word";
 import { config } from "@/config";
 import { useSecretUnlock } from "@/hooks/use-secret-unlock";
-import { MascotBuddy } from "@/components/common/mascot/mascot-buddy";
 import { SecretWord } from "@/types/home";
-import { BubbleSide, DisplayVariant } from "@/types/ui";
+import { DisplayVariant } from "@/types/ui";
 
 interface HeroTitleProps {}
 
@@ -74,25 +73,6 @@ export const HeroTitle: React.FC<HeroTitleProps> = () => {
 						</HeroWord>{" "}
 					</React.Fragment>
 				))}
-				{/* The mascot sits in the headline like one more word; it pops in after the last one. */}
-				<span
-					className="relative z-60 inline-block animate-fan-in align-middle gated motion-reduce:animate-none"
-					style={{
-						animationDelay: `${secondLineBaseDelayS + second.length * wordStaggerS}s`,
-					}}
-				>
-					<MascotBuddy
-						quips={[
-							t("home.hero.mascot.quips.1"),
-							t("home.hero.mascot.quips.2"),
-							t("home.hero.mascot.quips.3"),
-							t("home.hero.mascot.quips.4"),
-						]}
-						label={t("home.hero.mascot.label")}
-						side={BubbleSide.Top}
-						className="w-[0.78em]"
-					/>
-				</span>
 			</span>
 		</DisplayHeading>
 	);

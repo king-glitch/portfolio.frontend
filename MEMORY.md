@@ -47,6 +47,9 @@ Project memory for agents. Read first, update before finishing any task.
   - **Mascot:** port of the user's `living-mascot.html` engine (`lib/mascot/engine.ts`, faces in `lib/mascot/designs.ts`, Brackets default + Terminal). `<Mascot>` (decorative, `ref` handle: `poke`, `setZone`) and `<MascotBuddy>` (click = next quip in a speech bubble) in `components/common/mascot/`. Colours are theme tokens. rAF only while on screen; reduced motion calms it.
   - **Placements:** preloader (watches the counter, nods at each status line, looks up and pops at 100), hero headline (last "word", click for quips), contact heading, next-project cover (looks toward the next project), 404 page, terminal launcher (Terminal face).
   - **404:** the root error boundary now reads `useRouteError()` (React Router 8 does not pass `error` as a prop), so unknown URLs show the 404 page instead of "Oops!".
+- Review round 8:
+  - **Preloader (mascot first):** a big centred mascot with the progress drawn as a ring around it (SVG, `pathLength=1`, `strokeDashoffset` written per frame), the count and status line below; it watches the count, nods per status, looks up and pops at 100.
+  - **Companion:** `components/shared/shell/companion.tsx`, docked bottom-right on every page after the preloader (above the minimap on About). Greets per page (`lib/companion.ts` maps the path to `CompanionPlace` and its lines), clicks step through lines, pops on navigation, idle line after 40s. Replaces the hero, contact and next-project mascots (the hero one shifted the headline). `MascotBuddy` removed; 404 uses `Mascot` + `MascotBubble`.
 - Prototype is at `./design/`; source data `content/ME.md`.
 
 ## Plan files

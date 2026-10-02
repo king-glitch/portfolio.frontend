@@ -7,8 +7,7 @@ import { Panel } from "@/components/common/layout/panel";
 import { DisplayHeading } from "@/components/common/typography/display-heading";
 import { Eyebrow } from "@/components/common/typography/eyebrow";
 import { Skeleton } from "@/components/ui/skeleton";
-import { MascotBuddy } from "@/components/common/mascot/mascot-buddy";
-import { BubbleSide, MascotZone, PillVariant } from "@/types/ui";
+import { PillVariant } from "@/types/ui";
 
 interface NextProjectCoverProps {
 	next?: ProjectSummary;
@@ -44,20 +43,6 @@ export const NextProjectCover: React.FC<NextProjectCoverProps> = ({
 				<div className="flex gap-4">
 					<Eyebrow>{t("projects.end.eyebrow")}</Eyebrow>
 					<Eyebrow className="tabular-nums">{next?.num}</Eyebrow>
-				</div>
-				<div className="flex items-center gap-4">
-					<MascotBuddy
-						quips={[
-							t("projects.end.mascot.quips.1"),
-							t("projects.end.mascot.quips.2"),
-							t("projects.end.mascot.quips.3"),
-						]}
-						label={t("projects.end.mascot.label")}
-						side={BubbleSide.Right}
-						greet
-						options={{ zone: MascotZone.TopRight, range: 0.3 }}
-						className="w-[clamp(64px,7vw,112px)]"
-					/>
 				</div>
 			</div>
 			{next ? (
