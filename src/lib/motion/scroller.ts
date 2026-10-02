@@ -95,18 +95,3 @@ export const pullRatio = (pull: number, cfg: ScrollerConfig): number =>
 
 export const progressRatio = (x: number, max: number): number =>
 	max > 0 ? Math.min(1, Math.max(0, x / max)) : 0;
-
-/** Last panel whose left edge is within `x + 0.45 * viewport`; the final panel once at the end. */
-export function activePanelIndex(
-	lefts: number[],
-	x: number,
-	viewport: number,
-	max: number,
-	cfg: ScrollerConfig,
-): number {
-	let active = 0;
-	for (let i = 0; i < lefts.length; i++) {
-		if (lefts[i] <= x + viewport * cfg.activePanelViewport) active = i;
-	}
-	return max > 0 && x >= max - 2 ? Math.max(0, lefts.length - 1) : active;
-}

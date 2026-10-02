@@ -33,10 +33,7 @@ export const TagFilter: React.FC<TagFilterProps> = ({
 			value={value ?? ALL}
 			options={options}
 			onChange={(next) => onChange(next === ALL ? undefined : next)}
-			className={cn(
-				"max-w-full flex-nowrap overflow-x-auto md:max-w-115 md:flex-wrap md:justify-end",
-				className,
-			)}
+			className={cn("max-w-115 flex-wrap md:justify-end", className)}
 		/>
 	);
 };

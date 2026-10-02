@@ -59,12 +59,12 @@ export const HeroFan: React.FC<HeroFanProps> = () => {
 	};
 
 	return (
-		<div className="w-full perspective-[1400px]">
+		<div className="w-full perspective-[1400px] desk:min-h-75 desk:flex-1">
 			<div
 				ref={deckRef}
 				role="group"
 				aria-label={t("home.hero.cards.aria-label")}
-				className="relative mt-[clamp(40px,5vw,72px)] h-[clamp(300px,33vw,520px)] w-full will-change-transform transform-3d max-desk:mt-6 max-desk:flex max-desk:h-auto max-desk:snap-x max-desk:snap-mandatory max-desk:gap-3.5 max-desk:overflow-x-auto max-desk:px-4 max-desk:pt-6 max-desk:pb-8"
+				className="relative mt-[clamp(40px,5vw,72px)] h-[clamp(300px,33vw,520px)] w-full will-change-transform max-desk:mt-6 max-desk:flex max-desk:h-auto max-desk:snap-x max-desk:snap-mandatory max-desk:gap-3.5 max-desk:overflow-x-auto max-desk:px-4 max-desk:pt-6 max-desk:pb-8"
 			>
 				{renderCards()}
 			</div>

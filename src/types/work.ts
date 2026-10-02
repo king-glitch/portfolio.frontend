@@ -45,7 +45,6 @@ export interface ScrollerOptions {
 	/** Pull reached the threshold: go to the next project. */
 	onThreshold: () => void;
 	/** Active panel index changed. */
-	onActive: (index: number) => void;
 	onEscape: () => void;
 }
 

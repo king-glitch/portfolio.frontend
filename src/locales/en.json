@@ -73,7 +73,12 @@
 					"unit": "yrs"
 				},
 				"projects": {
-					"caption": "projects, shipped"
+					"caption": "projects, shipped",
+					"captions": {
+						"orbit": "Evermoon — quests & XP",
+						"pins-map": "Estic AI — map search",
+						"radar": "AADS — radar, decoded"
+					}
 				},
 				"socket": {
 					"caption": "Live, both ways"
@@ -188,6 +193,7 @@
 		},
 		"close": "Close",
 		"contact": {
+			"aria-label": "{{channel}}: {{value}}",
 			"email": {
 				"label": "Email"
 			},
@@ -226,10 +232,10 @@
 			"retry": "Try again"
 		},
 		"filters": {
-			"all": "All",
+			"all": "Everything",
 			"games": "Games",
 			"on-chain": "On-chain",
-			"platforms": "Platforms"
+			"platforms": "Platforms & tools"
 		},
 		"loading": {
 			"title": "Loading"
@@ -266,6 +272,28 @@
 			},
 			"eyebrow": "How I build",
 			"hint": "Keep scrolling — the page moves sideways.",
+			"items": {
+				"1": {
+					"body": "The logic, data and plumbing every screen quietly leans on — kept tidy as it grows.",
+					"title": "Build the engine room"
+				},
+				"2": {
+					"body": "When the rules live on-chain there are no take-backs, so they get written slowly and read twice.",
+					"title": "Write rules that can’t bend"
+				},
+				"3": {
+					"body": "A change on one screen should show up on every other one, right away, for everyone.",
+					"title": "Keep everyone in sync"
+				},
+				"4": {
+					"body": "Measure, trim, rethink — until loading stops being part of the experience.",
+					"title": "Make waiting disappear"
+				},
+				"5": {
+					"body": "Careful code, real authentication and encryption, so the only people inside are the invited ones.",
+					"title": "Lock the doors"
+				}
+			},
 			"lines": {
 				"1": "Five",
 				"2": "habits,",
@@ -536,6 +564,7 @@
 					"label": "Timeline"
 				}
 			},
+			"meta": "{{projects}} projects · {{notes}} notes · {{year}}",
 			"nav": {
 				"label": "Pages"
 			},
@@ -635,6 +664,7 @@
 			},
 			"messages": {
 				"error": "could not load data — close and reopen the terminal to retry",
+				"greeting": "Portfolio shell — type help to see what it can do.",
 				"loading": "still loading data — try again in a moment",
 				"opening": {
 					"post": "opening “{{title}}”…",
@@ -660,10 +690,6 @@
 		"counter": {
 			"label": "Project {{index}} of {{total}}",
 			"placeholder": "—/—"
-		},
-		"dots": {
-			"label": "Panels",
-			"panel": "Go to panel {{index}}"
 		},
 		"end": {
 			"button": "Next project",

@@ -63,7 +63,6 @@ export const ProjectTopbar: React.FC<ProjectTopbarProps> = ({
 			<div className="flex gap-2 justify-self-start">
 				<PillButton
 					variant={PillVariant.Outline}
-					size={PillSize.Lg}
 					magnetic
 					cursor={CursorLabel.Close}
 					onClick={onClose}
@@ -73,7 +72,6 @@ export const ProjectTopbar: React.FC<ProjectTopbarProps> = ({
 				</PillButton>
 				<PillButton
 					variant={jsonOpen ? PillVariant.Solid : PillVariant.Outline}
-					size={PillSize.Lg}
 					aria-pressed={jsonOpen}
 					onClick={onToggleJson}
 					className="font-mono text-[13px] font-bold max-desk:hidden"

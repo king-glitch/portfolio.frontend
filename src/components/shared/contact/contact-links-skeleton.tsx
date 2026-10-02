@@ -8,14 +8,14 @@ interface ContactLinksSkeletonProps {
 
 const PILLS = ["email", "github", "linkedin"];
 
-/** Three pill-sized placeholders, same height as ContactLinks (md pill, 38px). */
+/** Three pill-sized placeholders, same height as ContactLinks (xl pill, 64px). */
 export const ContactLinksSkeleton: React.FC<ContactLinksSkeletonProps> = ({
 	className,
 }) => {
 	return (
 		<div className={cn("flex flex-wrap gap-3", className)}>
 			{PILLS.map((pill) => (
-				<Skeleton key={pill} className="h-9.5 w-32 rounded-pill" />
+				<Skeleton key={pill} className="h-16 w-40 rounded-pill" />
 			))}
 		</div>
 	);

@@ -31,7 +31,8 @@ const AboutLayout: React.FC<AboutLayoutProps> = () => {
 	const { pathname } = useLocation();
 	const isResume = pathname.startsWith(config.routes.aboutResume);
 
-	let content: React.ReactNode = <Outlet />;
+	// Loaded views render their own ModeSwitch (with their action); the shell states get a bare one.
+	let content: React.ReactNode = null;
 	if (profile.isPending || projects.isPending) {
 		content = isResume ? <ResumeSkeleton /> : <WallSkeleton />;
 	} else if (profile.isError || projects.isError) {
@@ -53,6 +54,7 @@ const AboutLayout: React.FC<AboutLayoutProps> = () => {
 		);
 	}
 
+	if (!content) return <Outlet />;
 	return (
 		<div className="relative min-h-svh">
 			{content}

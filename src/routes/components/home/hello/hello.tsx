@@ -121,7 +121,6 @@ export const Hello: React.FC<HelloProps> = () => {
 					</SectionLabel>
 					<PillButton
 						variant={PillVariant.Outline}
-						size={PillSize.Lg}
 						magnetic
 						nativeButton={false}
 						render={

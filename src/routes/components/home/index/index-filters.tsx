@@ -39,7 +39,7 @@ export const IndexFilters: React.FC<IndexFiltersProps> = ({
 			options={options}
 			onChange={onChange}
 			ariaLabel={t("home.index.filters.aria-label")}
-			className="max-w-full overflow-x-auto"
+			className="flex-wrap"
 		/>
 	);
 };

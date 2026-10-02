@@ -6,24 +6,28 @@ import type { CursorLabel } from "@/types/cursor";
 import { PillSize, PillVariant } from "@/types/ui";
 
 const pillVariants = cva(
-	"rounded-pill px-5 font-semibold transition-[background-color,color,transform] duration-300 data-magnetic:duration-500 data-magnetic:ease-(--ease-out-expo)",
+	"rounded-pill border-0 font-semibold transition-[background-color,color,box-shadow,transform] duration-300 data-magnetic:duration-500 data-magnetic:ease-(--ease-out-expo)",
 	{
 		variants: {
 			variant: {
 				[PillVariant.Solid]:
-					"bg-foreground text-background hover:bg-foreground/85",
+					"bg-foreground text-background hover:bg-foreground hover:text-background",
 				[PillVariant.Outline]:
+					"bg-transparent text-foreground shadow-[inset_0_0_0_1px_var(--border)] hover:bg-foreground hover:text-background",
+				[PillVariant.Strong]:
 					"bg-transparent text-foreground shadow-[inset_0_0_0_1px_var(--foreground)] hover:bg-foreground hover:text-background",
+				[PillVariant.Muted]:
+					"bg-transparent text-foreground shadow-[inset_0_0_0_1px_rgb(127_127_127/0.45)] hover:bg-foreground hover:text-background",
 				[PillVariant.Ghost]:
-					"bg-transparent text-foreground hover:bg-muted",
+					"bg-transparent text-current hover:bg-transparent hover:text-current dark:hover:bg-transparent",
 				[PillVariant.Invert]:
-					"bg-background text-foreground hover:bg-background/85",
+					"bg-background text-foreground hover:bg-background hover:text-foreground",
 			},
 			size: {
-				[PillSize.Sm]: "h-8 text-xs",
-				[PillSize.Md]: "h-9.5 text-sm",
-				[PillSize.Lg]: "h-11 text-sm",
-				[PillSize.Xl]: "h-11.5 text-base",
+				[PillSize.Sm]: "h-10 px-4 text-[13px]",
+				[PillSize.Md]: "h-11 px-4.5 text-sm",
+				[PillSize.Lg]: "h-12 px-5.5 text-sm",
+				[PillSize.Xl]: "h-16 px-7.5 text-lg",
 			},
 		},
 	},
@@ -41,7 +45,7 @@ interface PillButtonProps extends Omit<
 	cursor?: CursorLabel;
 }
 
-/** Design-system pill (prototype `.tap`). Heights: sm 32, md 38, lg 44, xl 46. */
+/** Design-system pill (prototype `.tap`). Heights: sm 40, md 44, lg 48, xl 64. */
 export const PillButton: React.FC<PillButtonProps> = ({
 	variant = PillVariant.Solid,
 	size = PillSize.Md,

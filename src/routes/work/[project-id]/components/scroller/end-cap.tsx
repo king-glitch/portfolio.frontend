@@ -51,12 +51,12 @@ export const EndCap: React.FC<EndCapProps> = ({
 						/>
 					</div>
 					<PillButton
-						variant={PillVariant.Outline}
-						size={PillSize.Xl}
+						variant={PillVariant.Strong}
 						magnetic
 						cursor={CursorLabel.Next}
 						disabled={!next}
 						onClick={onNext}
+						className="h-14 gap-3 px-6.5 text-[15px]"
 					>
 						{t("work.end.button")}
 						<RiArrowRightLine data-icon="inline-end" />

@@ -22,7 +22,6 @@ export function FilterToggle<T extends string>({
 	return (
 		<ToggleGroup
 			aria-label={ariaLabel}
-			variant="outline"
 			spacing={2}
 			value={[value]}
 			onValueChange={([next]) => {
@@ -35,11 +34,11 @@ export function FilterToggle<T extends string>({
 				<ToggleGroupItem
 					key={option.id}
 					value={option.id}
-					className="rounded-pill px-4"
+					className="h-10 gap-1.5 rounded-pill px-4 text-[13px] font-semibold shadow-[inset_0_0_0_1px_var(--border)] transition-[background-color,color,box-shadow] duration-300 hover:bg-transparent hover:shadow-[inset_0_0_0_1px_var(--foreground)] aria-pressed:bg-foreground aria-pressed:text-background aria-pressed:hover:bg-foreground"
 				>
 					{option.label}
 					{option.count === undefined ? null : (
-						<span className="text-muted-foreground tabular-nums">
+						<span className="tabular-nums opacity-55">
 							{option.count}
 						</span>
 					)}

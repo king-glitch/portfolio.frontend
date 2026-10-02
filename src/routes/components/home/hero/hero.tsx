@@ -15,14 +15,16 @@ export const Hero: React.FC<HeroProps> = () => {
 		<section
 			id={config.sections.top}
 			data-loaded={loaded}
-			className="flex flex-col items-center pt-42.5 pb-10 text-center"
+			className="flex flex-col items-center pb-10 text-center"
 		>
-			<p className="m-0 mb-7 text-xs font-medium tracking-[0.2em] text-muted-foreground uppercase">
-				{t("home.hero.eyebrow")}
-			</p>
-			<HeroTitle />
-			<HeroFan />
-			<p className="m-0 mt-[clamp(56px,6vw,88px)] max-w-180 px-4 text-[clamp(17px,1.6vw,24px)] leading-normal tracking-[-0.01em]">
+			<div className="flex w-full flex-col items-center pt-[clamp(120px,19svh,170px)] desk:h-svh">
+				<p className="m-0 mb-7 text-xs font-medium tracking-[0.2em] text-muted-foreground uppercase">
+					{t("home.hero.eyebrow")}
+				</p>
+				<HeroTitle />
+				<HeroFan />
+			</div>
+			<p className="m-0 mt-[clamp(40px,5vw,72px)] max-w-180 px-4 text-[clamp(17px,1.6vw,24px)] leading-normal tracking-[-0.01em]">
 				{t("home.hero.lede.text")}{" "}
 				<span className="text-muted-foreground">
 					{t("home.hero.lede.accent")}

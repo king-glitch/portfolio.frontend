@@ -22,6 +22,28 @@
 				"1": "Five",
 				"2": "habits,",
 				"3": "no exceptions."
+			},
+			"items": {
+				"1": {
+					"title": "Build the engine room",
+					"body": "The logic, data and plumbing every screen quietly leans on — kept tidy as it grows."
+				},
+				"2": {
+					"title": "Write rules that can’t bend",
+					"body": "When the rules live on-chain there are no take-backs, so they get written slowly and read twice."
+				},
+				"3": {
+					"title": "Keep everyone in sync",
+					"body": "A change on one screen should show up on every other one, right away, for everyone."
+				},
+				"4": {
+					"title": "Make waiting disappear",
+					"body": "Measure, trim, rethink — until loading stops being part of the experience."
+				},
+				"5": {
+					"title": "Lock the doors",
+					"body": "Careful code, real authentication and encryption, so the only people inside are the invited ones."
+				}
 			}
 		},
 		"hello": {

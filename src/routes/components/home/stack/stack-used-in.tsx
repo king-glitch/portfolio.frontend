@@ -8,7 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { projectsForStop } from "@/lib/portfolio/stack-stops";
 import { workPath } from "@/lib/routes";
 import { CursorLabel } from "@/types/cursor";
-import { PillVariant } from "@/types/ui";
+import { PillSize, PillVariant } from "@/types/ui";
 import type { StackStop } from "@/types/home";
 
 interface StackUsedInProps {
@@ -32,7 +32,9 @@ export const StackUsedIn: React.FC<StackUsedInProps> = ({ stop }) => {
 				cursor={CursorLabel.Open}
 				nativeButton={false}
 				render={<Link to={workPath(project.id)} viewTransition />}
-				variant={PillVariant.Outline}
+				variant={PillVariant.Strong}
+				size={PillSize.Sm}
+				className="text-sm font-bold"
 			>
 				{project.name}
 			</PillButton>

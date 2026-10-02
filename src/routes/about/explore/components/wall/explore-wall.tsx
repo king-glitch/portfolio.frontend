@@ -12,6 +12,7 @@ import {
 	WALL_CELLS,
 	buildWallTiles,
 } from "@/routes/about/components/wall/layout";
+import { ModeSwitch } from "@/routes/about/components/mode-switch";
 import { WallMinimap } from "@/routes/about/explore/components/wall/wall-minimap";
 import { WallRecenter } from "@/routes/about/explore/components/wall/wall-recenter";
 import { WallTile } from "@/routes/about/explore/components/wall/wall-tile";
@@ -72,39 +73,38 @@ export const ExploreWall: React.FC<ExploreWallProps> = ({
 	};
 
 	return (
-		<div
-			ref={viewportRef}
-			role="region"
-			tabIndex={0}
-			aria-label={t("about.explore.viewport.label")}
-			data-cursor={CursorLabel.Drag}
-			className="relative h-svh cursor-grab touch-none overflow-hidden select-none data-dragging:cursor-grabbing"
-			{...viewportProps}
-		>
+		<>
 			<div
-				ref={wallRef}
-				className="absolute top-0 left-0 will-change-transform [--wall-big:calc(72px*var(--k))] [--wall-cap-h:calc(44px*var(--k))] [--wall-donut:calc(96px*var(--k))] [--wall-hero:calc(96px*var(--k))] [--wall-ico:calc(72px*var(--k))] [--wall-label:calc(110px*var(--k))] [--wall-m:calc(18px*var(--k))] [--wall-s:max(11px,calc(14px*var(--k)))] [--wall-xs:max(10px,calc(12px*var(--k)))]"
-				style={wallStyle}
+				ref={viewportRef}
+				role="region"
+				tabIndex={0}
+				aria-label={t("about.explore.viewport.label")}
+				data-cursor={CursorLabel.Drag}
+				className="relative h-svh cursor-grab touch-none overflow-hidden select-none data-dragging:cursor-grabbing"
+				{...viewportProps}
 			>
-				{tiles.map((tile) => (
-					<WallTile
-						key={tile.id}
-						tile={tile}
-						rect={cellRect(tile, geometry)}
-						wasDragged={wasDragged}
-					/>
-				))}
-			</div>
-			<p
-				className={cn(
-					"pointer-events-none absolute top-25 left-1/2 -translate-x-1/2 text-[13px] font-semibold whitespace-nowrap text-muted-foreground transition-opacity duration-600 print:hidden",
-					dragged && "opacity-0",
-				)}
-			>
-				{t("about.explore.hint")}
-			</p>
-			<div className="absolute right-6 bottom-6 flex flex-col items-end gap-3 print:hidden">
-				<WallRecenter onRecenter={recenter} />
+				<div
+					ref={wallRef}
+					className="absolute top-0 left-0 will-change-transform [--wall-big:calc(72px*var(--k))] [--wall-cap-h:calc(44px*var(--k))] [--wall-donut:calc(96px*var(--k))] [--wall-hero:calc(96px*var(--k))] [--wall-ico:calc(72px*var(--k))] [--wall-label:calc(110px*var(--k))] [--wall-m:calc(18px*var(--k))] [--wall-s:max(11px,calc(14px*var(--k)))] [--wall-xs:max(10px,calc(12px*var(--k)))]"
+					style={wallStyle}
+				>
+					{tiles.map((tile) => (
+						<WallTile
+							key={tile.id}
+							tile={tile}
+							rect={cellRect(tile, geometry)}
+							wasDragged={wasDragged}
+						/>
+					))}
+				</div>
+				<p
+					className={cn(
+						"pointer-events-none absolute top-25 left-1/2 -translate-x-1/2 text-[13px] font-semibold whitespace-nowrap text-muted-foreground transition-opacity duration-600 print:hidden",
+						dragged && "opacity-0",
+					)}
+				>
+					{t("about.explore.hint")}
+				</p>
 				<WallMinimap
 					tiles={tiles}
 					geometry={geometry}
@@ -112,7 +112,10 @@ export const ExploreWall: React.FC<ExploreWallProps> = ({
 					miniRef={miniRef}
 				/>
 			</div>
-		</div>
+			<ModeSwitch>
+				<WallRecenter onRecenter={recenter} />
+			</ModeSwitch>
+		</>
 	);
 };
 

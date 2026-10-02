@@ -2,6 +2,7 @@ import React from "react";
 import { RiFocus3Line } from "@remixicon/react";
 import { useTranslation } from "react-i18next";
 import { IconButton } from "@/components/common/buttons/icon-button";
+import { PillVariant } from "@/types/ui";
 
 interface WallRecenterProps {
 	onRecenter: () => void;
@@ -14,8 +15,9 @@ export const WallRecenter: React.FC<WallRecenterProps> = ({ onRecenter }) => {
 		<IconButton
 			label={t("about.explore.recenter.label")}
 			icon={RiFocus3Line}
+			variant={PillVariant.Ghost}
 			onClick={onRecenter}
-			className="bg-card"
+			className="size-10"
 		/>
 	);
 };

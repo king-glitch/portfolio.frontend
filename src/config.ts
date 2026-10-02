@@ -233,14 +233,8 @@ export const config = {
 			endCurrentPx: 6,
 			settleEpsilonPx: 0.05,
 			visiblePanelViewports: 1.5,
-			activePanelViewport: 0.45,
 			keyStepViewport: 0.4,
 			wheelLinePx: 32,
-		},
-		dots: {
-			activePx: 22,
-			inactivePx: 6,
-			inactiveOpacity: 0.35,
 		},
 		jsonSheet: {
 			widthPx: 520,
@@ -290,6 +284,8 @@ export const config = {
 	},
 	notes: {
 		staggerPx: 120,
+		/** sugar-high has no Solidity; its C-like JavaScript grammar reads it well. */
+		codeFallbackLang: "javascript" as const,
 		progress: { minHeightPx: 2 },
 	},
 	terminal: {

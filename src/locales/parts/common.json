@@ -48,7 +48,8 @@
 			"hint": "Placeholder: the real value is not set yet",
 			"linkedin": {
 				"label": "LinkedIn"
-			}
+			},
+			"aria-label": "{{channel}}: {{value}}"
 		},
 		"cursor": {
 			"close": "Close",
@@ -77,10 +78,10 @@
 			"retry": "Try again"
 		},
 		"filters": {
-			"all": "All",
+			"all": "Everything",
 			"games": "Games",
 			"on-chain": "On-chain",
-			"platforms": "Platforms"
+			"platforms": "Platforms & tools"
 		},
 		"loading": {
 			"title": "Loading"

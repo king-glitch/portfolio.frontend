@@ -1,5 +1,5 @@
 {
-	"$description": "Portfolio design tokens. Source: design/tokens.neutral.json (shadcn nova/neutral preset) plus shell gaps (overview section 8). light/dark go to :root/.dark, shared to :root. Run bun run build:tokens.",
+	"$description": "Portfolio design tokens. Source: design/tokens.neutral.json (shadcn nova/neutral preset) plus shell gaps (overview section 8). light/dark go to :root/.dark, shared to :root. Run bun run build:tokens. Code blocks use Catppuccin Latte (light) and Mocha (dark); `sh-*` feed sugar-high.",
 	"light": {
 		"background": {
 			"$value": "oklch(1 0 0)"
@@ -75,6 +75,52 @@
 		},
 		"sidebar-ring": {
 			"$value": "oklch(0.708 0 0)"
+		},
+		"code": {
+			"background": {
+				"$value": "#eff1f5"
+			},
+			"header": {
+				"$value": "#e6e9ef"
+			},
+			"foreground": {
+				"$value": "#4c4f69"
+			},
+			"muted": {
+				"$value": "#9ca0b0"
+			},
+			"border": {
+				"$value": "#ccd0da"
+			}
+		},
+		"sh": {
+			"identifier": {
+				"$value": "#4c4f69"
+			},
+			"keyword": {
+				"$value": "#8839ef"
+			},
+			"string": {
+				"$value": "#40a02b"
+			},
+			"class": {
+				"$value": "#df8e1d"
+			},
+			"property": {
+				"$value": "#7287fd"
+			},
+			"entity": {
+				"$value": "#1e66f5"
+			},
+			"jsxliterals": {
+				"$value": "#179299"
+			},
+			"sign": {
+				"$value": "#7c7f93"
+			},
+			"comment": {
+				"$value": "#9ca0b0"
+			}
 		}
 	},
 	"dark": {
@@ -152,6 +198,52 @@
 		},
 		"sidebar-ring": {
 			"$value": "oklch(0.556 0 0)"
+		},
+		"code": {
+			"background": {
+				"$value": "#1e1e2e"
+			},
+			"header": {
+				"$value": "#181825"
+			},
+			"foreground": {
+				"$value": "#cdd6f4"
+			},
+			"muted": {
+				"$value": "#6c7086"
+			},
+			"border": {
+				"$value": "#313244"
+			}
+		},
+		"sh": {
+			"identifier": {
+				"$value": "#cdd6f4"
+			},
+			"keyword": {
+				"$value": "#cba6f7"
+			},
+			"string": {
+				"$value": "#a6e3a1"
+			},
+			"class": {
+				"$value": "#f9e2af"
+			},
+			"property": {
+				"$value": "#b4befe"
+			},
+			"entity": {
+				"$value": "#89b4fa"
+			},
+			"jsxliterals": {
+				"$value": "#94e2d5"
+			},
+			"sign": {
+				"$value": "#9399b2"
+			},
+			"comment": {
+				"$value": "#6c7086"
+			}
 		}
 	},
 	"shared": {

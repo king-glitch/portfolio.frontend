@@ -3,6 +3,7 @@ import React from "react";
 import { useProfile } from "@/api/hooks/portfolio/use-profile";
 import { useProjects } from "@/api/hooks/portfolio/use-projects";
 import i18n from "@/lib/i18n";
+import { ModeSwitch } from "@/routes/about/components/mode-switch";
 import { ResumePrintButton } from "@/routes/about/resume/components/resume-print-button";
 import { ResumeSheet } from "@/routes/about/resume/components/resume-sheet";
 import type { Route } from "./+types/index";
@@ -21,7 +22,9 @@ const AboutResume: React.FC<AboutResumeProps> = () => {
 	return (
 		<main className="px-[clamp(12px,4vw,40px)] pt-28 pb-30 print:p-0">
 			<ResumeSheet profile={profile} projects={projects} />
-			<ResumePrintButton />
+			<ModeSwitch>
+				<ResumePrintButton />
+			</ModeSwitch>
 		</main>
 	);
 };

@@ -60,8 +60,8 @@ export const NotesTeaser: React.FC<NotesTeaserProps> = () => {
 				}
 				aside={
 					<PillButton
-						variant={PillVariant.Outline}
-						size={PillSize.Xl}
+						variant={PillVariant.Strong}
+						size={PillSize.Lg}
 						magnetic
 						nativeButton={false}
 						render={

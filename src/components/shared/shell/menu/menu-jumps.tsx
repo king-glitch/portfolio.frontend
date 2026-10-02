@@ -48,8 +48,8 @@ export const MenuJumps: React.FC<MenuJumpsProps> = ({ onJump }) => {
 			{JUMPS.map(({ section, labelKey }) => (
 				<PillButton
 					key={section}
-					variant={PillVariant.Outline}
-					size={PillSize.Lg}
+					variant={PillVariant.Muted}
+					size={PillSize.Sm}
 					onClick={() => onJump(section)}
 				>
 					{t(labelKey)}

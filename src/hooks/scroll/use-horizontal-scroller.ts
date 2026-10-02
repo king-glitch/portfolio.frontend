@@ -3,7 +3,6 @@ import { config } from "@/config";
 import { useRaf } from "@/hooks/motion/use-raf";
 import { useReducedMotion } from "@/hooks/motion/use-reduced-motion";
 import {
-	activePanelIndex,
 	feedScroll,
 	initialScroller,
 	parallaxOffset,
@@ -38,7 +37,6 @@ interface Engine {
 	max: number;
 	panels: PanelMeta[];
 	lefts: number[];
-	active: number;
 	lastX: number;
 	lastQ: number;
 	fired: boolean;
@@ -49,7 +47,6 @@ const newEngine = (): Engine => ({
 	max: 0,
 	panels: [],
 	lefts: [],
-	active: -1,
 	lastX: Number.NaN,
 	lastQ: Number.NaN,
 	fired: false,
@@ -142,19 +139,6 @@ export function useHorizontalScroller(options: ScrollerOptions) {
 			const bar = latest.current.barRef.current;
 			if (bar)
 				bar.style.transform = `scaleX(${progressRatio(x, max).toFixed(4)})`;
-			notifyActive(x, max);
-		};
-		const notifyActive = (x: number, max: number) => {
-			const i = activePanelIndex(
-				eng.lefts,
-				x,
-				window.innerWidth,
-				max,
-				cfg,
-			);
-			if (i === eng.active) return;
-			eng.active = i;
-			latest.current.onActive(i);
 		};
 
 		// The page root, so wheeling over the top bar scrolls too; the JSON sheet is portalled and keeps its own scroll.
@@ -178,8 +162,7 @@ export function useHorizontalScroller(options: ScrollerOptions) {
 	// ponytail: loop runs while mounted and bails out when settled; gate on IntersectionObserver if a page ever hosts several scrollers.
 	useRaf((_dt, now) => {
 		const eng = engine.current;
-		const { trackRef, barRef, meterRef, fillRef, onActive } =
-			latest.current;
+		const { trackRef, barRef, meterRef, fillRef } = latest.current;
 		const track = trackRef.current;
 		if (!track || eng.panels.length === 0) return;
 		eng.state = stepScroller(eng.state, now, cfg, reduced);
@@ -208,36 +191,7 @@ export function useHorizontalScroller(options: ScrollerOptions) {
 			if (fill)
 				fill.style.clipPath = `inset(0 ${(100 - q * 100).toFixed(2)}% 0 0)`;
 		}
-		const i = activePanelIndex(
-			eng.lefts,
-			eng.state.current,
-			window.innerWidth,
-			eng.max,
-			cfg,
-		);
-		if (i !== eng.active) {
-			eng.active = i;
-			onActive(i);
-		}
 	}, !touch);
 
-	const jumpTo = useCallback(
-		(index: number) => {
-			const eng = engine.current;
-			const left = eng.panels[index]?.left;
-			if (left === undefined) return;
-			const vp = latest.current.viewportRef.current;
-			if (touch) vp?.scrollTo({ left, behavior: "smooth" });
-			else {
-				eng.state = {
-					...eng.state,
-					pull: 0,
-					target: Math.min(eng.max, left),
-				};
-			}
-		},
-		[touch],
-	);
-
-	return { touch, jumpTo };
+	return { touch };
 }

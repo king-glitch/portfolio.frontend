@@ -9,9 +9,20 @@ import { config } from "@/config";
 import { runCommand } from "@/lib/terminal/commands";
 import {
 	TerminalDataStatus,
+	TerminalOpacity,
+	TerminalWeight,
 	type TerminalLine,
 	type TerminalNav,
 } from "@/types/terminal";
+
+/** First line of a fresh terminal (prototype). */
+const GREETING: TerminalLine[] = [
+	{
+		key: "shell.terminal.messages.greeting",
+		opacity: TerminalOpacity.Muted,
+		weight: TerminalWeight.Normal,
+	},
+];
 
 function dataStatus(...queries: { isPending: boolean; isError: boolean }[]) {
 	if (queries.some((q) => q.isError)) return TerminalDataStatus.Error;
@@ -28,7 +39,7 @@ export function useTerminal() {
 	const navigate = useNavigate();
 	const goSection = useGoSection();
 	const { pathname } = useLocation();
-	const [lines, setLines] = useState<TerminalLine[]>([]);
+	const [lines, setLines] = useState<TerminalLine[]>(GREETING);
 	const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
 	useEffect(() => () => clearTimeout(timer.current), []);
@@ -71,7 +82,7 @@ export function useTerminal() {
 
 	const reset = () => {
 		clearTimeout(timer.current);
-		setLines([]);
+		setLines(GREETING);
 	};
 
 	return { lines, run, reset };

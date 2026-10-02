@@ -8,7 +8,7 @@ import { SiteNav } from "@/components/shared/shell/site-nav";
 import { TerminalDialog } from "@/components/shared/terminal/terminal-dialog";
 import { StickyCursor } from "@/components/shared/shell/sticky-cursor";
 import { useShell } from "@/contexts/shell-context";
-import { PillSize } from "@/types/ui";
+import { useChromeVisible } from "@/hooks/use-chrome-visible";
 
 interface LayoutProps {}
 
@@ -16,6 +16,7 @@ interface LayoutProps {}
 const Layout: React.FC<LayoutProps> = () => {
 	const { t } = useTranslation();
 	const { setTerminalOpen } = useShell();
+	const chrome = useChromeVisible();
 
 	return (
 		<>
@@ -35,15 +36,16 @@ const Layout: React.FC<LayoutProps> = () => {
 			<SiteNav />
 			<SiteMenu />
 			<Outlet />
-			<PillButton
-				size={PillSize.Lg}
-				magnetic
-				aria-label={t("shell.terminal.button.aria-label")}
-				onClick={() => setTerminalOpen(true)}
-				className="fixed bottom-5 left-5 z-98 font-mono text-[13px] font-bold shadow-[0_16px_40px_-16px_rgba(0,0,0,.6)] [view-transition-name:terminal-launcher] print:hidden"
-			>
-				{t("shell.terminal.button.label")}
-			</PillButton>
+			{chrome ? (
+				<PillButton
+					magnetic
+					aria-label={t("shell.terminal.button.aria-label")}
+					onClick={() => setTerminalOpen(true)}
+					className="fixed bottom-5 left-5 z-98 font-mono text-[13px] font-bold shadow-[0_16px_40px_-16px_rgba(0,0,0,.6)] [view-transition-name:terminal-launcher] print:hidden"
+				>
+					{t("shell.terminal.button.label")}
+				</PillButton>
+			) : null}
 			<TerminalDialog />
 			<StickyCursor />
 		</>

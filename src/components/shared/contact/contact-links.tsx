@@ -1,5 +1,6 @@
 import React from "react";
 import type { ParseKeys } from "i18next";
+import { RiArrowRightUpLine } from "@remixicon/react";
 import { useTranslation } from "react-i18next";
 import { useProfile } from "@/api/hooks/portfolio/use-profile";
 import type { Contact } from "@/api/types/portfolio/profile";
@@ -8,12 +9,15 @@ import { QueryErrorAlert } from "@/components/common/feedback/query-error-alert"
 import { ContactLinksSkeleton } from "@/components/shared/contact/contact-links-skeleton";
 import { config } from "@/config";
 import { cn } from "@/lib/utils";
-import { PillVariant } from "@/types/ui";
+import { CursorLabel } from "@/types/cursor";
+import { PillSize, PillVariant } from "@/types/ui";
 
 interface Channel {
 	key: keyof Contact;
 	labelKey: ParseKeys;
 	hrefPrefix: string;
+	/** Email leads (foreground ring + arrow); the rest are quieter. */
+	primary: boolean;
 }
 
 const CHANNELS: Channel[] = [
@@ -21,12 +25,19 @@ const CHANNELS: Channel[] = [
 		key: "email",
 		labelKey: "common.contact.email.label",
 		hrefPrefix: "mailto:",
+		primary: true,
 	},
-	{ key: "github", labelKey: "common.contact.github.label", hrefPrefix: "" },
+	{
+		key: "github",
+		labelKey: "common.contact.github.label",
+		hrefPrefix: "",
+		primary: false,
+	},
 	{
 		key: "linkedin",
 		labelKey: "common.contact.linkedin.label",
 		hrefPrefix: "",
+		primary: false,
 	},
 ];
 
@@ -34,7 +45,7 @@ interface ContactLinksProps {
 	className?: string;
 }
 
-/** Contact pills. A value starting with `[` is a placeholder and renders as plain text; real values become links. */
+/** Contact pills (email leads). A value starting with `[` is a placeholder and renders as text; real values become links. */
 export const ContactLinks: React.FC<ContactLinksProps> = ({ className }) => {
 	const { t } = useTranslation();
 	const { data, isPending, isError, refetch } = useProfile();
@@ -50,35 +61,45 @@ export const ContactLinks: React.FC<ContactLinksProps> = ({ className }) => {
 
 	return (
 		<div className={cn("flex flex-wrap gap-3", className)}>
-			{CHANNELS.map(({ key, labelKey, hrefPrefix }) => {
+			{CHANNELS.map(({ key, labelKey, hrefPrefix, primary }) => {
 				const value = data.contact[key];
-				const label = t(labelKey);
-				if (value.startsWith(config.portfolio.placeholderPrefix))
-					return (
-						<PillButton
-							key={key}
-							variant={PillVariant.Outline}
-							nativeButton={false}
-							render={<span title={t("common.contact.hint")} />}
-						>
-							{value}
-						</PillButton>
-					);
+				const placeholder = value.startsWith(
+					config.portfolio.placeholderPrefix,
+				);
+				const link = (
+					<a
+						href={`${hrefPrefix}${value}`}
+						target="_blank"
+						rel="noreferrer"
+					/>
+				);
 				return (
 					<PillButton
 						key={key}
-						variant={PillVariant.Outline}
-						nativeButton={false}
-						aria-label={`${label}: ${value}`}
-						render={
-							<a
-								href={`${hrefPrefix}${value}`}
-								target="_blank"
-								rel="noreferrer"
-							/>
+						variant={
+							primary ? PillVariant.Strong : PillVariant.Outline
 						}
+						size={PillSize.Xl}
+						magnetic
+						cursor={primary ? CursorLabel.Write : undefined}
+						nativeButton={false}
+						aria-label={t("common.contact.aria-label", {
+							channel: t(labelKey),
+							value,
+						})}
+						title={
+							placeholder ? t("common.contact.hint") : undefined
+						}
+						render={placeholder ? <span /> : link}
+						className={cn(
+							"gap-3.5",
+							!primary && "px-6.5 text-base font-medium",
+						)}
 					>
-						{label}
+						{value}
+						{primary ? (
+							<RiArrowRightUpLine data-icon="inline-end" />
+						) : null}
 					</PillButton>
 				);
 			})}

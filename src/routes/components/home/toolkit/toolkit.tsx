@@ -103,8 +103,8 @@ export const Toolkit: React.FC<ToolkitProps> = () => {
 				}
 				aside={
 					<PillButton
-						variant={PillVariant.Outline}
-						size={PillSize.Xl}
+						variant={PillVariant.Strong}
+						size={PillSize.Lg}
 						magnetic
 						disabled={!physics}
 						onClick={shake}

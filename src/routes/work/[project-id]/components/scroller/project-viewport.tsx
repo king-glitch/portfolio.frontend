@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { BlockType } from "@/api/types/portfolio/enums";
 import type { Project, ProjectSummary } from "@/api/types/portfolio/project";
@@ -6,7 +6,6 @@ import { useHorizontalScroller } from "@/hooks/scroll/use-horizontal-scroller";
 import { cn } from "@/lib/utils";
 import { BlockRenderer } from "@/routes/work/[project-id]/components/blocks/block-renderer";
 import { EndCap } from "@/routes/work/[project-id]/components/scroller/end-cap";
-import { PanelDots } from "@/routes/work/[project-id]/components/scroller/panel-dots";
 
 interface ProjectViewportProps {
 	project: Project;
@@ -29,15 +28,13 @@ export const ProjectViewport: React.FC<ProjectViewportProps> = ({
 	const trackRef = useRef<HTMLDivElement>(null);
 	const meterRef = useRef<HTMLDivElement>(null);
 	const fillRef = useRef<HTMLDivElement>(null);
-	const [active, setActive] = useState(0);
-	const { touch, jumpTo } = useHorizontalScroller({
+	const { touch } = useHorizontalScroller({
 		viewportRef,
 		trackRef,
 		barRef,
 		meterRef,
 		fillRef,
 		onThreshold: onNext,
-		onActive: setActive,
 		onEscape: onClose,
 	});
 	const numbered = project.blocks.map((block, i) => ({
@@ -83,11 +80,6 @@ export const ProjectViewport: React.FC<ProjectViewportProps> = ({
 					/>
 				</div>
 			</div>
-			<PanelDots
-				count={project.blocks.length + 1}
-				active={active}
-				onSelect={jumpTo}
-			/>
 		</>
 	);
 };

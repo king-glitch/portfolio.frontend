@@ -20,7 +20,7 @@ export const WallMinimap: React.FC<WallMinimapProps> = ({
 	return (
 		<div
 			aria-hidden="true"
-			className="hidden overflow-hidden rounded-xl bg-card ring-1 ring-border desk:block"
+			className="absolute right-6 bottom-6 hidden overflow-hidden rounded-xl bg-card ring-1 ring-border desk:block print:hidden"
 			style={{
 				width: geometry.width * scale,
 				height: geometry.height * scale,

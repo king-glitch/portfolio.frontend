@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { cva } from "class-variance-authority";
+import type { ParseKeys } from "i18next";
 import { useTranslation } from "react-i18next";
 import { useProfile } from "@/api/hooks/portfolio/use-profile";
 import { PillButton } from "@/components/common/buttons/pill-button";
@@ -17,6 +18,15 @@ import { DisplayVariant, PillSize, PillVariant } from "@/types/ui";
 import { HabitTone } from "@/types/home";
 
 const TONES = [HabitTone.Solid, HabitTone.Card, HabitTone.Outline];
+
+/** Site copy for the first five habits (prototype HABITS); the profile's own wording is the fallback. */
+const HABIT_COPY: { title: ParseKeys; body: ParseKeys }[] = [
+	{ title: "home.habits.items.1.title", body: "home.habits.items.1.body" },
+	{ title: "home.habits.items.2.title", body: "home.habits.items.2.body" },
+	{ title: "home.habits.items.3.title", body: "home.habits.items.3.body" },
+	{ title: "home.habits.items.4.title", body: "home.habits.items.4.body" },
+	{ title: "home.habits.items.5.title", body: "home.habits.items.5.body" },
+];
 
 const stageVariants = cva("", {
 	variants: {
@@ -52,16 +62,23 @@ export const Habits: React.FC<HabitsProps> = () => {
 		if (isError) return <QueryErrorAlert onRetry={() => void refetch()} />;
 		if (!core.length)
 			return <QueryEmpty titleKey="home.habits.empty.title" />;
-		return core.map((habit, i) => (
-			<HabitCard
-				key={habit.label}
-				habit={habit}
-				index={i}
-				total={core.length}
-				tone={TONES[i % TONES.length] ?? HabitTone.Card}
-				pinned={pinned}
-			/>
-		));
+		return core.map((habit, i) => {
+			const copy = HABIT_COPY[i];
+			return (
+				<HabitCard
+					key={habit.label}
+					habit={
+						copy
+							? { label: t(copy.title), text: t(copy.body) }
+							: habit
+					}
+					index={i}
+					total={core.length}
+					tone={TONES[i % TONES.length] ?? HabitTone.Card}
+					pinned={pinned}
+				/>
+			);
+		});
 	};
 
 	return (
@@ -91,13 +108,12 @@ export const Habits: React.FC<HabitsProps> = () => {
 					</div>
 					{renderCards()}
 					<PillButton
-						variant={PillVariant.Outline}
-						size={PillSize.Xl}
+						variant={PillVariant.Strong}
 						magnetic
 						cursor={CursorLabel.Next}
 						nativeButton={false}
 						render={<a href={`#${config.sections.timeline}`} />}
-						className="mr-[8vw] ml-10 size-55 shrink-0 text-lg max-desk:m-0 max-desk:h-11.5 max-desk:w-full"
+						className="mr-[8vw] ml-10 size-55 shrink-0 text-lg font-bold max-desk:m-0 max-desk:h-12 max-desk:w-full"
 					>
 						{t("home.habits.next")}
 					</PillButton>

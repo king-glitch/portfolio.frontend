@@ -1,21 +1,20 @@
 import React from "react";
-import { RiPrinterLine } from "@remixicon/react";
 import { useTranslation } from "react-i18next";
 import { PillButton } from "@/components/common/buttons/pill-button";
-import { PillVariant } from "@/types/ui";
+import { PillSize, PillVariant } from "@/types/ui";
 
 interface ResumePrintButtonProps {}
 
-/** Opens the print dialog; hidden in print itself. */
+/** Opens the print dialog (sits in the mode switch). */
 export const ResumePrintButton: React.FC<ResumePrintButtonProps> = () => {
 	const { t } = useTranslation();
 	return (
 		<PillButton
 			variant={PillVariant.Outline}
+			size={PillSize.Sm}
 			onClick={() => window.print()}
-			className="fixed right-6 bottom-5.5 z-20 bg-card print:hidden"
+			className="text-sm font-bold"
 		>
-			<RiPrinterLine data-icon="inline-start" />
 			{t("about.resume.print.label")}
 		</PillButton>
 	);

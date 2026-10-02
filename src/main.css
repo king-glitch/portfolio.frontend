@@ -10,6 +10,11 @@
 	--font-mono: var(--font-stack-mono);
 	--radius-pill: var(--shape-pill);
 	--radius-page: var(--shape-page);
+	--color-code-background: var(--code-background);
+	--color-code-header: var(--code-header);
+	--color-code-foreground: var(--code-foreground);
+	--color-code-muted: var(--code-muted);
+	--color-code-border: var(--code-border);
 	--color-print-background: var(--print-background);
 	--color-print-foreground: var(--print-foreground);
 	--color-print-muted: var(--print-muted);
@@ -103,6 +108,20 @@
 	--sidebar-accent-foreground: oklch(0.205 0 0);
 	--sidebar-border: oklch(0.922 0 0);
 	--sidebar-ring: oklch(0.708 0 0);
+	--code-background: #eff1f5;
+	--code-header: #e6e9ef;
+	--code-foreground: #4c4f69;
+	--code-muted: #9ca0b0;
+	--code-border: #ccd0da;
+	--sh-identifier: #4c4f69;
+	--sh-keyword: #8839ef;
+	--sh-string: #40a02b;
+	--sh-class: #df8e1d;
+	--sh-property: #7287fd;
+	--sh-entity: #1e66f5;
+	--sh-jsxliterals: #179299;
+	--sh-sign: #7c7f93;
+	--sh-comment: #9ca0b0;
 	--chart-1: oklch(0.87 0 0);
 	--chart-2: oklch(0.556 0 0);
 	--chart-3: oklch(0.439 0 0);
@@ -158,6 +177,20 @@
 	--sidebar-accent-foreground: oklch(0.985 0 0);
 	--sidebar-border: oklch(1 0 0 / 10%);
 	--sidebar-ring: oklch(0.556 0 0);
+	--code-background: #1e1e2e;
+	--code-header: #181825;
+	--code-foreground: #cdd6f4;
+	--code-muted: #6c7086;
+	--code-border: #313244;
+	--sh-identifier: #cdd6f4;
+	--sh-keyword: #cba6f7;
+	--sh-string: #a6e3a1;
+	--sh-class: #f9e2af;
+	--sh-property: #b4befe;
+	--sh-entity: #89b4fa;
+	--sh-jsxliterals: #94e2d5;
+	--sh-sign: #9399b2;
+	--sh-comment: #6c7086;
 }
 /* tokens:end */
 

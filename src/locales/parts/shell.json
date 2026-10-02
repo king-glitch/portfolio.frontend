@@ -82,7 +82,8 @@
 			},
 			"terminal": {
 				"label": ">_ open the terminal"
-			}
+			},
+			"meta": "{{projects}} projects · {{notes}} notes · {{year}}"
 		},
 		"terminal": {
 			"button": {
@@ -131,7 +132,8 @@
 				"opening": {
 					"project": "opening {{name}}…",
 					"post": "opening “{{title}}”…"
-				}
+				},
+				"greeting": "Portfolio shell — type help to see what it can do."
 			},
 			"sudo": {
 				"password": "[sudo] password for recruiter: ********",

@@ -2,13 +2,14 @@ import React, { useRef } from "react";
 import type { ParseKeys } from "i18next";
 import { RiMenuLine, RiMoonLine, RiSunLine } from "@remixicon/react";
 import { useTranslation } from "react-i18next";
-import { NavLink, useMatch } from "react-router";
+import { NavLink } from "react-router";
 import { IconButton } from "@/components/common/buttons/icon-button";
 import { PillButton } from "@/components/common/buttons/pill-button";
 import { useGoSection } from "@/components/shared/shell/use-go-section";
 import { usePreloader } from "@/contexts/preloader-context";
 import { useShell } from "@/contexts/shell-context";
 import { useScramble } from "@/hooks/motion/use-scramble";
+import { useChromeVisible } from "@/hooks/use-chrome-visible";
 import { useTheme } from "@/hooks/use-theme";
 import { config } from "@/config";
 import { cn } from "@/lib/utils";
@@ -33,12 +34,12 @@ export const SiteNav: React.FC<SiteNavProps> = () => {
 	const { loaded } = usePreloader();
 	const { setMenuOpen } = useShell();
 	const goSection = useGoSection();
-	const onWork = useMatch(config.routes.work) !== null;
+	const chrome = useChromeVisible();
 	const brandRef = useRef<HTMLButtonElement>(null);
 	useScramble(brandRef);
 	const { theme, toggle } = useTheme();
 	const ThemeIcon = theme === Theme.Dark ? RiSunLine : RiMoonLine;
-	const visible = loaded && !onWork;
+	const visible = loaded && chrome;
 
 	return (
 		<header
@@ -59,11 +60,10 @@ export const SiteNav: React.FC<SiteNavProps> = () => {
 			>
 				<PillButton
 					variant={PillVariant.Ghost}
-					size={PillSize.Lg}
 					magnetic
 					aria-label={t("shell.nav.menu.aria-label")}
 					onClick={() => setMenuOpen(true)}
-					className="gap-3 justify-self-start px-2 tracking-[0.02em] uppercase"
+					className="gap-3 justify-self-start px-2 text-[15px] tracking-[0.02em] uppercase"
 				>
 					<RiMenuLine data-icon="inline-start" />
 					{t("common.menu.label")}
@@ -71,7 +71,6 @@ export const SiteNav: React.FC<SiteNavProps> = () => {
 				<PillButton
 					ref={brandRef}
 					variant={PillVariant.Ghost}
-					size={PillSize.Lg}
 					aria-label={t("shell.brand.aria-label")}
 					onClick={() => goSection(config.sections.top)}
 					className="px-2 text-xl font-extrabold tracking-[-0.04em] whitespace-nowrap max-desk:hidden"
@@ -84,7 +83,7 @@ export const SiteNav: React.FC<SiteNavProps> = () => {
 							key={to}
 							to={to}
 							viewTransition
-							className="inline-flex h-11 items-center px-3 text-sm underline-offset-6 aria-[current=page]:font-bold aria-[current=page]:underline max-desk:hidden"
+							className="inline-flex h-11 items-center px-3 text-sm font-medium underline-offset-6 aria-[current=page]:font-extrabold aria-[current=page]:underline max-desk:hidden"
 						>
 							{t(labelKey)}
 						</NavLink>
@@ -96,11 +95,10 @@ export const SiteNav: React.FC<SiteNavProps> = () => {
 						onClick={toggle}
 					/>
 					<PillButton
-						size={PillSize.Lg}
 						magnetic
 						cursor={CursorLabel.SayHi}
 						onClick={() => goSection(config.sections.contact)}
-						className="whitespace-nowrap"
+						className="px-5 whitespace-nowrap"
 					>
 						{t("shell.nav.contact.label")}
 					</PillButton>

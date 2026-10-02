@@ -7,10 +7,6 @@
 			"label": "Project {{index}} of {{total}}",
 			"placeholder": "—/—"
 		},
-		"dots": {
-			"label": "Panels",
-			"panel": "Go to panel {{index}}"
-		},
 		"end": {
 			"button": "Next project",
 			"eyebrow": "(Next project)",

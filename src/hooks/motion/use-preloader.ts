@@ -49,6 +49,20 @@ export function usePreloaderProgress() {
 		phase === PreloaderPhase.Counting && !reduced,
 	);
 
+	// The page cannot scroll under the counter; it unlocks when the wipe starts.
+	const locked =
+		!reduced &&
+		(phase === PreloaderPhase.Counting || phase === PreloaderPhase.Hold);
+	useEffect(() => {
+		if (!locked) return;
+		const html = document.documentElement;
+		html.style.overflow = "hidden";
+		window.scrollTo(0, 0);
+		return () => {
+			html.style.overflow = "";
+		};
+	}, [locked]);
+
 	useEffect(() => {
 		if (reduced || phase === PreloaderPhase.Done) {
 			played = true;

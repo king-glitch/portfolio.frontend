@@ -1,3 +1,4 @@
+import type { ParseKeys } from "i18next";
 import { MotifKind } from "@/api/types/portfolio/enums";
 import type { ProjectSummary } from "@/api/types/portfolio/project";
 import { config } from "@/config";
@@ -21,11 +22,16 @@ const own = (kind: MotifKind, ctx: WallBuildContext) =>
 	ctx.projects.find((p) => p.kind === kind);
 
 /** Project art plus the link to its page; no link when the project is missing. */
-function projectData(kind: MotifKind, ctx: WallBuildContext): TileData {
+function projectData(
+	kind: MotifKind,
+	ctx: WallBuildContext,
+	captionKey?: ParseKeys,
+): TileData {
 	const p: ProjectSummary | undefined = own(kind, ctx);
 	return {
 		motif: kind,
 		caption: p?.name,
+		captionKey,
 		link: p && {
 			to: workPath(p.id),
 			labelKey: "about.explore.link.project",
@@ -135,7 +141,12 @@ export const WALL_CELLS: CellSpec[] = [
 		cols: 2,
 		rows: 2,
 		kind: AboutTileKind.Motif,
-		data: (c) => projectData(MotifKind.Radar, c),
+		data: (c) =>
+			projectData(
+				MotifKind.Radar,
+				c,
+				"about.explore.tile.projects.captions.radar",
+			),
 	},
 	{
 		id: "languages",
@@ -253,7 +264,12 @@ export const WALL_CELLS: CellSpec[] = [
 		cols: 2,
 		rows: 2,
 		kind: AboutTileKind.Mock,
-		data: (c) => projectData(MotifKind.Pins, c),
+		data: (c) =>
+			projectData(
+				MotifKind.Pins,
+				c,
+				"about.explore.tile.projects.captions.pins-map",
+			),
 	},
 	{
 		id: "tools",
@@ -299,7 +315,12 @@ export const WALL_CELLS: CellSpec[] = [
 		cols: 2,
 		rows: 1,
 		kind: AboutTileKind.Motif,
-		data: (c) => projectData(MotifKind.Orbit, c),
+		data: (c) =>
+			projectData(
+				MotifKind.Orbit,
+				c,
+				"about.explore.tile.projects.captions.orbit",
+			),
 	},
 	{
 		id: "notes",

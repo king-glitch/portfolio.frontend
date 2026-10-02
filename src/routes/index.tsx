@@ -21,7 +21,7 @@ interface HomeProps {}
 /** Portfolio home: hero, marquee, about, spotlight, work index, stack, habits, timeline, toolkit, notes, contact. */
 const Home: React.FC<HomeProps> = () => {
 	return (
-		<main id="main">
+		<main id="main" className="overflow-x-clip">
 			<Hero />
 			<Marquee />
 			<Hello />

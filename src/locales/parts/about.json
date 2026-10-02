@@ -73,7 +73,12 @@
 					"unit": "yrs"
 				},
 				"projects": {
-					"caption": "projects, shipped"
+					"caption": "projects, shipped",
+					"captions": {
+						"radar": "AADS — radar, decoded",
+						"pins-map": "Estic AI — map search",
+						"orbit": "Evermoon — quests & XP"
+					}
 				},
 				"socket": {
 					"caption": "Live, both ways"
