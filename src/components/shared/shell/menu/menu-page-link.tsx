@@ -12,7 +12,7 @@ interface MenuPageLinkProps {
 	current: boolean;
 	/** Stagger of the entrance animation, seconds. */
 	delayS: number;
-	/** Route to open; without it the row is a plain button (`onSelect` does the work). */
+	/** Route the row links to (href for new-tab and a11y); `onSelect` performs the navigation. */
 	to?: string;
 	onSelect: () => void;
 	onHover: () => void;
@@ -36,7 +36,11 @@ export const MenuPageLink: React.FC<MenuPageLinkProps> = ({
 			nativeButton={to === undefined}
 			render={to ? <Link to={to} viewTransition /> : undefined}
 			aria-current={current ? "page" : undefined}
-			onClick={onSelect}
+			onClick={(e) => {
+				// the menu closes first, then navigates (see SiteMenu)
+				e.preventDefault();
+				onSelect();
+			}}
 			onMouseEnter={onHover}
 			onFocus={onHover}
 			className="group/row h-auto w-full justify-start rounded-none border-0 border-b border-current/30 px-0 py-2 text-left whitespace-normal transition-[opacity,padding] duration-700 ease-[cubic-bezier(.16,1,.3,1)] hover:bg-transparent hover:pl-5.5 focus-visible:pl-5.5 focus-visible:ring-0 dark:hover:bg-transparent"

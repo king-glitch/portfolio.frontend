@@ -7,7 +7,6 @@ import { QueryErrorAlert } from "@/components/common/feedback/query-error-alert"
 import { Skeleton } from "@/components/ui/skeleton";
 import { projectsForStop } from "@/lib/portfolio/stack-stops";
 import { workPath } from "@/lib/routes";
-import { CursorLabel } from "@/types/cursor";
 import { PillSize, PillVariant } from "@/types/ui";
 import type { StackStop } from "@/types/home";
 
@@ -29,7 +28,6 @@ export const StackUsedIn: React.FC<StackUsedInProps> = ({ stop }) => {
 		return projectsForStop(stop, data ?? []).map((project) => (
 			<PillButton
 				key={project.id}
-				cursor={CursorLabel.Open}
 				nativeButton={false}
 				render={<Link to={workPath(project.id)} viewTransition />}
 				variant={PillVariant.Strong}

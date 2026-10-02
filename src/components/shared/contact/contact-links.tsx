@@ -9,7 +9,6 @@ import { QueryErrorAlert } from "@/components/common/feedback/query-error-alert"
 import { ContactLinksSkeleton } from "@/components/shared/contact/contact-links-skeleton";
 import { config } from "@/config";
 import { cn } from "@/lib/utils";
-import { CursorLabel } from "@/types/cursor";
 import { PillSize, PillVariant } from "@/types/ui";
 
 interface Channel {
@@ -81,7 +80,6 @@ export const ContactLinks: React.FC<ContactLinksProps> = ({ className }) => {
 						}
 						size={PillSize.Xl}
 						magnetic
-						cursor={primary ? CursorLabel.Write : undefined}
 						nativeButton={false}
 						aria-label={t("common.contact.aria-label", {
 							channel: t(labelKey),

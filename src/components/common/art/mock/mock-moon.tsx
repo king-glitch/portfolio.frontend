@@ -1,10 +1,11 @@
-// style-lint-ignore-file hardcoded-jsx-text -- decorative SVG screen mock labels (not UI copy), ported verbatim from design/Mock.dc.html
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { mockData } from "@/lib/art/mock-data";
 
 interface MockMoonProps {}
 
 export const MockMoon: React.FC<MockMoonProps> = () => {
+	const { t } = useTranslation();
 	return (
 		<>
 			<rect
@@ -43,7 +44,7 @@ export const MockMoon: React.FC<MockMoonProps> = () => {
 				fontSize="9"
 				fontWeight="700"
 			>
-				Day 18
+				{t("components.common.art.mocks.moon.day-count")}
 			</text>
 			{mockData.plots.map((pl) => (
 				<g key={`${pl.x}-${pl.y}`}>
@@ -91,7 +92,7 @@ export const MockMoon: React.FC<MockMoonProps> = () => {
 				fontWeight="900"
 				letterSpacing="-0.03em"
 			>
-				Shop
+				{t("components.common.art.mocks.moon.shop")}
 			</text>
 			{mockData.shop.map((sh) => (
 				<g key={sh.y}>
@@ -158,7 +159,7 @@ export const MockMoon: React.FC<MockMoonProps> = () => {
 				fontSize="10"
 				fontWeight="800"
 			>
-				New resources spawned in the east field
+				{t("components.common.art.mocks.moon.new-resources-spawned")}
 			</text>
 		</>
 	);

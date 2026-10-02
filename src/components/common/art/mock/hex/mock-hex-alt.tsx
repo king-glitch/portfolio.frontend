@@ -1,10 +1,11 @@
-// style-lint-ignore-file hardcoded-jsx-text -- decorative SVG screen mock labels (not UI copy), ported verbatim from design/Mock.dc.html
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { mockData } from "@/lib/art/mock-data";
 
 interface MockHexAltProps {}
 
 export const MockHexAlt: React.FC<MockHexAltProps> = () => {
+	const { t } = useTranslation();
 	return (
 		<>
 			<text
@@ -15,10 +16,10 @@ export const MockHexAlt: React.FC<MockHexAltProps> = () => {
 				fontWeight="900"
 				letterSpacing="-0.05em"
 			>
-				Bridge assets
+				{t("components.common.art.mocks.hex-alt.bridge-assets")}
 			</text>
 			<text x="24" y="88" fill="currentColor" fontSize="9" opacity="0.6">
-				Move items between the game and the chain
+				{t("components.common.art.mocks.hex-alt.move-items-between")}
 			</text>
 			<rect
 				x="24"
@@ -38,7 +39,7 @@ export const MockHexAlt: React.FC<MockHexAltProps> = () => {
 				fontWeight="800"
 				letterSpacing="0.1em"
 			>
-				IN GAME
+				{t("components.common.art.mocks.hex-alt.in-game")}
 			</text>
 			<rect
 				x="366"
@@ -57,7 +58,7 @@ export const MockHexAlt: React.FC<MockHexAltProps> = () => {
 				fontWeight="800"
 				letterSpacing="0.1em"
 			>
-				ON CHAIN
+				{t("components.common.art.mocks.hex-alt.on-chain")}
 			</text>
 			{mockData.bridgeRows.map((br) => (
 				<g key={br.y}>

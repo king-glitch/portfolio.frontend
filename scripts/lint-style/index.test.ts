@@ -539,7 +539,17 @@ const fixtures: Record<RuleId, RuleFixture> = {
 
 	// ── imports.ts ──────────────────────────────────────────────────
 	"no-relative-import": {
+		onDisk: true,
 		valid: [
+			// The routes manifest and what it imports run in the React Router config
+			// loader, which has no @/ alias: relative imports are required there.
+			{
+				"src/routes.ts":
+					'import { config } from "./config";\nexport default [config.home];\n',
+				"src/config.ts":
+					'import { Filter } from "./api/enums";\nexport const config = { home: "/", f: Filter.All };\n',
+				"src/api/enums.ts": 'export enum Filter {\n\tAll = "all",\n}\n',
+			},
 			oneFile(
 				"src/lib/foo.ts",
 				'import { bar } from "@/lib/bar";\nexport const x = bar;\n',

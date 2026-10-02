@@ -1,4 +1,6 @@
 /** Import and composition rules — AGENTS.md §0. */
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import * as t from "@babel/types";
 import {
 	defineFileRule,
@@ -30,6 +32,32 @@ function sourceOf(
 	return null;
 }
 
+const RELATIVE_SPEC = /(?:from|import)\s*["'](\.{1,2}\/[^"']+)["']/g;
+
+/**
+ * Modules evaluated by the React Router config loader: the routes manifest and
+ * everything it reaches through relative imports. That loader runs without the
+ * Vite alias, so these files cannot use `@/` and must import relatively.
+ */
+function routerConfigModules(config: ProjectConfig): Set<string> {
+	const seen = new Set<string>();
+	const queue = [config.routes.manifest];
+	while (queue.length) {
+		const path = queue.pop();
+		if (!path || seen.has(path)) continue;
+		const abs = join(config.root, path);
+		if (!existsSync(abs)) continue;
+		seen.add(path);
+		for (const [, spec] of readFileSync(abs, "utf8").matchAll(
+			RELATIVE_SPEC,
+		)) {
+			const resolved = spec ? resolveImport(path, spec, config) : null;
+			if (resolved) queue.push(resolved);
+		}
+	}
+	return seen;
+}
+
 export const noRelativeImport = defineFileRule<Record<string, never>>({
 	id: "no-relative-import",
 	description: "Imports must use the `@/…` alias, never `./` or `../`.",
@@ -41,6 +69,7 @@ export const noRelativeImport = defineFileRule<Record<string, never>>({
 	defaults: {},
 	check(file, ctx) {
 		if (!file.ast) return;
+		if (routerConfigModules(ctx.config).has(file.path)) return;
 		for (const stmt of file.ast.program.body) {
 			const found = sourceOf(stmt);
 			if (!found) continue;

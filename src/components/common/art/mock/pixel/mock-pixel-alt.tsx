@@ -1,10 +1,11 @@
-// style-lint-ignore-file hardcoded-jsx-text -- decorative SVG screen mock labels (not UI copy), ported verbatim from design/Mock.dc.html
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { mockData } from "@/lib/art/mock-data";
 
 interface MockPixelAltProps {}
 
 export const MockPixelAlt: React.FC<MockPixelAltProps> = () => {
+	const { t } = useTranslation();
 	return (
 		<>
 			<text
@@ -15,7 +16,7 @@ export const MockPixelAlt: React.FC<MockPixelAltProps> = () => {
 				fontWeight="900"
 				letterSpacing="-0.05em"
 			>
-				Missions
+				{t("components.common.art.mocks.pixel-alt.missions")}
 			</text>
 			<text
 				x="24"
@@ -24,7 +25,7 @@ export const MockPixelAlt: React.FC<MockPixelAltProps> = () => {
 				fontSize="10"
 				opacity="0.6"
 			>
-				Daily · resets in 06:12
+				{t("components.common.art.mocks.pixel-alt.daily-resets-in")}
 			</text>
 			{mockData.missions.map((ms) => {
 				const tone = ms.done ? "fill-card" : "fill-current";

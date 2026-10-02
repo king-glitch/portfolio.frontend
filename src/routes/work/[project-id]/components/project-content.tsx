@@ -1,10 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router";
 import type { Project, ProjectSummary } from "@/api/types/portfolio/project";
 import { config } from "@/config";
 import { nextId, prevId } from "@/lib/portfolio/project-nav";
 import { workPath } from "@/lib/routes";
-import { ProjectJsonSheet } from "@/routes/work/[project-id]/components/json/project-json-sheet";
 import { ProjectViewport } from "@/routes/work/[project-id]/components/scroller/project-viewport";
 import { ProjectTopbar } from "@/routes/work/[project-id]/components/topbar/project-topbar";
 
@@ -22,7 +21,6 @@ export const ProjectContent: React.FC<ProjectContentProps> = ({
 	projectsFailed,
 }) => {
 	const navigate = useNavigate();
-	const [jsonOpen, setJsonOpen] = useState(false);
 	const barRef = useRef<HTMLDivElement>(null);
 	const ids = projects?.map((p) => p.id);
 	const position = ids ? ids.indexOf(project.id) + 1 || undefined : undefined;
@@ -51,15 +49,8 @@ export const ProjectContent: React.FC<ProjectContentProps> = ({
 				showCounter={!projectsFailed}
 				prevTo={prevProjectId ? workPath(prevProjectId) : undefined}
 				nextTo={nextProjectId ? workPath(nextProjectId) : undefined}
-				jsonOpen={jsonOpen}
 				onClose={close}
-				onToggleJson={() => setJsonOpen((open) => !open)}
 				barRef={barRef}
-			/>
-			<ProjectJsonSheet
-				project={project}
-				open={jsonOpen}
-				onOpenChange={setJsonOpen}
 			/>
 			<ProjectViewport
 				project={project}

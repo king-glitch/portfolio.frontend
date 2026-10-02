@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
 import { IconButton } from "@/components/common/buttons/icon-button";
 import { PillButton } from "@/components/common/buttons/pill-button";
-import { useGoSection } from "@/components/shared/shell/use-go-section";
+import { useGoSection } from "@/hooks/use-go-section";
 import { usePreloader } from "@/contexts/preloader-context";
 import { useShell } from "@/contexts/shell-context";
 import { useScramble } from "@/hooks/motion/use-scramble";
@@ -13,7 +13,6 @@ import { useChromeVisible } from "@/hooks/use-chrome-visible";
 import { useTheme } from "@/hooks/use-theme";
 import { config } from "@/config";
 import { cn } from "@/lib/utils";
-import { CursorLabel } from "@/types/cursor";
 import { PillSize, PillVariant, Theme } from "@/types/ui";
 
 interface NavItem {
@@ -96,7 +95,6 @@ export const SiteNav: React.FC<SiteNavProps> = () => {
 					/>
 					<PillButton
 						magnetic
-						cursor={CursorLabel.SayHi}
 						onClick={() => goSection(config.sections.contact)}
 						className="px-5 whitespace-nowrap"
 					>

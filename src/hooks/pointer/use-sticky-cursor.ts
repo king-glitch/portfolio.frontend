@@ -3,14 +3,15 @@ import { useRaf } from "@/hooks/motion/use-raf";
 import { useReducedMotion } from "@/hooks/motion/use-reduced-motion";
 import { config } from "@/config";
 import {
-	isSnapTarget,
 	magneticOffset,
+	rectCenter,
+	ringStretch,
 	ringTarget,
 	stepRing,
 	toCursorLabel,
 	type RingBox,
 } from "@/lib/motion/cursor";
-import type { CursorLabel } from "@/types/cursor";
+import { CursorMode, type CursorLabel } from "@/types/cursor";
 
 const HOVER_NONE = "(hover: none)";
 /** Parked off-screen until the first pointer move. */
@@ -31,25 +32,55 @@ export function useHoverCapable(): boolean {
 	);
 }
 
+interface CursorState {
+	mode: CursorMode;
+	label: CursorLabel | null;
+	visible: boolean;
+}
+
+const IDLE: CursorState = {
+	mode: CursorMode.Idle,
+	label: null,
+	visible: false,
+};
+
+const same = (a: CursorState, b: CursorState) =>
+	a.mode === b.mode && a.label === b.label && a.visible === b.visible;
+
+/** Mode from what is under the pointer: text field, labelled element, link/button, or nothing. */
+function classify(target: Element | null): Omit<CursorState, "visible"> {
+	const c = config.shell.cursor;
+	if (target?.closest(c.textSelector))
+		return { mode: CursorMode.Text, label: null };
+	const label = toCursorLabel(
+		target
+			?.closest(`[${c.labelAttribute}]`)
+			?.getAttribute(c.labelAttribute) ?? null,
+	);
+	if (label) return { mode: CursorMode.Label, label };
+	if (target?.closest(`${c.hoverSelector}, [${c.magneticAttribute}]`))
+		return { mode: CursorMode.Hover, label: null };
+	return { mode: CursorMode.Idle, label: null };
+}
+
 /**
- * Sticky cursor engine: ring (36px, grows to 88px for `[data-cursor]`, wraps small
- * links/buttons) plus dot, and the magnetic pull on `[data-magnetic]`.
- * Pointer events only record state; one rAF loop writes width/height/radius/transform
- * (ponytail: size is written as layout props like the prototype; switch to scale if profiling shows cost).
- * Reduced motion: no easing, the ring is positioned directly on the pointer target.
+ * Cursor engine. The ring is always a circle (or an I-beam over text fields): it fills and grows
+ * over links/buttons instead of outlining their box, is pulled toward `[data-magnetic]` centres
+ * (which also lean toward the pointer), stretches along its own velocity and shrinks on press.
+ * Pointer events only record state; one rAF loop writes size and transform.
+ * Reduced motion: no easing, no stretch.
  */
 export function useStickyCursor() {
 	const enabled = useHoverCapable();
 	const reduced = useReducedMotion();
 	const ringRef = useRef<HTMLDivElement>(null);
 	const dotRef = useRef<HTMLDivElement>(null);
-	const [label, setLabel] = useState<CursorLabel | null>(null);
+	const [state, setState] = useState<CursorState>(IDLE);
 
 	const pointer = useRef({ x: PARKED, y: PARKED });
-	const snapEl = useRef<Element | null>(null);
-	const snapRadius = useRef(0);
 	const magnetic = useRef<HTMLElement | null>(null);
-	const labelled = useRef(false);
+	const mode = useRef(CursorMode.Idle);
+	const pressed = useRef(false);
 	const ring = useRef<RingBox>({
 		x: PARKED,
 		y: PARKED,
@@ -61,15 +92,20 @@ export function useStickyCursor() {
 	useEffect(() => {
 		if (!enabled) return;
 		const c = config.shell.cursor;
+		const update = (next: CursorState) =>
+			setState((prev) => (same(prev, next) ? prev : next));
+		const release = () => {
+			if (magnetic.current) magnetic.current.style.transform = "";
+			magnetic.current = null;
+		};
 		const onMove = (e: PointerEvent) => {
 			pointer.current = { x: e.clientX, y: e.clientY };
 			const target = e.target instanceof Element ? e.target : null;
 
-			const mag = target?.closest<HTMLElement>(
-				`[${c.magneticAttribute}]`,
-			);
-			if (magnetic.current && magnetic.current !== mag)
-				magnetic.current.style.transform = "";
+			const mag =
+				target?.closest<HTMLElement>(`[${c.magneticAttribute}]`) ??
+				null;
+			if (magnetic.current !== mag) release();
 			if (mag) {
 				const o = magneticOffset(
 					mag.getBoundingClientRect(),
@@ -79,79 +115,64 @@ export function useStickyCursor() {
 				);
 				mag.style.transform = `translate3d(${o.x.toFixed(1)}px,${o.y.toFixed(1)}px,0)`;
 			}
-			magnetic.current = mag ?? null;
+			magnetic.current = mag;
 
-			const labelEl = target?.closest(`[${c.labelAttribute}]`);
-			const next = toCursorLabel(
-				labelEl?.getAttribute(c.labelAttribute) ?? null,
-			);
-			labelled.current = labelEl !== null && labelEl !== undefined;
-			setLabel(next);
-
-			let snap: Element | null = null;
-			if (!labelEl) {
-				const cand = target?.closest(c.snapSelector);
-				if (cand && isSnapTarget(cand.getBoundingClientRect(), c))
-					snap = cand;
-			}
-			if (snap !== snapEl.current) {
-				snapEl.current = snap;
-				snapRadius.current = snap
-					? parseFloat(getComputedStyle(snap).borderTopLeftRadius) ||
-						10
-					: 0;
-			}
+			const next = classify(target);
+			mode.current = next.mode;
+			update({ ...next, visible: true });
 		};
 		const onLeave = () => {
-			if (magnetic.current) magnetic.current.style.transform = "";
-			magnetic.current = null;
+			release();
+			update({ ...IDLE, visible: false });
+		};
+		const onDown = () => {
+			pressed.current = true;
+		};
+		const onUp = () => {
+			pressed.current = false;
 		};
 		document.addEventListener("pointermove", onMove, { passive: true });
+		document.addEventListener("pointerdown", onDown, { passive: true });
+		document.addEventListener("pointerup", onUp, { passive: true });
 		document.documentElement.addEventListener("pointerleave", onLeave);
 		return () => {
 			document.removeEventListener("pointermove", onMove);
+			document.removeEventListener("pointerdown", onDown);
+			document.removeEventListener("pointerup", onUp);
 			document.documentElement.removeEventListener(
 				"pointerleave",
 				onLeave,
 			);
-			onLeave();
+			release();
 		};
 	}, [enabled]);
 
-	useRaf((_dt, _t) => {
+	useRaf(() => {
 		const ringEl = ringRef.current;
 		const dotEl = dotRef.current;
 		if (!ringEl || !dotEl) return;
-		const { x: mx, y: my } = pointer.current;
-		const el = snapEl.current;
-		if (el && !el.isConnected) snapEl.current = null;
-		const target = ringTarget(
-			{
-				mx,
-				my,
-				rect: snapEl.current
-					? snapEl.current.getBoundingClientRect()
-					: null,
-				rectRadius: snapRadius.current,
-				labelled: labelled.current,
-			},
-			config.shell.cursor,
-		);
-		// Released by distance: forget the element so it is not measured every frame.
-		if (!target.snapping) snapEl.current = null;
-		ring.current = stepRing(
-			ring.current,
-			target,
-			reduced ? 1 : config.shell.cursor.lerp,
-		);
+		const c = config.shell.cursor;
+		const mag = magnetic.current;
+		const magnet = mag?.isConnected
+			? rectCenter(mag.getBoundingClientRect())
+			: null;
+		const target = ringTarget(pointer.current, magnet, mode.current, c);
+		const prev = ring.current;
+		const k = reduced ? 1 : c.lerp;
+		ring.current = stepRing(prev, target, k, reduced ? 1 : c.sizeLerp);
 		const r = ring.current;
+		const idle = mode.current === CursorMode.Idle;
+		const stretch =
+			idle && !reduced
+				? ringStretch(r.x - prev.x, r.y - prev.y, c)
+				: { angleDeg: 0, sx: 1, sy: 1 };
+		const press = pressed.current ? c.pressScale : 1;
 		ringEl.style.width = `${r.w.toFixed(1)}px`;
 		ringEl.style.height = `${r.h.toFixed(1)}px`;
 		ringEl.style.borderRadius = `${r.r.toFixed(1)}px`;
-		ringEl.style.transform = `translate3d(${r.x.toFixed(1)}px,${r.y.toFixed(1)}px,0) translate(-50%,-50%)`;
-		dotEl.style.opacity = target.snapping ? "0" : "1";
-		dotEl.style.transform = `translate3d(${mx}px,${my}px,0) translate(-50%,-50%)`;
+		ringEl.style.transform = `translate3d(${r.x.toFixed(1)}px,${r.y.toFixed(1)}px,0) translate(-50%,-50%) rotate(${stretch.angleDeg.toFixed(1)}deg) scale(${(stretch.sx * press).toFixed(3)},${(stretch.sy * press).toFixed(3)})`;
+		dotEl.style.transform = `translate3d(${pointer.current.x}px,${pointer.current.y}px,0) translate(-50%,-50%)`;
 	}, enabled);
 
-	return { enabled, ringRef, dotRef, label };
+	return { enabled, ringRef, dotRef, ...state };
 }

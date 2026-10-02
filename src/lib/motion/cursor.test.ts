@@ -1,94 +1,79 @@
 import { describe, expect, test } from "bun:test";
 import { config } from "@/config";
 import {
-	isSnapTarget,
 	magneticOffset,
 	previewStep,
+	rectCenter,
+	ringStretch,
 	ringTarget,
 	stepRing,
 	toCursorLabel,
 } from "@/lib/motion/cursor";
 import { easeInOutCubic } from "@/lib/motion/lerp";
-import { CursorLabel } from "@/types/cursor";
+import { CursorLabel, CursorMode } from "@/types/cursor";
 
 const c = config.shell.cursor;
 const button = { left: 100, top: 50, width: 200, height: 40 };
 
 describe("ringTarget", () => {
-	test("default ring follows the pointer", () => {
-		const t = ringTarget(
-			{ mx: 10, my: 20, rect: null, rectRadius: 0, labelled: false },
-			c,
-		);
-		expect(t).toEqual({
+	test("idle ring follows the pointer as a 36px circle", () => {
+		expect(ringTarget({ x: 10, y: 20 }, null, CursorMode.Idle, c)).toEqual({
 			x: 10,
 			y: 20,
 			w: 36,
 			h: 36,
 			r: 18,
-			snapping: false,
 		});
 	});
 
-	test("label grows the ring to 88px", () => {
-		const t = ringTarget(
-			{ mx: 0, my: 0, rect: null, rectRadius: 0, labelled: true },
-			c,
-		);
-		expect([t.w, t.h, t.r]).toEqual([88, 88, 44]);
+	test("hover and label are circles, never the element box", () => {
+		const hover = ringTarget({ x: 0, y: 0 }, null, CursorMode.Hover, c);
+		const label = ringTarget({ x: 0, y: 0 }, null, CursorMode.Label, c);
+		expect([hover.w, hover.h, hover.r]).toEqual([64, 64, 32]);
+		expect([label.w, label.h, label.r]).toEqual([88, 88, 44]);
 	});
 
-	test("snap wraps the element with +14px size and +7px radius", () => {
-		const t = ringTarget(
-			{ mx: 150, my: 70, rect: button, rectRadius: 10, labelled: false },
-			c,
-		);
-		expect(t).toEqual({
-			x: 200,
-			y: 70,
-			w: 214,
-			h: 54,
-			r: 17,
-			snapping: true,
-		});
+	test("text mode is a thin I-beam", () => {
+		const t = ringTarget({ x: 0, y: 0 }, null, CursorMode.Text, c);
+		expect([t.w, t.h]).toEqual([2, 30]);
 	});
 
-	test("snap radius is capped at half the height", () => {
+	test("a magnet pulls the ring 35% toward its centre", () => {
 		const t = ringTarget(
-			{ mx: 150, my: 70, rect: button, rectRadius: 999, labelled: false },
+			{ x: 100, y: 100 },
+			rectCenter(button),
+			CursorMode.Hover,
 			c,
 		);
-		expect(t.r).toBe(27);
-	});
-
-	test("snap releases when the pointer is farther than 12px away", () => {
-		const t = ringTarget(
-			{ mx: 400, my: 70, rect: button, rectRadius: 10, labelled: false },
-			c,
-		);
-		expect(t.snapping).toBe(false);
+		expect(t.x).toBeCloseTo(100 + (200 - 100) * 0.35);
+		expect(t.y).toBeCloseTo(100 + (70 - 100) * 0.35);
 	});
 });
 
-describe("isSnapTarget", () => {
-	test("accepts <= 900x240, rejects larger or empty", () => {
-		expect(isSnapTarget(button, c)).toBe(true);
-		expect(isSnapTarget({ ...button, width: 901 }, c)).toBe(false);
-		expect(isSnapTarget({ ...button, height: 241 }, c)).toBe(false);
-		expect(isSnapTarget({ ...button, width: 0 }, c)).toBe(false);
+describe("ringStretch", () => {
+	test("still ring is round", () => {
+		expect(ringStretch(0, 0, c)).toEqual({ angleDeg: 0, sx: 1, sy: 1 });
+	});
+	test("stretches along the motion and caps", () => {
+		const s = ringStretch(0, 10, c);
+		expect(s.angleDeg).toBeCloseTo(90);
+		expect(s.sx).toBeCloseTo(1.12);
+		expect(s.sy).toBeCloseTo(0.94);
+		expect(ringStretch(1000, 0, c).sx).toBeCloseTo(1.45);
 	});
 });
 
 describe("stepRing", () => {
-	test("moves 20% of the way", () => {
+	test("eases position and size at their own rates", () => {
 		const next = stepRing(
 			{ x: 0, y: 0, w: 36, h: 36, r: 18 },
 			{ x: 100, y: 50, w: 88, h: 88, r: 44 },
 			0.2,
+			0.5,
 		);
 		expect(next.x).toBeCloseTo(20);
 		expect(next.y).toBeCloseTo(10);
-		expect(next.w).toBeCloseTo(46.4);
+		expect(next.w).toBeCloseTo(62);
 	});
 });
 

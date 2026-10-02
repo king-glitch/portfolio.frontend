@@ -141,7 +141,7 @@ export function useHorizontalScroller(options: ScrollerOptions) {
 				bar.style.transform = `scaleX(${progressRatio(x, max).toFixed(4)})`;
 		};
 
-		// The page root, so wheeling over the top bar scrolls too; the JSON sheet is portalled and keeps its own scroll.
+		// The page root, so wheeling over the top bar scrolls too.
 		const wheelHost = vp.parentElement ?? vp;
 		vp.addEventListener("keydown", onKey);
 		if (touch) vp.addEventListener("scroll", syncNative, { passive: true });

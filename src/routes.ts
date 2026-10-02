@@ -4,7 +4,6 @@ import {
 	layout,
 	route,
 } from "@react-router/dev/routes";
-// style-lint-ignore-next-line no-relative-import -- routes.ts is loaded by the React Router config loader, which has no @/ alias
 import { config } from "./config";
 
 /** "/work/:projectId" under "" -> "work/:projectId"; "/about/explore" under "/about" -> "explore". */

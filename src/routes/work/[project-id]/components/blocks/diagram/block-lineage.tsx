@@ -1,9 +1,7 @@
-// style-lint-ignore-file query-states -- optional link; falls back to plain text while the list loads or fails
 import React from "react";
 import { cva } from "class-variance-authority";
 import { Link } from "react-router";
 import { BlockType } from "@/api/types/portfolio/enums";
-import { useProjects } from "@/api/hooks/portfolio/use-projects";
 import { Panel } from "@/components/common/layout/panel";
 import { padCount } from "@/lib/portfolio/project-nav";
 import { workPath } from "@/lib/routes";
@@ -22,21 +20,20 @@ interface BlockLineageProps extends BlockProps<BlockType.Lineage> {}
 export const BlockLineage: React.FC<BlockLineageProps> = ({
 	label,
 	from,
+	fromId,
 	to,
 	text,
 	index,
 }) => {
-	const projects = useProjects();
-	const source = projects.data?.find((p) => p.name === from);
 	return (
 		<Panel className="flex flex-col justify-between gap-7">
 			<Eyebrow>
 				({padCount(index)}) {label}
 			</Eyebrow>
 			<div className="flex flex-col gap-1">
-				{source ? (
+				{fromId ? (
 					<Link
-						to={workPath(source.id)}
+						to={workPath(fromId)}
 						viewTransition
 						data-speed="0.9"
 						data-cursor={CursorLabel.Open}

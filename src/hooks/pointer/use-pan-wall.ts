@@ -124,7 +124,6 @@ export function usePanWall({ geometry, hero, miniScale }: PanInput) {
 		}));
 		recenter(true);
 		introStart.current ??= performance.now();
-		// eslint-disable-next-line react-hooks/exhaustive-deps -- recenter reads refs only
 	}, [geometry]);
 
 	useEffect(() => {

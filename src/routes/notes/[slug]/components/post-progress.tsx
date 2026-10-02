@@ -5,7 +5,6 @@ import type { Post } from "@/api/types/portfolio/post";
 import { PillButton } from "@/components/common/buttons/pill-button";
 import { config } from "@/config";
 import { useReadProgress } from "@/hooks/scroll/use-read-progress";
-import { CursorLabel } from "@/types/cursor";
 import { PillVariant } from "@/types/ui";
 
 interface PostProgressProps {
@@ -22,7 +21,6 @@ export const PostProgress: React.FC<PostProgressProps> = ({ post }) => {
 			<div className="mx-auto flex max-w-340 items-center justify-between gap-4 px-[clamp(16px,4vw,48px)] py-4.5">
 				<PillButton
 					variant={PillVariant.Outline}
-					cursor={CursorLabel.Close}
 					nativeButton={false}
 					render={<Link to={config.routes.notes} viewTransition />}
 				>

@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router";
 import { usePosts } from "@/api/hooks/portfolio/use-posts";
 import { useProfile } from "@/api/hooks/portfolio/use-profile";
 import { useProjects } from "@/api/hooks/portfolio/use-projects";
-import { useGoSection } from "@/components/shared/shell/use-go-section";
+import { useGoSection } from "@/hooks/use-go-section";
 import { useShell } from "@/contexts/shell-context";
 import { config } from "@/config";
 import { runCommand } from "@/lib/terminal/commands";

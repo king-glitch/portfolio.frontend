@@ -202,6 +202,14 @@
 	--animate-art-blink: art-blink 2.4s steps(2, end) infinite;
 	--animate-art-float: art-float 6s ease-in-out infinite;
 	--animate-menu-in: menu-in 1s var(--ease-out-expo) forwards;
+	/* First load: the page pushes up behind the lifting preloader (no fill, so no transform stays behind). */
+	--animate-content-rise: content-rise 1.1s var(--ease-wipe);
+
+	@keyframes content-rise {
+		from {
+			translate: 0 40vh;
+		}
+	}
 
 	@keyframes art-spin {
 		to {
@@ -244,8 +252,41 @@
 }
 
 /* Page transition: View Transitions API on the root, prototype pgEnter/pgLeave keyframes. */
+/* Black stage under the sweeping pages (prototype root), so no canvas colour flashes between them. */
+::view-transition {
+	background: #000;
+}
 ::view-transition-group(root) {
 	animation-duration: 0.95s;
+}
+/* Chained chrome: the nav pill and terminal launcher leave before the sweep and return after it. */
+::view-transition-group(site-nav),
+::view-transition-group(terminal-launcher) {
+	animation-duration: 0.95s;
+}
+::view-transition-old(site-nav) {
+	animation: chrome-up 0.4s var(--ease-wipe) both;
+}
+::view-transition-new(site-nav) {
+	animation: chrome-up 0.8s var(--ease-out-expo) 0.6s reverse both;
+}
+::view-transition-old(terminal-launcher) {
+	animation: chrome-down 0.4s var(--ease-wipe) both;
+}
+::view-transition-new(terminal-launcher) {
+	animation: chrome-down 0.8s var(--ease-out-expo) 0.7s reverse both;
+}
+@keyframes chrome-up {
+	to {
+		transform: translateY(-160%);
+		opacity: 0;
+	}
+}
+@keyframes chrome-down {
+	to {
+		transform: translateY(180%);
+		opacity: 0;
+	}
 }
 ::view-transition-old(root) {
 	animation: pg-leave 0.95s linear both;

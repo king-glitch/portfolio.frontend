@@ -301,6 +301,7 @@ export const projects: Project[] = [
 				params: {
 					label: "Lineage",
 					from: "Morning Moon Village",
+					fromId: "morning-moon-village",
 					to: "Morning Moon Pocket",
 					text: "Same farming loop, new pocket-sized client, a rebuilt server side and rewritten contracts underneath.",
 				},

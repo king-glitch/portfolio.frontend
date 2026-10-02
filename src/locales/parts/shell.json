@@ -114,7 +114,7 @@
 					"skills": "  skills                the toolkit",
 					"pages": "  about · blog · home   go to a page",
 					"contact": "  contact               how to reach me",
-					"tidy": "  clear · exit           tidy up"
+					"tidy": "  clear · exit          tidy up"
 				},
 				"hint": "  psst: try “sudo hire william”"
 			},

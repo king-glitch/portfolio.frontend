@@ -23,7 +23,7 @@ export const TerminalInput: React.FC<TerminalInputProps> = ({
 }) => {
 	const { t } = useTranslation();
 	return (
-		<InputGroup className="h-12 rounded-none border-0 border-t border-white/12 bg-transparent dark:bg-transparent">
+		<InputGroup className="h-12 shrink-0 rounded-none border-0 border-t border-white/12 bg-transparent has-[[data-slot=input-group-control]:focus-visible]:border-white/12 has-[[data-slot=input-group-control]:focus-visible]:ring-0 dark:bg-transparent">
 			<InputGroupAddon className="font-mono text-sm font-bold text-white">
 				{config.terminal.prompt}
 			</InputGroupAddon>
@@ -41,7 +41,7 @@ export const TerminalInput: React.FC<TerminalInputProps> = ({
 				autoComplete="off"
 				autoCapitalize="off"
 				spellCheck={false}
-				className="font-mono text-sm text-white placeholder:text-white/40"
+				className="font-mono text-sm text-white caret-white placeholder:text-white/40"
 			/>
 		</InputGroup>
 	);

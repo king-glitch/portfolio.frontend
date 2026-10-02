@@ -206,15 +206,12 @@
 			}
 		},
 		"cursor": {
-			"close": "Close",
 			"drag": "Drag",
 			"look-closer": "Look closer",
 			"next": "Next",
 			"open": "Open",
 			"read": "Read",
-			"say-hi": "Say hi",
-			"view": "View",
-			"write": "Write"
+			"view": "View"
 		},
 		"errors": {
 			"boundary": {
@@ -252,6 +249,71 @@
 		"sides": {
 			"behind-the-scenes": "Behind the scenes",
 			"on-screen": "On screen"
+		}
+	},
+	"components": {
+		"common": {
+			"art": {
+				"mocks": {
+					"hex-alt": {
+						"bridge-assets": "Bridge assets",
+						"in-game": "IN GAME",
+						"move-items-between": "Move items between the game and the chain",
+						"on-chain": "ON CHAIN"
+					},
+					"hex-main": {
+						"capture": "CAPTURE",
+						"party": "PARTY",
+						"status": "Wandering · Lv 12",
+						"wild-mech": "Wild mech"
+					},
+					"moon": {
+						"day-count": "Day 18",
+						"new-resources-spawned": "New resources spawned in the east field",
+						"shop": "Shop"
+					},
+					"orbit": {
+						"leaderboard": "LEADERBOARD",
+						"season-quests": "Season quests",
+						"xp-total": "Moon Power · 12,450 XP"
+					},
+					"pins-alt": {
+						"ask-about-a": "Ask about a home",
+						"listing": {
+							"title": "[LISTING TITLE]"
+						},
+						"low-risk": "Low risk"
+					},
+					"pins-main": {
+						"2-bed-near": "2-bed near the river, low flood risk…",
+						"listing": {
+							"title": "[LISTING TITLE]"
+						},
+						"low-risk": "Low risk"
+					},
+					"pixel-alt": {
+						"daily-resets-in": "Daily · resets in 06:12",
+						"missions": "Missions"
+					},
+					"pixel-main": {
+						"harvest-20-moon": "Harvest 20 moon carrots",
+						"mission": "MISSION"
+					},
+					"radar": {
+						"access-ip-allow": "ACCESS · IP ALLOW-LIST",
+						"alert-suspect": "ALERT · SUSPECT",
+						"callsign": "TRK 041",
+						"comms-encrypted": "COMMS · ENCRYPTED",
+						"enemy": "ENEMY",
+						"friend": "FRIEND",
+						"msg": "MSG",
+						"operator-02": "Operator 02",
+						"suspect-callsign": "TRK 041",
+						"tracks-live": "TRACKS · LIVE",
+						"voice": "VOICE"
+					}
+				}
+			}
 		}
 	},
 	"home": {
@@ -654,7 +716,7 @@
 					"pages": "  about · blog · home   go to a page",
 					"read": "  read <n>              open a blog post",
 					"skills": "  skills                the toolkit",
-					"tidy": "  clear · exit           tidy up",
+					"tidy": "  clear · exit          tidy up",
 					"whoami": "  whoami                who is this"
 				}
 			},
@@ -707,21 +769,11 @@
 			"project": "Project",
 			"scroll": "Scroll →"
 		},
-		"json": {
-			"blocks": {
-				"count-one": "{{count}} block",
-				"count-other": "{{count}} blocks"
-			},
-			"close": "Close JSON",
-			"description": "Block JSON for this page",
-			"title": "GET /projects/{{num}}"
-		},
 		"meta": {
 			"title": "Project — William Siefert"
 		},
 		"topbar": {
-			"close": "Close",
-			"json": "{ } JSON"
+			"close": "Close"
 		},
 		"viewport": {
 			"label": "Project {{name}}, scroll horizontally"

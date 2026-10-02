@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { RiCloseLine } from "@remixicon/react";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { PillButton } from "@/components/common/buttons/pill-button";
 import { MenuContacts } from "@/components/shared/shell/menu/menu-contacts";
 import { MenuJumps } from "@/components/shared/shell/menu/menu-jumps";
@@ -9,11 +9,8 @@ import { MenuMeta } from "@/components/shared/shell/menu/menu-meta";
 import { MenuPageLink } from "@/components/shared/shell/menu/menu-page-link";
 import { MenuPreview } from "@/components/shared/shell/menu/menu-preview";
 import { MenuProjects } from "@/components/shared/shell/menu/menu-projects";
-import {
-	MENU_PAGES,
-	type MenuPage,
-} from "@/components/shared/shell/menu/pages";
-import { useGoSection } from "@/components/shared/shell/use-go-section";
+import { MENU_PAGES, type MenuPage } from "@/lib/menu-pages";
+import { useGoSection } from "@/hooks/use-go-section";
 import {
 	Dialog,
 	DialogContent,
@@ -22,9 +19,9 @@ import {
 } from "@/components/ui/dialog";
 import { useShell } from "@/contexts/shell-context";
 import { config } from "@/config";
-import { PillSize, PillVariant } from "@/types/ui";
+import { PillSize, PillVariant, type MenuHover } from "@/types/ui";
 
-const DEFAULT_HOVER = MENU_PAGES[0]?.id ?? "";
+const DEFAULT_HOVER: MenuHover = { id: MENU_PAGES[0]?.id ?? "" };
 
 interface SiteMenuProps {}
 
@@ -34,28 +31,35 @@ export const SiteMenu: React.FC<SiteMenuProps> = () => {
 	const { menuOpen, setMenuOpen, setTerminalOpen } = useShell();
 	const { pathname } = useLocation();
 	const goSection = useGoSection();
-	const [hoverId, setHoverId] = useState(DEFAULT_HOVER);
+	const navigate = useNavigate();
+	const [hover, setHover] = useState(DEFAULT_HOVER);
 
+	// Chained motion: the menu wipes closed first, then the follow-up (page transition, scroll, terminal) runs.
+	const afterClose = useRef<(() => void) | null>(null);
 	const close = () => setMenuOpen(false);
+	const closeThen = (next: () => void) => {
+		afterClose.current = next;
+		close();
+	};
+	const go = (to: string) => () =>
+		void navigate(to, { viewTransition: true });
 	const selectPage = (page: MenuPage) => {
-		close();
-		if (page.section) goSection(page.section);
+		const { to, section } = page;
+		if (to) closeThen(go(to));
+		else if (section) closeThen(() => goSection(section));
 	};
-	const jump = (section: string) => {
-		close();
-		goSection(section);
-	};
-	const openTerminal = () => {
-		close();
-		setTerminalOpen(true);
-	};
+	const jump = (section: string) => closeThen(() => goSection(section));
+	const openTerminal = () => closeThen(() => setTerminalOpen(true));
 
 	return (
 		<Dialog
 			open={menuOpen}
 			onOpenChange={setMenuOpen}
 			onOpenChangeComplete={(open) => {
-				if (!open) setHoverId(DEFAULT_HOVER);
+				if (open) return;
+				setHover(DEFAULT_HOVER);
+				afterClose.current?.();
+				afterClose.current = null;
 			}}
 		>
 			<DialogContent
@@ -101,15 +105,15 @@ export const SiteMenu: React.FC<SiteMenuProps> = () => {
 									delayS={0.12 + index * 0.06}
 									to={page.to}
 									onSelect={() => selectPage(page)}
-									onHover={() => setHoverId(page.id)}
+									onHover={() => setHover({ id: page.id })}
 								/>
 							))}
 						</nav>
 						<div className="flex flex-col justify-center gap-5.5">
-							<MenuPreview activeId={hoverId} />
+							<MenuPreview active={hover} />
 							<MenuProjects
-								onHover={setHoverId}
-								onSelect={close}
+								onHover={setHover}
+								onSelect={(to) => closeThen(go(to))}
 							/>
 							<MenuJumps onJump={jump} />
 						</div>

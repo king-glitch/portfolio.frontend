@@ -1,5 +1,5 @@
 import { clamp, lerp } from "@/lib/motion/lerp";
-import { CursorLabel } from "@/types/cursor";
+import { CursorLabel, CursorMode } from "@/types/cursor";
 
 /** Ring geometry: centre point, size and corner radius, all px. */
 export interface RingBox {
@@ -17,87 +17,101 @@ export interface PointerRect {
 	height: number;
 }
 
-export interface RingTargetInput {
-	mx: number;
-	my: number;
-	/** Rect of the element being snapped to, if any. */
-	rect: PointerRect | null;
-	/** Computed corner radius of that element. */
-	rectRadius: number;
-	/** True while the pointer is over a `[data-cursor]` element. */
-	labelled: boolean;
+export interface Point {
+	x: number;
+	y: number;
 }
 
 export interface RingConfig {
 	ringPx: number;
+	hoverRingPx: number;
 	labelRingPx: number;
-	snapMaxWidthPx: number;
-	snapMaxHeightPx: number;
-	snapPadPx: number;
-	snapRadiusPadPx: number;
+	textWidthPx: number;
+	textHeightPx: number;
+	magnetPull: number;
 }
 
-/** Pointer slack (px) before a snapped element is released. */
-const SNAP_SLACK_PX = 12;
+export interface StretchConfig {
+	stretchPerPx: number;
+	stretchMax: number;
+}
 
 /** `data-cursor` attribute value -> label, or null when absent / unknown. */
 export function toCursorLabel(value: string | null): CursorLabel | null {
 	return Object.values(CursorLabel).find((label) => label === value) ?? null;
 }
 
-/** Only small links/buttons are wrapped (prototype: <= 900x240). */
-export function isSnapTarget(rect: PointerRect, c: RingConfig): boolean {
-	return (
-		rect.width > 0 &&
-		rect.width <= c.snapMaxWidthPx &&
-		rect.height <= c.snapMaxHeightPx
-	);
-}
-
-export function isPointerNear(
-	rect: PointerRect,
-	mx: number,
-	my: number,
-): boolean {
-	return (
-		mx >= rect.left - SNAP_SLACK_PX &&
-		mx <= rect.left + rect.width + SNAP_SLACK_PX &&
-		my >= rect.top - SNAP_SLACK_PX &&
-		my <= rect.top + rect.height + SNAP_SLACK_PX
-	);
-}
-
-/** Where the ring wants to be: on the snapped element, grown for a label, or the default ring on the pointer. */
-export function ringTarget(
-	input: RingTargetInput,
+/** Ring size per mode. Always a circle (or the I-beam), never the hovered element's box. */
+export function ringSize(
+	mode: CursorMode,
 	c: RingConfig,
-): RingBox & { snapping: boolean } {
-	const { mx, my, rect, rectRadius, labelled } = input;
-	if (rect && isPointerNear(rect, mx, my) && rect.width > 0) {
-		const w = rect.width + c.snapPadPx;
-		const h = rect.height + c.snapPadPx;
-		return {
-			x: rect.left + rect.width / 2,
-			y: rect.top + rect.height / 2,
-			w,
-			h,
-			r: Math.min(rectRadius + c.snapRadiusPadPx, h / 2),
-			snapping: true,
-		};
-	}
-	const size = labelled ? c.labelRingPx : c.ringPx;
-	return { x: mx, y: my, w: size, h: size, r: size / 2, snapping: false };
+): Pick<RingBox, "w" | "h" | "r"> {
+	const circle = (d: number) => ({ w: d, h: d, r: d / 2 });
+	const sizes: Record<CursorMode, Pick<RingBox, "w" | "h" | "r">> = {
+		[CursorMode.Idle]: circle(c.ringPx),
+		[CursorMode.Hover]: circle(c.hoverRingPx),
+		[CursorMode.Label]: circle(c.labelRingPx),
+		[CursorMode.Text]: {
+			w: c.textWidthPx,
+			h: c.textHeightPx,
+			r: c.textWidthPx / 2,
+		},
+	};
+	return sizes[mode];
 }
 
-export function stepRing(cur: RingBox, to: RingBox, k: number): RingBox {
+/** Where the ring wants to be: on the pointer, pulled part of the way toward a magnetic element's centre. */
+export function ringTarget(
+	pointer: Point,
+	magnet: Point | null,
+	mode: CursorMode,
+	c: RingConfig,
+): RingBox {
+	const at = magnet
+		? {
+				x: lerp(pointer.x, magnet.x, c.magnetPull),
+				y: lerp(pointer.y, magnet.y, c.magnetPull),
+			}
+		: pointer;
+	return { ...at, ...ringSize(mode, c) };
+}
+
+/** Eases position at `k` and size at `kSize` (size settles a little slower, which reads as a morph). */
+export function stepRing(
+	cur: RingBox,
+	to: RingBox,
+	k: number,
+	kSize = k,
+): RingBox {
 	return {
 		x: lerp(cur.x, to.x, k),
 		y: lerp(cur.y, to.y, k),
-		w: lerp(cur.w, to.w, k),
-		h: lerp(cur.h, to.h, k),
-		r: lerp(cur.r, to.r, k),
+		w: lerp(cur.w, to.w, kSize),
+		h: lerp(cur.h, to.h, kSize),
+		r: lerp(cur.r, to.r, kSize),
 	};
 }
+
+/** Squash and stretch from the ring's own per-frame velocity: longer along the motion, thinner across it. */
+export function ringStretch(
+	vx: number,
+	vy: number,
+	c: StretchConfig,
+): { angleDeg: number; sx: number; sy: number } {
+	const speed = Math.hypot(vx, vy);
+	const s = clamp(speed * c.stretchPerPx, 0, c.stretchMax);
+	return {
+		angleDeg: (Math.atan2(vy, vx) * 180) / Math.PI,
+		sx: 1 + s,
+		sy: 1 - s * 0.5,
+	};
+}
+
+/** Centre of a rect. */
+export const rectCenter = (rect: PointerRect): Point => ({
+	x: rect.left + rect.width / 2,
+	y: rect.top + rect.height / 2,
+});
 
 /** Magnetic pull: a fraction of the pointer's offset from the element centre. */
 export function magneticOffset(

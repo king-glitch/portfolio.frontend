@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { config } from "@/config";
 import { useWallGeometry } from "@/hooks/pointer/use-pan-wall";
 import { cellRect } from "@/lib/motion/wall";
-import { WALL_CELLS } from "@/routes/about/components/wall/layout";
+import { WALL_CELLS } from "@/lib/portfolio/wall-tiles";
 
 interface WallSkeletonProps {}
 

@@ -1,7 +1,8 @@
 import React from "react";
 import type { Block } from "@/api/types/portfolio/block";
 import { BlockType, type MotifKind } from "@/api/types/portfolio/enums";
-import type { BlockProps } from "@/types/work";
+import type { BlockExtras } from "@/types/work";
+
 import { BlockArchitecture } from "@/routes/work/[project-id]/components/blocks/diagram/block-architecture";
 import { BlockLineage } from "@/routes/work/[project-id]/components/blocks/diagram/block-lineage";
 import { BlockProjectHeader } from "@/routes/work/[project-id]/components/blocks/header/block-project-header";
@@ -18,25 +19,6 @@ import { BlockBigNumber } from "@/routes/work/[project-id]/components/blocks/tex
 import { BlockChips } from "@/routes/work/[project-id]/components/blocks/text/block-chips";
 import { BlockQuote } from "@/routes/work/[project-id]/components/blocks/text/block-quote";
 
-/** Block registry: a new `BlockType` member fails typecheck until it has a component. */
-const BLOCKS: { [T in BlockType]: React.FC<BlockProps<T>> } = {
-	[BlockType.ProjectHeader]: BlockProjectHeader,
-	[BlockType.Quote]: BlockQuote,
-	[BlockType.BigNumber]: BlockBigNumber,
-	[BlockType.AboutSplit]: BlockAboutSplit,
-	[BlockType.NumberedList]: BlockNumberedList,
-	[BlockType.StackCards]: BlockStackCards,
-	[BlockType.FeatureGrid]: BlockFeatureGrid,
-	[BlockType.Timeline]: BlockTimeline,
-	[BlockType.Zigzag]: BlockZigzag,
-	[BlockType.MotifFull]: BlockMotifFull,
-	[BlockType.Chips]: BlockChips,
-	[BlockType.Mock]: BlockMock,
-	[BlockType.Gallery]: BlockGallery,
-	[BlockType.Architecture]: BlockArchitecture,
-	[BlockType.Lineage]: BlockLineage,
-};
-
 interface BlockRendererProps {
 	block: Block;
 	/** 1-based position among non-header blocks. */
@@ -44,13 +26,47 @@ interface BlockRendererProps {
 	projectKind: MotifKind;
 }
 
-// ponytail: TS cannot correlate BLOCKS[block.type] with block.params; one widening cast, the Record above keeps every type covered.
-function renderBlock(block: Block, index: number, projectKind: MotifKind) {
-	// style-lint-ignore-next-line no-as-cast -- TS cannot correlate BLOCKS[block.type] with block.params; the Record above covers every BlockType
-	const Component = BLOCKS[block.type] as React.FC<BlockProps<BlockType>>;
-	return (
-		<Component {...block.params} index={index} projectKind={projectKind} />
-	);
+/**
+ * Exhaustive over the `Block` union: each case narrows `block.params` to its component's props,
+ * and a new `BlockType` member fails typecheck at the `never` check below.
+ */
+function renderBlock(block: Block, extra: BlockExtras): React.ReactNode {
+	switch (block.type) {
+		case BlockType.ProjectHeader:
+			return <BlockProjectHeader {...extra} {...block.params} />;
+		case BlockType.Quote:
+			return <BlockQuote {...block.params} {...extra} />;
+		case BlockType.BigNumber:
+			return <BlockBigNumber {...block.params} {...extra} />;
+		case BlockType.AboutSplit:
+			return <BlockAboutSplit {...block.params} {...extra} />;
+		case BlockType.NumberedList:
+			return <BlockNumberedList {...block.params} {...extra} />;
+		case BlockType.StackCards:
+			return <BlockStackCards {...block.params} {...extra} />;
+		case BlockType.FeatureGrid:
+			return <BlockFeatureGrid {...block.params} {...extra} />;
+		case BlockType.Timeline:
+			return <BlockTimeline {...block.params} {...extra} />;
+		case BlockType.Zigzag:
+			return <BlockZigzag {...block.params} {...extra} />;
+		case BlockType.MotifFull:
+			return <BlockMotifFull {...block.params} {...extra} />;
+		case BlockType.Chips:
+			return <BlockChips {...block.params} {...extra} />;
+		case BlockType.Mock:
+			return <BlockMock {...block.params} {...extra} />;
+		case BlockType.Gallery:
+			return <BlockGallery {...block.params} {...extra} />;
+		case BlockType.Architecture:
+			return <BlockArchitecture {...block.params} {...extra} />;
+		case BlockType.Lineage:
+			return <BlockLineage {...block.params} {...extra} />;
+		default: {
+			const unhandled: never = block;
+			return unhandled;
+		}
+	}
 }
 
 interface BlockRendererImplProps extends BlockRendererProps {}
@@ -59,9 +75,9 @@ const BlockRendererImpl: React.FC<BlockRendererImplProps> = ({
 	block,
 	index,
 	projectKind,
-}) => renderBlock(block, index, projectKind);
+}) => renderBlock(block, { index, projectKind });
 
-/** Memoised: scrolling re-renders the viewport (active dot), never the panels. */
+/** Memoised: scrolling re-renders the viewport, never the panels. */
 export const BlockRenderer = React.memo(BlockRendererImpl);
 
 export default BlockRenderer;

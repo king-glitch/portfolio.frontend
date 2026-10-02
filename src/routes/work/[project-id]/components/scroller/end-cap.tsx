@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import type { ProjectSummary } from "@/api/types/portfolio/project";
 import { PillButton } from "@/components/common/buttons/pill-button";
 import { Panel } from "@/components/common/layout/panel";
-import { CursorLabel } from "@/types/cursor";
 import { PillSize, PillVariant } from "@/types/ui";
 import { PanelTone } from "@/types/work";
 import { Eyebrow } from "@/components/common/typography/eyebrow";
@@ -53,7 +52,6 @@ export const EndCap: React.FC<EndCapProps> = ({
 					<PillButton
 						variant={PillVariant.Strong}
 						magnetic
-						cursor={CursorLabel.Next}
 						disabled={!next}
 						onClick={onNext}
 						className="h-14 gap-3 px-6.5 text-[15px]"

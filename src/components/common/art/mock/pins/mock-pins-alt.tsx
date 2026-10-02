@@ -1,10 +1,11 @@
-// style-lint-ignore-file hardcoded-jsx-text -- decorative SVG screen mock labels (not UI copy), ported verbatim from design/Mock.dc.html
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { mockData } from "@/lib/art/mock-data";
 
 interface MockPinsAltProps {}
 
 export const MockPinsAlt: React.FC<MockPinsAltProps> = () => {
+	const { t } = useTranslation();
 	return (
 		<>
 			<text
@@ -15,7 +16,7 @@ export const MockPinsAlt: React.FC<MockPinsAltProps> = () => {
 				fontWeight="900"
 				letterSpacing="-0.04em"
 			>
-				Ask about a home
+				{t("components.common.art.mocks.pins-alt.ask-about-a")}
 			</text>
 			{mockData.phoneChat.map((pc) => (
 				<g key={pc.y}>
@@ -75,7 +76,7 @@ export const MockPinsAlt: React.FC<MockPinsAltProps> = () => {
 				fontSize="11"
 				fontWeight="800"
 			>
-				[LISTING TITLE]
+				{t("components.common.art.mocks.pins-alt.listing.title")}
 			</text>
 			<rect
 				x="32"
@@ -93,7 +94,7 @@ export const MockPinsAlt: React.FC<MockPinsAltProps> = () => {
 				fontSize="7"
 				fontWeight="800"
 			>
-				Low risk
+				{t("components.common.art.mocks.pins-alt.low-risk")}
 			</text>
 			<rect
 				x="20"

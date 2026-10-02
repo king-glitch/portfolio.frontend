@@ -1,5 +1,5 @@
-// style-lint-ignore-file hardcoded-jsx-text -- decorative SVG screen mock labels (not UI copy), ported verbatim from design/Mock.dc.html
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { mockData } from "@/lib/art/mock-data";
 
 const ROADS = [
@@ -12,6 +12,7 @@ const ROADS = [
 interface MockPinsMainProps {}
 
 export const MockPinsMain: React.FC<MockPinsMainProps> = () => {
+	const { t } = useTranslation();
 	return (
 		<>
 			<rect
@@ -65,7 +66,7 @@ export const MockPinsMain: React.FC<MockPinsMainProps> = () => {
 				strokeOpacity="0.35"
 			/>
 			<text x="26" y="375" fill="currentColor" fontSize="8" opacity="0.6">
-				2-bed near the river, low flood risk…
+				{t("components.common.art.mocks.pins-main.2-bed-near")}
 			</text>
 			<g fill="none" stroke="currentColor" opacity="0.2">
 				{ROADS.map((d) => (
@@ -123,7 +124,7 @@ export const MockPinsMain: React.FC<MockPinsMainProps> = () => {
 				fontSize="10"
 				fontWeight="800"
 			>
-				[LISTING TITLE]
+				{t("components.common.art.mocks.pins-main.listing.title")}
 			</text>
 			<rect
 				x="442"
@@ -141,7 +142,7 @@ export const MockPinsMain: React.FC<MockPinsMainProps> = () => {
 				fontSize="7"
 				fontWeight="800"
 			>
-				Low risk
+				{t("components.common.art.mocks.pins-main.low-risk")}
 			</text>
 		</>
 	);

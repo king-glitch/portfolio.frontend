@@ -1,10 +1,11 @@
-// style-lint-ignore-file hardcoded-jsx-text -- decorative SVG screen mock labels (not UI copy), ported verbatim from design/Mock.dc.html
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { mockData } from "@/lib/art/mock-data";
 
 interface MockOrbitProps {}
 
 export const MockOrbit: React.FC<MockOrbitProps> = () => {
+	const { t } = useTranslation();
 	return (
 		<>
 			<text
@@ -15,7 +16,7 @@ export const MockOrbit: React.FC<MockOrbitProps> = () => {
 				fontWeight="900"
 				letterSpacing="-0.05em"
 			>
-				Season quests
+				{t("components.common.art.mocks.orbit.season-quests")}
 			</text>
 			<rect
 				x="300"
@@ -33,7 +34,7 @@ export const MockOrbit: React.FC<MockOrbitProps> = () => {
 				fontSize="9"
 				fontWeight="800"
 			>
-				Moon Power · 12,450 XP
+				{t("components.common.art.mocks.orbit.xp-total")}
 			</text>
 			{mockData.quests.map((q) => {
 				const tone = q.filled ? "fill-card" : "fill-current";
@@ -122,7 +123,7 @@ export const MockOrbit: React.FC<MockOrbitProps> = () => {
 				fontWeight="800"
 				letterSpacing="0.1em"
 			>
-				LEADERBOARD
+				{t("components.common.art.mocks.orbit.leaderboard")}
 			</text>
 			{mockData.board.map((lb) => (
 				<g key={lb.n}>

@@ -8,10 +8,7 @@ import { buildAboutStats } from "@/lib/portfolio/about-stats";
 import { config } from "@/config";
 import { cn } from "@/lib/utils";
 import { CursorLabel } from "@/types/cursor";
-import {
-	WALL_CELLS,
-	buildWallTiles,
-} from "@/routes/about/components/wall/layout";
+import { WALL_CELLS, buildWallTiles } from "@/lib/portfolio/wall-tiles";
 import { ModeSwitch } from "@/routes/about/components/mode-switch";
 import { WallMinimap } from "@/routes/about/explore/components/wall/wall-minimap";
 import { WallRecenter } from "@/routes/about/explore/components/wall/wall-recenter";

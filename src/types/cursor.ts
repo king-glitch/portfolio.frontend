@@ -5,8 +5,17 @@ export enum CursorLabel {
 	Read = "read",
 	Drag = "drag",
 	Next = "next",
-	Close = "close",
 	LookCloser = "look-closer",
-	SayHi = "say-hi",
-	Write = "write",
+}
+
+/** What the pointer is over; decides the ring's shape and fill. */
+export enum CursorMode {
+	/** Hollow ring + dot. */
+	Idle = "idle",
+	/** Filled circle over a link or button (never the element's own box). */
+	Hover = "hover",
+	/** Big filled circle with a word (`data-cursor`). */
+	Label = "label",
+	/** Thin I-beam over a text field. */
+	Text = "text",
 }

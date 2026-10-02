@@ -1,5 +1,13 @@
 import React from "react";
+import {
+	profileQuery,
+	postsQuery,
+	projectsQuery,
+} from "@/api/queries/portfolio";
 import i18n from "@/lib/i18n";
+import { queryClient } from "@/lib/query-client";
+import { preloadQueries } from "@/lib/route-data";
+import type { Route } from "./+types/index";
 import { Contact } from "@/routes/components/home/contact/contact";
 import { Habits } from "@/routes/components/home/habits/habits";
 import { Hello } from "@/routes/components/home/hello/hello";
@@ -11,6 +19,15 @@ import { Spotlight } from "@/routes/components/home/spotlight/spotlight";
 import { StackFlow } from "@/routes/components/home/stack/stack-flow";
 import { Timeline } from "@/routes/components/home/timeline/timeline";
 import { Toolkit } from "@/routes/components/home/toolkit/toolkit";
+
+/** Client navigations wait for this page's data, so the transition lands on the loaded page. */
+export function clientLoader() {
+	return preloadQueries(
+		queryClient.ensureQueryData(profileQuery()),
+		queryClient.ensureQueryData(projectsQuery()),
+		queryClient.ensureQueryData(postsQuery()),
+	);
+}
 
 export function meta() {
 	return [{ title: i18n.t("home.meta.title") }];

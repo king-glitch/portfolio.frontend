@@ -1,5 +1,5 @@
-// style-lint-ignore-file hardcoded-jsx-text -- decorative SVG screen mock labels (not UI copy), ported verbatim from design/Mock.dc.html
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { mockData } from "@/lib/art/mock-data";
 
 const MESSAGES = [
@@ -11,6 +11,7 @@ const MESSAGES = [
 interface MockRadarProps {}
 
 export const MockRadar: React.FC<MockRadarProps> = () => {
+	const { t } = useTranslation();
 	return (
 		<>
 			<rect
@@ -30,7 +31,7 @@ export const MockRadar: React.FC<MockRadarProps> = () => {
 				letterSpacing="0.12em"
 				opacity="0.6"
 			>
-				TRACKS · LIVE
+				{t("components.common.art.mocks.radar.tracks-live")}
 			</text>
 			{mockData.tracks.map((t) => (
 				<g key={t.y}>
@@ -114,7 +115,7 @@ export const MockRadar: React.FC<MockRadarProps> = () => {
 				fontSize="8"
 				fontWeight="700"
 			>
-				TRK 041
+				{t("components.common.art.mocks.radar.callsign")}
 			</text>
 			<rect
 				x="490"
@@ -132,7 +133,7 @@ export const MockRadar: React.FC<MockRadarProps> = () => {
 					fontWeight="800"
 					letterSpacing="0.12em"
 				>
-					ALERT · SUSPECT
+					{t("components.common.art.mocks.radar.alert-suspect")}
 				</text>
 				<text
 					x="502"
@@ -141,7 +142,7 @@ export const MockRadar: React.FC<MockRadarProps> = () => {
 					fontWeight="900"
 					letterSpacing="-0.04em"
 				>
-					TRK 041
+					{t("components.common.art.mocks.radar.suspect-callsign")}
 				</text>
 				<rect
 					x="502"
@@ -169,7 +170,7 @@ export const MockRadar: React.FC<MockRadarProps> = () => {
 				fontSize="7"
 				fontWeight="800"
 			>
-				FRIEND
+				{t("components.common.art.mocks.radar.friend")}
 			</text>
 			<rect
 				x="562"
@@ -188,7 +189,7 @@ export const MockRadar: React.FC<MockRadarProps> = () => {
 				fontSize="7"
 				fontWeight="800"
 			>
-				ENEMY
+				{t("components.common.art.mocks.radar.enemy")}
 			</text>
 			<rect
 				x="490"
@@ -209,7 +210,7 @@ export const MockRadar: React.FC<MockRadarProps> = () => {
 				letterSpacing="0.12em"
 				opacity="0.6"
 			>
-				COMMS · ENCRYPTED
+				{t("components.common.art.mocks.radar.comms-encrypted")}
 			</text>
 			{MESSAGES.map((m) => (
 				<rect key={m.y} {...m} height="16" rx="8" fill="currentColor" />
@@ -230,7 +231,7 @@ export const MockRadar: React.FC<MockRadarProps> = () => {
 				fontSize="7"
 				fontWeight="800"
 			>
-				VOICE
+				{t("components.common.art.mocks.radar.voice")}
 			</text>
 			<rect
 				x="564"
@@ -249,7 +250,7 @@ export const MockRadar: React.FC<MockRadarProps> = () => {
 				fontSize="7"
 				fontWeight="800"
 			>
-				MSG
+				{t("components.common.art.mocks.radar.msg")}
 			</text>
 			<rect
 				x="490"
@@ -267,7 +268,7 @@ export const MockRadar: React.FC<MockRadarProps> = () => {
 				fontSize="8"
 				opacity="0.6"
 			>
-				ACCESS · IP ALLOW-LIST
+				{t("components.common.art.mocks.radar.access-ip-allow")}
 			</text>
 			<text
 				x="502"
@@ -276,7 +277,7 @@ export const MockRadar: React.FC<MockRadarProps> = () => {
 				fontSize="12"
 				fontWeight="800"
 			>
-				Operator 02
+				{t("components.common.art.mocks.radar.operator-02")}
 			</text>
 		</>
 	);

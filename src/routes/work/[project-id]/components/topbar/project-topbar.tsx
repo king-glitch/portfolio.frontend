@@ -8,7 +8,6 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { IconButton } from "@/components/common/buttons/icon-button";
 import { PillButton } from "@/components/common/buttons/pill-button";
-import { CursorLabel } from "@/types/cursor";
 import { PillSize, PillVariant } from "@/types/ui";
 import { ProgressBar } from "@/routes/work/[project-id]/components/topbar/progress-bar";
 import { RollingCounter } from "@/routes/work/[project-id]/components/topbar/rolling-counter";
@@ -23,13 +22,11 @@ interface ProjectTopbarProps {
 	showCounter: boolean;
 	prevTo?: string;
 	nextTo?: string;
-	jsonOpen: boolean;
 	onClose: () => void;
-	onToggleJson: () => void;
 	barRef: React.Ref<HTMLDivElement>;
 }
 
-/** Close, JSON toggle, title, rolling counter, prev/next and the progress hairline. */
+/** Close, title, rolling counter, prev/next and the progress hairline. */
 export const ProjectTopbar: React.FC<ProjectTopbarProps> = ({
 	num,
 	name,
@@ -38,9 +35,7 @@ export const ProjectTopbar: React.FC<ProjectTopbarProps> = ({
 	showCounter,
 	prevTo,
 	nextTo,
-	jsonOpen,
 	onClose,
-	onToggleJson,
 	barRef,
 }) => {
 	const { t } = useTranslation();
@@ -60,23 +55,14 @@ export const ProjectTopbar: React.FC<ProjectTopbarProps> = ({
 	];
 	return (
 		<header className="absolute inset-x-0 top-0 z-5 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4 bg-background px-[clamp(16px,4vw,56px)] py-5.5">
-			<div className="flex gap-2 justify-self-start">
+			<div className="justify-self-start">
 				<PillButton
 					variant={PillVariant.Outline}
 					magnetic
-					cursor={CursorLabel.Close}
 					onClick={onClose}
 				>
 					<RiCloseLine data-icon="inline-start" />
 					{t("work.topbar.close")}
-				</PillButton>
-				<PillButton
-					variant={jsonOpen ? PillVariant.Solid : PillVariant.Outline}
-					aria-pressed={jsonOpen}
-					onClick={onToggleJson}
-					className="font-mono text-[13px] font-bold max-desk:hidden"
-				>
-					{t("work.topbar.json")}
 				</PillButton>
 			</div>
 			<span className="text-sm font-semibold whitespace-nowrap max-desk:hidden">

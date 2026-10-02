@@ -8,7 +8,10 @@ import { Eyebrow } from "@/components/common/typography/eyebrow";
 import { DisplayHeading } from "@/components/common/typography/display-heading";
 import { Skeleton } from "@/components/ui/skeleton";
 import { config } from "@/config";
+import { postsQuery } from "@/api/queries/portfolio";
 import i18n from "@/lib/i18n";
+import { queryClient } from "@/lib/query-client";
+import { preloadQueries } from "@/lib/route-data";
 import { filterByTag, parseTagParam, uniqueTags } from "@/lib/portfolio/tags";
 import { DisplayVariant } from "@/types/ui";
 import { FeaturedPost } from "@/routes/notes/components/featured-post";
@@ -17,6 +20,11 @@ import { PostGrid } from "@/routes/notes/components/post-grid";
 import { TagFilter } from "@/routes/notes/components/tag-filter";
 import { TagFilterSkeleton } from "@/routes/notes/components/tag-filter-skeleton";
 import type { Route } from "./+types/index";
+
+/** Client navigations wait for this page's data, so the transition lands on the loaded page. */
+export function clientLoader() {
+	return preloadQueries(queryClient.ensureQueryData(postsQuery()));
+}
 
 export function meta(_args: Route.MetaArgs) {
 	return [{ title: i18n.t("notes.meta.title") }];

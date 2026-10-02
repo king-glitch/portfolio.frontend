@@ -1,10 +1,11 @@
-// style-lint-ignore-file hardcoded-jsx-text -- decorative SVG screen mock labels (not UI copy), ported verbatim from design/Mock.dc.html
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { mockData } from "@/lib/art/mock-data";
 
 interface MockPixelMainProps {}
 
 export const MockPixelMain: React.FC<MockPixelMainProps> = () => {
+	const { t } = useTranslation();
 	return (
 		<>
 			{mockData.resources.map((rs) => (
@@ -47,7 +48,7 @@ export const MockPixelMain: React.FC<MockPixelMainProps> = () => {
 				fontWeight="700"
 				opacity="0.7"
 			>
-				MISSION
+				{t("components.common.art.mocks.pixel-main.mission")}
 			</text>
 			<text
 				x="38"
@@ -56,7 +57,7 @@ export const MockPixelMain: React.FC<MockPixelMainProps> = () => {
 				fontSize="13"
 				fontWeight="900"
 			>
-				Harvest 20 moon carrots
+				{t("components.common.art.mocks.pixel-main.harvest-20-moon")}
 			</text>
 			{mockData.pixelPlots.map((pp) => (
 				<g key={`${pp.x}-${pp.y}`}>

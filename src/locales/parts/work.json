@@ -23,21 +23,11 @@
 			"project": "Project",
 			"scroll": "Scroll →"
 		},
-		"json": {
-			"blocks": {
-				"count-one": "{{count}} block",
-				"count-other": "{{count}} blocks"
-			},
-			"close": "Close JSON",
-			"description": "Block JSON for this page",
-			"title": "GET /projects/{{num}}"
-		},
 		"meta": {
 			"title": "Project — William Siefert"
 		},
 		"topbar": {
-			"close": "Close",
-			"json": "{ } JSON"
+			"close": "Close"
 		},
 		"viewport": {
 			"label": "Project {{name}}, scroll horizontally"

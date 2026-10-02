@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { TerminalInput } from "@/components/shared/terminal/terminal-input";
 import { TerminalLine } from "@/components/shared/terminal/terminal-line";
@@ -22,10 +22,11 @@ export const TerminalDialog: React.FC<TerminalDialogProps> = () => {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const outputRef = useRef<HTMLDivElement>(null);
 
-	useEffect(() => {
+	// Before paint, so new output never flashes above the fold; also on open (the log mounts with the popup).
+	useLayoutEffect(() => {
 		const el = outputRef.current;
 		if (el) el.scrollTop = el.scrollHeight;
-	}, [lines]);
+	}, [lines, terminalOpen]);
 
 	const submit = () => {
 		run(value);
@@ -46,7 +47,7 @@ export const TerminalDialog: React.FC<TerminalDialogProps> = () => {
 				showCloseButton={false}
 				initialFocus={inputRef}
 				onClick={() => inputRef.current?.focus()}
-				className="top-auto bottom-4 left-4 z-(--z-terminal) h-[min(58dvh,520px)] w-[min(720px,calc(100vw-32px))] max-w-none translate-x-0 translate-y-0 grid-rows-[auto_minmax(0,1fr)_auto] gap-0 overflow-hidden rounded-[22px] bg-neutral-950 p-0 font-mono text-neutral-50 ring-1 ring-white/16 sm:max-w-none"
+				className="top-auto bottom-4 left-4 z-(--z-terminal) flex h-[min(58dvh,520px)] w-[min(720px,calc(100vw-32px))] max-w-none translate-x-0 translate-y-0 flex-col gap-0 overflow-hidden rounded-[22px] bg-neutral-950 p-0 font-mono text-neutral-50 ring-1 ring-white/16 sm:max-w-none"
 			>
 				<TerminalTitlebar />
 				<DialogDescription className="sr-only">
@@ -55,7 +56,7 @@ export const TerminalDialog: React.FC<TerminalDialogProps> = () => {
 				<div
 					ref={outputRef}
 					role="log"
-					className="flex min-h-0 flex-col gap-1.5 overflow-y-auto px-4 py-3.5 text-[13px] leading-normal"
+					className="flex min-h-0 flex-1 flex-col gap-1.5 overflow-y-auto overscroll-contain px-4 py-3.5 text-[13px] leading-normal"
 				>
 					{lines.map((line, i) => (
 						<TerminalLine key={i} line={line} />

@@ -8,11 +8,12 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { config } from "@/config";
 import { workPath } from "@/lib/routes";
+import type { MenuHover } from "@/types/ui";
 
 interface MenuProjectsProps {
-	onHover: (projectId: string) => void;
-	/** Called on link click so the menu can close. */
-	onSelect: () => void;
+	onHover: (hover: MenuHover) => void;
+	/** Link click: the menu closes, then navigates to `to`. */
+	onSelect: (to: string) => void;
 }
 
 const SKELETON_ROWS = Array.from(
@@ -46,9 +47,13 @@ export const MenuProjects: React.FC<MenuProjectsProps> = ({
 				variant="ghost"
 				nativeButton={false}
 				render={<Link to={workPath(project.id)} viewTransition />}
-				onClick={onSelect}
-				onMouseEnter={() => onHover(project.id)}
-				onFocus={() => onHover(project.id)}
+				onClick={(e) => {
+					// the menu closes first, then navigates (see SiteMenu)
+					e.preventDefault();
+					onSelect(workPath(project.id));
+				}}
+				onMouseEnter={() => onHover({ id: project.id, project })}
+				onFocus={() => onHover({ id: project.id, project })}
 				className="h-11 w-full justify-between gap-4 rounded-none border-0 border-b border-current/25 px-0 text-[19px] font-bold tracking-[-0.02em] transition-[padding] duration-500 hover:bg-transparent hover:pl-3 focus-visible:pl-3 focus-visible:ring-0 dark:hover:bg-transparent"
 			>
 				<span>{project.name}</span>

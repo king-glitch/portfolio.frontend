@@ -59,8 +59,12 @@ type BlockParamsMap = { [B in Block as B["type"]]: B["params"] };
 /** `params` of one block type. */
 export type BlockParams<T extends BlockType> = BlockParamsMap[T];
 
-/** Props of every block component: its params, its 1-based position among non-header blocks and the project's motif. */
-export type BlockProps<T extends BlockType> = BlockParams<T> & {
+/** What the renderer adds to every block: its 1-based position among non-header blocks and the project's motif. */
+export interface BlockExtras {
 	index: number;
 	projectKind: MotifKind;
-};
+}
+
+/** Props of every block component: its params plus the extras it does not already define (the header's own `index` wins). */
+export type BlockProps<T extends BlockType> = BlockParams<T> &
+	Omit<BlockExtras, keyof BlockParams<T>>;

@@ -1,3 +1,5 @@
+import type { ProjectSummary } from "@/api/types/portfolio/project";
+
 export enum PillVariant {
 	/** Filled with the foreground colour (prototype `--pill`). */
 	Solid = "solid",
@@ -54,4 +56,10 @@ export interface FilterOption<T extends string> {
 export enum Theme {
 	Light = "light",
 	Dark = "dark",
+}
+
+/** What the menu preview shows: a page by id, or a hovered project. */
+export interface MenuHover {
+	id: string;
+	project?: ProjectSummary;
 }

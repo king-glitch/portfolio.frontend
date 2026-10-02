@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 
 interface PreloaderProps {}
 
-/** First-load count 000..100 with a clip-path wipe (prototype PRELOADER). Hero animations wait on `usePreloader().loaded`. */
+/** First-load count 000..100, then the sheet lifts away while the page pushes up beneath it. Hero animations wait on `usePreloader().loaded`. */
 export const Preloader: React.FC<PreloaderProps> = () => {
 	const { t } = useTranslation();
 	const { phase, numRef, barRef } = usePreloaderProgress();
@@ -21,8 +21,8 @@ export const Preloader: React.FC<PreloaderProps> = () => {
 			aria-hidden="true"
 			style={{ transitionDuration: `${config.shell.preloader.wipeMs}ms` }}
 			className={cn(
-				"fixed inset-0 z-400 box-border flex flex-col justify-between bg-foreground p-[clamp(16px,4vw,48px)] text-background transition-[clip-path] ease-[cubic-bezier(.76,0,.24,1)]",
-				out && "pointer-events-none [clip-path:inset(0_0_100%_0)]",
+				"fixed inset-0 z-400 box-border flex flex-col justify-between overflow-hidden bg-foreground p-[clamp(16px,4vw,48px)] text-background transition-[translate,border-radius] ease-(--ease-wipe)",
+				out && "pointer-events-none -translate-y-full rounded-b-[36px]",
 			)}
 		>
 			<div className="flex justify-between gap-4 text-[13px] font-bold tracking-[0.14em] uppercase">

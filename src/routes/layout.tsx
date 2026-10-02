@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Outlet } from "react-router";
 import { PillButton } from "@/components/common/buttons/pill-button";
@@ -7,8 +7,11 @@ import { SiteMenu } from "@/components/shared/shell/site-menu";
 import { SiteNav } from "@/components/shared/shell/site-nav";
 import { TerminalDialog } from "@/components/shared/terminal/terminal-dialog";
 import { StickyCursor } from "@/components/shared/shell/sticky-cursor";
+import { usePreloader } from "@/contexts/preloader-context";
 import { useShell } from "@/contexts/shell-context";
+import { cn } from "@/lib/utils";
 import { useChromeVisible } from "@/hooks/use-chrome-visible";
+import { markInteractive } from "@/lib/route-data";
 
 interface LayoutProps {}
 
@@ -17,6 +20,9 @@ const Layout: React.FC<LayoutProps> = () => {
 	const { t } = useTranslation();
 	const { setTerminalOpen } = useShell();
 	const chrome = useChromeVisible();
+	const { loaded } = usePreloader();
+	// From now on route loaders wait for their data (client navigations).
+	useEffect(markInteractive, []);
 
 	return (
 		<>
@@ -35,7 +41,9 @@ const Layout: React.FC<LayoutProps> = () => {
 			<Preloader />
 			<SiteNav />
 			<SiteMenu />
-			<Outlet />
+			<div className={cn(loaded && "motion-safe:animate-content-rise")}>
+				<Outlet />
+			</div>
 			{chrome ? (
 				<PillButton
 					magnetic

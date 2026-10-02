@@ -72,7 +72,14 @@ export type Block =
 	  >
 	| BlockBase<
 			BlockType.Lineage,
-			{ label: string; from: string; to: string; text: string }
+			{
+				label: string;
+				from: string;
+				/** Project id of `from`, when it is one of the listed projects. */
+				fromId?: string;
+				to: string;
+				text: string;
+			}
 	  >;
 
 /** Params of one block type, e.g. `BlockProps<BlockType.Quote>`. */

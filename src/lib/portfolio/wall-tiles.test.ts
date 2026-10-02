@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test";
 import { config } from "@/config";
-import { WALL_CELLS } from "@/routes/about/components/wall/layout";
+import { WALL_CELLS } from "@/lib/portfolio/wall-tiles";
 
 test("27 tiles fill the 10x7 grid without overlap", () => {
 	const taken = new Set<string>();

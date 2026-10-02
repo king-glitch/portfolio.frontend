@@ -52,15 +52,12 @@
 			"aria-label": "{{channel}}: {{value}}"
 		},
 		"cursor": {
-			"close": "Close",
 			"drag": "Drag",
 			"look-closer": "Look closer",
 			"next": "Next",
 			"open": "Open",
 			"read": "Read",
-			"say-hi": "Say hi",
-			"view": "View",
-			"write": "Write"
+			"view": "View"
 		},
 		"errors": {
 			"boundary": {

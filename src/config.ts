@@ -1,4 +1,3 @@
-// style-lint-ignore-next-line no-relative-import -- config.ts is loaded by routes.ts through the React Router config loader, which has no @/ alias
 import { ProjectFilter } from "./api/types/portfolio/enums";
 
 /**
@@ -89,18 +88,26 @@ export const config = {
 		},
 		cursor: {
 			ringPx: 36,
+			/** Filled circle over links and buttons: the blend inverts what is under it. */
+			hoverRingPx: 64,
 			labelRingPx: 88,
-			dotPx: 6,
-			snapMaxWidthPx: 900,
-			snapMaxHeightPx: 240,
-			snapPadPx: 14,
-			snapRadiusPadPx: 7,
+			/** I-beam over text fields. */
+			textWidthPx: 2,
+			textHeightPx: 30,
 			lerp: 0.2,
+			sizeLerp: 0.16,
+			/** How far the ring is pulled from the pointer toward a magnetic element's centre. */
+			magnetPull: 0.35,
+			/** Squash and stretch along the movement: scale gained per px/frame, capped. */
+			stretchPerPx: 0.012,
+			stretchMax: 0.45,
+			pressScale: 0.82,
 			magnetic: { x: 0.28, y: 0.38 },
 			labelAttribute: "data-cursor",
 			magneticAttribute: "data-magnetic",
-			snapAttribute: "data-snap",
-			snapSelector: "a, button, [data-snap]",
+			hoverSelector: "a, button, [role=button], label, summary",
+			textSelector:
+				"input:not([type=button]):not([type=checkbox]):not([type=radio]), textarea, [contenteditable=true]",
 		},
 		indexPreview: {
 			lerp: 0.14,
@@ -235,11 +242,6 @@ export const config = {
 			visiblePanelViewports: 1.5,
 			keyStepViewport: 0.4,
 			wheelLinePx: 32,
-		},
-		jsonSheet: {
-			widthPx: 520,
-			truncateAt: 64,
-			truncateKeep: 62,
 		},
 		panel: {
 			wideVw: 120,

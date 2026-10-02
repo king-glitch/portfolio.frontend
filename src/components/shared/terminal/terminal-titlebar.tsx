@@ -9,7 +9,7 @@ interface TerminalTitlebarProps {}
 export const TerminalTitlebar: React.FC<TerminalTitlebarProps> = () => {
 	const { t } = useTranslation();
 	return (
-		<div className="flex items-center justify-between gap-3 border-b border-white/12 px-4 py-3">
+		<div className="flex shrink-0 items-center justify-between gap-3 border-b border-white/12 px-4 py-3">
 			<div className="flex items-center gap-3">
 				<span aria-hidden="true" className="flex gap-1.5">
 					{[0, 1, 2].map((i) => (

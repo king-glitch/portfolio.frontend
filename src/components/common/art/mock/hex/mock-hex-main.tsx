@@ -1,5 +1,5 @@
-// style-lint-ignore-file hardcoded-jsx-text -- decorative SVG screen mock labels (not UI copy), ported verbatim from design/Mock.dc.html
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { mockData } from "@/lib/art/mock-data";
 
 const LIMBS = [
@@ -12,6 +12,7 @@ const LIMBS = [
 interface MockHexMainProps {}
 
 export const MockHexMain: React.FC<MockHexMainProps> = () => {
+	const { t } = useTranslation();
 	return (
 		<>
 			{mockData.hexMap.map((hm) => (
@@ -73,10 +74,10 @@ export const MockHexMain: React.FC<MockHexMainProps> = () => {
 				fontWeight="900"
 				letterSpacing="-0.03em"
 			>
-				Wild mech
+				{t("components.common.art.mocks.hex-main.wild-mech")}
 			</text>
 			<text x="486" y="86" fill="currentColor" fontSize="8" opacity="0.6">
-				Wandering · Lv 12
+				{t("components.common.art.mocks.hex-main.status")}
 			</text>
 			{mockData.stats.map((st) => (
 				<g key={st.name}>
@@ -125,7 +126,7 @@ export const MockHexMain: React.FC<MockHexMainProps> = () => {
 				fontWeight="900"
 				letterSpacing="0.08em"
 			>
-				CAPTURE
+				{t("components.common.art.mocks.hex-main.capture")}
 			</text>
 			{mockData.party.map((pt) => (
 				<rect
@@ -149,7 +150,7 @@ export const MockHexMain: React.FC<MockHexMainProps> = () => {
 				letterSpacing="0.12em"
 				opacity="0.6"
 			>
-				PARTY
+				{t("components.common.art.mocks.hex-main.party")}
 			</text>
 		</>
 	);
