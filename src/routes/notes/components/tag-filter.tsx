@@ -1,7 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { FilterToggle } from "@/components/common/filters/filter-toggle";
 import { cn } from "@/lib/utils";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import type { FilterOption } from "@/types/ui";
 
 /** Value of the "All" chip; real tags are never blank (see `parseTagParam`). */
 const ALL = "";
@@ -22,34 +23,21 @@ export const TagFilter: React.FC<TagFilterProps> = ({
 	className,
 }) => {
 	const { t } = useTranslation();
-	const options = [
+	const options: FilterOption<string>[] = [
 		{ id: ALL, label: t("notes.list.filter.all") },
 		...tags.map((tag) => ({ id: tag, label: tag })),
 	];
 	return (
-		<ToggleGroup
-			aria-label={t("notes.list.filter.aria-label")}
-			variant="outline"
-			value={[value ?? ALL]}
-			onValueChange={([next]) => {
-				if (next !== undefined)
-					onChange(next === ALL ? undefined : next);
-			}}
+		<FilterToggle
+			ariaLabel={t("notes.list.filter.aria-label")}
+			value={value ?? ALL}
+			options={options}
+			onChange={(next) => onChange(next === ALL ? undefined : next)}
 			className={cn(
 				"max-w-full flex-nowrap overflow-x-auto md:max-w-115 md:flex-wrap md:justify-end",
 				className,
 			)}
-		>
-			{options.map((option) => (
-				<ToggleGroupItem
-					key={option.id}
-					value={option.id}
-					className="shrink-0 rounded-pill px-4"
-				>
-					{option.label}
-				</ToggleGroupItem>
-			))}
-		</ToggleGroup>
+		/>
 	);
 };
 

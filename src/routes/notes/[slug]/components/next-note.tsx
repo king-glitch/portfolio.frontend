@@ -32,7 +32,7 @@ export const NextNote: React.FC<NextNoteProps> = ({ slug }) => {
 				<span className="block text-[13px] font-medium tracking-[0.16em] text-muted-foreground uppercase">
 					{t("notes.post.next.eyebrow", { num: next.num })}
 				</span>
-				<span className="notes-outline mt-5 block text-[clamp(40px,7vw,120px)] leading-[0.92] font-extrabold tracking-[-0.065em]">
+				<span className="mt-5 block text-[clamp(40px,7vw,120px)] leading-[0.92] font-extrabold tracking-[-0.065em] text-outline">
 					{next.title}
 				</span>
 			</span>

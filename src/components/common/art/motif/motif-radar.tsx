@@ -30,7 +30,7 @@ export const MotifRadar: React.FC<MotifRadarProps> = () => {
 					strokeDasharray="2 6"
 				/>
 			</g>
-			<g className="art-spin">
+			<g className="origin-[200px_150px] transform-view motion-safe:animate-art-spin">
 				<path
 					d="M200 150 L200 30 A120 120 0 0 1 284.85 65.15 Z"
 					fill="currentColor"
@@ -49,7 +49,11 @@ export const MotifRadar: React.FC<MotifRadarProps> = () => {
 				{BLIPS.map((b) => (
 					<circle
 						key={`${b.cx}-${b.cy}`}
-						className={b.blink ? "art-blink" : undefined}
+						className={
+							b.blink
+								? "motion-safe:animate-art-blink"
+								: undefined
+						}
 						cx={b.cx}
 						cy={b.cy}
 						r={b.r}

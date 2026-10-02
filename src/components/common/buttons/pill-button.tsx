@@ -6,7 +6,7 @@ import type { CursorLabel } from "@/types/cursor";
 import { PillSize, PillVariant } from "@/types/ui";
 
 const pillVariants = cva(
-	"rounded-pill px-5 font-semibold transition-[background-color,color,transform] duration-300",
+	"rounded-pill px-5 font-semibold transition-[background-color,color,transform] duration-300 data-magnetic:duration-500 data-magnetic:ease-(--ease-out-expo)",
 	{
 		variants: {
 			variant: {

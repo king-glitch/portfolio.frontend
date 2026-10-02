@@ -42,7 +42,7 @@ export const MenuPageLink: React.FC<MenuPageLinkProps> = ({
 			className="group/row h-auto w-full justify-start rounded-none border-0 border-b border-current/30 px-0 py-2 text-left whitespace-normal transition-[opacity,padding] duration-700 ease-[cubic-bezier(.16,1,.3,1)] hover:bg-transparent hover:pl-5.5 focus-visible:pl-5.5 focus-visible:ring-0 dark:hover:bg-transparent"
 		>
 			<span
-				className="menu-in flex w-full items-center gap-5.5"
+				className="flex w-full items-center gap-5.5 opacity-0 motion-safe:animate-menu-in motion-reduce:opacity-100"
 				style={{ animationDelay: `${delayS}s` }}
 			>
 				<span className="w-7 text-[13px] font-semibold tabular-nums opacity-50">
@@ -51,7 +51,7 @@ export const MenuPageLink: React.FC<MenuPageLinkProps> = ({
 				<span className="grow text-[clamp(48px,7.4vw,124px)] leading-[0.98] font-extrabold tracking-[-0.065em]">
 					{t(titleKey)}
 				</span>
-				<span className="max-w-47.5 text-right text-sm font-normal opacity-60 max-[760px]:hidden">
+				<span className="max-w-47.5 text-right text-sm font-normal opacity-60 max-desk:hidden">
 					{t(subKey)}
 				</span>
 				<RiArrowRightUpLine className="size-8 -translate-x-3 opacity-0 transition-[opacity,translate] duration-500 group-hover/row:translate-x-0 group-hover/row:opacity-100" />

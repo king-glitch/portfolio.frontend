@@ -42,7 +42,7 @@ export const MenuJumps: React.FC<MenuJumpsProps> = ({ onJump }) => {
 	const { t } = useTranslation();
 	return (
 		<div
-			className="menu-in flex flex-wrap gap-2"
+			className="flex flex-wrap gap-2 opacity-0 motion-safe:animate-menu-in motion-reduce:opacity-100"
 			style={{ animationDelay: "0.4s" }}
 		>
 			{JUMPS.map(({ section, labelKey }) => (

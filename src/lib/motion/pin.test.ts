@@ -1,5 +1,10 @@
 import { describe, expect, test } from "bun:test";
-import { pinExtra, pinHeight, pinProgress, pinTranslate } from "@/lib/motion/pin";
+import {
+	pinExtra,
+	pinHeight,
+	pinProgress,
+	pinTranslate,
+} from "@/lib/motion/pin";
 
 describe("pin", () => {
 	test("scroll distance is the track overflow beyond the viewport", () => {

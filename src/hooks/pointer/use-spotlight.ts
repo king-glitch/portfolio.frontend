@@ -33,7 +33,12 @@ export function useSpotlight(
 		const el = sectionRef.current;
 		if (!el) return;
 		const r = el.getBoundingClientRect();
-		box.current = { left: r.left, docTop: r.top + window.scrollY, width: r.width, height: r.height };
+		box.current = {
+			left: r.left,
+			docTop: r.top + window.scrollY,
+			width: r.width,
+			height: r.height,
+		};
 	});
 
 	useEffect(() => {
@@ -62,12 +67,25 @@ export function useSpotlight(
 		const top = docTop - window.scrollY;
 		const px = pointer.current.x - left;
 		const py = pointer.current.y - top;
-		const inside = tracking && px >= 0 && px <= width && py >= 0 && py <= height;
-		const goal = spotlightGoal(width, height, revealed, inside, config.home.spotlight);
+		const inside =
+			tracking && px >= 0 && px <= width && py >= 0 && py <= height;
+		const goal = spotlightGoal(
+			width,
+			height,
+			revealed,
+			inside,
+			config.home.spotlight,
+		);
 		const targetX = revealed ? width / 2 : px;
 		const targetY = revealed ? height / 2 : py;
 		const s = state.current;
-		const next = stepSpotlight(s, goal, targetX, targetY, config.home.spotlight);
+		const next = stepSpotlight(
+			s,
+			goal,
+			targetX,
+			targetY,
+			config.home.spotlight,
+		);
 		const settled =
 			Math.abs(next.radius - s.radius) < 0.05 &&
 			Math.abs(next.x - s.x) < 0.05 &&

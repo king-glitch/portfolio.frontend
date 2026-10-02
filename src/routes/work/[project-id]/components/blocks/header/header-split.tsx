@@ -6,7 +6,7 @@ import { DisplayHeading } from "@/components/common/typography/display-heading";
 import { DisplayVariant } from "@/types/ui";
 import type { BlockParams } from "@/types/work";
 import { ArtFrame } from "@/routes/work/[project-id]/components/blocks/art-frame";
-import { PanelLabel } from "@/routes/work/[project-id]/components/blocks/panel-label";
+import { Eyebrow } from "@/components/common/typography/eyebrow";
 import { TagList } from "@/routes/work/[project-id]/components/blocks/tag-list";
 
 const ART_ORDER: Record<HeaderVariant, string> = {
@@ -40,7 +40,7 @@ export const HeaderSplit: React.FC<HeaderSplitProps> = ({
 		{ id: "project", label: t("work.header.project"), value: subtitle },
 	];
 	return (
-		<Panel className="grid grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] gap-[4vw] mob:grid-cols-1">
+		<Panel className="grid grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] gap-[4vw] max-desk:grid-cols-1">
 			<div className="flex min-w-0 flex-col justify-between gap-8">
 				<TagList tags={tags} data-speed="0.9" />
 				<DisplayHeading
@@ -50,13 +50,13 @@ export const HeaderSplit: React.FC<HeaderSplitProps> = ({
 				>
 					{title}
 				</DisplayHeading>
-				<dl className="m-0 grid grid-cols-3 gap-6 border-t border-border pt-4.5 mob:grid-cols-1">
+				<dl className="m-0 grid grid-cols-3 gap-6 border-t border-border pt-4.5 max-desk:grid-cols-1">
 					{meta.map((item) => (
 						<div key={item.id}>
 							<dt>
-								<PanelLabel className="text-[11px]">
+								<Eyebrow className="text-[11px]">
 									{item.label}
-								</PanelLabel>
+								</Eyebrow>
 							</dt>
 							<dd className="m-0 mt-1.5 text-base font-semibold tabular-nums">
 								{item.value}
@@ -70,9 +70,9 @@ export const HeaderSplit: React.FC<HeaderSplitProps> = ({
 				data-speed="1.22"
 				className={ART_ORDER[variant]}
 			>
-				<PanelLabel className="absolute bottom-4.5 left-5 font-semibold tracking-normal normal-case">
+				<Eyebrow className="absolute bottom-4.5 left-5 font-semibold tracking-normal normal-case">
 					{t("work.header.scroll")}
-				</PanelLabel>
+				</Eyebrow>
 			</ArtFrame>
 		</Panel>
 	);

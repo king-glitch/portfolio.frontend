@@ -83,7 +83,7 @@ export const ExploreWall: React.FC<ExploreWallProps> = ({
 		>
 			<div
 				ref={wallRef}
-				className="about-wall absolute top-0 left-0 will-change-transform"
+				className="absolute top-0 left-0 will-change-transform [--wall-big:calc(72px*var(--k))] [--wall-cap-h:calc(44px*var(--k))] [--wall-donut:calc(96px*var(--k))] [--wall-hero:calc(96px*var(--k))] [--wall-ico:calc(72px*var(--k))] [--wall-label:calc(110px*var(--k))] [--wall-m:calc(18px*var(--k))] [--wall-s:max(11px,calc(14px*var(--k)))] [--wall-xs:max(10px,calc(12px*var(--k)))]"
 				style={wallStyle}
 			>
 				{tiles.map((tile) => (

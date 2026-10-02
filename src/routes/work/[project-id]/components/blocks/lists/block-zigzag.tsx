@@ -15,9 +15,9 @@ export const BlockZigzag: React.FC<BlockZigzagProps> = ({
 	index,
 }) => {
 	return (
-		<Panel className="flex w-auto flex-col gap-6 mob:overflow-y-auto">
+		<Panel className="flex w-auto flex-col gap-6 max-desk:overflow-y-auto">
 			<PanelHeading index={index}>{label}</PanelHeading>
-			<ol className="m-0 flex min-h-0 grow list-none gap-12 p-0 mob:flex-col">
+			<ol className="m-0 flex min-h-0 grow list-none gap-12 p-0 max-desk:flex-col">
 				{items.map((item, i) => {
 					const odd = i % 2 === 1;
 					return (
@@ -25,11 +25,11 @@ export const BlockZigzag: React.FC<BlockZigzagProps> = ({
 							key={item}
 							data-speed={odd ? "1.12" : "0.92"}
 							className={cn(
-								"flex w-[min(400px,80vw)] shrink-0 flex-col gap-4 mob:w-full mob:self-stretch",
+								"flex w-[min(400px,80vw)] shrink-0 flex-col gap-4 max-desk:w-full max-desk:self-stretch",
 								odd ? "self-end" : "self-start",
 							)}
 						>
-							<span className="work-outline text-[clamp(110px,12vw,200px)] leading-[0.78] font-black tracking-[-0.08em]">
+							<span className="text-[clamp(110px,12vw,200px)] leading-[0.78] font-black tracking-[-0.08em] text-outline">
 								{padCount(i + 1)}
 							</span>
 							<p className="m-0 text-[17px] leading-[1.55]">

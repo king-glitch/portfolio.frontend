@@ -4,7 +4,7 @@ import { ProjectMotif } from "@/components/common/art/project-motif";
 import { Panel } from "@/components/common/layout/panel";
 import { padCount } from "@/lib/portfolio/project-nav";
 import type { BlockProps } from "@/types/work";
-import { PanelLabel } from "@/routes/work/[project-id]/components/blocks/panel-label";
+import { Eyebrow } from "@/components/common/typography/eyebrow";
 
 interface BlockMotifFullProps extends BlockProps<BlockType.MotifFull> {}
 
@@ -15,7 +15,7 @@ export const BlockMotifFull: React.FC<BlockMotifFullProps> = ({
 	index,
 }) => {
 	return (
-		<Panel className="overflow-hidden p-0 mob:p-0">
+		<Panel className="overflow-hidden p-0 max-desk:p-0">
 			<div data-speed="1.25" className="absolute inset-0">
 				<ProjectMotif
 					kind={kind}
@@ -24,9 +24,9 @@ export const BlockMotifFull: React.FC<BlockMotifFullProps> = ({
 			</div>
 			{label ? (
 				<div className="absolute bottom-18 left-[clamp(16px,5vw,80px)] max-w-140 rounded-3xl bg-background px-6.5 py-6 ring-1 ring-border">
-					<PanelLabel>
+					<Eyebrow>
 						({padCount(index)}) {label}
-					</PanelLabel>
+					</Eyebrow>
 				</div>
 			) : null}
 		</Panel>

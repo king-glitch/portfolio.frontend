@@ -9,11 +9,11 @@ import { padCount } from "@/lib/portfolio/project-nav";
 import { workPath } from "@/lib/routes";
 import { CursorLabel } from "@/types/cursor";
 import type { BlockProps } from "@/types/work";
-import { PanelLabel } from "@/routes/work/[project-id]/components/blocks/panel-label";
+import { Eyebrow } from "@/components/common/typography/eyebrow";
 
 const nameVariants = cva(
 	"text-[clamp(44px,7.5vw,140px)] leading-[0.92] font-black tracking-[-0.07em]",
-	{ variants: { outline: { true: "work-outline text-left" } } },
+	{ variants: { outline: { true: "text-left text-outline" } } },
 );
 
 interface BlockLineageProps extends BlockProps<BlockType.Lineage> {}
@@ -30,9 +30,9 @@ export const BlockLineage: React.FC<BlockLineageProps> = ({
 	const source = projects.data?.find((p) => p.name === from);
 	return (
 		<Panel className="flex flex-col justify-between gap-7">
-			<PanelLabel>
+			<Eyebrow>
 				({padCount(index)}) {label}
-			</PanelLabel>
+			</Eyebrow>
 			<div className="flex flex-col gap-1">
 				{source ? (
 					<Link

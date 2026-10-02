@@ -11,6 +11,7 @@ import { SectionLabel } from "@/components/common/typography/section-label";
 import { Skeleton } from "@/components/ui/skeleton";
 import { config } from "@/config";
 import { yearsSince } from "@/lib/portfolio/time";
+import { HelloStatCell } from "@/routes/components/home/hello/hello-stat-cell";
 import { HelloStat } from "@/routes/components/home/hello/hello-stat";
 import { HelloWords } from "@/routes/components/home/hello/hello-words";
 import { HomeSection } from "@/routes/components/home/home-section";
@@ -50,7 +51,8 @@ export const Hello: React.FC<HelloProps> = () => {
 		const skills = profile.data?.skills[0]?.items.length ?? 0;
 		const experience = profile.data?.experience ?? [];
 		const start =
-			experience.find((e) => /x10/i.test(e.title))?.start ?? experience[0]?.start;
+			experience.find((e) => /x10/i.test(e.title))?.start ??
+			experience[0]?.start;
 		return {
 			projects: { value: projects.data?.length ?? 0 },
 			languages: { value: skills },
@@ -73,7 +75,11 @@ export const Hello: React.FC<HelloProps> = () => {
 					{Array.from({ length: 4 }, (_, i) => (
 						<Skeleton
 							key={i}
-							className={i === 3 ? "h-[clamp(26px,3.4vw,54px)] w-2/3" : "h-[clamp(26px,3.4vw,54px)] w-full"}
+							className={
+								i === 3
+									? "h-[clamp(26px,3.4vw,54px)] w-2/3"
+									: "h-[clamp(26px,3.4vw,54px)] w-full"
+							}
 						/>
 					))}
 				</div>
@@ -89,13 +95,19 @@ export const Hello: React.FC<HelloProps> = () => {
 			const stat = map[id];
 			if (pending || !stat)
 				return (
-					<div key={id} className="flex flex-col gap-3.5 border-b py-7 pr-6 desk:border-r desk:border-b-0">
+					<HelloStatCell key={id}>
 						<Skeleton className="h-[clamp(54px,6.8vw,109px)] w-40" />
 						<Skeleton className="h-3.5 w-44" />
-					</div>
+					</HelloStatCell>
 				);
 			return (
-				<HelloStat key={id} value={stat.value} pad={pad} suffix={stat.suffix} label={t(labelKey)} />
+				<HelloStat
+					key={id}
+					value={stat.value}
+					pad={pad}
+					suffix={stat.suffix}
+					label={t(labelKey)}
+				/>
 			);
 		});
 	};
@@ -104,13 +116,17 @@ export const Hello: React.FC<HelloProps> = () => {
 		<HomeSection id={config.sections.about} pad={HomePad.Top}>
 			<div className="grid gap-12 desk:grid-cols-[minmax(0,1fr)_minmax(0,2.6fr)]">
 				<div className="flex flex-col items-start gap-6">
-					<SectionLabel index={1}>{t("home.hello.eyebrow")}</SectionLabel>
+					<SectionLabel index={1}>
+						{t("home.hello.eyebrow")}
+					</SectionLabel>
 					<PillButton
 						variant={PillVariant.Outline}
 						size={PillSize.Lg}
 						magnetic
 						nativeButton={false}
-						render={<Link to={config.routes.about} viewTransition />}
+						render={
+							<Link to={config.routes.about} viewTransition />
+						}
 					>
 						{t("home.hello.cta")}
 					</PillButton>

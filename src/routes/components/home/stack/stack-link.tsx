@@ -13,7 +13,7 @@ export const StackLink: React.FC<StackLinkProps> = ({ delayS }) => {
 			className="relative h-px min-w-5 flex-[1_1_0] bg-foreground/45 max-desk:h-7 max-desk:w-px max-desk:flex-none max-desk:self-center"
 		>
 			<span
-				className="absolute top-[-3px] left-0 size-1.75 animate-packet rounded-full bg-foreground motion-reduce:hidden max-desk:hidden"
+				className="absolute -top-0.75 left-0 size-1.75 animate-packet rounded-full bg-foreground motion-reduce:hidden max-desk:hidden"
 				style={{ animationDelay: `${delayS.toFixed(2)}s` }}
 			/>
 		</div>

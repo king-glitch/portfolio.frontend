@@ -36,11 +36,11 @@ export const MotifOrbit: React.FC<MotifOrbitProps> = () => {
 				/>
 			</g>
 			<circle cx="200" cy="150" r="28" fill="currentColor" />
-			<g className="art-spin-slow">
+			<g className="origin-[200px_150px] transform-view motion-safe:animate-art-spin-slow">
 				<circle cx="270" cy="150" r="5" fill="currentColor" />
 				<circle cx="130" cy="150" r="3" fill="currentColor" />
 			</g>
-			<g className="art-spin-rev">
+			<g className="origin-[200px_150px] transform-view motion-safe:animate-art-spin-rev">
 				<circle
 					cx="200"
 					cy="58"

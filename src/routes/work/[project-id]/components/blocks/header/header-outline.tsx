@@ -4,7 +4,7 @@ import { BlockType } from "@/api/types/portfolio/enums";
 import { ProjectMotif } from "@/components/common/art/project-motif";
 import { Panel } from "@/components/common/layout/panel";
 import { PanelWidth, type BlockParams } from "@/types/work";
-import { PanelLabel } from "@/routes/work/[project-id]/components/blocks/panel-label";
+import { Eyebrow } from "@/components/common/typography/eyebrow";
 import { TagList } from "@/routes/work/[project-id]/components/blocks/tag-list";
 
 interface HeaderOutlineProps extends BlockParams<BlockType.ProjectHeader> {}
@@ -25,14 +25,14 @@ export const HeaderOutline: React.FC<HeaderOutlineProps> = ({
 			className="flex flex-col justify-between overflow-hidden"
 		>
 			<div className="flex flex-wrap justify-between gap-6">
-				<PanelLabel>
+				<Eyebrow>
 					{index} — {subtitle}
-				</PanelLabel>
+				</Eyebrow>
 				<TagList tags={tags} />
 			</div>
 			<h1
 				data-speed="0.85"
-				className="work-outline m-0 text-[clamp(80px,19vw,360px)] leading-[0.8] font-black tracking-[-0.075em] whitespace-nowrap"
+				className="m-0 text-[clamp(80px,19vw,360px)] leading-[0.8] font-black tracking-[-0.075em] whitespace-nowrap text-outline"
 			>
 				{title}
 			</h1>

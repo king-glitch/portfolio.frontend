@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useProjects } from "@/api/hooks/portfolio/use-projects";
+import { SectionBlurb } from "@/components/common/typography/section-blurb";
+import { QueryErrorAlert } from "@/components/common/feedback/query-error-alert";
 import { config } from "@/config";
 import { projectsForStop, STACK_STOPS } from "@/lib/portfolio/stack-stops";
 import { HomeSection } from "@/routes/components/home/home-section";
@@ -16,9 +18,10 @@ interface StackFlowProps {}
 /** "How a tap becomes a thing": six stops joined by moving packets; selecting one lists the projects that used it. */
 export const StackFlow: React.FC<StackFlowProps> = () => {
 	const { t } = useTranslation();
-	const { data } = useProjects();
+	const { data, isPending, isError, refetch } = useProjects();
 	const [selectedId, setSelectedId] = useState(STACK_STOPS[0]?.id);
-	const selected = STACK_STOPS.find((s) => s.id === selectedId) ?? STACK_STOPS[0];
+	const selected =
+		STACK_STOPS.find((s) => s.id === selectedId) ?? STACK_STOPS[0];
 
 	return (
 		<HomeSection id={config.sections.stack} pad={HomePad.Bottom}>
@@ -26,12 +29,15 @@ export const StackFlow: React.FC<StackFlowProps> = () => {
 				index={4}
 				label={t("home.stack.eyebrow")}
 				title={
-					<HomeTitle lines={[t("home.stack.title.line-1"), t("home.stack.title.line-2")]} />
+					<HomeTitle
+						lines={[
+							t("home.stack.lines.1"),
+							t("home.stack.lines.2"),
+						]}
+					/>
 				}
 				aside={
-					<p className="m-0 max-w-75 text-[15px] leading-normal text-muted-foreground">
-						{t("home.stack.description")}
-					</p>
+					<SectionBlurb>{t("home.stack.description")}</SectionBlurb>
 				}
 			/>
 			<div
@@ -42,19 +48,31 @@ export const StackFlow: React.FC<StackFlowProps> = () => {
 				{STACK_STOPS.map((stop, i) => (
 					<React.Fragment key={stop.id}>
 						{i > 0 ? (
-							<StackLink delayS={-i * config.home.stack.linkDelayStepS} />
+							<StackLink
+								delayS={-i * config.home.stack.linkDelayStepS}
+							/>
 						) : null}
 						<StackStop
 							stop={stop}
 							index={i}
-							count={data ? projectsForStop(stop, data).length : undefined}
+							count={
+								data
+									? projectsForStop(stop, data).length
+									: undefined
+							}
 							selected={stop.id === selected?.id}
 							onSelect={() => setSelectedId(stop.id)}
 						/>
 					</React.Fragment>
 				))}
 			</div>
-			{selected ? <StackUsedIn stop={selected} /> : null}
+			{isError ? (
+				<QueryErrorAlert
+					onRetry={() => void refetch()}
+					className="mt-10"
+				/>
+			) : null}
+			{selected && !isError ? <StackUsedIn stop={selected} /> : null}
 		</HomeSection>
 	);
 };

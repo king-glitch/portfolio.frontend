@@ -13,6 +13,7 @@ import { PreloaderProvider } from "@/contexts/preloader-context";
 import { ShellProvider } from "@/contexts/shell-context";
 import { config } from "@/config";
 import i18n from "@/lib/i18n";
+import { themeScript } from "@/lib/theme-script";
 import type { Route } from "./+types/root";
 import "@/main.css";
 
@@ -22,17 +23,18 @@ interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
 	return (
-		<html lang={config.i18n.defaultLocale} className="dark">
+		<html lang={config.i18n.defaultLocale} suppressHydrationWarning>
 			<head>
 				<meta charSet="utf-8" />
 				<meta
 					name="viewport"
 					content="width=device-width, initial-scale=1"
 				/>
+				<script dangerouslySetInnerHTML={{ __html: themeScript }} />
 				<Meta />
 				<Links />
 			</head>
-			<body>
+			<body className="print:bg-print-background print:text-print-foreground">
 				{children}
 				<ScrollRestoration />
 				<Scripts />

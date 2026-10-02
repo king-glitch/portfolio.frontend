@@ -20,7 +20,7 @@ export const ArchitectureNode: React.FC<ArchitectureNodeProps> = ({
 	return (
 		<div
 			className={cn(
-				"box-border flex min-h-55 w-[min(260px,72vw)] shrink-0 flex-col justify-between gap-5 rounded-3xl p-5.5 shadow-[inset_0_0_0_1px_var(--border)] transition-[background-color,color] duration-400 mob:min-h-0 mob:w-auto",
+				"box-border flex min-h-55 w-[min(260px,72vw)] shrink-0 flex-col justify-between gap-5 rounded-3xl p-5.5 shadow-[inset_0_0_0_1px_var(--border)] transition-[background-color,color] duration-400 max-desk:min-h-0 max-desk:w-auto",
 				last ? "bg-foreground text-background" : "bg-card",
 			)}
 		>

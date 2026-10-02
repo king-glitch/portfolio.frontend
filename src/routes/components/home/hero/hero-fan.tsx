@@ -26,15 +26,32 @@ export const HeroFan: React.FC<HeroFanProps> = () => {
 				/>
 			);
 		if (isPending)
-			return Array.from({ length: config.home.hero.fan.skeletonCount }, (_, i) => (
-				<HeroFanCard key={i} index={i} total={config.home.hero.fan.skeletonCount} />
-			));
+			return Array.from(
+				{ length: config.home.hero.fan.skeletonCount },
+				(_, i) => (
+					<HeroFanCard
+						key={i}
+						index={i}
+						total={config.home.hero.fan.skeletonCount}
+					/>
+				),
+			);
 		if (!data?.length)
-			return <QueryEmpty titleKey="home.index.empty.title" className="mx-auto max-w-md" />;
+			return (
+				<QueryEmpty
+					titleKey="home.index.empty.title"
+					className="mx-auto max-w-md"
+				/>
+			);
 		return (
 			<>
 				{data.map((project, i) => (
-					<HeroFanCard key={project.id} project={project} index={i} total={data.length} />
+					<HeroFanCard
+						key={project.id}
+						project={project}
+						index={i}
+						total={data.length}
+					/>
 				))}
 				<HeroTags />
 			</>
@@ -47,7 +64,7 @@ export const HeroFan: React.FC<HeroFanProps> = () => {
 				ref={deckRef}
 				role="group"
 				aria-label={t("home.hero.cards.aria-label")}
-				className="relative mt-[clamp(40px,5vw,72px)] h-[clamp(300px,33vw,520px)] w-full transform-3d will-change-transform max-desk:mt-6 max-desk:flex max-desk:h-auto max-desk:snap-x max-desk:snap-mandatory max-desk:gap-3.5 max-desk:overflow-x-auto max-desk:px-4 max-desk:pt-6 max-desk:pb-8"
+				className="relative mt-[clamp(40px,5vw,72px)] h-[clamp(300px,33vw,520px)] w-full will-change-transform transform-3d max-desk:mt-6 max-desk:flex max-desk:h-auto max-desk:snap-x max-desk:snap-mandatory max-desk:gap-3.5 max-desk:overflow-x-auto max-desk:px-4 max-desk:pt-6 max-desk:pb-8"
 			>
 				{renderCards()}
 			</div>

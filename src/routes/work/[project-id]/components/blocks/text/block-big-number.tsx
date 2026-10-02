@@ -5,7 +5,7 @@ import { DisplayHeading } from "@/components/common/typography/display-heading";
 import { padCount } from "@/lib/portfolio/project-nav";
 import { DisplayVariant } from "@/types/ui";
 import type { BlockProps } from "@/types/work";
-import { PanelLabel } from "@/routes/work/[project-id]/components/blocks/panel-label";
+import { Eyebrow } from "@/components/common/typography/eyebrow";
 
 interface BlockBigNumberProps extends BlockProps<BlockType.BigNumber> {}
 
@@ -17,7 +17,7 @@ export const BlockBigNumber: React.FC<BlockBigNumberProps> = ({
 	index,
 }) => {
 	return (
-		<Panel className="grid grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] items-end gap-[4vw] mob:grid-cols-1">
+		<Panel className="grid grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] items-end gap-[4vw] max-desk:grid-cols-1">
 			<div
 				data-speed="0.88"
 				className="text-[clamp(140px,24vw,440px)] leading-[0.78] font-black tracking-[-0.085em] whitespace-nowrap"
@@ -25,7 +25,7 @@ export const BlockBigNumber: React.FC<BlockBigNumberProps> = ({
 				{value}
 			</div>
 			<div data-speed="1.1" className="flex flex-col gap-4.5 pb-3">
-				<PanelLabel>({padCount(index)})</PanelLabel>
+				<Eyebrow>({padCount(index)})</Eyebrow>
 				<DisplayHeading variant={DisplayVariant.Subhead}>
 					{label}
 				</DisplayHeading>

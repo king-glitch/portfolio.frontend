@@ -15,10 +15,10 @@ export const HeroWord: React.FC<HeroWordProps> = ({
 	className,
 }) => {
 	return (
-		<span className="-mb-[0.08em] inline-block overflow-hidden pb-[0.08em] align-top">
+		<span className="mb-[-0.08em] inline-block overflow-hidden pb-[0.08em] align-top">
 			<span
 				className={cn(
-					"gated inline-block animate-rise motion-reduce:animate-none",
+					"inline-block animate-rise gated motion-reduce:animate-none",
 					className,
 				)}
 				style={{ animationDelay: `${delayS}s` }}

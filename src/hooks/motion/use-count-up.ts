@@ -30,11 +30,14 @@ export function useCountUp(
 		const observer = new IntersectionObserver(
 			([entry]) => {
 				if (!entry) return;
-				if (!entry.isIntersecting && entry.boundingClientRect.top >= 0) return;
+				if (!entry.isIntersecting && entry.boundingClientRect.top >= 0)
+					return;
 				observer.disconnect();
 				setRunning(true);
 			},
-			{ rootMargin: `0px 0px -${(1 - config.home.hello.countStartViewport) * 100}% 0px` },
+			{
+				rootMargin: `0px 0px -${(1 - config.home.hello.countStartViewport) * 100}% 0px`,
+			},
 		);
 		observer.observe(el);
 		return () => {
@@ -49,7 +52,10 @@ export function useCountUp(
 		if (!start.current) start.current = t;
 		const { countUpMs, countUpEasePower } = config.home.hello;
 		const elapsed = t - start.current;
-		el.textContent = padCount(countUpValue(elapsed, countUpMs, target, countUpEasePower), pad);
+		el.textContent = padCount(
+			countUpValue(elapsed, countUpMs, target, countUpEasePower),
+			pad,
+		);
 		if (elapsed >= countUpMs) setRunning(false);
 	}, running);
 }

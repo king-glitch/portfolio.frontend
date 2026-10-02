@@ -4,7 +4,7 @@ import { ProjectMedia } from "@/components/common/art/project-media";
 import { Panel } from "@/components/common/layout/panel";
 import { padCount } from "@/lib/portfolio/project-nav";
 import { PanelTone, type BlockProps } from "@/types/work";
-import { PanelLabel } from "@/routes/work/[project-id]/components/blocks/panel-label";
+import { Eyebrow } from "@/components/common/typography/eyebrow";
 
 interface BlockMockProps extends BlockProps<BlockType.Mock> {}
 
@@ -23,9 +23,9 @@ export const BlockMock: React.FC<BlockMockProps> = ({
 				data-speed="0.85"
 				className="flex flex-wrap items-baseline justify-between gap-6"
 			>
-				<PanelLabel>
+				<Eyebrow>
 					({padCount(index)}) {label}
-				</PanelLabel>
+				</Eyebrow>
 				<span className="text-[13px] text-muted-foreground">
 					{item.caption}
 				</span>

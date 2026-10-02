@@ -10,7 +10,7 @@ import { workPath } from "@/lib/routes";
 import { CursorLabel } from "@/types/cursor";
 
 const fanCardVariants = cva(
-	"group/fan relative aspect-4/3 w-[78vw] flex-none snap-center outline-none desk:absolute desk:top-0 desk:left-1/2 desk:w-[clamp(200px,24vw,390px)] max-desk:translate-none! max-desk:rotate-none! hover:z-40!",
+	"group/fan relative aspect-4/3 w-[78vw] flex-none snap-center outline-none hover:z-40! max-desk:translate-none! max-desk:rotate-none! desk:absolute desk:top-0 desk:left-1/2 desk:w-[clamp(200px,24vw,390px)]",
 );
 
 interface HeroFanCardProps {
@@ -36,8 +36,10 @@ export const HeroFanCard: React.FC<HeroFanCardProps> = ({
 	};
 	const body = (
 		<span
-			className="gated block size-full animate-fan-in motion-reduce:animate-none"
-			style={{ animationDelay: `${(fan.delayBaseS + index * fan.delayStepS).toFixed(2)}s` }}
+			className="block size-full animate-fan-in gated motion-reduce:animate-none"
+			style={{
+				animationDelay: `${(fan.delayBaseS + index * fan.delayStepS).toFixed(2)}s`,
+			}}
 		>
 			{project ? (
 				<ProjectPreviewCard
@@ -54,7 +56,9 @@ export const HeroFanCard: React.FC<HeroFanCardProps> = ({
 			to={workPath(project.id)}
 			viewTransition
 			data-cursor={CursorLabel.Open}
-			aria-label={t("home.hero.cards.open.aria-label", { name: project.name })}
+			aria-label={t("home.hero.cards.open.aria-label", {
+				name: project.name,
+			})}
 			className={fanCardVariants()}
 			style={style}
 		>

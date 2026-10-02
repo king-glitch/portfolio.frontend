@@ -59,7 +59,7 @@ export const SiteMenu: React.FC<SiteMenuProps> = () => {
 		>
 			<DialogContent
 				showCloseButton={false}
-				className="menu-wipe inset-0 z-150 h-dvh w-screen max-w-none translate-x-0 translate-y-0 gap-0 rounded-none bg-transparent p-0 ring-0 invert-scope sm:max-w-none data-open:animate-none! data-closed:animate-none!"
+				className="inset-0 z-150 h-dvh w-screen max-w-none translate-x-0 translate-y-0 gap-0 rounded-none bg-transparent p-0 ring-0 transition-[clip-path] duration-900 ease-[cubic-bezier(.87,0,.13,1)] invert-scope [clip-path:inset(0)] data-ending-style:duration-600 data-ending-style:[clip-path:inset(0_0_100%_0)] data-starting-style:[clip-path:inset(0_0_100%_0)] motion-reduce:duration-1 sm:max-w-none data-open:animate-none! data-closed:animate-none!"
 			>
 				<div className="flex h-full flex-col overflow-y-auto bg-background text-foreground invert-surface">
 					<DialogTitle className="sr-only">
@@ -83,7 +83,7 @@ export const SiteMenu: React.FC<SiteMenuProps> = () => {
 						</PillButton>
 					</div>
 
-					<div className="grid grow grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] gap-[5vw] px-[clamp(16px,5vw,64px)] pt-3 pb-7 max-[760px]:grid-cols-[minmax(0,1fr)]">
+					<div className="grid grow grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] gap-[5vw] px-[clamp(16px,5vw,64px)] pt-3 pb-7 max-desk:grid-cols-[minmax(0,1fr)]">
 						<nav
 							aria-label={t("shell.menu.nav.label")}
 							className="flex flex-col justify-center border-t border-current/30 [&:hover_a:not(:hover):not(:focus-visible)]:opacity-30 [&:hover_button:not(:hover):not(:focus-visible)]:opacity-30"

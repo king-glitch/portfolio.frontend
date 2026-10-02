@@ -15,7 +15,7 @@ export const EndCapTitle: React.FC<EndCapTitleProps> = ({ name, fillRef }) => {
 		return <Skeleton className="h-[clamp(56px,11vw,210px)] w-3/4" />;
 	return (
 		<div className="relative">
-			<DisplayHeading className="work-outline text-[clamp(56px,11vw,210px)] leading-[0.88]">
+			<DisplayHeading className="text-[clamp(56px,11vw,210px)] leading-[0.88] text-outline">
 				{name}
 			</DisplayHeading>
 			<DisplayHeading

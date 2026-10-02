@@ -28,7 +28,7 @@ export const PostCode: React.FC<PostCodeProps> = ({ lang, text }) => {
 				aria-label={t("notes.post.code.label", { lang })}
 				className="m-0 overflow-x-auto p-5 font-mono text-sm leading-[1.7]"
 			>
-				<code className="notes-code block w-max min-w-full">
+				<code className="block w-max min-w-full [counter-reset:line] *:block *:whitespace-pre *:before:mr-[1.5ch] *:before:inline-block *:before:w-[2.5ch] *:before:text-right *:before:opacity-35 *:before:content-[counter(line)] *:before:select-none *:before:[counter-increment:line]">
 					{lines.map((line, i) => (
 						<span
 							key={i}

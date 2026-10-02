@@ -14,12 +14,12 @@ export const BlockTimeline: React.FC<BlockTimelineProps> = ({
 	index,
 }) => {
 	return (
-		<Panel className="flex w-auto flex-col mob:overflow-y-auto">
+		<Panel className="flex w-auto flex-col max-desk:overflow-y-auto">
 			<PanelHeading index={index}>{label}</PanelHeading>
-			<ol className="relative m-0 flex grow list-none items-stretch p-0 mob:flex-col">
+			<ol className="relative m-0 flex grow list-none items-stretch p-0 max-desk:flex-col">
 				<li
 					aria-hidden="true"
-					className="absolute inset-x-0 top-1/2 h-px bg-foreground opacity-40 mob:hidden"
+					className="absolute inset-x-0 top-1/2 h-px bg-foreground opacity-40 max-desk:hidden"
 				/>
 				{items.map((item, i) => {
 					const entry = (

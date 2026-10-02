@@ -98,7 +98,8 @@ export function tileFx(
 	const f = cfg.falloff;
 	const sx = input.camX + input.tileX - input.vw / 2;
 	const sy = input.camY + input.tileY - input.vh / 2;
-	const d = Math.hypot(sx, sy) / (Math.max(input.vw, input.vh) * f.radiusRatio);
+	const d =
+		Math.hypot(sx, sy) / (Math.max(input.vw, input.vh) * f.radiusRatio);
 	const reveal = clamp01(
 		(input.introS - d * cfg.ripple.staggerS) / cfg.ripple.durationS,
 	);

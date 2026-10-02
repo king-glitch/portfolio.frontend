@@ -37,7 +37,10 @@ interface SpotlightLayerProps {
 }
 
 /** One of the two stacked layers: "What you see" (visible) or "What I see" (clipped to the cursor circle). */
-export const SpotlightLayer: React.FC<SpotlightLayerProps> = ({ side, ref }) => {
+export const SpotlightLayer: React.FC<SpotlightLayerProps> = ({
+	side,
+	ref,
+}) => {
 	const { t } = useTranslation();
 	const reveal = side === SpotlightSide.Reveal;
 	return (
@@ -46,20 +49,31 @@ export const SpotlightLayer: React.FC<SpotlightLayerProps> = ({ side, ref }) => 
 			aria-hidden={reveal ? true : undefined}
 			className={layerVariants({ side })}
 		>
-			<SectionLabel index={2} className={cn(reveal && "text-inherit opacity-60")}>
+			<SectionLabel
+				index={2}
+				className={cn(reveal && "text-inherit opacity-60")}
+			>
 				{t(`home.spotlight.${side}.eyebrow`)}
 			</SectionLabel>
 			<DisplayHeading render={<p />} className="leading-[0.92]">
 				{LINES.map((n) => (
 					<span
 						key={n}
-						className={cn("block", n === "2" && outlineVariants({ side }))}
+						className={cn(
+							"block",
+							n === "2" && outlineVariants({ side }),
+						)}
 					>
 						{t(`home.spotlight.${side}.lines.${n}`)}
 					</span>
 				))}
 			</DisplayHeading>
-			<span className={cn("text-sm text-muted-foreground", reveal && "text-inherit opacity-60")}>
+			<span
+				className={cn(
+					"text-sm text-muted-foreground",
+					reveal && "text-inherit opacity-60",
+				)}
+			>
 				{t(`home.spotlight.${side}.hint`)}
 			</span>
 		</div>

@@ -13,7 +13,10 @@ const STOP = new Set(
 /** Most used words (> 3 letters, no stop words) across `texts`, top `limit`. */
 export function topWords(texts: string[], limit = 3): WordFreq[] {
 	const counts = new Map<string, number>();
-	for (const word of texts.join(" ").toLowerCase().split(/[^a-z0-9-]+/)) {
+	for (const word of texts
+		.join(" ")
+		.toLowerCase()
+		.split(/[^a-z0-9-]+/)) {
 		if (word.length > 3 && !STOP.has(word))
 			counts.set(word, (counts.get(word) ?? 0) + 1);
 	}

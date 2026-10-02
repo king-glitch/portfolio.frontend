@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router";
 import { usePosts } from "@/api/hooks/portfolio/use-posts";
 import { QueryEmpty } from "@/components/common/feedback/query-empty";
 import { QueryErrorAlert } from "@/components/common/feedback/query-error-alert";
+import { Eyebrow } from "@/components/common/typography/eyebrow";
 import { DisplayHeading } from "@/components/common/typography/display-heading";
 import { Skeleton } from "@/components/ui/skeleton";
 import { config } from "@/config";
@@ -94,7 +95,7 @@ const Notes: React.FC<NotesProps> = () => {
 		<main className="mx-auto max-w-340 px-[clamp(16px,4vw,48px)] pt-32 pb-24">
 			<div className="flex flex-wrap items-end justify-between gap-6">
 				<div>
-					<span className="text-[13px] font-medium tracking-[0.16em] text-muted-foreground uppercase">
+					<Eyebrow>
 						{posts ? (
 							t("notes.list.count", {
 								count: posts.length,
@@ -102,7 +103,7 @@ const Notes: React.FC<NotesProps> = () => {
 						) : (
 							<Skeleton className="inline-block h-3.5 w-32 align-middle" />
 						)}
-					</span>
+					</Eyebrow>
 					<DisplayHeading
 						variant={DisplayVariant.Notes}
 						render={<h1 />}
@@ -110,7 +111,7 @@ const Notes: React.FC<NotesProps> = () => {
 					>
 						{t("notes.list.headline.lines.1")}
 						<br />
-						<span className="notes-outline">
+						<span className="text-outline">
 							{t("notes.list.headline.lines.2")}
 						</span>
 					</DisplayHeading>

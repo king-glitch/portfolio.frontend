@@ -3,29 +3,52 @@
 		"art": {
 			"mock": {
 				"hex": {
-					"alt": { "label": "Bridge website mock" },
-					"main": { "label": "Capture screen mock" }
+					"alt": {
+						"label": "Bridge website mock"
+					},
+					"main": {
+						"label": "Capture screen mock"
+					}
 				},
-				"moon": { "label": "Farm and shop mock" },
-				"orbit": { "label": "Quest board mock" },
+				"moon": {
+					"label": "Farm and shop mock"
+				},
+				"orbit": {
+					"label": "Quest board mock"
+				},
 				"pins": {
-					"alt": { "label": "Conversational search mock" },
-					"main": { "label": "Map search mock" }
+					"alt": {
+						"label": "Conversational search mock"
+					},
+					"main": {
+						"label": "Map search mock"
+					}
 				},
 				"pixel": {
-					"alt": { "label": "Missions screen mock" },
-					"main": { "label": "Mobile farm mock" }
+					"alt": {
+						"label": "Missions screen mock"
+					},
+					"main": {
+						"label": "Mobile farm mock"
+					}
 				},
-				"radar": { "label": "Operator console mock" }
+				"radar": {
+					"label": "Operator console mock"
+				}
 			}
 		},
-		"back-to-top": "Back to top",
 		"close": "Close",
 		"contact": {
-			"email": { "label": "Email" },
-			"github": { "label": "GitHub" },
+			"email": {
+				"label": "Email"
+			},
+			"github": {
+				"label": "GitHub"
+			},
 			"hint": "Placeholder: the real value is not set yet",
-			"linkedin": { "label": "LinkedIn" }
+			"linkedin": {
+				"label": "LinkedIn"
+			}
 		},
 		"cursor": {
 			"close": "Close",
@@ -59,8 +82,12 @@
 			"on-chain": "On-chain",
 			"platforms": "Platforms"
 		},
-		"loading": { "title": "Loading" },
-		"menu": { "label": "Menu" },
+		"loading": {
+			"title": "Loading"
+		},
+		"menu": {
+			"label": "Menu"
+		},
 		"next": "Next",
 		"not-found": {
 			"action": "Back home",

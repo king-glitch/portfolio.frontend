@@ -4,10 +4,12 @@ Project memory for agents. Read first, update before finishing any task.
 
 ## Current state
 
-- **Portfolio port: specs written, implementation NOT started** (session of 2026-10-02, docs only).
-- Repo is a fresh `shadcn create` scaffold (react-router 8.4, Base UI, Tailwind 4, Inter, `ssr: false`). `src/` has only `components/ui/button.tsx`, `lib/utils.ts`, `routes/index.tsx` (placeholder), `routes.ts`, `root.tsx`, `main.css`.
-- Missing versus AGENTS.md: `src/config.ts`, `DESIGN.md`, `docs/PORTS.md`, TanStack Query, i18next, zod (direct), package scripts `check`/`lint:tw`/`lint:style`/`pretty`/`build:tokens`/`test`. `scripts/lint-style`, `scripts/lint-tailwind`, `scripts/build-token` exist but are unwired; `scripts/build-token/configs/theme.json` holds another product's tokens.
-- Prototype is at `./design/` (not `../design/`); source data `content/ME.md`.
+- **Portfolio port: implemented** (plans 02–07). `bun run check`, `lint:style` (clean) and `lint:tw` (canonical) pass; 314 tests green. Not committed (AGENTS.md: user commits).
+- Home route composes hero, marquee, hello, spotlight, index, stack, habits (pinned), timeline, toolkit (physics), notes teaser, contact. Terminal (`components/shared/terminal`, pure engine in `lib/terminal/commands.ts`) is mounted in `routes/layout.tsx`.
+- **CSS: only `src/main.css`.** All `src/theme/*.css` removed; the tokens block is generated between `/* tokens:start */` and `/* tokens:end */` by `bun run build:tokens` (`src/theme/tokens.ts` stays). Custom CSS left is what Tailwind cannot express: `@theme` keyframes/animations, `@utility` helpers (`text-outline`, `invert-scope/surface`, `gated`), view-transition rules, `@page`. The `mob:` variant is gone: use `max-desk:` (`desk` = 760px).
+- **Theme:** light + dark. `<html>` gets `dark` from `themeScript` (stored choice, else OS) before paint; `useTheme()` toggles (button in nav). Terminal is dark in both themes by design.
+- Browser-verified (Chromium, 1440 and 390 wide, both themes): home sections, terminal open/run/navigate, toolkit physics, no horizontal scroll on all routes. Not done: reduced-motion pass, Lighthouse, keyboard-only walkthrough, terminal above the on-screen keyboard (uses `dvh`, no `visualViewport`).
+- Prototype is at `./design/`; source data `content/ME.md`.
 
 ## Plan files
 
@@ -20,18 +22,19 @@ Project memory for agents. Read first, update before finishing any task.
 - [docs/plans/06-portfolio-about-notes.md](./docs/plans/06-portfolio-about-notes.md): M5 Explore wall, Resume, Notes.
 - [docs/plans/07-portfolio-terminal-polish.md](./docs/plans/07-portfolio-terminal-polish.md): M6 terminal, mobile, reduced motion, perf, final.
 
-## Decisions (proposed, awaiting user approval; see overview §13)
+## Decisions
 
-- Add a Foundation block first (plan 02 §A). Slug project ids. Dark default, no theme toggle UI. Terminal = `Dialog`. No Axios/RHF/toast/lenis/gsap. Page transition via View Transitions with a two-slot fallback decided at plan 03 step 6.
+- Overview §13 answers applied. Slug project ids. No Axios/RHF/toast/lenis/gsap. Terminal = `Dialog`. Locale parts in `src/locales/parts/*.json`, merged by `bun run build:locales` into `en.json`.
+- Theme toggle added (light + dark requested); first visit follows the OS.
 
 ## Customized / generated files
 
-None yet.
+- `src/main.css` tokens block and `src/theme/tokens.ts` (generated); `src/locales/en.json` (generated from parts).
 
 ## Next actions
 
-1. User answers overview §13 open questions (Q1–Q6 block milestone 1).
-2. Milestone 1 (plan 02).
+1. Reduced-motion, Lighthouse and keyboard walkthrough (plan 07 steps 5, 7, 8).
+2. Real contact values and screenshots; backend.
 
 ## How to update
 

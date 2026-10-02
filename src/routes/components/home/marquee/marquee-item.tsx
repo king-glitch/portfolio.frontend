@@ -1,6 +1,14 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 
+/** Endpoints of the four strokes of the cross glyph. */
+const CROSS = [
+	[14, 0, 14, 28],
+	[0, 14, 28, 14],
+	[4, 4, 24, 24],
+	[24, 4, 4, 24],
+];
+
 interface MarqueeItemProps {
 	children: string;
 	/** Applied to the phrase (e.g. the hollow treatment on alternate items). */
@@ -13,7 +21,7 @@ export const MarqueeItem: React.FC<MarqueeItemProps> = ({
 	className,
 }) => {
 	return (
-		<span className="inline-flex items-center gap-9 pr-9 text-[clamp(40px,6vw,96px)] leading-none font-extrabold tracking-[-0.05em] whitespace-nowrap">
+		<span className="inline-flex items-center gap-9 pr-9 text-[clamp(40px,6vw,96px)] leading-none font-extrabold tracking-tighter whitespace-nowrap">
 			<span className={cn(className)}>{children}</span>
 			<svg
 				className="size-7"
@@ -23,10 +31,9 @@ export const MarqueeItem: React.FC<MarqueeItemProps> = ({
 				strokeWidth="2"
 				aria-hidden="true"
 			>
-				<line x1="14" y1="0" x2="14" y2="28" />
-				<line x1="0" y1="14" x2="28" y2="14" />
-				<line x1="4" y1="4" x2="24" y2="24" />
-				<line x1="24" y1="4" x2="4" y2="24" />
+				{CROSS.map(([x1, y1, x2, y2]) => (
+					<line key={`${x1}${y1}`} x1={x1} y1={y1} x2={x2} y2={y2} />
+				))}
 			</svg>
 		</span>
 	);

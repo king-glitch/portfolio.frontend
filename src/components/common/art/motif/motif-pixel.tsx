@@ -40,7 +40,9 @@ export const MotifPixel: React.FC<MotifPixelProps> = () => {
 					width="10"
 					height="10"
 					fill="currentColor"
-					className={px.blink ? "art-blink" : undefined}
+					className={
+						px.blink ? "motion-safe:animate-art-blink" : undefined
+					}
 					opacity={px.op}
 				/>
 			))}

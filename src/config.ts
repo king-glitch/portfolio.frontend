@@ -37,6 +37,12 @@ export const config = {
 		staleTimeMs: Number.POSITIVE_INFINITY,
 		retry: 1,
 	},
+	theme: {
+		storageKey: "theme",
+		darkClass: "dark",
+		// ponytail: two themes, first visit follows the OS; add a "system" option if users ask
+		darkQuery: "(prefers-color-scheme: dark)",
+	},
 	i18n: {
 		// ponytail: en only; add a language detector when a 2nd locale exists
 		defaultLocale: "en",

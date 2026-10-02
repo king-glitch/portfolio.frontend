@@ -1,5 +1,4 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import type { FilterOption } from "@/types/ui";
 
@@ -20,7 +19,6 @@ export function FilterToggle<T extends string>({
 	ariaLabel,
 	className,
 }: FilterToggleProps<T>) {
-	const { t } = useTranslation();
 	return (
 		<ToggleGroup
 			aria-label={ariaLabel}
@@ -39,7 +37,7 @@ export function FilterToggle<T extends string>({
 					value={option.id}
 					className="rounded-pill px-4"
 				>
-					{t(option.labelKey)}
+					{option.label}
 					{option.count === undefined ? null : (
 						<span className="text-muted-foreground tabular-nums">
 							{option.count}

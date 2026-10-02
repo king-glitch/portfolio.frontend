@@ -53,7 +53,7 @@ export const MockHexMain: React.FC<MockHexMainProps> = () => {
 				stroke="currentColor"
 				strokeDasharray="4 6"
 				opacity="0.4"
-				className="art-spin-slow"
+				className="origin-[200px_150px] transform-view motion-safe:animate-art-spin-slow"
 				style={{ transformOrigin: "320px 180px" }}
 			/>
 			<rect

@@ -18,7 +18,9 @@ export function spotlightGoal(
 	cfg: Pick<SpotlightConfig, "maxRadiusPx" | "widthRatio">,
 ): number {
 	if (toggled) return Math.hypot(width, height);
-	return pointerInside ? Math.min(cfg.maxRadiusPx, width * cfg.widthRatio) : 0;
+	return pointerInside
+		? Math.min(cfg.maxRadiusPx, width * cfg.widthRatio)
+		: 0;
 }
 
 export interface SpotlightState {

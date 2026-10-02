@@ -5,6 +5,7 @@ import { PillButton } from "@/components/common/buttons/pill-button";
 import { Preloader } from "@/components/shared/shell/preloader";
 import { SiteMenu } from "@/components/shared/shell/site-menu";
 import { SiteNav } from "@/components/shared/shell/site-nav";
+import { TerminalDialog } from "@/components/shared/terminal/terminal-dialog";
 import { StickyCursor } from "@/components/shared/shell/sticky-cursor";
 import { useShell } from "@/contexts/shell-context";
 import { PillSize } from "@/types/ui";
@@ -39,11 +40,11 @@ const Layout: React.FC<LayoutProps> = () => {
 				magnetic
 				aria-label={t("shell.terminal.button.aria-label")}
 				onClick={() => setTerminalOpen(true)}
-				className="fixed bottom-5 left-5 z-98 font-mono text-[13px] font-bold shadow-[0_16px_40px_-16px_rgba(0,0,0,.6)] [view-transition-name:terminal-launcher]"
+				className="fixed bottom-5 left-5 z-98 font-mono text-[13px] font-bold shadow-[0_16px_40px_-16px_rgba(0,0,0,.6)] [view-transition-name:terminal-launcher] print:hidden"
 			>
 				{t("shell.terminal.button.label")}
 			</PillButton>
-			{/* Wave 3 (plan 07): mount <TerminalDialog /> here; it reads `terminalOpen` from useShell(). */}
+			<TerminalDialog />
 			<StickyCursor />
 		</>
 	);

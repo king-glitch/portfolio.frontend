@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { PanelTone, PanelWidth } from "@/types/work";
 
 const panelVariants = cva(
-	"relative box-border h-full shrink-0 border-r border-border px-[clamp(16px,5vw,80px)] pt-30 pb-18 mob:w-screen mob:max-w-screen mob:min-w-screen mob:px-4 mob:pt-23 mob:pb-20",
+	"relative box-border h-full shrink-0 border-r border-border px-[clamp(16px,5vw,80px)] pt-30 pb-18 max-desk:w-screen max-desk:max-w-screen max-desk:min-w-screen max-desk:px-4 max-desk:pt-23 max-desk:pb-20",
 	{
 		variants: {
 			width: {

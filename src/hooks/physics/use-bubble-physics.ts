@@ -1,7 +1,18 @@
-import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
+import {
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+	type RefObject,
+} from "react";
 import { useRaf } from "@/hooks/motion/use-raf";
 import { config } from "@/config";
-import { createBall, dropBalls, stepBalls, type Ball } from "@/lib/motion/physics";
+import {
+	createBall,
+	dropBalls,
+	stepBalls,
+	type Ball,
+} from "@/lib/motion/physics";
 
 const BALL = "[data-ball]";
 
@@ -32,7 +43,12 @@ export function useBubblePhysics(
 	const [dropped, setDropped] = useState(false);
 
 	const drop = useCallback(() => {
-		dropBalls(balls.current, size.current.w, Math.random, config.home.toolkit);
+		dropBalls(
+			balls.current,
+			size.current.w,
+			Math.random,
+			config.home.toolkit,
+		);
 		setDropped(true);
 	}, []);
 
@@ -60,18 +76,28 @@ export function useBubblePhysics(
 				dropObserver.disconnect();
 				drop();
 			},
-			{ rootMargin: `0px 0px -${(1 - config.home.toolkit.dropViewport) * 100}% 0px` },
+			{
+				rootMargin: `0px 0px -${(1 - config.home.toolkit.dropViewport) * 100}% 0px`,
+			},
 		);
 		dropObserver.observe(play);
 
 		const onDown = (e: PointerEvent) => {
 			if (!(e.target instanceof Element)) return;
 			const el = e.target.closest<HTMLElement>(BALL);
-			const ball = el ? balls.current[els.current.indexOf(el)] : undefined;
+			const ball = el
+				? balls.current[els.current.indexOf(el)]
+				: undefined;
 			if (!el || !ball) return;
 			e.preventDefault();
 			const r = play.getBoundingClientRect();
-			drag.current = { ball, ox: e.clientX - r.left - ball.x, oy: e.clientY - r.top - ball.y, left: r.left, top: r.top };
+			drag.current = {
+				ball,
+				ox: e.clientX - r.left - ball.x,
+				oy: e.clientY - r.top - ball.y,
+				left: r.left,
+				top: r.top,
+			};
 			ball.drag = true;
 			ball.vx = 0;
 			ball.vy = 0;
@@ -108,14 +134,18 @@ export function useBubblePhysics(
 		};
 	}, [playRef, count, enabled, drop]);
 
-	useRaf(() => {
-		const { w, h } = size.current;
-		stepBalls(balls.current, w, h, config.home.toolkit);
-		balls.current.forEach((b, i) => {
-			const el = els.current[i];
-			if (el) el.style.transform = `translate3d(${(b.x - b.r).toFixed(1)}px,${(b.y - b.r).toFixed(1)}px,0)`;
-		});
-	}, enabled && near && dropped);
+	useRaf(
+		() => {
+			const { w, h } = size.current;
+			stepBalls(balls.current, w, h, config.home.toolkit);
+			balls.current.forEach((b, i) => {
+				const el = els.current[i];
+				if (el)
+					el.style.transform = `translate3d(${(b.x - b.r).toFixed(1)}px,${(b.y - b.r).toFixed(1)}px,0)`;
+			});
+		},
+		enabled && near && dropped,
+	);
 
 	return { shake: drop };
 }

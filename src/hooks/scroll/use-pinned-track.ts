@@ -2,7 +2,12 @@ import { useEffect, useRef, useSyncExternalStore, type RefObject } from "react";
 import { useReducedMotion } from "@/hooks/motion/use-reduced-motion";
 import { useMeasure } from "@/hooks/physics/use-measure";
 import { config } from "@/config";
-import { pinExtra, pinHeight, pinProgress, pinTranslate } from "@/lib/motion/pin";
+import {
+	pinExtra,
+	pinHeight,
+	pinProgress,
+	pinTranslate,
+} from "@/lib/motion/pin";
 
 const WIDE_QUERY = `(min-width: ${config.home.habits.pinMinViewportPx}px)`;
 
@@ -35,7 +40,11 @@ export function usePinnedTrack(
 		const track = trackRef.current;
 		if (!track) return;
 		const { docTop, height, extra } = cache.current;
-		const progress = pinProgress(docTop - window.scrollY, height, window.innerHeight);
+		const progress = pinProgress(
+			docTop - window.scrollY,
+			height,
+			window.innerHeight,
+		);
 		track.style.transform = `translate3d(${pinTranslate(progress, extra).toFixed(1)}px,0,0)`;
 	};
 

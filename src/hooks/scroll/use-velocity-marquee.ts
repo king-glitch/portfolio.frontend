@@ -18,9 +18,13 @@ export function useVelocityMarquee(ref: RefObject<HTMLElement | null>): void {
 	const lastY = useRef(0);
 	const half = useRef(1);
 
-	useMeasure(() => {
-		half.current = (ref.current?.scrollWidth ?? 2) / 2;
-	}, true, [ref]);
+	useMeasure(
+		() => {
+			half.current = (ref.current?.scrollWidth ?? 2) / 2;
+		},
+		true,
+		[ref],
+	);
 
 	useEffect(() => {
 		if (active) lastY.current = window.scrollY;
@@ -35,7 +39,12 @@ export function useVelocityMarquee(ref: RefObject<HTMLElement | null>): void {
 		const el = ref.current;
 		if (!el) return;
 		const y = window.scrollY;
-		const next = stepMarquee(state.current, y - lastY.current, half.current, config.home.marquee);
+		const next = stepMarquee(
+			state.current,
+			y - lastY.current,
+			half.current,
+			config.home.marquee,
+		);
 		lastY.current = y;
 		state.current = { velocity: next.velocity, offset: next.offset };
 		el.style.transform = `translate3d(${next.offset.toFixed(1)}px,0,0) skewX(${next.skewDeg.toFixed(2)}deg)`;

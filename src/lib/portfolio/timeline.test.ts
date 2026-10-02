@@ -5,11 +5,32 @@ import { buildTimeline, shortTitle } from "@/lib/portfolio/timeline";
 const base = { notes: [], period: "" };
 const profile = {
 	education: [
-		{ ...base, id: "bu", title: "Bangkok University", kind: ExperienceKind.Education, start: "2019-01", end: "2023-01" },
+		{
+			...base,
+			id: "bu",
+			title: "Bangkok University",
+			kind: ExperienceKind.Education,
+			start: "2019-01",
+			end: "2023-01",
+		},
 	],
 	experience: [
-		{ ...base, id: "x10", title: "Software Developer X10 Interactive", kind: ExperienceKind.Work, start: "2023-01", end: null },
-		{ ...base, id: "lab", title: "Bangkok University Multimedia Intelligent Technology", kind: ExperienceKind.Work, start: "2022-06", end: "2023-06" },
+		{
+			...base,
+			id: "x10",
+			title: "Software Developer X10 Interactive",
+			kind: ExperienceKind.Work,
+			start: "2023-01",
+			end: null,
+		},
+		{
+			...base,
+			id: "lab",
+			title: "Bangkok University Multimedia Intelligent Technology",
+			kind: ExperienceKind.Work,
+			start: "2022-06",
+			end: "2023-06",
+		},
 	],
 };
 
@@ -36,9 +57,11 @@ describe("timeline", () => {
 	});
 
 	test("short titles", () => {
-		expect(shortTitle("Software Developer X10 Interactive")).toBe("X10 Interactive");
-		expect(shortTitle("Bangkok University Multimedia Intelligent Technology")).toBe(
-			"Bangkok University — MIT lab",
+		expect(shortTitle("Software Developer X10 Interactive")).toBe(
+			"X10 Interactive",
 		);
+		expect(
+			shortTitle("Bangkok University Multimedia Intelligent Technology"),
+		).toBe("Bangkok University — MIT lab");
 	});
 });

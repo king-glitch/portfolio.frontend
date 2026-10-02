@@ -23,7 +23,9 @@ describe("reveal", () => {
 	test("progress is clamped and uses 85% / 90% of the viewport", () => {
 		expect(wordRevealProgress(900, 900, cfg)).toBe(0);
 		expect(wordRevealProgress(-1000, 900, cfg)).toBe(1);
-		expect(wordRevealProgress(900 * 0.85 - 900 * 0.45, 900, cfg)).toBeCloseTo(0.5, 5);
+		expect(
+			wordRevealProgress(900 * 0.85 - 900 * 0.45, 900, cfg),
+		).toBeCloseTo(0.5, 5);
 	});
 
 	test("count-up finishes at the target in 1600ms", () => {

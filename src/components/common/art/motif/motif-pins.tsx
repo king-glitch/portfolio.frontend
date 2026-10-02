@@ -36,7 +36,7 @@ export const MotifPins: React.FC<MotifPinsProps> = () => {
 			<g fill="currentColor">
 				<path d="M248 112 C 248 98, 268 98, 268 112 C 268 122, 258 130, 258 138 C 258 130, 248 122, 248 112 Z" />
 				<path
-					className="art-blink"
+					className="motion-safe:animate-art-blink"
 					d="M118 168 C 118 156, 134 156, 134 168 C 134 176, 126 182, 126 188 C 126 182, 118 176, 118 168 Z"
 				/>
 			</g>
@@ -48,7 +48,7 @@ export const MotifPins: React.FC<MotifPinsProps> = () => {
 				stroke="currentColor"
 				strokeWidth="1.2"
 				strokeDasharray="3 4"
-				className="art-spin-slow"
+				className="origin-[200px_150px] transform-view motion-safe:animate-art-spin-slow"
 			/>
 			<g
 				fill="currentColor"

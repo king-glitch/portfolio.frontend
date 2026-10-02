@@ -2,6 +2,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import type { Profile } from "@/api/types/portfolio/profile";
 import { splitRole } from "@/lib/portfolio/about-stats";
+import { ResumeHeading } from "@/routes/about/resume/components/resume-heading";
+import { ResumeEntry } from "@/routes/about/resume/components/resume-entry";
 
 interface ResumeExperienceProps {
 	profile: Profile;
@@ -14,13 +16,11 @@ export const ResumeExperience: React.FC<ResumeExperienceProps> = ({
 	const { t } = useTranslation();
 	return (
 		<section>
-			<h2 className="resume-heading">
-				{t("about.resume.experience.title")}
-			</h2>
+			<ResumeHeading>{t("about.resume.experience.title")}</ResumeHeading>
 			{[...profile.experience].reverse().map((job) => {
 				const { name, role } = splitRole(job.title);
 				return (
-					<div key={job.id} className="print-entry">
+					<ResumeEntry key={job.id}>
 						<div className="flex flex-wrap justify-between gap-3">
 							<span className="text-[15px] font-extrabold tracking-[-0.01em]">
 								{role ? `${name} — ${role}` : name}
@@ -36,7 +36,7 @@ export const ResumeExperience: React.FC<ResumeExperienceProps> = ({
 								</li>
 							))}
 						</ul>
-					</div>
+					</ResumeEntry>
 				);
 			})}
 		</section>

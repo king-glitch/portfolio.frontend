@@ -46,7 +46,7 @@ export const StackStop: React.FC<StackStopProps> = ({
 			onClick={onSelect}
 			className={stopVariants({ selected })}
 		>
-			<span className="text-xs font-bold opacity-60 tabular-nums">{`${n} · ${used}`}</span>
+			<span className="text-xs font-bold tabular-nums opacity-60">{`${n} · ${used}`}</span>
 			<span className="text-xl leading-[1.05] font-extrabold tracking-[-0.03em]">
 				{t(stop.nameKey)}
 			</span>

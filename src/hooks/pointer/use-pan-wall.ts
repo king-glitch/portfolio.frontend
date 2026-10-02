@@ -1,4 +1,10 @@
-import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import {
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+	useSyncExternalStore,
+} from "react";
 import { useRaf } from "@/hooks/motion/use-raf";
 import { useReducedMotion } from "@/hooks/motion/use-reduced-motion";
 import { config } from "@/config";
@@ -78,7 +84,10 @@ export function usePanWall({ geometry, hero, miniScale }: PanInput) {
 
 	const size = () => {
 		const el = viewportRef.current;
-		return { vw: el?.clientWidth ?? window.innerWidth, vh: el?.clientHeight ?? window.innerHeight };
+		return {
+			vw: el?.clientWidth ?? window.innerWidth,
+			vh: el?.clientHeight ?? window.innerHeight,
+		};
 	};
 
 	const recenter = (jump = false) => {
@@ -194,16 +203,16 @@ export function usePanWall({ geometry, hero, miniScale }: PanInput) {
 		if (!el || !root) return;
 		const { vw, vh } = size();
 		const g = live.current.geometry;
-		pan.current = stepPan(
-			pan.current,
-			panBounds(vw, vh, g),
-			{ dragging: drag.current !== null, reduced: live.current.reduced },
-		);
+		pan.current = stepPan(pan.current, panBounds(vw, vh, g), {
+			dragging: drag.current !== null,
+			reduced: live.current.reduced,
+		});
 		const { cx, cy } = pan.current;
 		root.style.transform = `translate3d(${cx.toFixed(1)}px,${cy.toFixed(1)}px,0)`;
 		const introS = live.current.reduced
 			? Number.POSITIVE_INFINITY
-			: (performance.now() - (introStart.current ?? performance.now())) / 1000;
+			: (performance.now() - (introStart.current ?? performance.now())) /
+				1000;
 		for (const it of items.current) {
 			const fx = tileFx({
 				tileX: it.cx,
@@ -281,7 +290,12 @@ export function usePanWall({ geometry, hero, miniScale }: PanInput) {
 		const tile = e.target.closest<HTMLElement>("[data-tile]");
 		if (!tile) return;
 		const { vw, vh } = size();
-		const p = centerOn(vw, vh, Number(tile.dataset.cx), Number(tile.dataset.cy));
+		const p = centerOn(
+			vw,
+			vh,
+			Number(tile.dataset.cx),
+			Number(tile.dataset.cy),
+		);
 		pan.current = { ...pan.current, tx: p.x, ty: p.y, vx: 0, vy: 0 };
 		touched();
 	};

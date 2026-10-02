@@ -29,7 +29,12 @@ export function useWordReveal(
 			config.home.hello.wordReveal,
 		);
 		for (let i = 0; i < list.length; i++) {
-			const o = wordOpacity(progress, i, list.length, config.home.hello.wordReveal);
+			const o = wordOpacity(
+				progress,
+				i,
+				list.length,
+				config.home.hello.wordReveal,
+			);
 			const prev = last.current[i];
 			if (prev !== undefined && Math.abs(prev - o) <= 0.01) continue;
 			last.current[i] = o;
@@ -51,13 +56,10 @@ export function useWordReveal(
 		return () => window.removeEventListener("scroll", apply);
 	}, [containerRef, ready, reduced]);
 
-	useMeasure(
-		() => {
-			const el = containerRef.current;
-			if (!el) return;
-			docTop.current = el.getBoundingClientRect().top + window.scrollY;
-			apply();
-		},
-		ready && !reduced,
-	);
+	useMeasure(() => {
+		const el = containerRef.current;
+		if (!el) return;
+		docTop.current = el.getBoundingClientRect().top + window.scrollY;
+		apply();
+	}, ready && !reduced);
 }

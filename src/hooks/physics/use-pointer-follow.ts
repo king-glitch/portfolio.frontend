@@ -31,7 +31,13 @@ export function usePointerFollow(
 	useRaf(() => {
 		const el = ref.current;
 		if (!el) return;
-		const { lerp: k, offsetXPx, offsetYPx, rotateFactor, rotateMaxDeg } = config.shell.indexPreview;
+		const {
+			lerp: k,
+			offsetXPx,
+			offsetYPx,
+			rotateFactor,
+			rotateMaxDeg,
+		} = config.shell.indexPreview;
 		const p = pointer.current;
 		const x = lerp(pos.current.x, p.x, k);
 		const y = lerp(pos.current.y, p.y, k);

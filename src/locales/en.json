@@ -186,7 +186,6 @@
 				}
 			}
 		},
-		"back-to-top": "Back to top",
 		"close": "Close",
 		"contact": {
 			"email": {
@@ -258,7 +257,8 @@
 				"text": "Got something that has to stay quick, fair and online when everyone shows up at once?"
 			},
 			"terminal": ">_ open the terminal",
-			"title": "Say hello."
+			"title": "Say hello.",
+			"top": "Back to top ↑"
 		},
 		"habits": {
 			"empty": {
@@ -266,12 +266,12 @@
 			},
 			"eyebrow": "How I build",
 			"hint": "Keep scrolling — the page moves sideways.",
-			"next": "Timeline ↓",
-			"title": {
-				"line-1": "Five",
-				"line-2": "habits,",
-				"line-3": "no exceptions."
-			}
+			"lines": {
+				"1": "Five",
+				"2": "habits,",
+				"3": "no exceptions."
+			},
+			"next": "Timeline ↓"
 		},
 		"hello": {
 			"cta": "Resume at a glance →",
@@ -296,6 +296,7 @@
 			}
 		},
 		"hero": {
+			"behind": "behind",
 			"cards": {
 				"aria-label": "Selected projects",
 				"open": {
@@ -307,6 +308,10 @@
 				"accent": "so the half they do never stalls, leaks or drops a frame.",
 				"text": "I build the half of the product nobody screenshots —"
 			},
+			"lines": {
+				"1": "Quiet code",
+				"2": "loud products."
+			},
 			"scroll": {
 				"aria-label": "Scroll to About"
 			},
@@ -314,11 +319,6 @@
 				"always-on": "@always-on",
 				"game-ready": "@game-ready",
 				"zero-drama": "@zero-drama"
-			},
-			"title": {
-				"behind": "behind",
-				"line-1": "Quiet code",
-				"line-2": "loud products."
 			}
 		},
 		"index": {
@@ -356,9 +356,9 @@
 				"title": "No notes yet"
 			},
 			"eyebrow": "Notes",
-			"title": {
-				"line-1": "Written",
-				"line-2": "down."
+			"lines": {
+				"1": "Written",
+				"2": "down."
 			}
 		},
 		"spotlight": {
@@ -388,6 +388,10 @@
 			"flow": {
 				"aria-label": "Stack stops"
 			},
+			"lines": {
+				"1": "How a tap",
+				"2": "becomes a thing."
+			},
 			"stops": {
 				"1": {
 					"description": "A game, a site, an app in your pocket",
@@ -414,10 +418,6 @@
 					"name": "The ledger"
 				}
 			},
-			"title": {
-				"line-1": "How a tap",
-				"line-2": "becomes a thing."
-			},
 			"used-in": "{{name}} — used in"
 		},
 		"timeline": {
@@ -442,11 +442,11 @@
 				"title": "No tools listed yet"
 			},
 			"eyebrow": "Toolkit",
-			"shake": "Shake the box",
-			"title": {
-				"line-1": "Throw it",
-				"line-2": "around."
-			}
+			"lines": {
+				"1": "Throw it",
+				"2": "around."
+			},
+			"shake": "Shake the box"
 		}
 	},
 	"notes": {
@@ -584,6 +584,9 @@
 			},
 			"notes": {
 				"label": "Notes"
+			},
+			"theme": {
+				"aria-label": "Switch between light and dark theme"
 			}
 		},
 		"preloader": {
@@ -598,7 +601,56 @@
 			"button": {
 				"aria-label": "Open terminal",
 				"label": ">_ terminal"
-			}
+			},
+			"close": {
+				"aria-label": "Close terminal"
+			},
+			"dialog": {
+				"description": "Type a command and press Enter. Type help for the list."
+			},
+			"errors": {
+				"cat": "cat: {{arg}}: try cat about",
+				"ls": "ls: {{arg}}: no such directory",
+				"not-found": "command not found: {{command}} — try help",
+				"open": "open: no project matches “{{arg}}”",
+				"read": "read: pick a number from ls posts"
+			},
+			"help": {
+				"hint": "  psst: try “sudo hire william”",
+				"rows": {
+					"cat": "  cat about             the long version",
+					"contact": "  contact               how to reach me",
+					"ls": "  ls [projects|posts]   list things",
+					"open": "  open <n|name>         open a project",
+					"pages": "  about · blog · home   go to a page",
+					"read": "  read <n>              open a blog post",
+					"skills": "  skills                the toolkit",
+					"tidy": "  clear · exit           tidy up",
+					"whoami": "  whoami                who is this"
+				}
+			},
+			"input": {
+				"aria-label": "Terminal command",
+				"placeholder": "type help"
+			},
+			"messages": {
+				"error": "could not load data — close and reopen the terminal to retry",
+				"loading": "still loading data — try again in a moment",
+				"opening": {
+					"post": "opening “{{title}}”…",
+					"project": "opening {{name}}…"
+				}
+			},
+			"sudo": {
+				"denied": "sudo: nice try.",
+				"granted": "Access granted. Opening the contact section…",
+				"password": "[sudo] password for recruiter: ********"
+			},
+			"titlebar": {
+				"esc": "esc",
+				"label": "william@x10 — ~/portfolio"
+			},
+			"whoami": "William Siefert — software developer. Builds the parts of apps and games you never see, so the parts you do see feel effortless."
 		}
 	},
 	"work": {

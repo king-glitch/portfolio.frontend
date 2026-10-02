@@ -19,7 +19,7 @@ interface MotifMoonProps {}
 export const MotifMoon: React.FC<MotifMoonProps> = () => {
 	return (
 		<>
-			<g className="art-float">
+			<g className="motion-safe:animate-art-float">
 				<circle
 					cx="200"
 					cy="120"
@@ -62,7 +62,11 @@ export const MotifMoon: React.FC<MotifMoonProps> = () => {
 				{STARS.map((s) => (
 					<circle
 						key={`${s.cx}-${s.cy}`}
-						className={s.blink ? "art-blink" : undefined}
+						className={
+							s.blink
+								? "motion-safe:animate-art-blink"
+								: undefined
+						}
 						cx={s.cx}
 						cy={s.cy}
 						r={s.r}

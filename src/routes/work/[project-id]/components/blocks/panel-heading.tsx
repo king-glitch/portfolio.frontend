@@ -3,7 +3,7 @@ import { DisplayHeading } from "@/components/common/typography/display-heading";
 import { padCount } from "@/lib/portfolio/project-nav";
 import { cn } from "@/lib/utils";
 import { DisplayVariant } from "@/types/ui";
-import { PanelLabel } from "@/routes/work/[project-id]/components/blocks/panel-label";
+import { Eyebrow } from "@/components/common/typography/eyebrow";
 
 interface PanelHeadingProps {
 	index: number;
@@ -24,7 +24,7 @@ export const PanelHeading: React.FC<PanelHeadingProps> = ({
 			data-speed="0.88"
 			className={cn("flex flex-wrap items-baseline gap-5", className)}
 		>
-			<PanelLabel>({padCount(index)})</PanelLabel>
+			<Eyebrow>({padCount(index)})</Eyebrow>
 			<DisplayHeading variant={variant}>{children}</DisplayHeading>
 		</div>
 	);

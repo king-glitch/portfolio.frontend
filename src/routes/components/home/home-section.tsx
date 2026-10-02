@@ -25,7 +25,12 @@ export const HomeSection: React.FC<HomeSectionProps> = ({
 	className,
 	...props
 }) => {
-	return <section className={cn(sectionVariants({ pad }), className)} {...props} />;
+	return (
+		<section
+			className={cn(sectionVariants({ pad }), className)}
+			{...props}
+		/>
+	);
 };
 
 export default HomeSection;

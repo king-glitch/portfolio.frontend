@@ -3,7 +3,7 @@ import { BlockType } from "@/api/types/portfolio/enums";
 import { Panel } from "@/components/common/layout/panel";
 import { padCount } from "@/lib/portfolio/project-nav";
 import { PanelTone, type BlockProps } from "@/types/work";
-import { PanelLabel } from "@/routes/work/[project-id]/components/blocks/panel-label";
+import { Eyebrow } from "@/components/common/typography/eyebrow";
 
 interface BlockChipsProps extends BlockProps<BlockType.Chips> {}
 
@@ -20,16 +20,16 @@ export const BlockChips: React.FC<BlockChipsProps> = ({
 			tone={PanelTone.Invert}
 			className="flex flex-col justify-between gap-8"
 		>
-			<PanelLabel className="text-inherit opacity-60">
+			<Eyebrow className="text-inherit opacity-60">
 				({padCount(index)}) {label}
-			</PanelLabel>
+			</Eyebrow>
 			<div
 				data-speed="0.86"
 				className="text-[clamp(110px,20vw,380px)] leading-[0.78] font-black tracking-[-0.085em] whitespace-nowrap"
 			>
 				{title}
 			</div>
-			<div className="grid grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] items-end gap-[4vw] mob:grid-cols-1">
+			<div className="grid grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] items-end gap-[4vw] max-desk:grid-cols-1">
 				<p className="m-0 text-[clamp(17px,1.5vw,22px)] leading-normal">
 					{text}
 				</p>

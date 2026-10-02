@@ -32,7 +32,7 @@ export const Hero: React.FC<HeroProps> = () => {
 				href={`#${config.sections.about}`}
 				data-magnetic=""
 				aria-label={t("home.hero.scroll.aria-label")}
-				className="mt-12 flex size-16 items-center justify-center overflow-hidden rounded-full shadow-[inset_0_0_0_1px_var(--foreground)] outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+				className="mt-12 flex size-16 items-center justify-center overflow-hidden rounded-full shadow-[inset_0_0_0_1px_var(--foreground)] transition-transform duration-500 ease-(--ease-out-expo) outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
 			>
 				<span className="block size-1.5 animate-scroll-dot rounded-full bg-foreground motion-reduce:animate-none" />
 			</a>

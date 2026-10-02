@@ -17,7 +17,9 @@ import { ProjectIndexRow } from "@/routes/components/home/index/project-index-ro
 import { ProjectIndexSkeleton } from "@/routes/components/home/index/project-index-skeleton";
 
 /** Invalid or missing `?filter=` silently becomes the default. */
-const filterSchema = z.enum(ProjectFilter).catch(config.portfolio.defaultFilter);
+const filterSchema = z
+	.enum(ProjectFilter)
+	.catch(config.portfolio.defaultFilter);
 
 interface ProjectIndexProps {}
 
@@ -32,7 +34,8 @@ export const ProjectIndex: React.FC<ProjectIndexProps> = () => {
 
 	const onFilter = (next: ProjectFilter) => {
 		const nextParams = new URLSearchParams(params);
-		if (next === config.portfolio.defaultFilter) nextParams.delete(filterKey);
+		if (next === config.portfolio.defaultFilter)
+			nextParams.delete(filterKey);
 		else nextParams.set(filterKey, next);
 		setParams(nextParams, { preventScrollReset: true });
 	};
@@ -40,7 +43,13 @@ export const ProjectIndex: React.FC<ProjectIndexProps> = () => {
 	const shown = data ? filterProjects(data, filter) : [];
 
 	const renderRows = () => {
-		if (isError) return <QueryErrorAlert onRetry={() => void refetch()} className="mt-8" />;
+		if (isError)
+			return (
+				<QueryErrorAlert
+					onRetry={() => void refetch()}
+					className="mt-8"
+				/>
+			);
 		if (isPending) return <ProjectIndexSkeleton />;
 		if (!shown.length)
 			return (
@@ -54,7 +63,11 @@ export const ProjectIndex: React.FC<ProjectIndexProps> = () => {
 				/>
 			);
 		return shown.map((project) => (
-			<ProjectIndexRow key={project.id} project={project} onHover={setHoveredId} />
+			<ProjectIndexRow
+				key={project.id}
+				project={project}
+				onHover={setHoveredId}
+			/>
 		));
 	};
 

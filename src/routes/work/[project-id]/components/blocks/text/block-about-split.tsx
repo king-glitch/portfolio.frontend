@@ -4,7 +4,7 @@ import { Panel } from "@/components/common/layout/panel";
 import { padCount } from "@/lib/portfolio/project-nav";
 import type { BlockProps } from "@/types/work";
 import { ArtFrame } from "@/routes/work/[project-id]/components/blocks/art-frame";
-import { PanelLabel } from "@/routes/work/[project-id]/components/blocks/panel-label";
+import { Eyebrow } from "@/components/common/typography/eyebrow";
 
 interface BlockAboutSplitProps extends BlockProps<BlockType.AboutSplit> {}
 
@@ -18,11 +18,11 @@ export const BlockAboutSplit: React.FC<BlockAboutSplitProps> = ({
 	projectKind,
 }) => {
 	return (
-		<Panel className="grid grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] gap-[5vw] mob:grid-cols-1">
+		<Panel className="grid grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] gap-[5vw] max-desk:grid-cols-1">
 			<div className="flex flex-col justify-between gap-8">
-				<PanelLabel>
+				<Eyebrow>
 					({padCount(index)}) {label}
-				</PanelLabel>
+				</Eyebrow>
 				<p
 					data-speed="1.05"
 					className="m-0 text-[clamp(22px,2.5vw,40px)] leading-[1.22] font-semibold tracking-[-0.032em]"

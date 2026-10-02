@@ -22,7 +22,7 @@ export const PostGrid: React.FC<PostGridProps> = ({ posts, className }) => {
 		<div
 			style={STAGGER_STYLE}
 			className={cn(
-				"notes-grid grid gap-x-[4vw] gap-y-8 md:grid-cols-2",
+				"grid gap-x-[4vw] gap-y-8 md:grid-cols-2 md:*:even:mt-(--stagger)",
 				className,
 			)}
 		>

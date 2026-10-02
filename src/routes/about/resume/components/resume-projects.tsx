@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next";
 import { ProjectFilter, ProjectSide } from "@/api/types/portfolio/enums";
 import type { ProjectSummary } from "@/api/types/portfolio/project";
 import { clip, firstSentence } from "@/lib/portfolio/about-stats";
+import { ResumeHeading } from "@/routes/about/resume/components/resume-heading";
+import { ResumeEntry } from "@/routes/about/resume/components/resume-entry";
 
 const SIDES: Record<ProjectSide, ParseKeys> = {
 	[ProjectSide.BehindTheScenes]:
@@ -20,9 +22,7 @@ export const ResumeProjects: React.FC<ResumeProjectsProps> = ({ projects }) => {
 	const { t } = useTranslation();
 	return (
 		<section>
-			<h2 className="resume-heading">
-				{t("about.resume.projects.title")}
-			</h2>
+			<ResumeHeading>{t("about.resume.projects.title")}</ResumeHeading>
 			{projects.map((p) => {
 				const meta = [
 					p.categories.includes(ProjectFilter.Games)
@@ -34,7 +34,7 @@ export const ResumeProjects: React.FC<ResumeProjectsProps> = ({ projects }) => {
 						: null,
 				].filter(Boolean);
 				return (
-					<div key={p.id} className="print-entry">
+					<ResumeEntry key={p.id}>
 						<div className="flex flex-wrap justify-between gap-3">
 							<span className="text-[15px] font-extrabold">
 								{p.name}
@@ -52,7 +52,7 @@ export const ResumeProjects: React.FC<ResumeProjectsProps> = ({ projects }) => {
 							</b>{" "}
 							{clip(p.role[0] ?? "", 190)}
 						</p>
-					</div>
+					</ResumeEntry>
 				);
 			})}
 		</section>

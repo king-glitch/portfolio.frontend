@@ -4,7 +4,7 @@ import { BlockType } from "@/api/types/portfolio/enums";
 import { ProjectMotif } from "@/components/common/art/project-motif";
 import { Panel } from "@/components/common/layout/panel";
 import type { BlockParams } from "@/types/work";
-import { PanelLabel } from "@/routes/work/[project-id]/components/blocks/panel-label";
+import { Eyebrow } from "@/components/common/typography/eyebrow";
 import { TagList } from "@/routes/work/[project-id]/components/blocks/tag-list";
 
 interface HeaderCenterProps extends BlockParams<BlockType.ProjectHeader> {}
@@ -30,9 +30,9 @@ export const HeaderCenter: React.FC<HeaderCenterProps> = ({
 					className="bg-background text-foreground"
 				/>
 			</div>
-			<PanelLabel className="relative">
+			<Eyebrow className="relative">
 				{index} · {t(`common.sides.${discipline}`)}
-			</PanelLabel>
+			</Eyebrow>
 			<h1
 				data-speed="0.92"
 				className="relative m-0 text-[clamp(64px,13vw,240px)] leading-[0.84] font-black tracking-[-0.075em]"

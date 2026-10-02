@@ -76,12 +76,12 @@ export const ProjectTopbar: React.FC<ProjectTopbarProps> = ({
 					size={PillSize.Lg}
 					aria-pressed={jsonOpen}
 					onClick={onToggleJson}
-					className="font-mono text-[13px] font-bold mob:hidden"
+					className="font-mono text-[13px] font-bold max-desk:hidden"
 				>
 					{t("work.topbar.json")}
 				</PillButton>
 			</div>
-			<span className="text-sm font-semibold whitespace-nowrap mob:hidden">
+			<span className="text-sm font-semibold whitespace-nowrap max-desk:hidden">
 				{num} — {name}
 			</span>
 			<div className="flex items-center gap-3.5 justify-self-end">

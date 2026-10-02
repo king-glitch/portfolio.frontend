@@ -7,7 +7,7 @@ import { Panel } from "@/components/common/layout/panel";
 import { CursorLabel } from "@/types/cursor";
 import { PillSize, PillVariant } from "@/types/ui";
 import { PanelTone } from "@/types/work";
-import { PanelLabel } from "@/routes/work/[project-id]/components/blocks/panel-label";
+import { Eyebrow } from "@/components/common/typography/eyebrow";
 import { EndCapTitle } from "@/routes/work/[project-id]/components/scroller/end-cap-title";
 
 interface EndCapProps {
@@ -34,8 +34,8 @@ export const EndCap: React.FC<EndCapProps> = ({
 			className="flex flex-col justify-between gap-8 border-r-0"
 		>
 			<div className="flex justify-between gap-4">
-				<PanelLabel>{t("work.end.eyebrow")}</PanelLabel>
-				<PanelLabel className="tabular-nums">{next?.num}</PanelLabel>
+				<Eyebrow>{t("work.end.eyebrow")}</Eyebrow>
+				<Eyebrow className="tabular-nums">{next?.num}</Eyebrow>
 			</div>
 			<EndCapTitle name={next?.name} fillRef={fillRef} />
 			<div className="flex flex-col gap-5">

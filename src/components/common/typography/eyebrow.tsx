@@ -1,17 +1,13 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 
-interface PanelLabelProps {
+interface EyebrowProps {
 	children: React.ReactNode;
 	className?: string;
 }
 
 /** Small tracked uppercase label (prototype `.lbl`). */
-// Same look as common/typography SectionLabel (which needs an index); fold into it.
-export const PanelLabel: React.FC<PanelLabelProps> = ({
-	children,
-	className,
-}) => {
+export const Eyebrow: React.FC<EyebrowProps> = ({ children, className }) => {
 	return (
 		<span
 			className={cn(
@@ -24,4 +20,4 @@ export const PanelLabel: React.FC<PanelLabelProps> = ({
 	);
 };
 
-export default PanelLabel;
+export default Eyebrow;

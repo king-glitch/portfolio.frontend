@@ -25,6 +25,9 @@
 			},
 			"contact": {
 				"label": "Get in touch"
+			},
+			"theme": {
+				"aria-label": "Switch between light and dark theme"
 			}
 		},
 		"menu": {
@@ -85,6 +88,55 @@
 			"button": {
 				"label": ">_ terminal",
 				"aria-label": "Open terminal"
+			},
+			"dialog": {
+				"description": "Type a command and press Enter. Type help for the list."
+			},
+			"titlebar": {
+				"label": "william@x10 — ~/portfolio",
+				"esc": "esc"
+			},
+			"close": {
+				"aria-label": "Close terminal"
+			},
+			"input": {
+				"aria-label": "Terminal command",
+				"placeholder": "type help"
+			},
+			"help": {
+				"rows": {
+					"whoami": "  whoami                who is this",
+					"ls": "  ls [projects|posts]   list things",
+					"open": "  open <n|name>         open a project",
+					"read": "  read <n>              open a blog post",
+					"cat": "  cat about             the long version",
+					"skills": "  skills                the toolkit",
+					"pages": "  about · blog · home   go to a page",
+					"contact": "  contact               how to reach me",
+					"tidy": "  clear · exit           tidy up"
+				},
+				"hint": "  psst: try “sudo hire william”"
+			},
+			"whoami": "William Siefert — software developer. Builds the parts of apps and games you never see, so the parts you do see feel effortless.",
+			"errors": {
+				"not-found": "command not found: {{command}} — try help",
+				"ls": "ls: {{arg}}: no such directory",
+				"open": "open: no project matches “{{arg}}”",
+				"read": "read: pick a number from ls posts",
+				"cat": "cat: {{arg}}: try cat about"
+			},
+			"messages": {
+				"loading": "still loading data — try again in a moment",
+				"error": "could not load data — close and reopen the terminal to retry",
+				"opening": {
+					"project": "opening {{name}}…",
+					"post": "opening “{{title}}”…"
+				}
+			},
+			"sudo": {
+				"password": "[sudo] password for recruiter: ********",
+				"granted": "Access granted. Opening the contact section…",
+				"denied": "sudo: nice try."
 			}
 		}
 	}

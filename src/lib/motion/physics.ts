@@ -77,8 +77,9 @@ function collide(a: Ball, c: Ball, impulse: number): void {
 	const nx = dx / d;
 	const ny = dy / d;
 	const overlap = min - d;
-	const wa = a.drag ? 0 : c.drag ? 1 : 0.5;
-	const wc = c.drag ? 0 : a.drag ? 1 : 0.5;
+	// a dragged ball is immovable: the other one takes the whole correction
+	const wa = a.drag ? 0 : Number(c.drag) || 0.5;
+	const wc = c.drag ? 0 : Number(a.drag) || 0.5;
 	a.x -= nx * overlap * wa;
 	a.y -= ny * overlap * wa;
 	c.x += nx * overlap * wc;

@@ -1,8 +1,16 @@
 import React from "react";
+import type { ParseKeys } from "i18next";
 import { useTranslation } from "react-i18next";
 import { ProjectFilter } from "@/api/types/portfolio/enums";
 import { FilterToggle } from "@/components/common/filters/filter-toggle";
 import type { FilterOption } from "@/types/ui";
+
+const LABELS: Record<ProjectFilter, ParseKeys> = {
+	[ProjectFilter.All]: "common.filters.all",
+	[ProjectFilter.Games]: "common.filters.games",
+	[ProjectFilter.Platforms]: "common.filters.platforms",
+	[ProjectFilter.OnChain]: "common.filters.on-chain",
+};
 
 interface IndexFiltersProps {
 	value: ProjectFilter;
@@ -18,13 +26,13 @@ export const IndexFilters: React.FC<IndexFiltersProps> = ({
 	onChange,
 }) => {
 	const { t } = useTranslation();
-	const options: FilterOption<ProjectFilter>[] = Object.values(ProjectFilter).map(
-		(id) => ({
-			id,
-			labelKey: `common.filters.${id}`,
-			count: counts?.[id],
-		}),
-	);
+	const options: FilterOption<ProjectFilter>[] = Object.values(
+		ProjectFilter,
+	).map((id) => ({
+		id,
+		label: t(LABELS[id]),
+		count: counts?.[id],
+	}));
 	return (
 		<FilterToggle
 			value={value}

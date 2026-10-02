@@ -8,14 +8,14 @@ interface CounterReelProps {
 	delay: number;
 }
 
-/** One digit reel: a 0-9 column moved with `transform` only. Rolls in on mount (`.work-reel`). */
+/** One digit reel: a 0-9 column moved with `transform` only. Rolls in on mount. */
 export const CounterReel: React.FC<CounterReelProps> = ({ digit, delay }) => {
 	return (
 		<span className="inline-block h-[1em] overflow-hidden leading-none">
 			<span
-				className="work-reel flex flex-col"
+				className="flex flex-col transition-[translate] duration-1000 ease-(--ease-out-expo) motion-reduce:transition-none starting:[translate:0_0]"
 				style={{
-					transform: `translateY(${-digit}em)`,
+					translate: `0 ${-digit}em`,
 					transitionDelay: `${delay}s`,
 				}}
 			>

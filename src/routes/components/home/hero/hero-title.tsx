@@ -10,9 +10,10 @@ interface HeroTitleProps {}
 /** "Quiet code / [behind] loud products." with staggered word rise; `behind` sits in a wiping inverted box. */
 export const HeroTitle: React.FC<HeroTitleProps> = () => {
 	const { t } = useTranslation();
-	const { wordBaseDelayS, secondLineBaseDelayS, wordStaggerS } = config.home.hero;
-	const first = t("home.hero.title.line-1").split(" ");
-	const second = t("home.hero.title.line-2").split(" ");
+	const { wordBaseDelayS, secondLineBaseDelayS, wordStaggerS } =
+		config.home.hero;
+	const first = t("home.hero.lines.1").split(" ");
+	const second = t("home.hero.lines.2").split(" ");
 	return (
 		<DisplayHeading
 			variant={DisplayVariant.Hero}
@@ -32,15 +33,20 @@ export const HeroTitle: React.FC<HeroTitleProps> = () => {
 				<span className="relative mr-[0.2em] inline-block px-[0.14em]">
 					<span
 						aria-hidden="true"
-						className="gated absolute inset-x-0 top-[0.04em] bottom-[0.02em] origin-left animate-box-in rounded-[0.14em] bg-foreground motion-reduce:animate-none"
+						className="absolute inset-x-0 top-[0.04em] bottom-[0.02em] origin-left animate-box-in rounded-[0.14em] bg-foreground gated motion-reduce:animate-none"
 					/>
-					<HeroWord delayS={0.34} className="relative text-background">
-						{t("home.hero.title.behind")}
+					<HeroWord
+						delayS={0.34}
+						className="relative text-background"
+					>
+						{t("home.hero.behind")}
 					</HeroWord>
 				</span>
 				{second.map((word, i) => (
 					<React.Fragment key={word}>
-						<HeroWord delayS={secondLineBaseDelayS + i * wordStaggerS}>
+						<HeroWord
+							delayS={secondLineBaseDelayS + i * wordStaggerS}
+						>
 							{word}
 						</HeroWord>{" "}
 					</React.Fragment>

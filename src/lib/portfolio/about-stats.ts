@@ -23,7 +23,10 @@ export interface AboutStats {
 const ROLE_PREFIX = /^Software Developer\s*/i;
 
 /** "Software Developer X10 Interactive" -> { name: "X10 Interactive", role: "Software Developer" }. */
-export function splitRole(title: string): { name: string; role: string | null } {
+export function splitRole(title: string): {
+	name: string;
+	role: string | null;
+} {
 	const role = title.match(ROLE_PREFIX)?.[0].trim() || null;
 	return { name: title.replace(ROLE_PREFIX, ""), role };
 }
@@ -89,8 +92,9 @@ export function buildAboutStats(
 		onChain: projects.filter((p) =>
 			p.categories.includes(ProjectFilter.OnChain),
 		).length,
-		games: projects.filter((p) => p.categories.includes(ProjectFilter.Games))
-			.length,
+		games: projects.filter((p) =>
+			p.categories.includes(ProjectFilter.Games),
+		).length,
 		employer: employerOf(profile),
 		yearsInProduction: job ? yearsSince(job.start, now) : 0,
 		languages: group(0),

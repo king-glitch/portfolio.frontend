@@ -19,14 +19,18 @@ export function useLetterWeight(ref: RefObject<HTMLElement | null>): void {
 	const coarse = useCoarsePointer();
 	const inView = useInView(ref);
 	const active = inView && !reduced && !coarse;
-	const letters = useRef<{ el: HTMLElement; cx: number; cy: number; w: number }[]>([]);
+	const letters = useRef<
+		{ el: HTMLElement; cx: number; cy: number; w: number }[]
+	>([]);
 	const pointer = useRef({ x: 0, y: 0 });
 	const dirty = useRef(false);
 
 	useMeasure(() => {
 		const el = ref.current;
 		if (!el) return;
-		letters.current = Array.from(el.querySelectorAll<HTMLElement>(LETTER)).map((letter, i) => {
+		letters.current = Array.from(
+			el.querySelectorAll<HTMLElement>(LETTER),
+		).map((letter, i) => {
 			const r = letter.getBoundingClientRect();
 			return {
 				el: letter,
@@ -57,13 +61,19 @@ export function useLetterWeight(ref: RefObject<HTMLElement | null>): void {
 	useRaf(() => {
 		if (!dirty.current) return;
 		dirty.current = false;
-		const { letterWeightMax, letterWeightMin, letterRangePx } = config.home.contact;
+		const { letterWeightMax, letterWeightMin, letterRangePx } =
+			config.home.contact;
 		const { x, y } = pointer.current;
 		const sx = window.scrollX;
 		const sy = window.scrollY;
 		for (const l of letters.current) {
 			const d = Math.hypot(x - (l.cx - sx), y - (l.cy - sy));
-			const w = letterWeight(d, letterWeightMax, letterWeightMin, letterRangePx);
+			const w = letterWeight(
+				d,
+				letterWeightMax,
+				letterWeightMin,
+				letterRangePx,
+			);
 			if (l.w === w) continue;
 			l.w = w;
 			l.el.style.fontWeight = String(w);

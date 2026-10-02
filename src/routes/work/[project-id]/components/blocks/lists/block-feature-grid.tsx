@@ -13,7 +13,7 @@ const cellVariants = cva(
 		variants: {
 			tone: {
 				[FeatureCellTone.Hero]:
-					"col-span-2 row-span-2 bg-foreground text-background mob:col-span-1 mob:row-span-1",
+					"col-span-2 row-span-2 bg-foreground text-background max-desk:col-span-1 max-desk:row-span-1",
 				[FeatureCellTone.Muted]: "bg-muted",
 				[FeatureCellTone.Card]: "bg-card",
 			},
@@ -37,7 +37,7 @@ export const BlockFeatureGrid: React.FC<BlockFeatureGridProps> = ({
 	return (
 		<Panel className="flex w-auto flex-col gap-7">
 			<PanelHeading index={index}>{label}</PanelHeading>
-			<div className="grid min-h-0 grow auto-cols-[min(300px,78vw)] grid-flow-col-dense grid-rows-2 gap-3.5 mob:auto-cols-auto mob:grid-flow-row mob:grid-cols-1 mob:grid-rows-none mob:overflow-y-auto">
+			<div className="grid min-h-0 grow auto-cols-[min(300px,78vw)] grid-flow-col-dense grid-rows-2 gap-3.5 max-desk:auto-cols-auto max-desk:grid-flow-row max-desk:grid-cols-1 max-desk:grid-rows-none max-desk:overflow-y-auto">
 				{items.map((item, i) => (
 					<div
 						key={item}

@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
+import { Eyebrow } from "@/components/common/typography/eyebrow";
 import { useScramble } from "@/hooks/motion/use-scramble";
-import { cn } from "@/lib/utils";
 
 interface SectionLabelProps {
 	/** 1-based section number, shown as "(01)". */
@@ -20,17 +20,12 @@ export const SectionLabel: React.FC<SectionLabelProps> = ({
 	useScramble(ref);
 	const text = `(${String(index).padStart(2, "0")}) ${children}`;
 	return (
-		<span
-			className={cn(
-				"text-[13px] font-medium tracking-[0.16em] text-muted-foreground uppercase",
-				className,
-			)}
-		>
+		<Eyebrow className={className}>
 			<span ref={ref} aria-hidden="true">
 				{text}
 			</span>
 			<span className="sr-only">{text}</span>
-		</span>
+		</Eyebrow>
 	);
 };
 

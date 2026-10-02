@@ -78,7 +78,10 @@ export const MockRadar: React.FC<MockRadarProps> = () => {
 				<circle cx="320" cy="214" r="160" strokeDasharray="2 6" />
 				<path d="M160 214 H480 M320 40 V390" />
 			</g>
-			<g className="art-spin" style={{ transformOrigin: "320px 214px" }}>
+			<g
+				className="origin-[200px_150px] transform-view motion-safe:animate-art-spin"
+				style={{ transformOrigin: "320px 214px" }}
+			>
 				<path
 					d="M320 214 L320 94 A120 120 0 0 1 404.85 129.15 Z"
 					fill="currentColor"
@@ -99,7 +102,7 @@ export const MockRadar: React.FC<MockRadarProps> = () => {
 				width="10"
 				height="10"
 				fill="currentColor"
-				className="art-blink"
+				className="motion-safe:animate-art-blink"
 			/>
 			<circle cx="268" cy="262" r="4" fill="currentColor" />
 			<circle cx="350" cy="296" r="4" fill="currentColor" />

@@ -59,7 +59,10 @@ export const MenuProjects: React.FC<MenuProjectsProps> = ({
 		));
 
 	return (
-		<div className="menu-in" style={{ animationDelay: "0.32s" }}>
+		<div
+			className="opacity-0 motion-safe:animate-menu-in motion-reduce:opacity-100"
+			style={{ animationDelay: "0.32s" }}
+		>
 			<div className="mb-1.5 flex justify-between text-xs font-semibold tracking-[0.14em] uppercase opacity-55">
 				<span>{t("shell.menu.projects.heading")}</span>
 				<span>{String(data?.length ?? 0).padStart(2, "0")}</span>

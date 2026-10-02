@@ -1,5 +1,3 @@
-import type { ParseKeys } from "i18next";
-
 export enum PillVariant {
 	Solid = "solid",
 	Outline = "outline",
@@ -39,6 +37,12 @@ export enum PostCardVariant {
 
 export interface FilterOption<T extends string> {
 	id: T;
-	labelKey: ParseKeys;
+	/** Already translated chip text (tags are data and render as is). */
+	label: string;
 	count?: number;
+}
+
+export enum Theme {
+	Light = "light",
+	Dark = "dark",
 }

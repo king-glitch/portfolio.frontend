@@ -39,7 +39,7 @@ export const MenuPreview: React.FC<MenuPreviewProps> = ({ activeId }) => {
 	return (
 		<div
 			aria-hidden="true"
-			className="menu-in relative aspect-16/10 overflow-hidden rounded-3xl shadow-[0_30px_60px_-30px_rgba(0,0,0,.5)] invert-scope max-[760px]:hidden"
+			className="relative aspect-16/10 overflow-hidden rounded-3xl opacity-0 shadow-[0_30px_60px_-30px_rgba(0,0,0,.5)] invert-scope motion-safe:animate-menu-in motion-reduce:opacity-100 max-desk:hidden"
 			style={{ animationDelay: "0.25s" }}
 		>
 			{/* The menu is an inverted surface; flip back so the mocks and chip use the page's own theme. */}

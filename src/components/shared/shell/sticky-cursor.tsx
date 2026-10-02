@@ -17,7 +17,7 @@ export const StickyCursor: React.FC<StickyCursorProps> = () => {
 				ref={ringRef}
 				aria-hidden="true"
 				className={cn(
-					"pointer-events-none fixed top-0 left-0 z-500 box-border flex size-9 items-center justify-center rounded-full border border-white text-xs font-semibold tracking-[0.02em] text-transparent mix-blend-difference transition-[background-color,color] duration-300 will-change-transform",
+					"pointer-events-none fixed top-0 left-0 z-500 box-border flex size-9 items-center justify-center rounded-full border border-white text-xs font-semibold tracking-[0.02em] text-transparent mix-blend-difference transition-[background-color,color] duration-300 will-change-transform print:hidden",
 					label && "bg-white text-black",
 				)}
 				style={{ transform: "translate3d(-200px,-200px,0)" }}
@@ -27,7 +27,7 @@ export const StickyCursor: React.FC<StickyCursorProps> = () => {
 			<div
 				ref={dotRef}
 				aria-hidden="true"
-				className="pointer-events-none fixed top-0 left-0 z-501 size-1.5 rounded-full bg-white mix-blend-difference transition-opacity duration-300"
+				className="pointer-events-none fixed top-0 left-0 z-501 size-1.5 rounded-full bg-white mix-blend-difference transition-opacity duration-300 print:hidden"
 				style={{ transform: "translate3d(-200px,-200px,0)" }}
 			/>
 		</>

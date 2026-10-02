@@ -18,11 +18,11 @@ export const ProjectPageSkeleton: React.FC<ProjectPageSkeletonProps> = () => {
 		>
 			<div className="absolute inset-x-0 top-0 z-5 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4 border-b border-border bg-background px-[clamp(16px,4vw,56px)] py-5.5">
 				<Skeleton className="h-11 w-28 rounded-pill" />
-				<Skeleton className="h-4 w-36 mob:hidden" />
+				<Skeleton className="h-4 w-36 max-desk:hidden" />
 				<Skeleton className="h-11 w-40 justify-self-end rounded-pill" />
 			</div>
 			<div className="flex h-full w-max">
-				<Panel className="grid grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] gap-[4vw] mob:grid-cols-1">
+				<Panel className="grid grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] gap-[4vw] max-desk:grid-cols-1">
 					<div className="flex flex-col justify-between gap-8">
 						<Skeleton className="h-7 w-2/3" />
 						<Skeleton className="h-40 w-full" />

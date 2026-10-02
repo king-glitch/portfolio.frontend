@@ -9,7 +9,7 @@ import type { BlockProps } from "@/types/work";
 import { PanelHeading } from "@/routes/work/[project-id]/components/blocks/panel-heading";
 
 const figureVariants = cva(
-	"m-0 flex shrink-0 flex-col gap-3 mob:aspect-auto mob:h-auto mob:w-full",
+	"m-0 flex shrink-0 flex-col gap-3 max-desk:aspect-auto max-desk:h-auto max-desk:w-full",
 	{
 		variants: {
 			view: {
@@ -30,14 +30,14 @@ export const BlockGallery: React.FC<BlockGalleryProps> = ({
 	index,
 }) => {
 	return (
-		<Panel className="flex w-auto flex-col gap-6 mob:overflow-y-auto">
+		<Panel className="flex w-auto flex-col gap-6 max-desk:overflow-y-auto">
 			<div className="flex flex-wrap items-baseline gap-5">
 				<PanelHeading index={index}>{label}</PanelHeading>
 				<span className="text-[13px] text-muted-foreground">
 					{caption}
 				</span>
 			</div>
-			<div className="flex min-h-0 grow items-center gap-12 mob:flex-col mob:items-stretch mob:overflow-y-auto">
+			<div className="flex min-h-0 grow items-center gap-12 max-desk:flex-col max-desk:items-stretch max-desk:overflow-y-auto">
 				{items.map((item, i) => {
 					const odd = i % 2 === 1;
 					return (

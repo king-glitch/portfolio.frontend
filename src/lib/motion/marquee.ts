@@ -39,6 +39,10 @@ export function stepMarquee(
 	return {
 		velocity,
 		offset,
-		skewDeg: clamp(-velocity * cfg.skewFactor, -cfg.skewMaxDeg, cfg.skewMaxDeg),
+		skewDeg: clamp(
+			-velocity * cfg.skewFactor,
+			-cfg.skewMaxDeg,
+			cfg.skewMaxDeg,
+		),
 	};
 }
