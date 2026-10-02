@@ -463,7 +463,7 @@
 			},
 			"see": {
 				"eyebrow": "What you see",
-				"hint": "Move your cursor here (or tap) to look behind the screen.",
+				"hint": "Hover or tap here to look behind the screen.",
 				"lines": {
 					"1": "A button,",
 					"2": "a map,",
@@ -472,7 +472,7 @@
 			}
 		},
 		"stack": {
-			"description": "Every tap travels through these six stops before anything changes on your screen. Hover a stop to see which of my projects use it.",
+			"description": "Every tap travels through these six stops before anything changes on your screen. Hover or tap a stop to see which of my projects use it.",
 			"eyebrow": "Under the hood",
 			"flow": {
 				"aria-label": "Stack stops"
@@ -613,7 +613,7 @@
 			"button": "Next project",
 			"eyebrow": "(Next project)",
 			"scroll": {
-				"hint": "Scroll once more to slide into the next project."
+				"hint": "Keep scrolling to push into the next project."
 			},
 			"touch": {
 				"hint": "Tap to open the next project. The list loops back to the start."

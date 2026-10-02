@@ -66,7 +66,7 @@ export const SiteMenu: React.FC<SiteMenuProps> = () => {
 				showCloseButton={false}
 				className="inset-0 z-150 h-dvh w-screen max-w-none translate-x-0 translate-y-0 gap-0 rounded-none bg-transparent p-0 ring-0 transition-[clip-path] duration-900 ease-[cubic-bezier(.87,0,.13,1)] invert-scope [clip-path:inset(0)] data-ending-style:duration-600 data-ending-style:[clip-path:inset(0_0_100%_0)] data-starting-style:[clip-path:inset(0_0_100%_0)] motion-reduce:duration-1 sm:max-w-none data-open:animate-none! data-closed:animate-none!"
 			>
-				<div className="flex h-full flex-col overflow-y-auto bg-background text-foreground invert-surface">
+				<div className="flex h-full flex-col overflow-y-auto overscroll-contain bg-background pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] text-foreground invert-surface">
 					<DialogTitle className="sr-only">
 						{t("common.menu.label")}
 					</DialogTitle>

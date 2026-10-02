@@ -8,6 +8,8 @@ interface NextProjectProps {
 	vertical: boolean;
 	onNext: () => void;
 	nextRef: React.Ref<HTMLDivElement>;
+	coverRef: React.Ref<HTMLElement>;
+	percentRef: React.Ref<HTMLSpanElement>;
 }
 
 /**
@@ -19,10 +21,18 @@ export const NextProject: React.FC<NextProjectProps> = ({
 	vertical,
 	onNext,
 	nextRef,
+	coverRef,
+	percentRef,
 }) => {
 	return (
 		<>
-			<NextProjectCover next={next} vertical={vertical} onNext={onNext} />
+			<NextProjectCover
+				next={next}
+				vertical={vertical}
+				onNext={onNext}
+				coverRef={coverRef}
+				percentRef={percentRef}
+			/>
 			{next && !vertical ? (
 				<div
 					ref={nextRef}

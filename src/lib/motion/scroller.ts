@@ -88,3 +88,24 @@ export function easeInOut(t: number): number {
 	const c = Math.min(1, Math.max(0, t));
 	return c < 0.5 ? 4 * c * c * c : 1 - Math.pow(-2 * c + 2, 3) / 2;
 }
+
+/** Add positive input to the pull past the end, with resistance that grows as the pull grows. */
+export function feedPull(pull: number, d: number, cfg: ScrollerConfig): number {
+	const th = cfg.pullThresholdPx;
+	const gain = Math.max(
+		cfg.pullMinGain,
+		cfg.pullBaseGain * (1 - (cfg.pullSlope * pull) / th),
+	);
+	return Math.min(th, Math.max(0, pull + (d > 0 ? d * gain : d)));
+}
+
+/** Pull after one idle frame: drains once input stops, snaps to 0 near the bottom. */
+export function decayPull(
+	pull: number,
+	idleMs: number,
+	cfg: ScrollerConfig,
+): number {
+	if (pull === 0 || idleMs < cfg.pullIdleMs) return pull;
+	const next = pull * cfg.pullDecay;
+	return next < cfg.pullZeroBelowPx ? 0 : next;
+}

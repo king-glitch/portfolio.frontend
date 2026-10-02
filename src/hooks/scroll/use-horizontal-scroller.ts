@@ -3,7 +3,9 @@ import { config } from "@/config";
 import { useRaf } from "@/hooks/motion/use-raf";
 import { useReducedMotion } from "@/hooks/motion/use-reduced-motion";
 import {
+	decayPull,
 	easeInOut,
+	feedPull,
 	feedTrack,
 	initialScroller,
 	isAtEnd,
@@ -51,6 +53,12 @@ interface Engine {
 	lastWheel: number;
 	/** The current wheel gesture began with the cover already fully in view. */
 	gestureAtEnd: boolean;
+	/** Input pulled past the end (px, after resistance); reaching the threshold starts the push. */
+	pull: number;
+	lastPull: number;
+	/** Drawn progress 0..1, eased toward the pull ratio. */
+	shownQ: number;
+	lastQ: number;
 	push: Push | null;
 	done: boolean;
 }
@@ -64,6 +72,10 @@ const newEngine = (): Engine => ({
 	lastX: Number.NaN,
 	lastWheel: 0,
 	gestureAtEnd: false,
+	pull: 0,
+	lastPull: 0,
+	shownQ: 0,
+	lastQ: Number.NaN,
 	push: null,
 	done: false,
 });
@@ -83,10 +95,11 @@ function leftWithin(el: HTMLElement, track: HTMLElement): number {
 /**
  * Project scroller (Main tick() 1104, feed() 874, wheel/key 738).
  * Desktop: wheel/keys drive an eased track with parallax, writing only `transform` / `translate`.
- * The last own panel (next-project cover) snaps fully into view; only a new scroll gesture that
- * starts there pushes the next project's first panel in from the right (trackpad momentum that
- * merely arrives at the end never does). When the push lands, `onThreshold` swaps in the next
- * page, whose first panel is the one already on screen.
+ * The last own panel (next-project cover) snaps fully into view. Scroll gestures that start
+ * there build a resisted pull (shown as `--pull` 0..1 on the cover); trackpad momentum that merely
+ * arrives at the end never pulls, and the pull drains when input stops. At 100% the next
+ * project's first panel is pushed in from the right while the top bar drains; when the push
+ * lands, `onThreshold` swaps in the next page with that panel already on screen.
  * Phones and tablets (not `config.media.horizontal`): engine off, the page scrolls vertically.
  * Reduced motion: no easing, no parallax, the push navigates at once.
  */
@@ -116,6 +129,7 @@ export function useHorizontalScroller(options: ScrollerOptions) {
 			to: eng.max + eng.nextWidth,
 			start: performance.now(),
 		};
+		latest.current.onPushStart();
 	}, [reduced]);
 
 	// Rects are cached here and refreshed on ResizeObserver; never read per frame.
@@ -154,11 +168,17 @@ export function useHorizontalScroller(options: ScrollerOptions) {
 
 		const feed = (d: number, fresh: boolean) => {
 			if (eng.push || eng.done) return;
-			if (d > 0 && isAtEnd(eng.state, eng.max, cfg)) {
-				if (fresh) startPush();
+			const now = performance.now();
+			const pulling = eng.pull > 0 && d < 0;
+			if (pulling || (d > 0 && isAtEnd(eng.state, eng.max, cfg))) {
+				// Momentum that only arrives at the end never pulls; a new gesture there does.
+				if (!fresh && d > 0) return;
+				eng.pull = feedPull(eng.pull, d, cfg);
+				eng.lastPull = now;
+				if (eng.pull >= cfg.pullThresholdPx) startPush();
 				return;
 			}
-			eng.state = feedTrack(eng.state, d, eng.max, performance.now());
+			eng.state = feedTrack(eng.state, d, eng.max, now);
 		};
 		const onWheel = (e: WheelEvent) => {
 			// Window-level so wheeling keeps working while a page transition overlay is up;
@@ -188,7 +208,7 @@ export function useHorizontalScroller(options: ScrollerOptions) {
 			const dir = KEY_DIRECTION[e.key];
 			if (!dir) return;
 			e.preventDefault();
-			feed(dir * window.innerWidth * cfg.keyStepViewport, !e.repeat);
+			feed(dir * window.innerWidth * cfg.keyStepViewport, true);
 		};
 		const syncNative = () => {
 			const bar = latest.current.barRef.current;
@@ -234,15 +254,20 @@ export function useHorizontalScroller(options: ScrollerOptions) {
 		if (!track || eng.panels.length === 0 || eng.done) return;
 
 		let x: number;
+		let bar: number;
 		const push = eng.push;
 		if (push) {
 			const t = (now - push.start) / cfg.pushMs;
-			x = push.from + (push.to - push.from) * easeInOut(t);
+			const e = easeInOut(t);
+			x = push.from + (push.to - push.from) * e;
+			// The top bar drains to 0 as the next page (whose bar starts at 0) slides in.
+			bar = 1 - e;
 			if (t >= 1) {
 				eng.done = true;
 				latest.current.onThreshold();
 			}
 		} else {
+			eng.pull = decayPull(eng.pull, now - eng.lastPull, cfg);
 			eng.state = stepScroller(
 				{
 					...eng.state,
@@ -258,14 +283,27 @@ export function useHorizontalScroller(options: ScrollerOptions) {
 				reduced,
 			);
 			x = eng.state.current;
+			bar = progressRatio(x, eng.max);
+		}
+		const goal = push ? 1 : eng.pull / cfg.pullThresholdPx;
+		eng.shownQ += (goal - eng.shownQ) * cfg.pullLerp;
+		if (Math.abs(goal - eng.shownQ) < 0.001) eng.shownQ = goal;
+		const q = eng.shownQ;
+		if (q !== eng.lastQ) {
+			eng.lastQ = q;
+			const { coverRef, percentRef } = latest.current;
+			coverRef.current?.style.setProperty("--pull", q.toFixed(4));
+			if (percentRef.current)
+				percentRef.current.textContent = String(
+					Math.round(q * 100),
+				).padStart(2, "0");
 		}
 		if (x === eng.lastX) return;
 		eng.lastX = x;
 
 		track.style.transform = `translate3d(${(-x).toFixed(2)}px,0,0)`;
-		const bar = barRef.current;
-		if (bar)
-			bar.style.transform = `scaleX(${progressRatio(x, eng.max).toFixed(4)})`;
+		const barEl = barRef.current;
+		if (barEl) barEl.style.transform = `scaleX(${bar.toFixed(4)})`;
 		if (reduced) return;
 		const reach = window.innerWidth * cfg.visiblePanelViewports;
 		for (const p of eng.panels) {

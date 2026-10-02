@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import type { Project, ProjectSummary } from "@/api/types/portfolio/project";
 import { config } from "@/config";
@@ -22,6 +22,7 @@ export const ProjectContent: React.FC<ProjectContentProps> = ({
 }) => {
 	const navigate = useNavigate();
 	const barRef = useRef<HTMLDivElement>(null);
+	const [leaving, setLeaving] = useState(false);
 	const ids = projects?.map((p) => p.id);
 	const position = ids ? ids.indexOf(project.id) + 1 || undefined : undefined;
 	const nextProjectId = ids && nextId(ids, project.id);
@@ -55,6 +56,7 @@ export const ProjectContent: React.FC<ProjectContentProps> = ({
 				prevTo={prevProjectId ? projectPath(prevProjectId) : undefined}
 				nextTo={nextProjectId ? projectPath(nextProjectId) : undefined}
 				onClose={close}
+				leaving={leaving}
 				barRef={barRef}
 			/>
 			<ProjectViewport
@@ -62,6 +64,7 @@ export const ProjectContent: React.FC<ProjectContentProps> = ({
 				next={next}
 				onNext={goNext}
 				onClose={close}
+				onPushStart={() => setLeaving(true)}
 				barRef={barRef}
 			/>
 		</div>

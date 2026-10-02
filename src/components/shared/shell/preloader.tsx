@@ -19,10 +19,9 @@ export const Preloader: React.FC<PreloaderProps> = () => {
 	return (
 		<div
 			aria-hidden="true"
-			style={{ transitionDuration: `${config.shell.preloader.wipeMs}ms` }}
 			className={cn(
-				"fixed inset-0 z-400 box-border flex flex-col justify-between overflow-hidden bg-foreground p-[clamp(16px,4vw,48px)] text-background transition-[translate,border-radius] ease-(--ease-wipe)",
-				out && "pointer-events-none -translate-y-full rounded-b-[36px]",
+				"fixed inset-0 z-400 box-border flex flex-col justify-between overflow-hidden bg-foreground p-[clamp(16px,4vw,48px)] text-background will-change-transform",
+				out && "pointer-events-none animate-loader-out",
 			)}
 		>
 			<div className="flex justify-between gap-4 text-[13px] font-bold tracking-[0.14em] uppercase">
