@@ -6,8 +6,7 @@ import { SectionLabel } from "@/components/common/typography/section-label";
 import { config } from "@/config";
 import { useShell } from "@/contexts/shell-context";
 import { ContactLetters } from "@/routes/components/home/contact/contact-letters";
-import { MascotBuddy } from "@/components/common/mascot/mascot-buddy";
-import { BubbleSide, PillVariant } from "@/types/ui";
+import { PillVariant } from "@/types/ui";
 
 interface ContactProps {}
 
@@ -21,22 +20,9 @@ export const Contact: React.FC<ContactProps> = () => {
 			className="border-t px-[clamp(16px,4vw,48px)] pt-[clamp(80px,10vw,160px)] pb-10"
 		>
 			<div className="mx-auto max-w-340">
-				<div className="flex items-end justify-between gap-6">
-					<SectionLabel index={9}>
-						{t("home.contact.eyebrow")}
-					</SectionLabel>
-					<MascotBuddy
-						quips={[
-							t("home.contact.mascot.quips.1"),
-							t("home.contact.mascot.quips.2"),
-							t("home.contact.mascot.quips.3"),
-						]}
-						label={t("home.contact.mascot.label")}
-						side={BubbleSide.Right}
-						greet
-						className="ml-auto w-[clamp(64px,8vw,120px)]"
-					/>
-				</div>
+				<SectionLabel index={9}>
+					{t("home.contact.eyebrow")}
+				</SectionLabel>
 				<ContactLetters text={t("home.contact.title")} />
 				<div className="mt-12 grid items-end gap-12 desk:grid-cols-2">
 					<p className="m-0 max-w-140 text-[clamp(20px,2vw,30px)] leading-[1.35] tracking-[-0.02em]">

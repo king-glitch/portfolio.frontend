@@ -1,7 +1,8 @@
 import React from "react";
 import { isRouteErrorResponse, useRouteError } from "react-router";
 import { PillButton } from "@/components/common/buttons/pill-button";
-import { MascotBuddy } from "@/components/common/mascot/mascot-buddy";
+import { Mascot } from "@/components/common/mascot/mascot";
+import { MascotBubble } from "@/components/common/mascot/mascot-bubble";
 import { config } from "@/config";
 import i18n from "@/lib/i18n";
 import { BubbleSide, MascotZone, PillVariant } from "@/types/ui";
@@ -35,17 +36,15 @@ export const RootError: React.FC<RootErrorProps> = () => {
 	if (notFound)
 		return (
 			<main className="flex min-h-svh flex-col items-center justify-center gap-10 bg-background p-6 text-center text-foreground">
-				<MascotBuddy
-					quips={[
-						i18n.t("common.not-found.mascot.quips.1"),
-						i18n.t("common.not-found.mascot.quips.2"),
-					]}
-					label={i18n.t("common.not-found.mascot.label")}
-					side={BubbleSide.Top}
-					greet
-					options={{ zone: MascotZone.BottomLeft, range: 0.2 }}
-					className="w-[clamp(120px,22vw,220px)]"
-				/>
+				<div className="flex flex-col items-center gap-4">
+					<Mascot
+						options={{ zone: MascotZone.Bottom, range: 0.2 }}
+						className="w-[clamp(120px,22vw,220px)]"
+					/>
+					<MascotBubble side={BubbleSide.Top}>
+						{i18n.t("common.not-found.mascot")}
+					</MascotBubble>
+				</div>
 				<div className="mt-10 flex flex-col items-center gap-4">
 					<h1 className="m-0 text-[clamp(96px,18vw,240px)] leading-[0.8] font-black tracking-[-0.08em]">
 						{message}

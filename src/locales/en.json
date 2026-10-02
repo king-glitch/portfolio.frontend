@@ -243,13 +243,7 @@
 		"not-found": {
 			"action": "Back home",
 			"title": "Nothing here",
-			"mascot": {
-				"label": "Poke the mascot",
-				"quips": {
-					"1": "Nothing here. I looked everywhere.",
-					"2": "Maybe it moved to the back end?"
-				}
-			}
+			"mascot": "Nothing here. I looked everywhere."
 		},
 		"previous": "Previous",
 		"sides": {
@@ -332,15 +326,7 @@
 			},
 			"terminal": ">_ open the terminal",
 			"title": "Say hello.",
-			"top": "Back to top ↑",
-			"mascot": {
-				"label": "Poke the mascot",
-				"quips": {
-					"1": "Go on, say hello!",
-					"2": "He replies fast. Like, sockets fast.",
-					"3": "Email is the button on the left."
-				}
-			}
+			"top": "Back to top ↑"
 		},
 		"habits": {
 			"empty": {
@@ -423,15 +409,6 @@
 				"always-on": "@always-on",
 				"game-ready": "@game-ready",
 				"zero-drama": "@zero-drama"
-			},
-			"mascot": {
-				"label": "Poke the mascot",
-				"quips": {
-					"1": "Hi! I live behind the screen.",
-					"2": "Psst — the good stuff is the back end.",
-					"3": "Zero downtime. I checked.",
-					"4": "Okay, okay. Scroll down."
-				}
 			}
 		},
 		"index": {
@@ -641,14 +618,6 @@
 			},
 			"touch": {
 				"hint": "Tap to open the next project. The list loops back to the start."
-			},
-			"mascot": {
-				"label": "Poke the mascot",
-				"quips": {
-					"1": "Keep scrolling →",
-					"2": "Harder! It is heavy.",
-					"3": "Or just press the button."
-				}
 			}
 		},
 		"header": {
@@ -753,7 +722,8 @@
 				"2": "Wiring the sockets…",
 				"3": "Reading the contracts twice…",
 				"4": "Ready. Say hi."
-			}
+			},
+			"hint": "Say hi — it is watching you."
 		},
 		"skip-link": {
 			"label": "Skip to content"
@@ -813,6 +783,35 @@
 				"label": "william@x10 — ~/portfolio"
 			},
 			"whoami": "William Siefert — software developer. I build the parts of apps and games you never see, so the parts you do see feel effortless."
+		},
+		"companion": {
+			"label": "Talk to the mascot",
+			"idle": "Still there? Try the terminal, bottom left.",
+			"places": {
+				"home": {
+					"1": "Hi! I live behind the screen.",
+					"2": "Scroll down — the good stuff is the back end.",
+					"3": "Psst: hover the big words.",
+					"4": "Zero downtime. I checked."
+				},
+				"project": {
+					"1": "Keep going — the next project waits at the end.",
+					"2": "Push past the end to load it.",
+					"3": "Esc closes this page."
+				},
+				"notes": {
+					"1": "He writes things down. I just read them.",
+					"2": "Pick a topic up top."
+				},
+				"note": {
+					"1": "Good one. Grab a coffee.",
+					"2": "The progress bar up top tracks you."
+				},
+				"about": {
+					"1": "Drag the wall around. I dare you.",
+					"2": "Switch to Resume for the short version."
+				}
+			}
 		}
 	}
 }

@@ -43,6 +43,13 @@ export const config = {
 		windowMs: 6000,
 		holdMs: 1500,
 	},
+	/** Companion mascot (bottom-right on every page). */
+	companion: {
+		/** How long a line stays up. */
+		talkMs: 4500,
+		/** No pointer, key or scroll for this long: it says its idle line (once per page). */
+		idleMs: 40000,
+	},
 	media: {
 		/** Sideways (horizontal) scrolling only on laptops/desktops; phones and tablets scroll normally. */
 		horizontal: "(min-width: 1024px) and (pointer: fine)",

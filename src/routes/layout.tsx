@@ -4,6 +4,7 @@ import { Outlet } from "react-router";
 import { PillButton } from "@/components/common/buttons/pill-button";
 import { Mascot } from "@/components/common/mascot/mascot";
 import { MascotDesign } from "@/types/ui";
+import { Companion } from "@/components/shared/shell/companion";
 import { Preloader } from "@/components/shared/shell/preloader";
 import { SiteMenu } from "@/components/shared/shell/site-menu";
 import { SiteNav } from "@/components/shared/shell/site-nav";
@@ -78,6 +79,7 @@ const Layout: React.FC<LayoutProps> = () => {
 					{t("shell.terminal.button.label")}
 				</PillButton>
 			) : null}
+			<Companion />
 			<TerminalDialog />
 			<StickyCursor />
 		</>

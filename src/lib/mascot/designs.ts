@@ -58,6 +58,7 @@ export const MASCOT_DEFAULTS: MascotOptions = {
 export const ZONE_CENTERS: Record<MascotZone, [number, number]> = {
 	[MascotZone.Auto]: [0.4, -0.35],
 	[MascotZone.Center]: [0, 0],
+	[MascotZone.Bottom]: [0, 0.4],
 	[MascotZone.TopRight]: [0.45, -0.45],
 	[MascotZone.TopLeft]: [-0.45, -0.45],
 	[MascotZone.BottomRight]: [0.45, 0.45],
