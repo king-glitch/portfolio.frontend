@@ -44,7 +44,7 @@ test("ls posts only, ls foo errors", () => {
 test("open by number and by name navigates to the project", () => {
 	const byNumber = runCommand("open 3", ready);
 	const byName = runCommand(`open ${projects[2]?.name.toLowerCase()}`, ready);
-	expect(byNumber.nav?.pathname).toBe(`/work/${projects[2]?.id}`);
+	expect(byNumber.nav?.pathname).toBe(`/projects/${projects[2]?.id}`);
 	expect(byName.nav?.pathname).toBe(byNumber.nav?.pathname);
 });
 

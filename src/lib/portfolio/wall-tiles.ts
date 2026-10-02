@@ -2,7 +2,7 @@ import type { ParseKeys } from "i18next";
 import { MotifKind } from "@/api/types/portfolio/enums";
 import type { ProjectSummary } from "@/api/types/portfolio/project";
 import { config } from "@/config";
-import { workPath } from "@/lib/routes";
+import { projectPath } from "@/lib/routes";
 import { CursorLabel } from "@/types/cursor";
 import {
 	AboutTileKind,
@@ -33,7 +33,7 @@ function projectData(
 		caption: p?.name,
 		captionKey,
 		link: p && {
-			to: workPath(p.id),
+			to: projectPath(p.id),
 			labelKey: "about.explore.link.project",
 			labelValues: { name: p.name },
 			cursor: CursorLabel.Open,

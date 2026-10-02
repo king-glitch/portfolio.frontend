@@ -29,11 +29,11 @@ export const projects: Project[] = [
 			"real-time",
 			"data",
 		],
-		about: "A military program that tracks the aircraft from surveillance radars and let user to control the system. with permissions system based on the ip address of the user. The system includes Voice Call, Messaging, Control State of the Aircrafts, and Alert if the aircraft is suspect as a enemy.",
+		about: "Software that turns raw radar signals into a live air picture for military operators. It tracks aircraft from surveillance radars across Thailand, lets operators talk and message each other, and raises an alert when an aircraft looks hostile. Access to each control depends on where the operator logs in from.",
 		role: [
-			"Implemented a military program to control aircraft from surveillance radars around Thailand by decoding encoded messages using TRML and DR127ADV protocols and converting it to readable format for the user.",
-			"Established communication between server and client using sockets to allow real-time updates and control of the system.",
-			"Developed a user interface that allows users to easily monitor and control the aircraft, including features such as voice call, messaging, and alert notifications for suspect aircraft.",
+			"Decoded radar messages in the TRML and DR127ADV protocols and turned them into readable tracks on a map.",
+			"Built the socket link between server and client, so every operator sees updates and control changes in real time.",
+			"Designed the operator screen: a live map with zoom and pan, voice calls, messaging and alerts for suspect aircraft.",
 		],
 		blocks: [
 			{
@@ -56,7 +56,7 @@ export const projects: Project[] = [
 			{
 				type: BlockType.Quote,
 				params: {
-					text: "A military program that tracks the aircraft from surveillance radars and let user to control the system.",
+					text: "Software that turns raw radar signals into a live air picture for military operators.",
 					cite: "Brief",
 				},
 			},
@@ -82,7 +82,7 @@ export const projects: Project[] = [
 			{
 				type: BlockType.Architecture,
 				params: {
-					label: "How it flows",
+					label: "How it works",
 					nodes: [
 						{
 							name: "Surveillance radars",
@@ -106,37 +106,37 @@ export const projects: Project[] = [
 			{
 				type: BlockType.FeatureGrid,
 				params: {
-					label: "Features",
+					label: "What it does",
 					items: [
-						"Real-time tracking of aircraft from surveillance radars",
-						"Fake aircraft creation for testing and preparing for real combat situations",
-						"Permission system based on the IP address of the user to control access to the system",
-						"Voice call and encrypted messaging for secure communication between users",
-						"Alert notifications for suspect aircraft to enhance situational awareness and response time",
-						"Control state of the aircraft, like changing the flag of the aircraft to friend or enemy, to help the user to easily identify the aircraft and make informed decisions.",
-						"User-friendly interface that allows users to easily monitor and control the aircraft, with features such as zooming and panning on the map, and customizable settings for alerts and notifications.",
+						"Real-time aircraft tracking from surveillance radars",
+						"Fake aircraft for training and for rehearsing real situations",
+						"Access control based on the operator's IP address",
+						"Voice calls and encrypted messaging between operators",
+						"Alerts for suspect aircraft, so operators react sooner",
+						"One-click state changes, like marking an aircraft as friend or enemy",
+						"A map you can zoom and pan, with alert settings each operator can tune",
 					],
 				},
 			},
 			{
 				type: BlockType.Timeline,
 				params: {
-					label: "Role",
+					label: "What I did",
 					items: [
-						"Implemented a military program to control aircraft from surveillance radars around Thailand by decoding encoded messages using TRML and DR127ADV protocols and converting it to readable format for the user.",
-						"Established communication between server and client using sockets to allow real-time updates and control of the system.",
-						"Developed a user interface that allows users to easily monitor and control the aircraft, including features such as voice call, messaging, and alert notifications for suspect aircraft.",
+						"Decoded radar messages in the TRML and DR127ADV protocols and turned them into readable tracks on a map.",
+						"Built the socket link between server and client, so every operator sees updates and control changes in real time.",
+						"Designed the operator screen: a live map with zoom and pan, voice calls, messaging and alerts for suspect aircraft.",
 					],
 				},
 			},
 			{
 				type: BlockType.Zigzag,
 				params: {
-					label: "Challenges",
+					label: "What was hard",
 					items: [
-						"Decoding the encoded messages from the surveillance radars was a complex task that required a deep understanding of the TRML and DR127ADV protocols, as well as the ability to handle large amounts of data in real-time.",
-						"Establishing communication between the server and client using sockets required careful consideration of the network architecture and security measures to ensure that the system was reliable and secure.",
-						"Developing a user interface that was both functional and user-friendly required a lot of design and testing to ensure that it met the needs of the users and provided a seamless experience.",
+						"The radar protocols are dense and the data never stops, so decoding had to be both exact and fast.",
+						"The socket link had to stay up and stay private, which meant planning the network and its security together.",
+						"Operators work under pressure. The screen went through many rounds of testing until it felt obvious to use.",
 					],
 				},
 			},
@@ -161,10 +161,11 @@ export const projects: Project[] = [
 			"smart contract",
 			"blockchain",
 		],
-		about: "A Cryto game that combines farming and resource gathering with DeFi yield farming mechanics. Players can learn how to be a yield farmer and earn digital tokens while enjoying the fun of a farming-style game with cute 3D graphics. The game also features NFTs that enhance the competitive aspect of the game.",
+		about: "A farming game with real DeFi yield farming inside it. Players grow crops, gather resources and learn how yield farming works while they play, earning tokens along the way. NFTs add a competitive edge, and the cute 3D world keeps it friendly.",
 		role: [
-			"Developed the server-side features of the game including the implementation of the some of the core mechanics of the game such as shop system, new resource spawning features, and the integration of blockchain into the game to support the DeFi mechanics and NFTs, while also ensuring that the server-side features were optimized for performance and scalability.",
-			"Collaborated with the client-side development team to ensure seamless integration of server-side features.",
+			"Built server-side features such as the shop system and resource spawning, and kept them fast as the player count grew.",
+			"Connected the game to the blockchain so its DeFi mechanics and NFTs work in play.",
+			"Worked closely with the client-side team, so new features landed in the game without friction.",
 		],
 		blocks: [
 			{
@@ -183,7 +184,7 @@ export const projects: Project[] = [
 				type: BlockType.AboutSplit,
 				params: {
 					label: "About",
-					text: "A Cryto game that combines farming and resource gathering with DeFi yield farming mechanics. Players can learn how to be a yield farmer and earn digital tokens while enjoying the fun of a farming-style game with cute 3D graphics. The game also features NFTs that enhance the competitive aspect of the game.",
+					text: "A farming game with real DeFi yield farming inside it. Players grow crops, gather resources and learn how yield farming works while they play, earning tokens along the way. NFTs add a competitive edge, and the cute 3D world keeps it friendly.",
 					kind: MotifKind.Moon,
 				},
 			},
@@ -200,17 +201,18 @@ export const projects: Project[] = [
 			{
 				type: BlockType.StackCards,
 				params: {
-					label: "Role",
+					label: "What I did",
 					items: [
-						"Developed the server-side features of the game including the implementation of the some of the core mechanics of the game such as shop system, new resource spawning features, and the integration of blockchain into the game to support the DeFi mechanics and NFTs, while also ensuring that the server-side features were optimized for performance and scalability.",
-						"Collaborated with the client-side development team to ensure seamless integration of server-side features.",
+						"Built server-side features such as the shop system and resource spawning, and kept them fast as the player count grew.",
+						"Connected the game to the blockchain so its DeFi mechanics and NFTs work in play.",
+						"Worked closely with the client-side team, so new features landed in the game without friction.",
 					],
 				},
 			},
 			{
 				type: BlockType.Architecture,
 				params: {
-					label: "How it flows",
+					label: "How it works",
 					nodes: [
 						{ name: "Game client", description: "3D farming game" },
 						{
@@ -227,7 +229,7 @@ export const projects: Project[] = [
 			{
 				type: BlockType.Quote,
 				params: {
-					text: "Ensuring not only the functionality but also the security of the game, especially with the integration of NFTs and DeFi mechanics, was a significant challenge that required thorough testing and attention to detail.",
+					text: "Real money moves through NFTs and DeFi, so testing went deep on both how things work and how they could be abused.",
 					cite: "Hardest part",
 					tone: BlockTone.Invert,
 				},
@@ -235,11 +237,11 @@ export const projects: Project[] = [
 			{
 				type: BlockType.NumberedList,
 				params: {
-					label: "Challenges",
+					label: "What was hard",
 					items: [
-						"Implementing smart contracts using Solidity for the game's DeFi mechanics required a deep understanding of blockchain technology and careful consideration of security measures to ensure that the contracts were reliable and secure.",
-						"Developing the server-side features of the game required careful planning and coordination with the client-side development.",
-						"Ensuring not only the functionality but also the security of the game, especially with the integration of NFTs and DeFi mechanics, was a significant challenge that required thorough testing and attention to detail.",
+						"The DeFi mechanics live in Solidity smart contracts, so every contract had to be secure before it went live.",
+						"Server features only work if the client is ready for them, which took close planning with the client-side team.",
+						"Real money moves through NFTs and DeFi, so testing went deep on both how things work and how they could be abused.",
 					],
 				},
 			},
@@ -265,14 +267,13 @@ export const projects: Project[] = [
 			"client",
 			"server-side",
 			"smart contract",
-			"blockchain",
 		],
-		about: "A mobile version of the Morning Moon Village game that allows players to enjoy the same farming and resource gathering mechanics on their mobile devices. The game features a user-friendly interface and optimized performance for mobile platforms, while still maintaining the core gameplay experience of the original game.",
+		about: "Morning Moon Village, rebuilt for phones. Players get the same farming and resource gathering on a pocket-sized screen, with an interface made for touch and performance tuned for mobile.",
 		role: [
-			"Rewrite the server-side features of the game using Golang, MongoDB, and Solidity to optimize performance and ensure compatibility, Scalability, and security catch up with the new architecture of the word to support global players in soneium chain.",
-			"Implemented new features like shop system, mission system, and more, focus on optimizing the performance and scalability of the server-side features to support a large number of players.",
-			"Implemented and Rewrite most of the solidity smart contracts for the game's DeFi mechanics to ensure that they were reliable and secure, while also optimizing, scalable, and compatible with the new architecture of the game.",
-			"Collaborated with the client-side development team to ensure seamless integration of server-side features and optimized performance for mobile platforms.",
+			"Rewrote the server-side code in Golang and MongoDB for global players on the Soneium chain, with speed, scale and security as the goals.",
+			"Added new features such as a shop system and a mission system, all built to handle a large number of players.",
+			"Rewrote most of the Solidity smart contracts for the game's DeFi mechanics, so they are safe, efficient and fit the new architecture.",
+			"Worked with the client-side team so server features felt smooth on mobile.",
 		],
 		blocks: [
 			{
@@ -291,7 +292,7 @@ export const projects: Project[] = [
 				type: BlockType.Chips,
 				params: {
 					label: "The brief",
-					title: "Rewrite.",
+					title: "Rebuilt.",
 					text: "The whole server side, rebuilt for mobile and for global players on the Soneium chain.",
 					items: ["Golang", "MongoDB", "Solidity", "Soneium"],
 				},
@@ -330,19 +331,19 @@ export const projects: Project[] = [
 			{
 				type: BlockType.NumberedList,
 				params: {
-					label: "Role",
+					label: "What I did",
 					items: [
-						"Rewrite the server-side features of the game using Golang, MongoDB, and Solidity to optimize performance and ensure compatibility, Scalability, and security catch up with the new architecture of the word to support global players in soneium chain.",
-						"Implemented new features like shop system, mission system, and more, focus on optimizing the performance and scalability of the server-side features to support a large number of players.",
-						"Implemented and Rewrite most of the solidity smart contracts for the game's DeFi mechanics to ensure that they were reliable and secure, while also optimizing, scalable, and compatible with the new architecture of the game.",
-						"Collaborated with the client-side development team to ensure seamless integration of server-side features and optimized performance for mobile platforms.",
+						"Rewrote the server-side code in Golang and MongoDB for global players on the Soneium chain, with speed, scale and security as the goals.",
+						"Added new features such as a shop system and a mission system, all built to handle a large number of players.",
+						"Rewrote most of the Solidity smart contracts for the game's DeFi mechanics, so they are safe, efficient and fit the new architecture.",
+						"Worked with the client-side team so server features felt smooth on mobile.",
 					],
 				},
 			},
 			{
 				type: BlockType.Architecture,
 				params: {
-					label: "How it flows",
+					label: "How it works",
 					nodes: [
 						{
 							name: "Mobile client",
@@ -366,11 +367,11 @@ export const projects: Project[] = [
 			{
 				type: BlockType.StackCards,
 				params: {
-					label: "Challenges",
+					label: "What was hard",
 					items: [
-						"Optimizing the server-side code and rewrite to improve new architecture of the system to support a large number of players while maintaining the core gameplay experience of the original game was a significant challenge that required careful planning and coordination with the client-side development team.",
-						"Ensuring the security and reliability of the smart contracts while optimizing them for performance and scalability was a complex task that required a deep understanding of blockchain technology and careful consideration of security measures.",
-						"Loads of testing and debugging was required to ensure that the game was stable and provided a seamless experience in a short implementation time, especially with the integration of new features and optimizations.",
+						"Rebuilding the server for far more players without changing how the game feels took careful planning with the client-side team.",
+						"The smart contracts had to get faster and stay just as secure, which left no room for shortcuts.",
+						"The timeline was short, so a lot of testing and debugging went into keeping the new build stable.",
 					],
 				},
 			},
@@ -396,13 +397,13 @@ export const projects: Project[] = [
 			"smart contract",
 			"blockchain",
 		],
-		about: "A Hybrid NFT game that combines the strengths of Web2 and Web3 games. Players can explore a world of living robots, embark on an adventure as a mech hunter in a distant archipelago, discover wandering robots, capture, train, customize and restore them to their former aid to humanity.",
+		about: "A hybrid game that mixes Web2 gameplay with Web3 ownership. Players are mech hunters on a distant archipelago: they find wandering robots, capture and train them, customise them, and restore them to help humanity again.",
 		role: [
-			"Developed the server-side of socket communication between the client and server using with optimized performance and scalability to support a large number of players, while also ensuring the security and reliability of the communication.",
-			"Implemented the core mechanics of the game, such as the robot capturing and training system, while also ensuring that the server-side features were optimized for performance and scalability.",
-			"Collaborated with the client-side development team to ensure seamless integration of server-side features and optimized performance for the game.",
-			"Implemented most of the solidity smart contracts for the game's DeFi mechanics to ensure that they were reliable and secure, while also optimizing, scalable, and compatible with the new architecture of the game.",
-			"Implemented website and backend to support user bridge the game item and chain assets, between the game and the blockchain, and also support the user to manage their assets and NFTs in the game.",
+			"Built the server-side socket layer that links players to the game, made to stay fast, secure and reliable with many players online.",
+			"Built core mechanics such as capturing and training robots.",
+			"Worked with the client-side team so server features fit the game smoothly.",
+			"Wrote most of the Solidity smart contracts for the game's DeFi mechanics, focused on safety and efficiency.",
+			"Built the website and backend that bridge items between the game and the chain, where players manage their assets and NFTs.",
 		],
 		blocks: [
 			{
@@ -421,7 +422,7 @@ export const projects: Project[] = [
 				type: BlockType.AboutSplit,
 				params: {
 					label: "About",
-					text: "A Hybrid NFT game that combines the strengths of Web2 and Web3 games. Players can explore a world of living robots, embark on an adventure as a mech hunter in a distant archipelago, discover wandering robots, capture, train, customize and restore them to their former aid to humanity.",
+					text: "A hybrid game that mixes Web2 gameplay with Web3 ownership. Players are mech hunters on a distant archipelago: they find wandering robots, capture and train them, customise them, and restore them to help humanity again.",
 					kind: MotifKind.Hex,
 				},
 			},
@@ -458,7 +459,7 @@ export const projects: Project[] = [
 			{
 				type: BlockType.Architecture,
 				params: {
-					label: "How it flows",
+					label: "How it works",
 					nodes: [
 						{
 							name: "Game client",
@@ -486,26 +487,26 @@ export const projects: Project[] = [
 			{
 				type: BlockType.Timeline,
 				params: {
-					label: "Role",
+					label: "What I did",
 					items: [
-						"Developed the server-side of socket communication between the client and server using with optimized performance and scalability to support a large number of players, while also ensuring the security and reliability of the communication.",
-						"Implemented the core mechanics of the game, such as the robot capturing and training system, while also ensuring that the server-side features were optimized for performance and scalability.",
-						"Collaborated with the client-side development team to ensure seamless integration of server-side features and optimized performance for the game.",
-						"Implemented most of the solidity smart contracts for the game's DeFi mechanics to ensure that they were reliable and secure, while also optimizing, scalable, and compatible with the new architecture of the game.",
-						"Implemented website and backend to support user bridge the game item and chain assets, between the game and the blockchain, and also support the user to manage their assets and NFTs in the game.",
+						"Built the server-side socket layer that links players to the game, made to stay fast, secure and reliable with many players online.",
+						"Built core mechanics such as capturing and training robots.",
+						"Worked with the client-side team so server features fit the game smoothly.",
+						"Wrote most of the Solidity smart contracts for the game's DeFi mechanics, focused on safety and efficiency.",
+						"Built the website and backend that bridge items between the game and the chain, where players manage their assets and NFTs.",
 					],
 				},
 			},
 			{
 				type: BlockType.Zigzag,
 				params: {
-					label: "Challenges",
+					label: "What was hard",
 					items: [
-						"Developing the server-side features of the game while ensuring optimized performance and scalability to support a large number of players was a significant challenge that required careful planning and coordination with the client-side development team.",
-						"Ensuring the security and reliability of the socket communication while optimizing it for performance and scalability was a complex task that required a deep understanding of network architecture and security measures.",
-						"Implementing the core mechanics of the game, such as the robot capturing and training system, while also ensuring that the server-side features were optimized for performance and scalability, required careful consideration of game design and architecture.",
-						"Ensuring the security and reliability of the smart contracts while optimizing them for performance and scalability was a complex task that required a deep understanding of blockchain technology and careful consideration of security measures.",
-						"Loads of testing and debugging was required to ensure that the game was stable and provided a seamless experience, especially with the integration of new features and optimizations, and also with the integration of blockchain mechanics and NFTs.",
+						"Many players at once meant the server side had to be planned for scale from day one, together with the client-side team.",
+						"The socket link had to be fast and secure at the same time, which shaped the whole network design.",
+						"Capturing and training robots had to feel good to play and stay cheap to run on the server.",
+						"The smart contracts had to be efficient without giving up any security.",
+						"With blockchain mechanics and NFTs in the mix, testing and debugging never stopped until the game was stable.",
 					],
 				},
 			},
@@ -521,9 +522,9 @@ export const projects: Project[] = [
 		tags: ["NFTs", "Web3", "Missions"],
 		categories: [ProjectFilter.Platforms, ProjectFilter.OnChain],
 		stack: ["nft", "web3", "mission system", "client", "server-side"],
-		about: "Evermoon SocialFi is an innovative SocialFi platform developed by Evermoon, designed to engage users through a wide variety of tasks, activities, and Play-to-Earn (P2E) features. Players can participate in monthly quests, complete social media tasks, and earn Moon Power (XP) while unlocking exciting rewards. Through Web3 integration, Evermoon SocialFi offers unique earning opportunities, allowing participants to collect $EVM tokens, NFTs, and exclusive content by actively engaging with the platform.",
+		about: "Evermoon SocialFi is a platform from Evermoon that rewards people for taking part. Users join monthly quests, complete social media tasks and earn Moon Power (XP) to unlock rewards. With Web3 built in, active users can also collect $EVM tokens, NFTs and exclusive content.",
 		role: [
-			"Developed the server-side features of the platform like mission system.",
+			"Built the server-side features of the platform, including the mission system.",
 		],
 		blocks: [
 			{
@@ -543,7 +544,7 @@ export const projects: Project[] = [
 				params: {
 					label: "About",
 					title: "$EVM",
-					text: "Evermoon SocialFi is an innovative SocialFi platform developed by Evermoon, designed to engage users through a wide variety of tasks, activities, and Play-to-Earn (P2E) features. Players can participate in monthly quests, complete social media tasks, and earn Moon Power (XP) while unlocking exciting rewards. Through Web3 integration, Evermoon SocialFi offers unique earning opportunities, allowing participants to collect $EVM tokens, NFTs, and exclusive content by actively engaging with the platform.",
+					text: "Evermoon SocialFi is a platform from Evermoon that rewards people for taking part. Users join monthly quests, complete social media tasks and earn Moon Power (XP) to unlock rewards. With Web3 built in, active users can also collect $EVM tokens, NFTs and exclusive content.",
 					items: [
 						"Monthly quests",
 						"Social tasks",
@@ -565,14 +566,14 @@ export const projects: Project[] = [
 			{
 				type: BlockType.Quote,
 				params: {
-					text: "Developed the server-side features of the platform like mission system.",
-					cite: "Role",
+					text: "Built the server-side features of the platform, including the mission system.",
+					cite: "What I did",
 				},
 			},
 			{
 				type: BlockType.Architecture,
 				params: {
-					label: "How it flows",
+					label: "How it works",
 					nodes: [
 						{
 							name: "Platform",
@@ -589,7 +590,7 @@ export const projects: Project[] = [
 			{
 				type: BlockType.Quote,
 				params: {
-					text: "Implementing the mission system and other server-side features required careful planning and coordination with the client-side development team to ensure seamless integration and optimized performance.",
+					text: "The mission system had to work hand in hand with the client-side app, so both teams planned it together and kept it fast.",
 					cite: "Challenge",
 					tone: BlockTone.Invert,
 				},
@@ -606,10 +607,10 @@ export const projects: Project[] = [
 		tags: ["Generative AI", "Maps"],
 		categories: [ProjectFilter.Platforms],
 		stack: ["generative ai", "map", "client", "server-side", "data"],
-		about: "Estic AI is an AI-powered real estate platform that finds your perfect property through conversation. It combines generative AI with deep, hyper-local data to provide users with a seamless and informed property search experience. The platform offers features such as conversational search, hyper-local insights, climate-risk simulation, white-label chatbots, and a data marketplace for licensing-grade real estate datasets.",
+		about: "Estic AI is a real estate platform that helps you find a home by simply talking to it. It pairs generative AI with detailed local data, so every search comes with context, not just listings. It offers features such as conversational search, hyper-local insights, climate-risk simulation, white-label chatbots, and a data marketplace for licensing-grade real estate datasets.",
 		role: [
-			"Developed the client-side features of the platform, including the implementation of map features, search functionality, and user interface to provide a seamless and intuitive user experience.",
-			"Collaborated with the server-side development team to ensure seamless integration of client-side features and optimized performance for the platform.",
+			"Developed the client-side of the platform: the map, search and interface people use every day.",
+			"Worked with the server-side team so the screens stayed fast with real data behind them.",
 		],
 		blocks: [
 			{
@@ -630,7 +631,7 @@ export const projects: Project[] = [
 					value: "4k+",
 					label: "Pins on one map",
 					caption:
-						"Optimize the performance of the map with 4k+ pins in the map, and also the search functionality to provide a seamless experience for users.",
+						"The map shows 4k+ pins at once, and both the map and search had to stay smooth.",
 				},
 			},
 			{
@@ -658,7 +659,7 @@ export const projects: Project[] = [
 				type: BlockType.AboutSplit,
 				params: {
 					label: "About",
-					text: "Estic AI is an AI-powered real estate platform that finds your perfect property through conversation. It combines generative AI with deep, hyper-local data to provide users with a seamless and informed property search experience",
+					text: "Estic AI is a real estate platform that helps you find a home by simply talking to it. It pairs generative AI with detailed local data, so every search comes with context, not just listings",
 					list: [
 						"Conversational search",
 						"Hyper-local insights",
@@ -671,21 +672,21 @@ export const projects: Project[] = [
 			{
 				type: BlockType.StackCards,
 				params: {
-					label: "Role",
+					label: "What I did",
 					items: [
-						"Developed the client-side features of the platform, including the implementation of map features, search functionality, and user interface to provide a seamless and intuitive user experience.",
-						"Collaborated with the server-side development team to ensure seamless integration of client-side features and optimized performance for the platform.",
+						"Developed the client-side of the platform: the map, search and interface people use every day.",
+						"Worked with the server-side team so the screens stayed fast with real data behind them.",
 					],
 				},
 			},
 			{
 				type: BlockType.NumberedList,
 				params: {
-					label: "Challenges",
+					label: "What was hard",
 					items: [
-						"New technologies and features required careful implementation of the ui framework.",
-						"Optimize the performance of the map with 4k+ pins in the map, and also the search functionality to provide a seamless experience for users.",
-						"Ensuring the security and reliability of the platform while integrating various features and data sources required careful consideration of security measures.",
+						"The product used new tools and patterns, so the UI framework needed careful groundwork.",
+						"The map shows 4k+ pins at once, and both the map and search had to stay smooth.",
+						"Many features and data sources meant security had to be part of every integration.",
 					],
 				},
 			},

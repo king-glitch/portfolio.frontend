@@ -13,7 +13,6 @@
     "pretty": "prettier --write \"src/**/*.{ts,tsx,css,json}\" \"scripts/**/*.ts\" \"docs/**/*.md\"",
     "build:tokens": "bun scripts/build-token/index.ts",
     "build:portfolio": "bun scripts/build-portfolio/index.ts",
-    "build:locales": "bun scripts/build-locales/index.ts",
     "test": "bun test",
     "check": "bun run typecheck && bun run typecheck:scripts && bun run lint:style && bun run lint:tw && bun run test && bun run build"
   },

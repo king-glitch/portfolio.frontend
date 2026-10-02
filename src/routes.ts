@@ -6,7 +6,7 @@ import {
 } from "@react-router/dev/routes";
 import { config } from "./config";
 
-/** "/work/:projectId" under "" -> "work/:projectId"; "/about/explore" under "/about" -> "explore". */
+/** "/projects/:projectId" under "" -> "projects/:projectId"; "/about/explore" under "/about" -> "explore". */
 const segment = (full: string, parent = "") =>
 	full.slice(parent.length).replace(/^\//, "");
 
@@ -14,8 +14,8 @@ export default [
 	layout("routes/layout.tsx", [
 		index("routes/index.tsx"),
 		route(
-			segment(config.routes.work),
-			"routes/work/[project-id]/index.tsx",
+			segment(config.routes.project),
+			"routes/projects/[project-id]/index.tsx",
 		),
 		route(segment(config.routes.about), "routes/about/layout.tsx", [
 			route(

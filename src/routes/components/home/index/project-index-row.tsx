@@ -3,7 +3,7 @@ import { RiArrowRightLine } from "@remixicon/react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import type { ProjectSummary } from "@/api/types/portfolio/project";
-import { workPath } from "@/lib/routes";
+import { projectPath } from "@/lib/routes";
 import { CursorLabel } from "@/types/cursor";
 
 interface ProjectIndexRowProps {
@@ -20,7 +20,7 @@ export const ProjectIndexRow: React.FC<ProjectIndexRowProps> = ({
 	const { t } = useTranslation();
 	return (
 		<Link
-			to={workPath(project.id)}
+			to={projectPath(project.id)}
 			viewTransition
 			data-cursor={CursorLabel.View}
 			aria-label={t("home.index.row.aria-label", { name: project.name })}

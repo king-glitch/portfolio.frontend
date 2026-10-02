@@ -38,13 +38,13 @@ export interface ScrollerOptions {
 	trackRef: ElementRef<HTMLElement>;
 	/** Top progress bar (scaleX). */
 	barRef: ElementRef<HTMLElement>;
-	/** End-cap meter (scaleX). */
+	/** Next-project meter (scaleX). */
 	meterRef: ElementRef<HTMLElement>;
-	/** End-cap next-title fill (clip-path). */
-	fillRef: ElementRef<HTMLElement>;
-	/** Pull reached the threshold: go to the next project. */
+	/** Next-project curtain (`translate`), slid away by the pull. */
+	curtainRef: ElementRef<HTMLElement>;
+	/** The hand-off finished: swap in the next project. */
 	onThreshold: () => void;
-	/** Active panel index changed. */
+	/** Escape key: close the project. */
 	onEscape: () => void;
 }
 

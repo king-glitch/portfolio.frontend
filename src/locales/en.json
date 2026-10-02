@@ -4,7 +4,7 @@
 			"title": "Nothing to show yet"
 		},
 		"explore": {
-			"hint": "Drag anywhere to explore — scrolling works too",
+			"hint": "Drag to look around — scrolling works too",
 			"link": {
 				"notes": "Open the notes",
 				"project": "Open project {{name}}"
@@ -17,7 +17,7 @@
 					"caption": "Words my notes use most"
 				},
 				"behind": {
-					"caption": "of the work lives behind the scenes — where nobody looks"
+					"caption": "of my work happens behind the scenes, where nobody looks"
 				},
 				"chain": {
 					"caption": "{{chain}} of {{total}} projects live partly on-chain"
@@ -52,7 +52,7 @@
 				},
 				"hero": {
 					"eyebrow": "About",
-					"tagline": "Builds the parts you never see."
+					"tagline": "I build the parts you never see."
 				},
 				"languages": {
 					"count-one": "{{count}} language",
@@ -200,7 +200,6 @@
 			"github": {
 				"label": "GitHub"
 			},
-			"hint": "Placeholder: the real value is not set yet",
 			"linkedin": {
 				"label": "LinkedIn"
 			}
@@ -321,8 +320,8 @@
 			"copyright": "© {{year}} William Siefert",
 			"eyebrow": "Contact",
 			"lede": {
-				"accent": "Let’s make it boring — in the best way.",
-				"text": "Got something that has to stay quick, fair and online when everyone shows up at once?"
+				"accent": "Let’s talk — I’ll help make it boring, in the best way.",
+				"text": "Building something that has to stay quick, fair and online when everyone shows up at once?"
 			},
 			"terminal": ">_ open the terminal",
 			"title": "Say hello.",
@@ -332,27 +331,27 @@
 			"empty": {
 				"title": "No habits listed yet"
 			},
-			"eyebrow": "How I build",
-			"hint": "Keep scrolling — the page moves sideways.",
+			"eyebrow": "How I work",
+			"hint": "Keep scrolling — this section moves sideways.",
 			"items": {
 				"1": {
-					"body": "The logic, data and plumbing every screen quietly leans on — kept tidy as it grows.",
+					"body": "The logic, data and plumbing every screen depends on, kept tidy as the product grows.",
 					"title": "Build the engine room"
 				},
 				"2": {
-					"body": "When the rules live on-chain there are no take-backs, so they get written slowly and read twice.",
+					"body": "Rules that live on a blockchain can’t be undone, so I write them slowly and review them twice.",
 					"title": "Write rules that can’t bend"
 				},
 				"3": {
-					"body": "A change on one screen should show up on every other one, right away, for everyone.",
+					"body": "When something changes on one screen, every other screen should see it straight away.",
 					"title": "Keep everyone in sync"
 				},
 				"4": {
-					"body": "Measure, trim, rethink — until loading stops being part of the experience.",
+					"body": "Measure, trim, rethink — until nobody notices loading any more.",
 					"title": "Make waiting disappear"
 				},
 				"5": {
-					"body": "Careful code, real authentication and encryption, so the only people inside are the invited ones.",
+					"body": "Careful code, real authentication and encryption, so only the people you invite get in.",
 					"title": "Lock the doors"
 				}
 			},
@@ -364,23 +363,23 @@
 			"next": "Timeline ↓"
 		},
 		"hello": {
-			"cta": "Resume at a glance →",
+			"cta": "See my résumé →",
 			"empty": {
 				"title": "Nothing written here yet"
 			},
 			"eyebrow": "Hello",
 			"stats": {
 				"languages": {
-					"label": "Languages I can think in"
+					"label": "Programming languages I work in"
 				},
 				"pins": {
-					"label": "Pins on one map that still scrolls like butter"
+					"label": "Pins on a single map that still scrolls smoothly"
 				},
 				"projects": {
-					"label": "Things shipped — games, platforms and one very serious radar"
+					"label": "Projects shipped — games, platforms and one very serious radar"
 				},
 				"years": {
-					"label": "Building for real people, in production",
+					"label": "Years building software real people use",
 					"suffix": "y"
 				}
 			}
@@ -395,8 +394,8 @@
 			},
 			"eyebrow": "William Siefert — software developer",
 			"lede": {
-				"accent": "so the half they do never stalls, leaks or drops a frame.",
-				"text": "I build the half of the product nobody screenshots —"
+				"accent": "so the half you see stays fast, fair and online when everyone shows up at once.",
+				"text": "I build the back half of apps and games — servers, real-time connections and smart contracts —"
 			},
 			"lines": {
 				"1": "Quiet code",
@@ -455,7 +454,7 @@
 			"aria-label": "What you see, and what I see",
 			"reveal": {
 				"eyebrow": "What I see",
-				"hint": "The part that has to work at 3 a.m.",
+				"hint": "The part that has to keep working at 3 a.m.",
 				"lines": {
 					"1": "Every player,",
 					"2": "every pin,",
@@ -464,7 +463,7 @@
 			},
 			"see": {
 				"eyebrow": "What you see",
-				"hint": "Move your cursor over this — or tap it.",
+				"hint": "Move your cursor here (or tap) to look behind the screen.",
 				"lines": {
 					"1": "A button,",
 					"2": "a map,",
@@ -473,7 +472,7 @@
 			}
 		},
 		"stack": {
-			"description": "Six stops between your thumb and the result. Hover one to see which projects went through it.",
+			"description": "Every tap travels through these six stops before anything changes on your screen. Hover a stop to see which of my projects use it.",
 			"eyebrow": "Under the hood",
 			"flow": {
 				"aria-label": "Stack stops"
@@ -518,7 +517,7 @@
 				"title": "Nothing on the timeline yet"
 			},
 			"eyebrow": "Timeline",
-			"hint": "Pick a bar to read what happened there.",
+			"hint": "Pick a bar to see what I was doing then.",
 			"kinds": {
 				"education": "Education",
 				"work": "Work"
@@ -526,8 +525,8 @@
 		},
 		"toolkit": {
 			"aria-label": "Skills, as draggable bubbles",
-			"count-one": "{{count}} tool — grab it",
-			"count-other": "{{count}} tools — grab one",
+			"count-one": "{{count}} tool I use — drag it around",
+			"count-other": "{{count}} tools I use — drag them around",
 			"empty": {
 				"title": "No tools listed yet"
 			},
@@ -602,6 +601,40 @@
 		},
 		"sample": "Sample"
 	},
+	"projects": {
+		"architecture": {
+			"note": "A simplified view of how the pieces fit together."
+		},
+		"counter": {
+			"label": "Project {{index}} of {{total}}",
+			"placeholder": "—/—"
+		},
+		"end": {
+			"button": "Next project",
+			"eyebrow": "(Next project)",
+			"scroll": {
+				"hint": "Keep scrolling to slide straight into the next project. The list loops."
+			},
+			"touch": {
+				"hint": "Tap to open the next project. The list loops back to the start."
+			}
+		},
+		"header": {
+			"discipline": "Discipline",
+			"index": "Index",
+			"project": "Project",
+			"scroll": "Scroll to explore →"
+		},
+		"meta": {
+			"title": "Project — William Siefert"
+		},
+		"topbar": {
+			"close": "Close"
+		},
+		"viewport": {
+			"label": "Project {{name}}, scroll horizontally"
+		}
+	},
 	"shell": {
 		"brand": {
 			"aria-label": "Home",
@@ -632,7 +665,7 @@
 			},
 			"pages": {
 				"about": {
-					"sub": "The thirty-second version",
+					"sub": "Who I am, in thirty seconds",
 					"title": "About"
 				},
 				"contact": {
@@ -644,11 +677,11 @@
 					"title": "Home"
 				},
 				"notes": {
-					"sub": "Things I wrote down",
+					"sub": "Things I learned and wrote down",
 					"title": "Notes"
 				},
 				"work": {
-					"sub": "Six things I built",
+					"sub": "Six projects, explained",
 					"title": "Work"
 				}
 			},
@@ -742,41 +775,7 @@
 				"esc": "esc",
 				"label": "william@x10 — ~/portfolio"
 			},
-			"whoami": "William Siefert — software developer. Builds the parts of apps and games you never see, so the parts you do see feel effortless."
-		}
-	},
-	"work": {
-		"architecture": {
-			"note": "Simplified — the shape of the system, not a spec."
-		},
-		"counter": {
-			"label": "Project {{index}} of {{total}}",
-			"placeholder": "—/—"
-		},
-		"end": {
-			"button": "Next project",
-			"eyebrow": "(Next project)",
-			"scroll": {
-				"hint": "Keep scrolling past the end to load it. The list loops forever."
-			},
-			"touch": {
-				"hint": "Tap to load the next project — the list loops back to the start."
-			}
-		},
-		"header": {
-			"discipline": "Discipline",
-			"index": "Index",
-			"project": "Project",
-			"scroll": "Scroll →"
-		},
-		"meta": {
-			"title": "Project — William Siefert"
-		},
-		"topbar": {
-			"close": "Close"
-		},
-		"viewport": {
-			"label": "Project {{name}}, scroll horizontally"
+			"whoami": "William Siefert — software developer. I build the parts of apps and games you never see, so the parts you do see feel effortless."
 		}
 	}
 }

@@ -7,7 +7,7 @@ import { QueryErrorAlert } from "@/components/common/feedback/query-error-alert"
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { config } from "@/config";
-import { workPath } from "@/lib/routes";
+import { projectPath } from "@/lib/routes";
 import type { MenuHover } from "@/types/ui";
 
 interface MenuProjectsProps {
@@ -46,11 +46,11 @@ export const MenuProjects: React.FC<MenuProjectsProps> = ({
 				key={project.id}
 				variant="ghost"
 				nativeButton={false}
-				render={<Link to={workPath(project.id)} viewTransition />}
+				render={<Link to={projectPath(project.id)} viewTransition />}
 				onClick={(e) => {
 					// the menu closes first, then navigates (see SiteMenu)
 					e.preventDefault();
-					onSelect(workPath(project.id));
+					onSelect(projectPath(project.id));
 				}}
 				onMouseEnter={() => onHover({ id: project.id, project })}
 				onFocus={() => onHover({ id: project.id, project })}

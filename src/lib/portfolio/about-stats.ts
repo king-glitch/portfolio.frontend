@@ -114,8 +114,3 @@ export function resumeSkills(profile: Profile) {
 		list: g.items.join(", "),
 	}));
 }
-
-/** The "eager to learn" sentence the resume summary ends with, or "". */
-export function eagerSentence(about: string): string {
-	return about.match(/I am always eager[^.]*\./)?.[0] ?? "";
-}

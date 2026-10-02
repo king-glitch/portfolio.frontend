@@ -180,10 +180,10 @@ test("AADS payload matches the plan example", () => {
 	).toHaveLength(7);
 });
 
-test("profile has placeholder contacts and derived name", () => {
+test("profile has the real name and contacts", () => {
 	const profile = buildProfile(me);
 	expect(profile.name).toBe("William Siefert");
-	expect(profile.contact.email).toBe("[YOUR EMAIL]");
+	expect(profile.contact.email).toBe("wilhelm.hsf@gmail.com");
 });
 
 test("output is deterministic and references enums, not literals", () => {

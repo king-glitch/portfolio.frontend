@@ -6,7 +6,7 @@ import { PillButton } from "@/components/common/buttons/pill-button";
 import { QueryErrorAlert } from "@/components/common/feedback/query-error-alert";
 import { Skeleton } from "@/components/ui/skeleton";
 import { projectsForStop } from "@/lib/portfolio/stack-stops";
-import { workPath } from "@/lib/routes";
+import { projectPath } from "@/lib/routes";
 import { PillSize, PillVariant } from "@/types/ui";
 import type { StackStop } from "@/types/home";
 
@@ -29,7 +29,7 @@ export const StackUsedIn: React.FC<StackUsedInProps> = ({ stop }) => {
 			<PillButton
 				key={project.id}
 				nativeButton={false}
-				render={<Link to={workPath(project.id)} viewTransition />}
+				render={<Link to={projectPath(project.id)} viewTransition />}
 				variant={PillVariant.Strong}
 				size={PillSize.Sm}
 				className="text-sm font-bold"

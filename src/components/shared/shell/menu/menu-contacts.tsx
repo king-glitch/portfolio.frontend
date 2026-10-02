@@ -7,7 +7,7 @@ import { PillSize, PillVariant } from "@/types/ui";
 
 interface MenuContactsProps {}
 
-/** Contact values as plain text in the menu footer (prototype). On error it offers a retry. */
+/** Contact links in the menu footer: email, GitHub, LinkedIn. On error it offers a retry. */
 export const MenuContacts: React.FC<MenuContactsProps> = () => {
 	const { t } = useTranslation();
 	const { data, isPending, isError, refetch } = useProfile();
@@ -25,11 +25,31 @@ export const MenuContacts: React.FC<MenuContactsProps> = () => {
 	return (
 		<div className="flex flex-wrap gap-4.5 text-[13px] font-semibold">
 			{[
-				data.contact.email,
-				data.contact.github,
-				data.contact.linkedin,
-			].map((value) => (
-				<span key={value}>{value}</span>
+				{
+					id: "email",
+					href: `mailto:${data.contact.email}`,
+					label: data.contact.email,
+				},
+				{
+					id: "github",
+					href: data.contact.github,
+					label: t("common.contact.github.label"),
+				},
+				{
+					id: "linkedin",
+					href: data.contact.linkedin,
+					label: t("common.contact.linkedin.label"),
+				},
+			].map((item) => (
+				<a
+					key={item.id}
+					href={item.href}
+					target="_blank"
+					rel="noreferrer"
+					className="underline-offset-4 hover:underline"
+				>
+					{item.label}
+				</a>
 			))}
 		</div>
 	);

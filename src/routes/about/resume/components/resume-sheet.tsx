@@ -2,7 +2,6 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import type { Profile } from "@/api/types/portfolio/profile";
 import type { ProjectSummary } from "@/api/types/portfolio/project";
-import { eagerSentence } from "@/lib/portfolio/about-stats";
 import { ResumeAside } from "@/routes/about/resume/components/resume-aside";
 import { ResumeExperience } from "@/routes/about/resume/components/resume-experience";
 import { ResumeHeader } from "@/routes/about/resume/components/resume-header";
@@ -30,8 +29,7 @@ export const ResumeSheet: React.FC<ResumeSheetProps> = ({
 							{t("about.resume.summary.title")}
 						</ResumeHeading>
 						<p className="m-0 text-sm leading-relaxed">
-							{t("about.resume.summary.body")}{" "}
-							{eagerSentence(profile.about)}
+							{t("about.resume.summary.body")}
 						</p>
 					</section>
 					<ResumeExperience profile={profile} />

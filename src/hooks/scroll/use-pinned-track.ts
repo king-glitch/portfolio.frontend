@@ -9,7 +9,7 @@ import {
 	pinTranslate,
 } from "@/lib/motion/pin";
 
-const WIDE_QUERY = `(min-width: ${config.home.habits.pinMinViewportPx}px)`;
+const WIDE_QUERY = config.media.horizontal;
 
 function subscribe(onChange: () => void) {
 	const media = window.matchMedia(WIDE_QUERY);
@@ -20,7 +20,7 @@ function subscribe(onChange: () => void) {
 /**
  * Horizontal scroll driven by vertical scroll over a CSS `position: sticky` stage.
  * Sets the outer height to `innerHeight + overflow`, translates the track by progress.
- * Returns whether the pin is active (viewport >= 760px and no reduced motion); otherwise the
+ * Returns whether the pin is active (laptop/desktop per `config.media.horizontal`, no reduced motion); otherwise the
  * caller lays the cards out vertically and nothing is written.
  */
 export function usePinnedTrack(

@@ -22,10 +22,10 @@ const ringVariants = cva(
 );
 
 const dotVariants = cva(
-	"pointer-events-none fixed top-0 left-0 z-501 size-1.5 rounded-full bg-white mix-blend-difference transition-[opacity,scale] duration-300 print:hidden",
+	"pointer-events-none fixed top-0 left-0 z-501 size-1.5 rounded-full bg-white mix-blend-difference transition-opacity duration-200 print:hidden",
 	{
 		variants: {
-			shown: { true: "opacity-100", false: "scale-0 opacity-0" },
+			shown: { true: "opacity-100", false: "opacity-0" },
 		},
 	},
 );

@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { PanelTone, PanelWidth } from "@/types/work";
 
 const panelVariants = cva(
-	"relative box-border h-full shrink-0 border-r border-border px-[clamp(16px,5vw,80px)] pt-30 pb-18 max-desk:w-screen max-desk:max-w-screen max-desk:min-w-screen max-desk:px-4 max-desk:pt-23 max-desk:pb-20",
+	"relative box-border h-full shrink-0 border-r border-border px-[clamp(16px,5vw,80px)] pt-30 pb-18 in-data-[flow=vertical]:h-auto in-data-[flow=vertical]:w-full in-data-[flow=vertical]:max-w-full in-data-[flow=vertical]:min-w-0 in-data-[flow=vertical]:border-r-0 in-data-[flow=vertical]:border-b max-desk:w-screen max-desk:max-w-screen max-desk:min-w-screen max-desk:px-4 max-desk:pt-23 max-desk:pb-20",
 	{
 		variants: {
 			width: {
@@ -28,7 +28,7 @@ interface PanelProps
 		React.ComponentProps<"section">,
 		VariantProps<typeof panelVariants> {}
 
-/** One full-height horizontal-scroller panel (`data-panel`; the engine reads its `data-speed` layers). */
+/** One full-height horizontal-scroller panel (`data-panel`; the engine reads its `data-speed` layers). Inside a vertical flow it is a full-width, content-height section. */
 export const Panel: React.FC<PanelProps> = ({
 	width,
 	tone,

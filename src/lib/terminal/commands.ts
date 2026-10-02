@@ -1,6 +1,6 @@
 import type { ParseKeys } from "i18next";
 import { config } from "@/config";
-import { notePath, workPath } from "@/lib/routes";
+import { notePath, projectPath } from "@/lib/routes";
 import {
 	TerminalCommand,
 	TerminalDataStatus,
@@ -120,7 +120,7 @@ const HANDLERS: Record<TerminalCommand, Handler> = {
 					values: { name: project.name },
 				}),
 			],
-			...go(workPath(project.id)),
+			...go(projectPath(project.id)),
 		};
 	},
 	[TerminalCommand.Read]: (arg, { posts }) => {

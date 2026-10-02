@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { HeroTag } from "@/types/home";
 
 const tagVariants = cva(
-	"pointer-events-none absolute z-50 animate-bob gated motion-reduce:animate-none max-desk:hidden",
+	"pointer-events-none absolute z-50 animate-bob gated motion-reduce:animate-none max-[1024px]:hidden",
 	{
 		variants: {
 			tag: {
@@ -41,7 +41,7 @@ const arrowVariants = cva("absolute size-3 rotate-45 bg-foreground", {
 
 interface HeroTagsProps {}
 
-/** Three floating speech-bubble tags around the deck; hidden on mobile. */
+/** Three floating speech-bubble tags around the deck; hidden on phones and tablets. */
 export const HeroTags: React.FC<HeroTagsProps> = () => {
 	const { t } = useTranslation();
 	return (

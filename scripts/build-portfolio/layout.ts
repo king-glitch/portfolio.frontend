@@ -78,7 +78,7 @@ export function layoutBlocks(p: ParsedProject): Block[] {
 				{
 					type: BlockType.Architecture,
 					params: {
-						label: "How it flows",
+						label: "How it works",
 						nodes: nodes(
 							["Surveillance radars", "Encoded track messages"],
 							["Decoder", "TRML · DR127ADV → readable"],
@@ -89,15 +89,15 @@ export function layoutBlocks(p: ParsedProject): Block[] {
 				},
 				{
 					type: BlockType.FeatureGrid,
-					params: { label: "Features", items: p.features },
+					params: { label: "What it does", items: p.features },
 				},
 				{
 					type: BlockType.Timeline,
-					params: { label: "Role", items: p.role },
+					params: { label: "What I did", items: p.role },
 				},
 				{
 					type: BlockType.Zigzag,
-					params: { label: "Challenges", items: p.challenges },
+					params: { label: "What was hard", items: p.challenges },
 				},
 			];
 		case MotifKind.Moon:
@@ -125,12 +125,12 @@ export function layoutBlocks(p: ParsedProject): Block[] {
 				},
 				{
 					type: BlockType.StackCards,
-					params: { label: "Role", items: p.role },
+					params: { label: "What I did", items: p.role },
 				},
 				{
 					type: BlockType.Architecture,
 					params: {
-						label: "How it flows",
+						label: "How it works",
 						nodes: nodes(
 							["Game client", "3D farming game"],
 							["Game server", "Shop, resource spawning"],
@@ -148,7 +148,7 @@ export function layoutBlocks(p: ParsedProject): Block[] {
 				},
 				{
 					type: BlockType.NumberedList,
-					params: { label: "Challenges", items: p.challenges },
+					params: { label: "What was hard", items: p.challenges },
 				},
 			];
 		case MotifKind.Pixel:
@@ -158,7 +158,7 @@ export function layoutBlocks(p: ParsedProject): Block[] {
 					type: BlockType.Chips,
 					params: {
 						label: "The brief",
-						title: "Rewrite.",
+						title: "Rebuilt.",
 						text: "The whole server side, rebuilt for mobile and for global players on the Soneium chain.",
 						items: ["Golang", "MongoDB", "Solidity", "Soneium"],
 					},
@@ -168,6 +168,7 @@ export function layoutBlocks(p: ParsedProject): Block[] {
 					params: {
 						label: "Lineage",
 						from: "Morning Moon Village",
+						fromId: "morning-moon-village",
 						to: "Morning Moon Pocket",
 						text: "Same farming loop, new pocket-sized client, a rebuilt server side and rewritten contracts underneath.",
 					},
@@ -195,12 +196,12 @@ export function layoutBlocks(p: ParsedProject): Block[] {
 				},
 				{
 					type: BlockType.NumberedList,
-					params: { label: "Role", items: p.role },
+					params: { label: "What I did", items: p.role },
 				},
 				{
 					type: BlockType.Architecture,
 					params: {
-						label: "How it flows",
+						label: "How it works",
 						nodes: nodes(
 							["Mobile client", "Pocket-sized farm"],
 							["Go services", "Shop, missions, more"],
@@ -211,7 +212,7 @@ export function layoutBlocks(p: ParsedProject): Block[] {
 				},
 				{
 					type: BlockType.StackCards,
-					params: { label: "Challenges", items: p.challenges },
+					params: { label: "What was hard", items: p.challenges },
 				},
 			];
 		case MotifKind.Hex:
@@ -258,7 +259,7 @@ export function layoutBlocks(p: ParsedProject): Block[] {
 				{
 					type: BlockType.Architecture,
 					params: {
-						label: "How it flows",
+						label: "How it works",
 						nodes: nodes(
 							["Game client", "Explore, capture, train"],
 							["Socket server", "Real-time, many players"],
@@ -273,11 +274,11 @@ export function layoutBlocks(p: ParsedProject): Block[] {
 				},
 				{
 					type: BlockType.Timeline,
-					params: { label: "Role", items: p.role },
+					params: { label: "What I did", items: p.role },
 				},
 				{
 					type: BlockType.Zigzag,
-					params: { label: "Challenges", items: p.challenges },
+					params: { label: "What was hard", items: p.challenges },
 				},
 			];
 		case MotifKind.Orbit:
@@ -311,12 +312,12 @@ export function layoutBlocks(p: ParsedProject): Block[] {
 				},
 				{
 					type: BlockType.Quote,
-					params: { text: p.role[0] ?? "", cite: "Role" },
+					params: { text: p.role[0] ?? "", cite: "What I did" },
 				},
 				{
 					type: BlockType.Architecture,
 					params: {
-						label: "How it flows",
+						label: "How it works",
 						nodes: nodes(
 							["Platform", "Tasks and activities"],
 							["Mission system", "Quests, social tasks, XP"],
@@ -384,11 +385,11 @@ export function layoutBlocks(p: ParsedProject): Block[] {
 				},
 				{
 					type: BlockType.StackCards,
-					params: { label: "Role", items: p.role },
+					params: { label: "What I did", items: p.role },
 				},
 				{
 					type: BlockType.NumberedList,
-					params: { label: "Challenges", items: p.challenges },
+					params: { label: "What was hard", items: p.challenges },
 				},
 			];
 		}

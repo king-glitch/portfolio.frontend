@@ -2,12 +2,13 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import type { Profile } from "@/api/types/portfolio/profile";
 import { employerOf } from "@/lib/portfolio/about-stats";
+import { displayUrl } from "@/lib/utils";
 
 interface ResumeHeaderProps {
 	profile: Profile;
 }
 
-/** Name, role at the current employer, contact placeholders. */
+/** Name, role at the current employer, contact links. */
 export const ResumeHeader: React.FC<ResumeHeaderProps> = ({ profile }) => {
 	const { t } = useTranslation();
 	const { email, github, linkedin } = profile.contact;
@@ -24,9 +25,10 @@ export const ResumeHeader: React.FC<ResumeHeaderProps> = ({ profile }) => {
 				</p>
 			</div>
 			<div className="text-right text-[13px] leading-relaxed text-print-muted">
-				{email}
+				<a href={`mailto:${email}`}>{email}</a>
 				<br />
-				{github} · {linkedin}
+				<a href={github}>{displayUrl(github)}</a> ·{" "}
+				<a href={linkedin}>{displayUrl(linkedin)}</a>
 			</div>
 		</header>
 	);

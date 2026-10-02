@@ -17,7 +17,7 @@ export const Hero: React.FC<HeroProps> = () => {
 			data-loaded={loaded}
 			className="flex flex-col items-center pb-10 text-center"
 		>
-			<div className="flex w-full flex-col items-center pt-[clamp(120px,19svh,170px)] desk:h-svh">
+			<div className="flex w-full flex-col items-center pt-[clamp(120px,19svh,170px)] desk:min-h-svh">
 				<p className="m-0 mb-7 text-xs font-medium tracking-[0.2em] text-muted-foreground uppercase">
 					{t("home.hero.eyebrow")}
 				</p>

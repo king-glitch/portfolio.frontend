@@ -8,7 +8,7 @@ import { ProjectFilter } from "./api/types/portfolio/enums";
 export const config = {
 	routes: {
 		home: "/",
-		work: "/work/:projectId",
+		project: "/projects/:projectId",
 		about: "/about",
 		aboutExplore: "/about/explore",
 		aboutResume: "/about/resume",
@@ -36,6 +36,10 @@ export const config = {
 		staleTimeMs: Number.POSITIVE_INFINITY,
 		retry: 1,
 	},
+	media: {
+		/** Sideways (horizontal) scrolling only on laptops/desktops; phones and tablets scroll normally. */
+		horizontal: "(min-width: 1024px) and (pointer: fine)",
+	},
 	theme: {
 		storageKey: "theme",
 		darkClass: "dark",
@@ -53,8 +57,6 @@ export const config = {
 		searchParams: { filter: "filter", tag: "tag" },
 		/** Words per minute used by the build script for `readMinutes`. */
 		readWordsPerMinute: 200,
-		/** Placeholders (value starts with this) render as non-links. */
-		placeholderPrefix: "[",
 	},
 	/** Anchor ids of the home sections (plan 04). */
 	sections: {
@@ -180,7 +182,6 @@ export const config = {
 			linkDelayStepS: 0.35,
 		},
 		habits: {
-			pinMinViewportPx: 760,
 			epsilonPx: 0.05,
 			skeletonCount: 5,
 		},
@@ -242,6 +243,10 @@ export const config = {
 			visiblePanelViewports: 1.5,
 			keyStepViewport: 0.4,
 			wheelLinePx: 32,
+			/** Per-frame pull decay once the hand-off is committed (snap back). */
+			commitDecay: 0.8,
+			curtainLerp: 0.18,
+			curtainEpsilon: 0.002,
 		},
 		panel: {
 			wideVw: 120,

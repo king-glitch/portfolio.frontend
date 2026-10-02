@@ -7,7 +7,6 @@ import type { Contact } from "@/api/types/portfolio/profile";
 import { PillButton } from "@/components/common/buttons/pill-button";
 import { QueryErrorAlert } from "@/components/common/feedback/query-error-alert";
 import { ContactLinksSkeleton } from "@/components/shared/contact/contact-links-skeleton";
-import { config } from "@/config";
 import { cn } from "@/lib/utils";
 import { PillSize, PillVariant } from "@/types/ui";
 
@@ -44,7 +43,7 @@ interface ContactLinksProps {
 	className?: string;
 }
 
-/** Contact pills (email leads). A value starting with `[` is a placeholder and renders as text; real values become links. */
+/** Contact pills: the email address leads, GitHub and LinkedIn follow by name. */
 export const ContactLinks: React.FC<ContactLinksProps> = ({ className }) => {
 	const { t } = useTranslation();
 	const { data, isPending, isError, refetch } = useProfile();
@@ -62,16 +61,6 @@ export const ContactLinks: React.FC<ContactLinksProps> = ({ className }) => {
 		<div className={cn("flex flex-wrap gap-3", className)}>
 			{CHANNELS.map(({ key, labelKey, hrefPrefix, primary }) => {
 				const value = data.contact[key];
-				const placeholder = value.startsWith(
-					config.portfolio.placeholderPrefix,
-				);
-				const link = (
-					<a
-						href={`${hrefPrefix}${value}`}
-						target="_blank"
-						rel="noreferrer"
-					/>
-				);
 				return (
 					<PillButton
 						key={key}
@@ -85,19 +74,20 @@ export const ContactLinks: React.FC<ContactLinksProps> = ({ className }) => {
 							channel: t(labelKey),
 							value,
 						})}
-						title={
-							placeholder ? t("common.contact.hint") : undefined
+						render={
+							<a
+								href={`${hrefPrefix}${value}`}
+								target="_blank"
+								rel="noreferrer"
+							/>
 						}
-						render={placeholder ? <span /> : link}
 						className={cn(
 							"gap-3.5",
 							!primary && "px-6.5 text-base font-medium",
 						)}
 					>
-						{value}
-						{primary ? (
-							<RiArrowRightUpLine data-icon="inline-end" />
-						) : null}
+						{primary ? value : t(labelKey)}
+						<RiArrowRightUpLine data-icon="inline-end" />
 					</PillButton>
 				);
 			})}

@@ -4,7 +4,6 @@ import { projects } from "@/api/mocks/portfolio/projects";
 import {
 	buildAboutStats,
 	clip,
-	eagerSentence,
 	firstSentence,
 	resumeSkills,
 	splitRole,
@@ -27,7 +26,6 @@ test("text helpers", () => {
 	expect(firstSentence("no stop")).toBe("no stop");
 	expect(clip("aaa bbb ccc", 8)).toBe("aaa bbb…");
 	expect(clip("short", 8)).toBe("short");
-	expect(eagerSentence(profile.about)).toStartWith("I am always eager");
 	expect(resumeSkills(profile).at(-1)?.label).toBe("Strengths");
 });
 

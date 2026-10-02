@@ -22,6 +22,14 @@ Project memory for agents. Read first, update before finishing any task.
     - A black view-transition stage hides the canvas flash.
   - **Preloader:** lifts away while the page pushes up.
   - **Data:** route `clientLoader`s (`preloadQueries`, `api/queries/portfolio.ts`) await data on client navigations, with no skeleton flash. On first load they only start the fetch.
+- Review round 4:
+  - **Routes:** `/work/:projectId` is now `/projects/:projectId` (`config.routes.project`, `projectPath`, folder `routes/projects/`, i18n namespace `projects.*`).
+  - **i18n:** one file, `src/locales/en.json`. Locale parts and `build:locales` removed.
+  - **Next project:** the last panel is the next project's real first panel under an inverted curtain. Pulling past the end slides the curtain left; the track snaps back and the next page replaces this one with the same panel in place (no page transition). Prev/next/hand-off use `replace`, so Close returns to where the visitor came from.
+  - **Responsive:** sideways scrolling (project page, habits pin) only when `config.media.horizontal` matches (≥1024px, fine pointer); phones and tablets scroll vertically. Wheel listener is on `window`, so scrolling works during a page transition.
+  - **Speed:** after the preloader every project/note detail is prefetched (`prefetchDetails`). Prod click → transition ≈ 50 ms (dev is slower: on-demand modules).
+  - **Copy:** `content/ME.md` rewritten in plain, viewer-facing language (hello text from the prototype); block labels "What I did / What was hard / What it does / How it works"; UI copy edited in `en.json`. Real contacts (email, GitHub `king-glitch`, LinkedIn `william-siefert`); placeholder logic removed.
+  - **Fixes:** hero is `min-h-svh` and the deck is sized to its cards (no `@game-ready` overlap); vertical header title fits the viewport height; big numbers fit their column; light `--card` is #f5f5f5 (prototype); cursor dot no longer scales toward the corner; skip link only on keyboard focus; buttons `select-none`; terminal launcher hidden on phones (menu still opens it).
 - Prototype is at `./design/`; source data `content/ME.md`.
 
 ## Plan files
@@ -37,17 +45,17 @@ Project memory for agents. Read first, update before finishing any task.
 
 ## Decisions
 
-- Overview §13 answers applied. Slug project ids. No Axios/RHF/toast/lenis/gsap. Terminal = `Dialog`. Locale parts in `src/locales/parts/*.json`, merged by `bun run build:locales` into `en.json`.
+- Overview §13 answers applied. Slug project ids. No Axios/RHF/toast/lenis/gsap. Terminal = `Dialog`. All copy in `src/locales/en.json` (user asked for one file).
 - Theme toggle added (light + dark requested); first visit follows the OS.
 
 ## Customized / generated files
 
-- `src/main.css` tokens block and `src/theme/tokens.ts` (generated); `src/locales/en.json` (generated from parts).
+- `src/main.css` tokens block and `src/theme/tokens.ts` (generated); `src/api/mocks/portfolio/*` (generated from `content/ME.md` by `bun run build:portfolio`).
 
 ## Next actions
 
 1. Reduced-motion, Lighthouse and keyboard walkthrough (plan 07 steps 5, 7, 8).
-2. Real contact values and screenshots; backend.
+2. Real screenshots; backend.
 
 ## How to update
 

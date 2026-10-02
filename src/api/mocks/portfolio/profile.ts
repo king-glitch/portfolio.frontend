@@ -4,7 +4,7 @@ import type { Profile } from "@/api/types/portfolio/profile";
 export const profile: Profile = {
 	name: "William Siefert",
 	headline: "Software developer",
-	about: "My name is William Siefert, and I am a software developer with a passion for creating innovative solutions to complex problems. With a strong background in computer science and experience in various programming languages, I have developed a diverse skill set that allows me to tackle a wide range of projects. I am always eager to learn new technologies and stay up-to-date with industry trends, which helps me to continuously improve my skills and deliver high-quality work.",
+	about: "I’m William. I build the parts of apps and games you never see — the bits that keep everything quick, fair and online when a lot of people show up at once. I like hard problems, short feedback loops, and leaving code a little nicer than I found it.",
 	skills: [
 		{
 			label: "Programming Languages",
@@ -58,23 +58,23 @@ export const profile: Profile = {
 	core: [
 		{
 			label: "Backend Development",
-			text: "Proficient in developing server-side applications using various programming languages and frameworks, with a focus on performance optimization, scalability, and security measures.",
+			text: "Server-side apps that stay fast, scale with traffic and keep data safe.",
 		},
 		{
 			label: "Smart Contract Development",
-			text: "Experienced in developing smart contracts using Solidity for blockchain-based applications, with a strong understanding of blockchain technology and security considerations.",
+			text: "Solidity contracts for games and apps, written with security in mind from the first line.",
 		},
 		{
 			label: "Socket Communication",
-			text: "Skilled in implementing socket communication for real-time updates and interactions between clients and servers, ensuring optimized performance and reliability.",
+			text: "Real-time links between players and servers, so every screen shows the same thing at the same moment.",
 		},
 		{
 			label: "Performance Optimization",
-			text: "Adept at optimizing code and system architecture to improve performance and scalability, while also ensuring the security and reliability of the applications.",
+			text: "Finding the slow parts of code and architecture, and fixing them without breaking anything else.",
 		},
 		{
 			label: "Security Measures",
-			text: "Knowledgeable in implementing security measures to protect applications and data, including encryption, authentication, and secure coding practices.",
+			text: "Encryption, authentication and careful coding, so the only people inside are the ones invited.",
 		},
 	],
 	experience: [
@@ -83,7 +83,7 @@ export const profile: Profile = {
 			title: "Bangkok University Multimedia Intelligent Technology",
 			period: "June 2022 — June 2023",
 			notes: [
-				"As a student, I have been actively involved in various projects and research related to multimedia intelligent technology. During my time at the university, I have been working on various projects, including AADS (Army Air Defense System), School Bus Tracking System.",
+				"Worked on student research projects in multimedia and intelligent technology, including AADS (an air defence system for the army) and a school bus tracking system.",
 			],
 			kind: ExperienceKind.Work,
 			start: "2022-06",
@@ -94,8 +94,8 @@ export const profile: Profile = {
 			title: "Software Developer X10 Interactive",
 			period: "2023 — Present",
 			notes: [
-				"Developed and maintained various software applications, including web applications, and blockchain-based solutions.",
-				"Implemented best practices for software development, including code reviews, testing to ensure the quality and reliability of the software, and collaborated with cross-functional teams to deliver high-quality products on time.",
+				"Build and look after web apps, game servers and blockchain products, from the first prototype to live launches.",
+				"Keep quality high with code reviews and tests, and ship on time alongside designers, client developers and product people.",
 			],
 			kind: ExperienceKind.Work,
 			start: "2023-01",
@@ -108,7 +108,7 @@ export const profile: Profile = {
 			title: "Bangkok University",
 			period: "2019 — 2023",
 			notes: [
-				"Bachelor of Science in Computer Science, with a focus on multimedia intelligent technology. During my time at the university, I have gained a strong foundation in computer science principles and have had the opportunity to work on various projects and research related to multimedia intelligent technology, which has helped me to develop my skills and knowledge in this field.",
+				"Bachelor of Science in Computer Science, majoring in multimedia intelligent technology. Four years of fundamentals plus hands-on research projects, which is where I learned to enjoy the hard parts.",
 			],
 			kind: ExperienceKind.Education,
 			start: "2019-01",
@@ -116,8 +116,8 @@ export const profile: Profile = {
 		},
 	],
 	contact: {
-		email: "[YOUR EMAIL]",
-		github: "[GITHUB]",
-		linkedin: "[LINKEDIN]",
+		email: "wilhelm.hsf@gmail.com",
+		github: "https://github.com/king-glitch",
+		linkedin: "https://www.linkedin.com/in/william-siefert",
 	},
 };

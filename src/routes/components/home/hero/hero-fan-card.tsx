@@ -6,7 +6,7 @@ import type { ProjectSummary } from "@/api/types/portfolio/project";
 import { ProjectPreviewCard } from "@/components/shared/projects/project-preview-card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { config } from "@/config";
-import { workPath } from "@/lib/routes";
+import { projectPath } from "@/lib/routes";
 import { CursorLabel } from "@/types/cursor";
 
 const fanCardVariants = cva(
@@ -53,7 +53,7 @@ export const HeroFanCard: React.FC<HeroFanCardProps> = ({
 	);
 	return project ? (
 		<Link
-			to={workPath(project.id)}
+			to={projectPath(project.id)}
 			viewTransition
 			data-cursor={CursorLabel.Open}
 			aria-label={t("home.hero.cards.open.aria-label", {

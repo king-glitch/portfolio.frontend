@@ -11,7 +11,7 @@ import { usePreloader } from "@/contexts/preloader-context";
 import { useShell } from "@/contexts/shell-context";
 import { cn } from "@/lib/utils";
 import { useChromeVisible } from "@/hooks/use-chrome-visible";
-import { markInteractive } from "@/lib/route-data";
+import { markInteractive, prefetchDetails } from "@/lib/route-data";
 
 interface LayoutProps {}
 
@@ -23,6 +23,10 @@ const Layout: React.FC<LayoutProps> = () => {
 	const { loaded } = usePreloader();
 	// From now on route loaders wait for their data (client navigations).
 	useEffect(markInteractive, []);
+	// After the preloader, warm detail pages so clicks start their transition at once.
+	useEffect(() => {
+		if (loaded) void prefetchDetails().catch(() => undefined);
+	}, [loaded]);
 
 	return (
 		<>
@@ -34,7 +38,7 @@ const Layout: React.FC<LayoutProps> = () => {
 					main?.setAttribute("tabindex", "-1");
 					main?.focus();
 				}}
-				className="fixed top-2 left-2 z-600 -translate-y-20 rounded-pill bg-foreground px-4 py-2 text-sm font-semibold text-background focus:translate-y-0"
+				className="sr-only rounded-pill bg-foreground px-4 py-2 text-sm font-semibold text-background focus-visible:not-sr-only focus-visible:fixed focus-visible:top-2 focus-visible:left-2 focus-visible:z-600"
 			>
 				{t("shell.skip-link.label")}
 			</a>
@@ -49,7 +53,7 @@ const Layout: React.FC<LayoutProps> = () => {
 					magnetic
 					aria-label={t("shell.terminal.button.aria-label")}
 					onClick={() => setTerminalOpen(true)}
-					className="fixed bottom-5 left-5 z-98 font-mono text-[13px] font-bold shadow-[0_16px_40px_-16px_rgba(0,0,0,.6)] [view-transition-name:terminal-launcher] print:hidden"
+					className="fixed bottom-5 left-5 z-98 font-mono text-[13px] font-bold shadow-[0_16px_40px_-16px_rgba(0,0,0,.6)] [view-transition-name:terminal-launcher] max-desk:hidden print:hidden"
 				>
 					{t("shell.terminal.button.label")}
 				</PillButton>
