@@ -6,7 +6,6 @@ export type ScrollerConfig = typeof config.work.scroller;
 export const initialScroller = (): ScrollerState => ({
 	target: 0,
 	current: 0,
-	pull: 0,
 	lastInput: 0,
 });
 
@@ -22,64 +21,56 @@ export function wheelDelta(
 	return d;
 }
 
-/**
- * Feed one input delta (wheel or key) into the scroller (Main feed(), 874).
- * Past the end positive deltas build `pull` with falling resistance; `navigate` is true once it reaches the threshold.
- */
-export function feedScroll(
+/** The last panel is fully in view and the track has settled there. */
+export const isAtEnd = (
+	s: ScrollerState,
+	max: number,
+	cfg: ScrollerConfig,
+): boolean =>
+	s.target >= max - cfg.endEpsilonPx && s.current >= max - cfg.endCurrentPx;
+
+/** Move the target by one input delta (wheel or key), clamped to `0..max`. */
+export function feedTrack(
 	s: ScrollerState,
 	d: number,
 	max: number,
 	now: number,
-	cfg: ScrollerConfig,
-): { state: ScrollerState; navigate: boolean } {
-	const th = cfg.resistancePx;
-	const atEnd =
-		s.target >= max - cfg.endEpsilonPx &&
-		s.current >= max - cfg.endCurrentPx;
-	if (d > 0 && atEnd) {
-		const gain = Math.max(
-			cfg.resistanceMinFactor,
-			cfg.resistanceBase * (1 - (cfg.resistanceSlope * s.pull) / th),
-		);
-		const pull = Math.min(th, s.pull + d * gain);
-		return {
-			state: { ...s, pull, lastInput: now },
-			navigate: pull >= th,
-		};
-	}
-	if (d < 0 && s.pull > 0) {
-		return {
-			state: { ...s, pull: Math.max(0, s.pull + d), lastInput: now },
-			navigate: false,
-		};
-	}
-	const target = Math.min(max, Math.max(0, s.target + d));
-	return { state: { ...s, target, lastInput: now }, navigate: false };
+): ScrollerState {
+	return {
+		...s,
+		target: Math.min(max, Math.max(0, s.target + d)),
+		lastInput: now,
+	};
 }
 
-/** One frame: pull decays after idle, `current` eases to `target` (or jumps when `instant`). */
+/**
+ * After input stops, a last panel that is at least `snapShare` in view snaps fully in,
+ * so the next-project push only starts from a clean, fully visible panel.
+ */
+export function snapTarget(
+	s: ScrollerState,
+	max: number,
+	lastWidth: number,
+	now: number,
+	cfg: ScrollerConfig,
+): number {
+	const idle = now - s.lastInput > cfg.snapIdleMs;
+	const near = max - s.target < lastWidth * cfg.snapShare;
+	return idle && near ? max : s.target;
+}
+
+/** One frame: `current` eases to `target` (or jumps when `instant`). */
 export function stepScroller(
 	s: ScrollerState,
-	now: number,
 	cfg: ScrollerConfig,
 	instant: boolean,
 ): ScrollerState {
-	let pull = s.pull;
-	if (pull > 0 && now - s.lastInput > cfg.pullIdleMs) {
-		pull *= cfg.pullDecay;
-		if (pull < cfg.pullZeroBelowPx) pull = 0;
-	}
 	let current = instant
 		? s.target
 		: s.current + (s.target - s.current) * cfg.lerp;
 	if (Math.abs(s.target - current) < cfg.settleEpsilonPx) current = s.target;
-	return { ...s, pull, current };
+	return { ...s, current };
 }
-
-/** Track offset: eased position plus a share of the pull. */
-export const scrollX = (s: ScrollerState, cfg: ScrollerConfig): number =>
-	s.current + s.pull * cfg.pullLerp;
 
 /** Parallax shift of a `data-speed` layer: faster than 1 drifts ahead, slower lags. */
 export const parallaxOffset = (
@@ -89,9 +80,11 @@ export const parallaxOffset = (
 	cfg: ScrollerConfig,
 ): number => (panelLeft - x) * (1 - speed) * cfg.parallaxFactor;
 
-/** 0..1 resistance progress (meter and next-title fill). */
-export const pullRatio = (pull: number, cfg: ScrollerConfig): number =>
-	Math.min(1, pull / cfg.resistancePx);
-
 export const progressRatio = (x: number, max: number): number =>
 	max > 0 ? Math.min(1, Math.max(0, x / max)) : 0;
+
+/** Cubic ease-in-out, 0..1 -> 0..1 (the next-project push). */
+export function easeInOut(t: number): number {
+	const c = Math.min(1, Math.max(0, t));
+	return c < 0.5 ? 4 * c * c * c : 1 - Math.pow(-2 * c + 2, 3) / 2;
+}

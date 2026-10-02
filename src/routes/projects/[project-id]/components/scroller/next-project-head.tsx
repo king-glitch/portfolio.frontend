@@ -5,17 +5,15 @@ import { Panel } from "@/components/common/layout/panel";
 import { Skeleton } from "@/components/ui/skeleton";
 import { BlockRenderer } from "@/routes/projects/[project-id]/components/blocks/block-renderer";
 
-interface NextProjectUnderlayProps {
+interface NextProjectHeadProps {
 	id: string;
 }
 
 /**
- * The next project's first panel, rendered exactly as its own page renders it, so the hand-off
- * after the curtain leaves is seamless. Empty projects fall back to a plain panel.
+ * The next project's first panel, rendered exactly as its own page renders it, so the page that
+ * takes over after the push looks identical. Empty projects fall back to a plain panel.
  */
-export const NextProjectUnderlay: React.FC<NextProjectUnderlayProps> = ({
-	id,
-}) => {
+export const NextProjectHead: React.FC<NextProjectHeadProps> = ({ id }) => {
 	const project = useProject(id);
 	if (project.isPending)
 		return (
@@ -44,4 +42,4 @@ export const NextProjectUnderlay: React.FC<NextProjectUnderlayProps> = ({
 	);
 };
 
-export default NextProjectUnderlay;
+export default NextProjectHead;

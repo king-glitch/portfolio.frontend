@@ -42,3 +42,9 @@ export enum HomePad {
 	Bottom = "bottom",
 	Both = "both",
 }
+
+/** Hero words of the owner-only dashboard gesture, clicked in this order before holding "behind". */
+export enum SecretWord {
+	Quiet = "quiet",
+	Loud = "loud",
+}

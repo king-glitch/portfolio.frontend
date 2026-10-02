@@ -10,6 +10,7 @@ import { StickyCursor } from "@/components/shared/shell/sticky-cursor";
 import { usePreloader } from "@/contexts/preloader-context";
 import { useShell } from "@/contexts/shell-context";
 import { cn } from "@/lib/utils";
+import { config } from "@/config";
 import { useChromeVisible } from "@/hooks/use-chrome-visible";
 import { markInteractive, prefetchDetails } from "@/lib/route-data";
 
@@ -23,6 +24,19 @@ const Layout: React.FC<LayoutProps> = () => {
 	const { loaded } = usePreloader();
 	// From now on route loaders wait for their data (client navigations).
 	useEffect(markInteractive, []);
+	// Rapid clicks on buttons/links must not select the text around them (double-click selection).
+	useEffect(() => {
+		const onDown = (e: MouseEvent) => {
+			if (
+				e.detail > 1 &&
+				e.target instanceof Element &&
+				e.target.closest(config.shell.cursor.hoverSelector)
+			)
+				e.preventDefault();
+		};
+		document.addEventListener("mousedown", onDown);
+		return () => document.removeEventListener("mousedown", onDown);
+	}, []);
 	// After the preloader, warm detail pages so clicks start their transition at once.
 	useEffect(() => {
 		if (loaded) void prefetchDetails().catch(() => undefined);

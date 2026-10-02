@@ -71,6 +71,11 @@
 	[role="button"] {
 		@apply select-none;
 	}
+	/* Custom cursor active (set by useStickyCursor): no system cursor anywhere, links and fields included. */
+	html[data-cursor="custom"],
+	html[data-cursor="custom"] * {
+		cursor: none !important;
+	}
 	button:not(:disabled),
 	[role="button"]:not(:disabled) {
 		cursor: pointer;
@@ -206,12 +211,13 @@
 	--animate-art-blink: art-blink 2.4s steps(2, end) infinite;
 	--animate-art-float: art-float 6s ease-in-out infinite;
 	--animate-menu-in: menu-in 1s var(--ease-out-expo) forwards;
-	/* First load: the page pushes up behind the lifting preloader (no fill, so no transform stays behind). */
-	--animate-content-rise: content-rise 1.1s var(--ease-wipe);
+	/* First load: the page rides up glued to the lifting preloader's bottom edge (same 1s and easing as the wipe;
+	   no fill, so no transform stays behind). */
+	--animate-content-rise: content-rise 1s var(--ease-wipe);
 
 	@keyframes content-rise {
 		from {
-			translate: 0 40vh;
+			translate: 0 100vh;
 		}
 	}
 

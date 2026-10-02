@@ -18,22 +18,24 @@ export function easeOut(t: number, power: number): number {
 }
 
 export interface WordRevealConfig {
+	/** Reveal starts when the block's top reaches this share of the viewport. */
 	startViewport: number;
-	spanViewport: number;
+	/** ...and ends when its bottom reaches this share. */
+	endViewport: number;
 	minOpacity: number;
 	overshoot: number;
 }
 
-/** Section progress 0..1 given its viewport-relative `top`. */
+/** Block progress 0..1 from its viewport-relative `top` and its `height`: done before it leaves. */
 export function wordRevealProgress(
 	top: number,
+	height: number,
 	viewportHeight: number,
-	cfg: Pick<WordRevealConfig, "startViewport" | "spanViewport">,
+	cfg: Pick<WordRevealConfig, "startViewport" | "endViewport">,
 ): number {
-	return clamp01(
-		(viewportHeight * cfg.startViewport - top) /
-			(viewportHeight * cfg.spanViewport),
-	);
+	const start = viewportHeight * cfg.startViewport;
+	const distance = start - viewportHeight * cfg.endViewport + height;
+	return clamp01((start - top) / Math.max(1, distance));
 }
 
 /** Opacity of word `index` of `count`: ramps `minOpacity` -> 1 progressively, word by word. */

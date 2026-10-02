@@ -14,6 +14,8 @@ export const config = {
 		aboutResume: "/about/resume",
 		notes: "/notes",
 		note: "/notes/:slug",
+		/** Owner-only admin app; reached through the hidden hero gesture, never linked. */
+		dashboard: "/dashboard",
 	},
 	queryKeys: {
 		portfolio: {
@@ -35,6 +37,11 @@ export const config = {
 		// ponytail: mock service, staleTime Infinity; add per-query staleTime when a backend exists
 		staleTimeMs: Number.POSITIVE_INFINITY,
 		retry: 1,
+	},
+	/** Hidden dashboard gesture on the hero: click "Quiet", then "loud", then hold "behind". */
+	secret: {
+		windowMs: 6000,
+		holdMs: 1500,
 	},
 	media: {
 		/** Sideways (horizontal) scrolling only on laptops/desktops; phones and tablets scroll normally. */
@@ -90,6 +97,9 @@ export const config = {
 		},
 		cursor: {
 			ringPx: 36,
+			/** `<html data-cursor="custom">` hides the system cursor (main.css). */
+			htmlDataKey: "cursor",
+			htmlDataValue: "custom",
 			/** Filled circle over links and buttons: the blend inverts what is under it. */
 			hoverRingPx: 64,
 			labelRingPx: 88,
@@ -163,7 +173,7 @@ export const config = {
 			countStartViewport: 0.9,
 			wordReveal: {
 				startViewport: 0.85,
-				spanViewport: 0.9,
+				endViewport: 0.55,
 				minOpacity: 0.16,
 				overshoot: 1.1,
 			},
@@ -228,25 +238,20 @@ export const config = {
 	work: {
 		scroller: {
 			lerp: 0.085,
-			pullLerp: 0.2,
+			/** Duration of the next-project push (ease-in-out). */
+			pushMs: 1100,
 			parallaxFactor: 0.35,
-			resistancePx: 420,
-			resistanceMinFactor: 0.12,
-			resistanceBase: 0.5,
-			resistanceSlope: 0.55,
-			pullDecay: 0.9,
-			pullIdleMs: 160,
-			pullZeroBelowPx: 0.5,
 			endEpsilonPx: 1,
 			endCurrentPx: 6,
 			settleEpsilonPx: 0.05,
 			visiblePanelViewports: 1.5,
 			keyStepViewport: 0.4,
 			wheelLinePx: 32,
-			/** Per-frame pull decay once the hand-off is committed (snap back). */
-			commitDecay: 0.8,
-			curtainLerp: 0.18,
-			curtainEpsilon: 0.002,
+			/** Wheel events further apart than this start a new gesture (trackpad momentum is one gesture). */
+			gestureGapMs: 160,
+			/** Idle time before a mostly visible last panel snaps fully in. */
+			snapIdleMs: 140,
+			snapShare: 0.6,
 		},
 		panel: {
 			wideVw: 120,

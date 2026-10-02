@@ -7,7 +7,8 @@ import { wordOpacity, wordRevealProgress } from "@/lib/motion/reveal";
 const WORD = "[data-rw]";
 
 /**
- * Fades `[data-rw]` words inside the container from 0.16 to 1 as it scrolls up the viewport.
+ * Fades `[data-rw]` words inside the container from 0.16 to 1 as it scrolls up the viewport;
+ * the last word is lit by the time the block's bottom reaches 55% of the viewport.
  * Cached top, scroll listener, opacity writes only. All words fully visible with reduced motion.
  * `ready` flips true once the words are in the DOM.
  */
@@ -16,7 +17,7 @@ export function useWordReveal(
 	ready: boolean,
 ): void {
 	const reduced = useReducedMotion();
-	const docTop = useRef(0);
+	const box = useRef({ docTop: 0, height: 0 });
 	const words = useRef<HTMLElement[]>([]);
 	const last = useRef<number[]>([]);
 
@@ -24,7 +25,8 @@ export function useWordReveal(
 		const list = words.current;
 		const vh = window.innerHeight;
 		const progress = wordRevealProgress(
-			docTop.current - window.scrollY,
+			box.current.docTop - window.scrollY,
+			box.current.height,
 			vh,
 			config.home.hello.wordReveal,
 		);
@@ -59,7 +61,8 @@ export function useWordReveal(
 	useMeasure(() => {
 		const el = containerRef.current;
 		if (!el) return;
-		docTop.current = el.getBoundingClientRect().top + window.scrollY;
+		const r = el.getBoundingClientRect();
+		box.current = { docTop: r.top + window.scrollY, height: r.height };
 		apply();
 	}, ready && !reduced);
 }

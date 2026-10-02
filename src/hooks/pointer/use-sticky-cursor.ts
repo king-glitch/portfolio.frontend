@@ -67,7 +67,8 @@ function classify(target: Element | null): Omit<CursorState, "visible"> {
  * Cursor engine. The ring is always a circle (or an I-beam over text fields): it fills and grows
  * over links/buttons instead of outlining their box, is pulled toward `[data-magnetic]` centres
  * (which also lean toward the pointer), stretches along its own velocity and shrinks on press.
- * Pointer events only record state; one rAF loop writes size and transform.
+ * Pointer events only record state; one rAF loop writes size and transform. From the first move
+ * the system cursor is hidden (`html[data-cursor=custom]`) and the custom one stays visible.
  * Reduced motion: no easing, no stretch.
  */
 export function useStickyCursor() {
@@ -119,24 +120,34 @@ export function useStickyCursor() {
 
 			const next = classify(target);
 			mode.current = next.mode;
+			document.documentElement.dataset[c.htmlDataKey] = c.htmlDataValue;
 			update({ ...next, visible: true });
 		};
-		const onLeave = () => {
-			release();
-			update({ ...IDLE, visible: false });
-		};
+		// Leaving the window, blur or a macOS Space swipe keep the cursor where it was: the
+		// system cursor is hidden, so the custom one must never vanish.
+		const onLeave = () => release();
 		const onDown = () => {
 			pressed.current = true;
 		};
 		const onUp = () => {
 			pressed.current = false;
 		};
+		// Scrolling moves content under a still pointer: re-read what is under it.
+		const onScroll = () => {
+			const { x, y } = pointer.current;
+			if (x === PARKED) return;
+			const next = classify(document.elementFromPoint(x, y));
+			mode.current = next.mode;
+			update({ ...next, visible: true });
+		};
 		document.addEventListener("pointermove", onMove, { passive: true });
+		window.addEventListener("scroll", onScroll, { passive: true });
 		document.addEventListener("pointerdown", onDown, { passive: true });
 		document.addEventListener("pointerup", onUp, { passive: true });
 		document.documentElement.addEventListener("pointerleave", onLeave);
 		return () => {
 			document.removeEventListener("pointermove", onMove);
+			window.removeEventListener("scroll", onScroll);
 			document.removeEventListener("pointerdown", onDown);
 			document.removeEventListener("pointerup", onUp);
 			document.documentElement.removeEventListener(
@@ -144,6 +155,7 @@ export function useStickyCursor() {
 				onLeave,
 			);
 			release();
+			delete document.documentElement.dataset[c.htmlDataKey];
 		};
 	}, [enabled]);
 

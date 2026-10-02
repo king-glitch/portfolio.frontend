@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import { DisplayHeading } from "@/components/common/typography/display-heading";
 import { HeroWord } from "@/routes/components/home/hero/hero-word";
 import { config } from "@/config";
+import { useSecretUnlock } from "@/hooks/use-secret-unlock";
+import { SecretWord } from "@/types/home";
 import { DisplayVariant } from "@/types/ui";
 
 interface HeroTitleProps {}
@@ -14,6 +16,7 @@ export const HeroTitle: React.FC<HeroTitleProps> = () => {
 		config.home.hero;
 	const first = t("home.hero.lines.1").split(" ");
 	const second = t("home.hero.lines.2").split(" ");
+	const secret = useSecretUnlock();
 	return (
 		<DisplayHeading
 			variant={DisplayVariant.Hero}
@@ -23,15 +26,29 @@ export const HeroTitle: React.FC<HeroTitleProps> = () => {
 			<span className="block">
 				{first.map((word, i) => (
 					<React.Fragment key={word}>
-						<HeroWord delayS={wordBaseDelayS + i * wordStaggerS}>
+						<HeroWord
+							delayS={wordBaseDelayS + i * wordStaggerS}
+							onClick={
+								i === 0
+									? () => secret.onWord(SecretWord.Quiet)
+									: undefined
+							}
+						>
 							{word}
 						</HeroWord>{" "}
 					</React.Fragment>
 				))}
 			</span>
 			<span className="mt-[0.04em] block">
-				<span className="relative mr-[0.2em] inline-block px-[0.14em]">
+				<span
+					onPointerDown={secret.onHoldStart}
+					onPointerUp={secret.onHoldEnd}
+					onPointerLeave={secret.onHoldEnd}
+					onPointerCancel={secret.onHoldEnd}
+					className="relative mr-[0.2em] inline-block touch-none px-[0.14em] select-none"
+				>
 					<span
+						ref={secret.boxRef}
 						aria-hidden="true"
 						className="absolute inset-x-0 top-[0.04em] bottom-[0.02em] origin-left animate-box-in rounded-[0.14em] bg-foreground gated motion-reduce:animate-none"
 					/>
@@ -46,6 +63,11 @@ export const HeroTitle: React.FC<HeroTitleProps> = () => {
 					<React.Fragment key={word}>
 						<HeroWord
 							delayS={secondLineBaseDelayS + i * wordStaggerS}
+							onClick={
+								i === 0
+									? () => secret.onWord(SecretWord.Loud)
+									: undefined
+							}
 						>
 							{word}
 						</HeroWord>{" "}

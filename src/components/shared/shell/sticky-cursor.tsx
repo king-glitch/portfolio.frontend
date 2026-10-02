@@ -53,7 +53,7 @@ export const StickyCursor: React.FC<StickyCursorProps> = () => {
 				ref={dotRef}
 				aria-hidden="true"
 				className={dotVariants({
-					shown: visible && mode === CursorMode.Idle,
+					shown: visible && mode !== CursorMode.Text,
 				})}
 				style={{ transform: "translate3d(-200px,-200px,0)" }}
 			/>
