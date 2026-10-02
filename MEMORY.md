@@ -30,6 +30,14 @@ Project memory for agents. Read first, update before finishing any task.
   - **Speed:** after the preloader every project/note detail is prefetched (`prefetchDetails`). Prod click → transition ≈ 50 ms (dev is slower: on-demand modules).
   - **Copy:** `content/ME.md` rewritten in plain, viewer-facing language (hello text from the prototype); block labels "What I did / What was hard / What it does / How it works"; UI copy edited in `en.json`. Real contacts (email, GitHub `king-glitch`, LinkedIn `william-siefert`); placeholder logic removed.
   - **Fixes:** hero is `min-h-svh` and the deck is sized to its cards (no `@game-ready` overlap); vertical header title fits the viewport height; big numbers fit their column; light `--card` is #f5f5f5 (prototype); cursor dot no longer scales toward the corner; skip link only on keyboard focus; buttons `select-none`; terminal launcher hidden on phones (menu still opens it).
+- Review round 5:
+  - **Next project (redesigned):** the last own panel is an always-dark cover (`dark` class scopes the tokens). The track snaps it fully into view; trackpad momentum stops there. Only a new scroll gesture (wheel gap > `gestureGapMs`), a fresh key press or the Next button pushes the next project's first panel in from the right (1.1s ease-in-out), then the next page replaces this one with that panel in place. Pull/resistance and the curtain are gone.
+  - **Measures:** `useMeasure` also re-runs after any `animationend` and `document.fonts.ready`, coalesced per frame. The first-load page rise had cached every rect 40vh off (spotlight circle away from the cursor, hello reveal lagging).
+  - **Hello reveal** finishes when the paragraph's bottom reaches 55% of the viewport.
+  - **Loader:** the page rides up glued to the preloader's bottom edge (same 1s and easing). `HeroFan` is memoised so the `loaded` flip does not re-render the cards mid-wipe.
+  - **Cursor:** the system cursor is hidden (`html[data-cursor=custom]`, set on first pointer move). The custom cursor never hides on leave/blur/Space swipe, its dot always shows (except over text fields), and it re-reads its target on scroll.
+  - **Selection:** multi-clicks on buttons/links do not select text; the project top bar is `select-none`.
+  - **Hidden dashboard gesture (owner only, no link):** on the home hero click "Quiet", then "loud" (within 6s), then press and hold the "behind" box for 1.5s; the box drains, then the browser loads `config.routes.dashboard` (`/dashboard`, not built yet). Logic: `lib/secret.ts`, `hooks/use-secret-unlock.ts`.
 - Prototype is at `./design/`; source data `content/ME.md`.
 
 ## Plan files

@@ -1,30 +1,39 @@
 import React from "react";
 import type { ProjectSummary } from "@/api/types/portfolio/project";
-import { Panel } from "@/components/common/layout/panel";
-import { NextProjectCurtain } from "@/routes/projects/[project-id]/components/scroller/next-project-curtain";
-import { NextProjectUnderlay } from "@/routes/projects/[project-id]/components/scroller/next-project-underlay";
+import { NextProjectCover } from "@/routes/projects/[project-id]/components/scroller/next-project-cover";
+import { NextProjectHead } from "@/routes/projects/[project-id]/components/scroller/next-project-head";
 
 interface NextProjectProps {
 	next?: ProjectSummary;
 	vertical: boolean;
 	onNext: () => void;
-	meterRef: React.Ref<HTMLDivElement>;
-	curtainRef: React.Ref<HTMLDivElement>;
+	nextRef: React.Ref<HTMLDivElement>;
 }
 
 /**
- * Last panel: the next project's own first panel under a curtain. Pulling past the end slides the
- * curtain left; when it is gone the next page takes over with the same panel in place.
+ * End of the track: a dark cover announcing the next project, then (desktop) the next project's
+ * own first panel just past the end, which the scroller pushes in from the right.
  */
 export const NextProject: React.FC<NextProjectProps> = ({
 	next,
-	...curtain
+	vertical,
+	onNext,
+	nextRef,
 }) => {
 	return (
-		<div className="relative h-full w-screen shrink-0 overflow-hidden in-data-[flow=vertical]:h-auto in-data-[flow=vertical]:min-h-svh in-data-[flow=vertical]:w-full">
-			{next ? <NextProjectUnderlay id={next.id} /> : <Panel />}
-			<NextProjectCurtain next={next} {...curtain} />
-		</div>
+		<>
+			<NextProjectCover next={next} vertical={vertical} onNext={onNext} />
+			{next && !vertical ? (
+				<div
+					ref={nextRef}
+					aria-hidden="true"
+					inert
+					className="relative h-full w-screen shrink-0 overflow-hidden"
+				>
+					<NextProjectHead id={next.id} />
+				</div>
+			) : null}
+		</>
 	);
 };
 

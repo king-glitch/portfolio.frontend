@@ -54,7 +54,7 @@ export const ProjectTopbar: React.FC<ProjectTopbarProps> = ({
 		},
 	];
 	return (
-		<header className="absolute inset-x-0 top-0 z-5 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4 bg-background px-[clamp(16px,4vw,56px)] py-5.5">
+		<header className="absolute inset-x-0 top-0 z-5 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4 bg-background px-[clamp(16px,4vw,56px)] py-5.5 select-none">
 			<div className="justify-self-start">
 				<PillButton
 					variant={PillVariant.Outline}

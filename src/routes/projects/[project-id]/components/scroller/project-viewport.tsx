@@ -27,14 +27,12 @@ export const ProjectViewport: React.FC<ProjectViewportProps> = ({
 	const { t } = useTranslation();
 	const viewportRef = useRef<HTMLDivElement>(null);
 	const trackRef = useRef<HTMLDivElement>(null);
-	const meterRef = useRef<HTMLDivElement>(null);
-	const curtainRef = useRef<HTMLDivElement>(null);
+	const nextRef = useRef<HTMLDivElement>(null);
 	const { vertical, commit } = useHorizontalScroller({
 		viewportRef,
 		trackRef,
 		barRef,
-		meterRef,
-		curtainRef,
+		nextRef,
 		onThreshold: () => onNext(vertical),
 		onEscape: onClose,
 	});
@@ -84,8 +82,7 @@ export const ProjectViewport: React.FC<ProjectViewportProps> = ({
 						next={next}
 						vertical={vertical}
 						onNext={commit}
-						meterRef={meterRef}
-						curtainRef={curtainRef}
+						nextRef={nextRef}
 					/>
 				</div>
 			</div>

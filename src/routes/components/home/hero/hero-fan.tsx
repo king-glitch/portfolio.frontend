@@ -8,10 +8,9 @@ import { HeroFanCard } from "@/routes/components/home/hero/hero-fan-card";
 import { HeroTags } from "@/routes/components/home/hero/hero-tags";
 import { useTranslation } from "react-i18next";
 
-interface HeroFanProps {}
+interface HeroFanImplProps {}
 
-/** The 3D card deck: one card per project, tilting toward the cursor on desktop. Handles loading, error and empty. */
-export const HeroFan: React.FC<HeroFanProps> = () => {
+const HeroFanImpl: React.FC<HeroFanImplProps> = () => {
 	const { t } = useTranslation();
 	const { data, isPending, isError, refetch } = useProjects();
 	const deckRef = useRef<HTMLDivElement>(null);
@@ -71,5 +70,12 @@ export const HeroFan: React.FC<HeroFanProps> = () => {
 		</div>
 	);
 };
+
+/**
+ * The 3D card deck: one card per project, tilting toward the cursor on desktop. Handles loading,
+ * error and empty. Memoised: the preloader flipping `loaded` re-renders the hero at the exact
+ * moment the wipe starts, and the six SVG-heavy cards must not re-render with it.
+ */
+export const HeroFan = React.memo(HeroFanImpl);
 
 export default HeroFan;

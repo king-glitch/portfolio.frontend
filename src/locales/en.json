@@ -613,7 +613,7 @@
 			"button": "Next project",
 			"eyebrow": "(Next project)",
 			"scroll": {
-				"hint": "Keep scrolling to slide straight into the next project. The list loops."
+				"hint": "Scroll once more to slide into the next project."
 			},
 			"touch": {
 				"hint": "Tap to open the next project. The list loops back to the start."

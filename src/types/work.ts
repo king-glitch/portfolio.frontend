@@ -15,11 +15,10 @@ export enum PanelTone {
 	Card = "card",
 }
 
-/** Mutable scroller numbers (px). `pull` is the over-scroll resistance past the end. */
+/** Mutable scroller numbers (px). */
 export interface ScrollerState {
 	target: number;
 	current: number;
-	pull: number;
 	/** `performance.now()` of the last wheel/key input. */
 	lastInput: number;
 }
@@ -38,11 +37,9 @@ export interface ScrollerOptions {
 	trackRef: ElementRef<HTMLElement>;
 	/** Top progress bar (scaleX). */
 	barRef: ElementRef<HTMLElement>;
-	/** Next-project meter (scaleX). */
-	meterRef: ElementRef<HTMLElement>;
-	/** Next-project curtain (`translate`), slid away by the pull. */
-	curtainRef: ElementRef<HTMLElement>;
-	/** The hand-off finished: swap in the next project. */
+	/** The next project's first panel, past the end of the track (pushed in on hand-off). */
+	nextRef: ElementRef<HTMLElement>;
+	/** The push finished: swap in the next project. */
 	onThreshold: () => void;
 	/** Escape key: close the project. */
 	onEscape: () => void;
