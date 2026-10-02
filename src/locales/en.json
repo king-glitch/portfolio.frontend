@@ -242,7 +242,14 @@
 		"next": "Next",
 		"not-found": {
 			"action": "Back home",
-			"title": "Nothing here"
+			"title": "Nothing here",
+			"mascot": {
+				"label": "Poke the mascot",
+				"quips": {
+					"1": "Nothing here. I looked everywhere.",
+					"2": "Maybe it moved to the back end?"
+				}
+			}
 		},
 		"previous": "Previous",
 		"sides": {
@@ -325,7 +332,15 @@
 			},
 			"terminal": ">_ open the terminal",
 			"title": "Say hello.",
-			"top": "Back to top ↑"
+			"top": "Back to top ↑",
+			"mascot": {
+				"label": "Poke the mascot",
+				"quips": {
+					"1": "Go on, say hello!",
+					"2": "He replies fast. Like, sockets fast.",
+					"3": "Email is the button on the left."
+				}
+			}
 		},
 		"habits": {
 			"empty": {
@@ -408,6 +423,15 @@
 				"always-on": "@always-on",
 				"game-ready": "@game-ready",
 				"zero-drama": "@zero-drama"
+			},
+			"mascot": {
+				"label": "Poke the mascot",
+				"quips": {
+					"1": "Hi! I live behind the screen.",
+					"2": "Psst — the good stuff is the back end.",
+					"3": "Zero downtime. I checked.",
+					"4": "Okay, okay. Scroll down."
+				}
 			}
 		},
 		"index": {
@@ -617,6 +641,14 @@
 			},
 			"touch": {
 				"hint": "Tap to open the next project. The list loops back to the start."
+			},
+			"mascot": {
+				"label": "Poke the mascot",
+				"quips": {
+					"1": "Keep scrolling →",
+					"2": "Harder! It is heavy.",
+					"3": "Or just press the button."
+				}
 			}
 		},
 		"header": {
@@ -715,8 +747,13 @@
 		},
 		"preloader": {
 			"name": "William Siefert",
-			"status": "Warming things up…",
-			"title": "Portfolio · {{year}}"
+			"title": "Portfolio · {{year}}",
+			"statuses": {
+				"1": "Warming things up…",
+				"2": "Wiring the sockets…",
+				"3": "Reading the contracts twice…",
+				"4": "Ready. Say hi."
+			}
 		},
 		"skip-link": {
 			"label": "Skip to content"
@@ -724,7 +761,7 @@
 		"terminal": {
 			"button": {
 				"aria-label": "Open terminal",
-				"label": ">_ terminal"
+				"label": "terminal"
 			},
 			"close": {
 				"aria-label": "Close terminal"

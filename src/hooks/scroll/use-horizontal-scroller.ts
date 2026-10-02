@@ -50,9 +50,6 @@ interface Engine {
 	lastWidth: number;
 	panels: PanelMeta[];
 	lastX: number;
-	lastWheel: number;
-	/** The current wheel gesture began with the cover already fully in view. */
-	gestureAtEnd: boolean;
 	/** Input pulled past the end (px, after resistance); reaching the threshold starts the push. */
 	pull: number;
 	lastPull: number;
@@ -70,8 +67,6 @@ const newEngine = (): Engine => ({
 	lastWidth: 0,
 	panels: [],
 	lastX: Number.NaN,
-	lastWheel: 0,
-	gestureAtEnd: false,
 	pull: 0,
 	lastPull: 0,
 	shownQ: 0,
@@ -95,9 +90,9 @@ function leftWithin(el: HTMLElement, track: HTMLElement): number {
 /**
  * Project scroller (Main tick() 1104, feed() 874, wheel/key 738).
  * Desktop: wheel/keys drive an eased track with parallax, writing only `transform` / `translate`.
- * The last own panel (next-project cover) snaps fully into view. Scroll gestures that start
- * there build a resisted pull (shown as `--pull` 0..1 on the cover); trackpad momentum that merely
- * arrives at the end never pulls, and the pull drains when input stops. At 100% the next
+ * Scrolling forward into the last own panel (next-project cover) snaps it into view; once it is
+ * nearly in place, further input builds a resisted pull (shown as `--pull` 0..1 on the cover) with
+ * no pause in between. The pull drains when input stops. At 100% the next
  * project's first panel is pushed in from the right while the top bar drains; when the push
  * lands, `onThreshold` swaps in the next page with that panel already on screen.
  * Phones and tablets (not `config.media.horizontal`): engine off, the page scrolls vertically.
@@ -166,19 +161,23 @@ export function useHorizontalScroller(options: ScrollerOptions) {
 			eng.lastX = Number.NaN;
 		};
 
-		const feed = (d: number, fresh: boolean) => {
+		const feed = (d: number) => {
 			if (eng.push || eng.done) return;
 			const now = performance.now();
 			const pulling = eng.pull > 0 && d < 0;
 			if (pulling || (d > 0 && isAtEnd(eng.state, eng.max, cfg))) {
-				// Momentum that only arrives at the end never pulls; a new gesture there does.
-				if (!fresh && d > 0) return;
 				eng.pull = feedPull(eng.pull, d, cfg);
 				eng.lastPull = now;
 				if (eng.pull >= cfg.pullThresholdPx) startPush();
 				return;
 			}
 			eng.state = feedTrack(eng.state, d, eng.max, now);
+			// Scrolling forward into a mostly visible cover snaps it in at once (no pause).
+			if (
+				d > 0 &&
+				eng.max - eng.state.target < eng.lastWidth * cfg.snapShare
+			)
+				eng.state = { ...eng.state, target: eng.max };
 		};
 		const onWheel = (e: WheelEvent) => {
 			// Window-level so wheeling keeps working while a page transition overlay is up;
@@ -190,14 +189,7 @@ export function useHorizontalScroller(options: ScrollerOptions) {
 				(t instanceof Node && (vp.parentElement ?? vp).contains(t));
 			if (!mine) return;
 			e.preventDefault();
-			const now = performance.now();
-			if (now - eng.lastWheel > cfg.gestureGapMs)
-				eng.gestureAtEnd = isAtEnd(eng.state, eng.max, cfg);
-			eng.lastWheel = now;
-			feed(
-				wheelDelta(e, window.innerHeight, cfg.wheelLinePx),
-				eng.gestureAtEnd,
-			);
+			feed(wheelDelta(e, window.innerHeight, cfg.wheelLinePx));
 		};
 		const onKey = (e: KeyboardEvent) => {
 			if (e.key === "Escape") {
@@ -208,7 +200,7 @@ export function useHorizontalScroller(options: ScrollerOptions) {
 			const dir = KEY_DIRECTION[e.key];
 			if (!dir) return;
 			e.preventDefault();
-			feed(dir * window.innerWidth * cfg.keyStepViewport, true);
+			feed(dir * window.innerWidth * cfg.keyStepViewport);
 		};
 		const syncNative = () => {
 			const bar = latest.current.barRef.current;

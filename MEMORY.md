@@ -43,6 +43,11 @@ Project memory for agents. Read first, update before finishing any task.
   - **Next project (third design):** the dark cover shows only the next project's name. Scroll gestures that start at the cover build a resisted pull (`pullThresholdPx` 1100, resistance grows, drains after 320ms idle). The engine writes `--pull` (0..1) on the cover: the outlined name fills and leans, a meter and a 00–100% readout fill. At 100% the next project's first panel pushes in (1.1s); the top bar drains to 0 and the title/counter fade out (`data-leaving`), and the next page fades its own in (`starting:opacity-0`).
   - **Loader:** exit and page rise are keyframed `transform` animations (`loader-out`, `content-rise`), not `translate` transitions. Reason: Safari skipped the transition. Not verified in Safari (no WebKit in the container).
   - **Mobile (Web Interface Guidelines):** `touch-action: manipulation`, no tap highlight, `viewport-fit=cover` with safe-area insets on the nav, project top bar, About switch and menu; menu `overscroll-contain`; terminal input 16px on phones (no iOS zoom); device-neutral hints ("Hover or tap"); sideways hint only when habits are pinned; shorter spotlight on phones.
+- Review round 7:
+  - **Pull without pause:** scrolling into the next-project cover snaps it in immediately, and the pull starts once it is within 48px of place (no settle wait, no new-gesture rule).
+  - **Mascot:** port of the user's `living-mascot.html` engine (`lib/mascot/engine.ts`, faces in `lib/mascot/designs.ts`, Brackets default + Terminal). `<Mascot>` (decorative, `ref` handle: `poke`, `setZone`) and `<MascotBuddy>` (click = next quip in a speech bubble) in `components/common/mascot/`. Colours are theme tokens. rAF only while on screen; reduced motion calms it.
+  - **Placements:** preloader (watches the counter, nods at each status line, looks up and pops at 100), hero headline (last "word", click for quips), contact heading, next-project cover (looks toward the next project), 404 page, terminal launcher (Terminal face).
+  - **404:** the root error boundary now reads `useRouteError()` (React Router 8 does not pass `error` as a prop), so unknown URLs show the 404 page instead of "Oops!".
 - Prototype is at `./design/`; source data `content/ME.md`.
 
 ## Plan files

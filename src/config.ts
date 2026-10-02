@@ -80,7 +80,8 @@ export const config = {
 	shell: {
 		preloader: {
 			durationMs: 1700,
-			holdMs: 180,
+			/** Long enough for the mascot to pop and say "Ready". */
+			holdMs: 520,
 			unmountDelayMs: 1050,
 			digits: 3,
 		},
@@ -241,13 +242,12 @@ export const config = {
 			pushMs: 1100,
 			parallaxFactor: 0.35,
 			endEpsilonPx: 1,
-			endCurrentPx: 6,
+			/** The cover counts as in place (pull may start) within this distance. */
+			endCurrentPx: 48,
 			settleEpsilonPx: 0.05,
 			visiblePanelViewports: 1.5,
 			keyStepViewport: 0.4,
 			wheelLinePx: 32,
-			/** Wheel events further apart than this start a new gesture (trackpad momentum is one gesture). */
-			gestureGapMs: 160,
 			/** Pull past the end needed to push the next project in (px of wheel input, after resistance). */
 			pullThresholdPx: 1100,
 			/** Resistance: gain falls from `pullBaseGain` as the pull grows, never below `pullMinGain`. */
