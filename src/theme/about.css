@@ -1,0 +1,21 @@
+/* Explore wall type scale: every size follows the wall unit (--k = unit / 200). */
+.about-wall {
+	--wall-hero: calc(96px * var(--k));
+	--wall-big: calc(72px * var(--k));
+	--wall-m: calc(18px * var(--k));
+	--wall-s: max(11px, calc(14px * var(--k)));
+	--wall-xs: max(10px, calc(12px * var(--k)));
+	--wall-ico: calc(72px * var(--k));
+	--wall-donut: calc(96px * var(--k));
+	--wall-cap-h: calc(44px * var(--k));
+	--wall-label: calc(110px * var(--k));
+}
+
+/* Resume section heading (small caps label), shared by all four blocks. */
+.resume-heading {
+	margin: 0 0 0.5rem;
+	font-size: 12px;
+	font-weight: 800;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+}

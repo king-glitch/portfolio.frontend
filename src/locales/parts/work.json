@@ -1,0 +1,50 @@
+{
+	"work": {
+		"architecture": {
+			"note": "Simplified — the shape of the system, not a spec."
+		},
+		"counter": {
+			"label": "Project {{index}} of {{total}}",
+			"placeholder": "—/—"
+		},
+		"dots": {
+			"label": "Panels",
+			"panel": "Go to panel {{index}}"
+		},
+		"end": {
+			"button": "Next project",
+			"eyebrow": "(Next project)",
+			"scroll": {
+				"hint": "Keep scrolling past the end to load it. The list loops forever."
+			},
+			"touch": {
+				"hint": "Tap to load the next project — the list loops back to the start."
+			}
+		},
+		"header": {
+			"discipline": "Discipline",
+			"index": "Index",
+			"project": "Project",
+			"scroll": "Scroll →"
+		},
+		"json": {
+			"blocks": {
+				"count-one": "{{count}} block",
+				"count-other": "{{count}} blocks"
+			},
+			"close": "Close JSON",
+			"description": "Block JSON for this page",
+			"title": "GET /projects/{{num}}"
+		},
+		"meta": {
+			"title": "Project — William Siefert"
+		},
+		"topbar": {
+			"close": "Close",
+			"json": "{ } JSON"
+		},
+		"viewport": {
+			"label": "Project {{name}}, scroll horizontally"
+		}
+	}
+}

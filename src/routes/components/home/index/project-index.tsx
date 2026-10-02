@@ -1,0 +1,90 @@
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router";
+import { z } from "zod";
+import { useProjects } from "@/api/hooks/portfolio/use-projects";
+import { ProjectFilter } from "@/api/types/portfolio/enums";
+import { QueryEmpty } from "@/components/common/feedback/query-empty";
+import { QueryErrorAlert } from "@/components/common/feedback/query-error-alert";
+import { config } from "@/config";
+import { countByFilter, filterProjects } from "@/lib/portfolio/filter";
+import { HomePad } from "@/types/home";
+import { HomeSection } from "@/routes/components/home/home-section";
+import { HomeSectionHead } from "@/routes/components/home/home-section-head";
+import { IndexFilters } from "@/routes/components/home/index/index-filters";
+import { IndexPreview } from "@/routes/components/home/index/index-preview";
+import { ProjectIndexRow } from "@/routes/components/home/index/project-index-row";
+import { ProjectIndexSkeleton } from "@/routes/components/home/index/project-index-skeleton";
+
+/** Invalid or missing `?filter=` silently becomes the default. */
+const filterSchema = z.enum(ProjectFilter).catch(config.portfolio.defaultFilter);
+
+interface ProjectIndexProps {}
+
+/** "Selected work" index: filterable rows bound to `?filter=`, with a cursor-following screen preview. */
+export const ProjectIndex: React.FC<ProjectIndexProps> = () => {
+	const { t } = useTranslation();
+	const { data, isPending, isError, refetch } = useProjects();
+	const [params, setParams] = useSearchParams();
+	const [hoveredId, setHoveredId] = useState<string | null>(null);
+	const filterKey = config.portfolio.searchParams.filter;
+	const filter = filterSchema.parse(params.get(filterKey));
+
+	const onFilter = (next: ProjectFilter) => {
+		const nextParams = new URLSearchParams(params);
+		if (next === config.portfolio.defaultFilter) nextParams.delete(filterKey);
+		else nextParams.set(filterKey, next);
+		setParams(nextParams, { preventScrollReset: true });
+	};
+
+	const shown = data ? filterProjects(data, filter) : [];
+
+	const renderRows = () => {
+		if (isError) return <QueryErrorAlert onRetry={() => void refetch()} className="mt-8" />;
+		if (isPending) return <ProjectIndexSkeleton />;
+		if (!shown.length)
+			return (
+				<QueryEmpty
+					titleKey={
+						data?.length
+							? "home.index.empty.filtered.title"
+							: "home.index.empty.title"
+					}
+					className="py-16"
+				/>
+			);
+		return shown.map((project) => (
+			<ProjectIndexRow key={project.id} project={project} onHover={setHoveredId} />
+		));
+	};
+
+	return (
+		<HomeSection id={config.sections.work} pad={HomePad.Both}>
+			<HomeSectionHead
+				index={3}
+				label={t("home.index.eyebrow")}
+				title={
+					<>
+						{t("home.index.title")}
+						{data ? (
+							<sup className="ml-2 align-top text-[0.26em] tracking-normal text-muted-foreground tabular-nums">
+								{String(shown.length).padStart(2, "0")}
+							</sup>
+						) : null}
+					</>
+				}
+				aside={
+					<IndexFilters
+						value={filter}
+						counts={data ? countByFilter(data) : undefined}
+						onChange={onFilter}
+					/>
+				}
+			/>
+			<div className="mt-7 border-t">{renderRows()}</div>
+			<IndexPreview projects={data ?? []} hoveredId={hoveredId} />
+		</HomeSection>
+	);
+};
+
+export default ProjectIndex;

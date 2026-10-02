@@ -1,0 +1,297 @@
+// style-lint-ignore-next-line no-relative-import -- config.ts is loaded by routes.ts through the React Router config loader, which has no @/ alias
+import { ProjectFilter } from "./api/types/portfolio/enums";
+
+/**
+ * Single source of static values (AGENTS §4). Each domain sub-object is owned
+ * by one agent; add a missing key only inside your own domain.
+ * Query keys mirror their dotted value (rule `config-key-shape`).
+ */
+export const config = {
+	routes: {
+		home: "/",
+		work: "/work/:projectId",
+		about: "/about",
+		aboutExplore: "/about/explore",
+		aboutResume: "/about/resume",
+		notes: "/notes",
+		note: "/notes/:slug",
+	},
+	queryKeys: {
+		portfolio: {
+			profile: "portfolio.profile",
+			projects: {
+				list: "portfolio.projects.list",
+				detail: "portfolio.projects.detail",
+			},
+			posts: {
+				list: "portfolio.posts.list",
+				detail: "portfolio.posts.detail",
+			},
+		},
+	},
+	mock: {
+		latencyMs: 600,
+	},
+	query: {
+		// ponytail: mock service, staleTime Infinity; add per-query staleTime when a backend exists
+		staleTimeMs: Number.POSITIVE_INFINITY,
+		retry: 1,
+	},
+	i18n: {
+		// ponytail: en only; add a language detector when a 2nd locale exists
+		defaultLocale: "en",
+		pluralSeparator: "-",
+	},
+	portfolio: {
+		defaultFilter: ProjectFilter.All,
+		// Search param names (overview §2).
+		searchParams: { filter: "filter", tag: "tag" },
+		/** Words per minute used by the build script for `readMinutes`. */
+		readWordsPerMinute: 200,
+		/** Placeholders (value starts with this) render as non-links. */
+		placeholderPrefix: "[",
+	},
+	/** Anchor ids of the home sections (plan 04). */
+	sections: {
+		top: "top",
+		about: "about",
+		work: "work",
+		stack: "stack",
+		process: "process",
+		timeline: "timeline",
+		skills: "skills",
+		notes: "notes",
+		contact: "contact",
+	},
+	shell: {
+		preloader: {
+			durationMs: 1700,
+			holdMs: 180,
+			wipeMs: 1000,
+			unmountDelayMs: 1050,
+			digits: 3,
+		},
+		nav: {
+			heightPx: 64,
+			maxWidthPx: 900,
+			topPx: 20,
+			revealDelayMs: 500,
+			tapPx: 44,
+		},
+		transition: {
+			durationMs: 950,
+		},
+		cursor: {
+			ringPx: 36,
+			labelRingPx: 88,
+			dotPx: 6,
+			snapMaxWidthPx: 900,
+			snapMaxHeightPx: 240,
+			snapPadPx: 14,
+			snapRadiusPadPx: 7,
+			lerp: 0.2,
+			magnetic: { x: 0.28, y: 0.38 },
+			labelAttribute: "data-cursor",
+			magneticAttribute: "data-magnetic",
+			snapAttribute: "data-snap",
+			snapSelector: "a, button, [data-snap]",
+		},
+		indexPreview: {
+			lerp: 0.14,
+			offsetXPx: 28,
+			offsetYPx: -120,
+			rotateFactor: 0.08,
+			rotateMaxDeg: 8,
+		},
+		scramble: {
+			chars: "!<>-_/[]{}=+*^?#01",
+			frames: 16,
+			intervalMs: 32,
+			cooldownMs: 400,
+			attribute: "data-scramble",
+		},
+		menu: {
+			projectRows: 6,
+		},
+	},
+	home: {
+		hero: {
+			wordBaseDelayS: 0.1,
+			secondLineBaseDelayS: 0.44,
+			wordStaggerS: 0.08,
+			fanInMs: 1400,
+			fanTiltYMultiplier: 10,
+			fanTiltXMultiplier: 6,
+			fanTiltLerp: 0.06,
+			fanMinViewportPx: 760,
+			fan: {
+				stepVw: 14.5,
+				baseYPx: 70,
+				curveYPx: 10,
+				rotateDeg: 5.5,
+				delayBaseS: 0.45,
+				delayStepS: 0.09,
+				skeletonCount: 6,
+			},
+		},
+		marquee: {
+			baseSpeedPx: 1.1,
+			velocitySmoothing: 0.2,
+			velocityCap: 40,
+			velocityFactor: 0.6,
+			skewFactor: 0.35,
+			skewMaxDeg: 12,
+		},
+		hello: {
+			countUpMs: 1600,
+			countUpEasePower: 4,
+			countStartViewport: 0.9,
+			wordReveal: {
+				startViewport: 0.85,
+				spanViewport: 0.9,
+				minOpacity: 0.16,
+				overshoot: 1.1,
+			},
+			pinsStat: { value: 4, suffix: "k+" },
+		},
+		spotlight: {
+			maxRadiusPx: 240,
+			widthRatio: 0.22,
+			radiusLerp: 0.12,
+			centerLerp: 0.2,
+		},
+		index: {
+			skeletonRows: 6,
+		},
+		stack: {
+			linkDelayStepS: 0.35,
+		},
+		habits: {
+			pinMinViewportPx: 760,
+			epsilonPx: 0.05,
+			skeletonCount: 5,
+		},
+		timeline: {
+			minBarFraction: 0.06,
+		},
+		toolkit: {
+			gravity: 0.55,
+			drag: 0.996,
+			floorRestitution: 0.42,
+			wallRestitution: 0.6,
+			floorFriction: 0.94,
+			collisionPasses: 2,
+			impulse: 1.35,
+			diameterBasePx: 56,
+			diameterPerCharPx: 7,
+			diameterMinPx: 84,
+			diameterMaxPx: 168,
+			fontMinPx: 13,
+			fontMaxPx: 20,
+			fontDivisor: 6.5,
+			dropViewport: 0.8,
+			stepMarginPx: 200,
+			restSpeed: 0.9,
+			dropSpacingPx: 46,
+			dropJitterPx: 60,
+			dropVx: 4,
+			throwFactor: 0.9,
+			skeletonCount: 14,
+			/** Skill groups shown as bubbles (group index decides the style). */
+			groups: 4,
+		},
+		notes: {
+			teaserCount: 3,
+		},
+		contact: {
+			letterWeightMax: 900,
+			letterWeightMin: 200,
+			letterRangePx: 360,
+			fixedWeight: 800,
+			epsilon: 0.05,
+		},
+	},
+	work: {
+		scroller: {
+			lerp: 0.085,
+			pullLerp: 0.2,
+			parallaxFactor: 0.35,
+			resistancePx: 420,
+			resistanceMinFactor: 0.12,
+			resistanceBase: 0.5,
+			resistanceSlope: 0.55,
+			pullDecay: 0.9,
+			pullIdleMs: 160,
+			pullZeroBelowPx: 0.5,
+			endEpsilonPx: 1,
+			endCurrentPx: 6,
+			settleEpsilonPx: 0.05,
+			visiblePanelViewports: 1.5,
+			activePanelViewport: 0.45,
+			keyStepViewport: 0.4,
+			wheelLinePx: 32,
+		},
+		dots: {
+			activePx: 22,
+			inactivePx: 6,
+			inactiveOpacity: 0.35,
+		},
+		jsonSheet: {
+			widthPx: 520,
+			truncateAt: 64,
+			truncateKeep: 62,
+		},
+		panel: {
+			wideVw: 120,
+			cardVw: 82,
+			cardMaxPx: 1240,
+			paddingTopPx: 120,
+			paddingBottomPx: 72,
+		},
+	},
+	about: {
+		wall: {
+			cols: 10,
+			rows: 7,
+			unitPx: { desktop: 200, tablet: 176, mobile: 148 },
+			desktopMinPx: 1100,
+			tabletMinPx: 760,
+			gapRatio: 0.08,
+			hero: { col: 3, row: 2, w: 3, h: 2 },
+			inertia: 0.93,
+			stopBelowPx: 0.1,
+			rubberBandRatio: 0.3,
+			dragThresholdPx: 6,
+			falloff: {
+				radiusRatio: 0.62,
+				scaleStart: 0.3,
+				scaleDrop: 0.2,
+				opacityBase: 1.5,
+				opacitySlope: 1.05,
+				pull: 0.07,
+			},
+			minimapWidthPx: 168,
+			minimapMobileMaxPx: 120,
+			arrowStepUnits: 1,
+			follow: 0.2,
+			springBack: 0.12,
+			pullMax: 1.2,
+			recenterOffsetYPx: 20,
+			wheelLinePx: 32,
+			dragFrameMs: 16,
+			ripple: { staggerS: 0.45, durationS: 0.5, startScale: 0.86 },
+		},
+	},
+	notes: {
+		staggerPx: 120,
+		progress: { minHeightPx: 2 },
+	},
+	terminal: {
+		maxLines: 160,
+		navDelayMs: 450,
+		lineOpacities: [1, 0.85, 0.8, 0.7, 0.6, 0.5],
+		prompt: "❯",
+	},
+};
+
+export type Config = typeof config;

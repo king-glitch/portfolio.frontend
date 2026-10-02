@@ -1,0 +1,39 @@
+/* Project motif and mock animations (design/Main.dc.html lines 51-58). Motion only when allowed. */
+@keyframes art-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+@keyframes art-blink {
+	50% {
+		opacity: 0.12;
+	}
+}
+@keyframes art-float {
+	50% {
+		transform: translateY(-8px);
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.art-spin,
+	.art-spin-slow,
+	.art-spin-rev {
+		transform-box: view-box;
+		transform-origin: 200px 150px;
+		animation: art-spin 5s linear infinite;
+	}
+	.art-spin-slow {
+		animation-duration: 22s;
+	}
+	.art-spin-rev {
+		animation-duration: 14s;
+		animation-direction: reverse;
+	}
+	.art-blink {
+		animation: art-blink 2.4s steps(2, end) infinite;
+	}
+	.art-float {
+		animation: art-float 6s ease-in-out infinite;
+	}
+}

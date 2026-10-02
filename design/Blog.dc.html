@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Blog — William Siefert</title>
+<script src="./support.js"></script>
+<script src="./me-data.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div ref="{{setRoot}}" style="min-height: 100%; background: var(--bg, #0a0a0a); color: var(--fg, #fafafa); font-family: Inter, system-ui, sans-serif; box-sizing: border-box">
+
+<!-- ═════ LIST ═════ -->
+<sc-if value="{{isList}}" hint-placeholder-val="{{ true }}">
+<div style="padding: 128px clamp(16px, 4vw, 48px) 96px; max-width: 1360px; margin: 0 auto">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap">
+<div>
+<span style="font-size: 13px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mfg, #a1a1a1)">Blog · {{count}} notes</span>
+<h1 style="margin: 14px 0 0; font-size: clamp(56px, 10vw, 170px); font-weight: 800; letter-spacing: -0.07em; line-height: 0.84">Notes from<br><span style="color: transparent; -webkit-text-stroke: 1.5px var(--fg, #fafafa)">behind the screen.</span></h1>
+</div>
+<div role="group" aria-label="Filter by topic" style="display: flex; flex-wrap: wrap; gap: 8px; max-width: 460px; justify-content: flex-end">
+<sc-for list="{{tags}}" as="tg" hint-placeholder-count="6">
+<button onClick="{{tg.pick}}" aria-pressed="{{tg.pressed}}" style="height: 38px; padding: 0 14px; border-radius: 999px; border: 0; background: {{tg.bg}}; color: {{tg.fg}}; box-shadow: inset 0 0 0 1px var(--line, rgba(255,255,255,.1)); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{tg.t}}</button>
+</sc-for>
+</div>
+</div>
+
+<sc-if value="{{hasFeatured}}" hint-placeholder-val="{{ true }}">
+<button onClick="{{featured.open}}" data-cursor="Read" class="post-card" style="margin-top: 64px; width: 100%; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 4vw; align-items: end">
+<span class="post-cover" style="display: block; position: relative; aspect-ratio: 4 / 3; border-radius: 28px; overflow: hidden; box-shadow: 0 0 0 1px var(--line, rgba(255,255,255,.1))">
+<dc-import name="Motif" kind="{{featured.kind}}" tone="{{tone}}" bg="{{card}}" hint-size="100%,100%"></dc-import>
+<span style="position: absolute; left: 18px; top: 16px; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 999px; background: var(--bg, #0a0a0a)">Latest</span>
+</span>
+<span style="display: flex; flex-direction: column; gap: 20px; padding-bottom: 8px">
+<span style="display: flex; gap: 12px; font-size: 13px; color: var(--mfg, #a1a1a1)"><span>{{featured.num}}</span><span>{{featured.date}}</span><span>{{featured.read}}</span></span>
+<span style="font-size: clamp(36px, 4.4vw, 72px); font-weight: 800; letter-spacing: -0.055em; line-height: 0.96">{{featured.title}}</span>
+<span style="font-size: 18px; line-height: 1.5; color: var(--mfg, #a1a1a1)">{{featured.excerpt}}</span>
+<span style="font-size: 15px; font-weight: 700">Read the note →</span>
+</span>
+</button>
+</sc-if>
+
+<div class="post-grid" style="margin-top: 96px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 4vw">
+<sc-for list="{{rest}}" as="p" hint-placeholder-count="4">
+<button onClick="{{p.open}}" data-cursor="Read" class="post-card" style="padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; display: flex; flex-direction: column; gap: 18px; margin-top: {{p.mt}}">
+<span class="post-cover" style="display: block; aspect-ratio: 16 / 10; border-radius: 24px; overflow: hidden; box-shadow: 0 0 0 1px var(--line, rgba(255,255,255,.1))">
+<dc-import name="Motif" kind="{{p.kind}}" tone="{{tone}}" bg="{{card}}" hint-size="100%,100%"></dc-import>
+</span>
+<span style="display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--mfg, #a1a1a1)"><span>{{p.num}} · {{p.tagLine}}</span><span>{{p.read}}</span></span>
+<span style="font-size: clamp(26px, 2.6vw, 40px); font-weight: 800; letter-spacing: -0.045em; line-height: 1.02">{{p.title}}</span>
+<span style="font-size: 16px; line-height: 1.55; color: var(--mfg, #a1a1a1)">{{p.excerpt}}</span>
+</button>
+</sc-for>
+</div>
+<p style="margin: 96px 0 0; padding-top: 24px; border-top: 1px solid var(--line, rgba(255,255,255,.1)); font-size: 13px; color: var(--mfg, #a1a1a1)">These are sample posts to show the layouts — replace them with your own writing in me-data.js.</p>
+</div>
+</sc-if>
+
+<!-- ═════ POST ═════ -->
+<sc-if value="{{isPost}}" hint-placeholder-val="{{ false }}">
+<div style="position: sticky; top: 0; z-index: 4; background: var(--bg, #0a0a0a); border-bottom: 1px solid var(--line, rgba(255,255,255,.1))">
+<div style="max-width: 1360px; margin: 0 auto; padding: 18px clamp(16px, 4vw, 48px); display: flex; justify-content: space-between; align-items: center; gap: 16px">
+<button onClick="{{back}}" data-cursor="Back" style="height: 44px; padding: 0 18px; border-radius: 999px; border: 0; background: transparent; color: inherit; box-shadow: inset 0 0 0 1px var(--line, rgba(255,255,255,.1)); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer">← All notes</button>
+<span style="font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 50vw">{{post.title}}</span>
+<span style="font-size: 13px; color: var(--mfg, #a1a1a1); white-space: nowrap">{{post.read}}</span>
+</div>
+<div style="height: 2px; background: transparent"><div ref="{{setBar}}" style="height: 2px; background: var(--fg, #fafafa); transform-origin: left; transform: scaleX(0)"></div></div>
+</div>
+<article style="padding: 72px clamp(16px, 4vw, 48px) 96px">
+<header style="max-width: 1100px; margin: 0 auto">
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{post.tags}}" as="pt" hint-placeholder-count="2"><span style="font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line, rgba(255,255,255,.1)); color: var(--mfg, #a1a1a1)">{{pt}}</span></sc-for>
+<span style="font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 999px; background: var(--fg, #fafafa); color: var(--bg, #0a0a0a)">Sample post</span>
+</div>
+<h1 style="margin: 28px 0 0; font-size: clamp(44px, 7vw, 112px); font-weight: 800; letter-spacing: -0.065em; line-height: 0.92">{{post.title}}</h1>
+<div style="margin-top: 28px; display: flex; gap: 20px; flex-wrap: wrap; font-size: 15px; color: var(--mfg, #a1a1a1)"><span>William Siefert</span><span>{{post.date}}</span><span>{{post.read}} read</span></div>
+</header>
+<div style="max-width: 1100px; margin: 56px auto 0; aspect-ratio: 21 / 9; border-radius: 28px; overflow: hidden; box-shadow: 0 0 0 1px var(--line, rgba(255,255,255,.1))">
+<dc-import name="Motif" kind="{{post.kind}}" tone="{{tone}}" bg="{{card}}" hint-size="100%,100%"></dc-import>
+</div>
+<div style="max-width: 720px; margin: 72px auto 0; display: flex; flex-direction: column; gap: 28px">
+<p style="margin: 0; font-size: clamp(22px, 2vw, 28px); line-height: 1.45; letter-spacing: -0.02em; font-weight: 500">{{post.excerpt}}</p>
+<sc-for list="{{post.body}}" as="b" hint-placeholder-count="5">
+<sc-if value="{{b.is.p}}" hint-placeholder-val="{{ true }}"><p style="margin: 0; font-size: 19px; line-height: 1.75">{{b.text}}</p></sc-if>
+<sc-if value="{{b.is.h}}" hint-placeholder-val="{{ false }}"><h2 style="margin: 24px 0 0; font-size: clamp(28px, 2.8vw, 40px); font-weight: 800; letter-spacing: -0.045em; line-height: 1.05">{{b.text}}</h2></sc-if>
+<sc-if value="{{b.is.list}}" hint-placeholder-val="{{ false }}">
+<ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; border-top: 1px solid var(--line, rgba(255,255,255,.1))">
+<sc-for list="{{b.items}}" as="li" hint-placeholder-count="3"><li style="display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--line, rgba(255,255,255,.1)); font-size: 18px; line-height: 1.5"><span style="font-size: 13px; font-weight: 700; color: var(--mfg, #a1a1a1); padding-top: 4px; font-variant-numeric: tabular-nums">{{li.n}}</span><span>{{li.t}}</span></li></sc-for>
+</ol>
+</sc-if>
+<sc-if value="{{b.is.code}}" hint-placeholder-val="{{ false }}">
+<figure style="margin: 8px -32px; border-radius: 22px; overflow: hidden; background: var(--card, #171717); box-shadow: inset 0 0 0 1px var(--line, rgba(255,255,255,.1))">
+<figcaption style="padding: 12px 20px; display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: var(--mfg, #a1a1a1); border-bottom: 1px solid var(--line, rgba(255,255,255,.1))"><span>{{b.lang}}</span><span>{{b.lines}} lines</span></figcaption>
+<pre style="margin: 0; padding: 20px; overflow-x: auto; font-family: ui-monospace, Menlo, monospace; font-size: 14px; line-height: 1.7"><sc-for list="{{b.code}}" as="cl" hint-placeholder-count="6"><span style="display: block; opacity: {{cl.op}}"><span style="display: inline-block; width: 32px; opacity: 0.35; user-select: none">{{cl.n}}</span>{{cl.t}}</span></sc-for></pre>
+</figure>
+</sc-if>
+<sc-if value="{{b.is.quote}}" hint-placeholder-val="{{ false }}"><blockquote style="margin: 24px 0; padding: 0; font-size: clamp(30px, 3.4vw, 48px); font-weight: 300; letter-spacing: -0.04em; line-height: 1.12">“{{b.text}}”</blockquote></sc-if>
+<sc-if value="{{b.is.callout}}" hint-placeholder-val="{{ false }}"><div style="padding: 18px 22px; border-radius: 18px; background: var(--fg, #fafafa); color: var(--bg, #0a0a0a); font-size: 15px; font-weight: 600">{{b.text}}</div></sc-if>
+</sc-for>
+</div>
+</article>
+<button onClick="{{next.open}}" data-cursor="Next" style="display: block; width: 100%; border: 0; border-top: 1px solid var(--line, rgba(255,255,255,.1)); background: var(--card, #171717); color: inherit; font: inherit; text-align: left; cursor: pointer; padding: 72px clamp(16px, 4vw, 48px) 96px">
+<span style="display: block; max-width: 1360px; margin: 0 auto">
+<span style="display: block; font-size: 13px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mfg, #a1a1a1)">Next note · {{next.num}}</span>
+<span style="display: block; margin-top: 20px; font-size: clamp(40px, 7vw, 120px); font-weight: 800; letter-spacing: -0.065em; line-height: 0.92; color: transparent; -webkit-text-stroke: 1.5px var(--fg, #fafafa)">{{next.title}}</span>
+</span>
+</button>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"mode":{"editor":"enum","options":["list","post"],"default":"list"},"slug":{"editor":"text","default":""},"invert":{"editor":"boolean","default":false},"openPost":{"editor":null},"goBack":{"editor":null},"$preview":{"width":1280,"height":2400}}'>
+class Component extends DCLogic {
+  constructor(...a) {
+    super(...a);
+    this.state = { tag: 'All' };
+    this.setRoot = (el) => { this.root = el; };
+    this.setBar = (el) => { this.bar = el; };
+    this.onScroll = () => {
+      if (!this.bar || !this.sc) return;
+      const isWin = this.sc === window;
+      const top = isWin ? window.scrollY : this.sc.scrollTop;
+      const h = isWin ? document.documentElement.scrollHeight - window.innerHeight : this.sc.scrollHeight - this.sc.clientHeight;
+      this.bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, top / h) : 0).toFixed(4) + ')';
+    };
+  }
+  componentDidMount() {
+    setTimeout(() => {
+      this.sc = (this.root && this.root.closest('[data-scroller]')) || window;
+      this.sc.addEventListener('scroll', this.onScroll, { passive: true });
+      this.onScroll();
+    }, 30);
+  }
+  componentWillUnmount() { if (this.sc) this.sc.removeEventListener('scroll', this.onScroll); }
+  renderVals() {
+    const posts = (window.ME && window.ME.posts) || [];
+    const mode = this.props.mode ?? 'list';
+    const invert = this.props.invert ?? false;
+    const open = (slug) => () => { if (this.props.openPost) this.props.openPost(slug); };
+    const allTags = ['All'];
+    posts.forEach((p) => p.tags.forEach((t) => { if (allTags.indexOf(t) < 0) allTags.push(t); }));
+    const tag = this.state.tag;
+    const filtered = posts.filter((p) => tag === 'All' || p.tags.indexOf(tag) > -1);
+    const deco = (p, i) => Object.assign({}, p, { open: open(p.slug), tagLine: p.tags.join(' · '), mt: i % 2 ? '120px' : '0px' });
+    const feat = filtered[0];
+    const slug = this.props.slug || (posts[0] && posts[0].slug);
+    const pi = Math.max(0, posts.findIndex((p) => p.slug === slug));
+    const post = posts[pi] || { title: '', tags: [], blocks: [], kind: 'radar' };
+    const nx = posts[(pi + 1) % Math.max(1, posts.length)] || post;
+    const body = (post.blocks || []).map((b) => {
+      const is = {}; is[b.t] = true;
+      const o = { is: is, text: b.text || '' };
+      if (b.t === 'list') o.items = (b.items || []).map((t, j) => ({ n: String(j + 1).padStart(2, '0'), t: t }));
+      if (b.t === 'code') { const ls = (b.text || '').split('\n'); o.lang = b.lang || 'code'; o.lines = ls.length; o.code = ls.map((t, j) => ({ n: j + 1, t: t || ' ', op: /^\s*\/\//.test(t) ? 0.5 : 1 })); }
+      return o;
+    });
+    return {
+      setRoot: this.setRoot, setBar: this.setBar,
+      tone: invert ? '#0a0a0a' : '#fafafa', card: invert ? '#f5f5f5' : '#171717',
+      isList: mode !== 'post', isPost: mode === 'post',
+      count: String(posts.length).padStart(2, '0'),
+      tags: allTags.map((t) => ({ t: t, pressed: t === tag ? 'true' : 'false', bg: t === tag ? 'var(--fg, #fafafa)' : 'transparent', fg: t === tag ? 'var(--bg, #0a0a0a)' : 'inherit', pick: () => this.setState({ tag: t }) })),
+      hasFeatured: !!feat,
+      featured: feat ? deco(feat, 0) : {},
+      rest: filtered.slice(1).map(deco),
+      post: Object.assign({}, post, { body: body }),
+      next: { title: nx.title, num: nx.num, open: open(nx.slug) },
+      back: () => { if (this.props.goBack) this.props.goBack(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

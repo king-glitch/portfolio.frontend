@@ -1,0 +1,33 @@
+/* Owned by agent N; see docs/plans/08-agent-ownership.md. */
+
+/* Outlined display text (prototype `-webkit-text-stroke`). */
+.notes-outline {
+	color: transparent;
+	-webkit-text-stroke: 1.5px var(--foreground);
+}
+
+/* Staggered 2-column grid: every second card drops by --stagger (desktop only). */
+@media (min-width: 768px) {
+	.notes-grid > :nth-child(even) {
+		margin-top: var(--stagger);
+	}
+}
+
+/* Code block line numbers via CSS counters; long lines scroll inside the pre. */
+.notes-code {
+	counter-reset: line;
+}
+.notes-code > span {
+	display: block;
+	white-space: pre;
+}
+.notes-code > span::before {
+	counter-increment: line;
+	content: counter(line);
+	display: inline-block;
+	width: 2.5ch;
+	margin-right: 1.5ch;
+	text-align: right;
+	opacity: 0.35;
+	user-select: none;
+}

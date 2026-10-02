@@ -1,0 +1,11 @@
+{
+	"extends": "../tsconfig.json",
+	"include": ["**/*.ts"],
+	"exclude": ["lint-style"],
+	"compilerOptions": {
+		"types": ["bun", "node"],
+		"noEmit": true,
+		"strict": true,
+		"noUncheckedIndexedAccess": true
+	}
+}

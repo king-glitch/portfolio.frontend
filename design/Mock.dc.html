@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Project screen mock</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 100%; height: 100%; color: {{tone}}; font-family: Inter, system-ui, sans-serif; overflow: hidden; position: relative">
+
+<!-- ═════ DESKTOP SCREENS ═════ -->
+<sc-if value="{{isDesktop}}" hint-placeholder-val="{{ true }}">
+<svg viewBox="0 0 640 400" preserveAspectRatio="{{par}}" style="display: block; width: 100%; height: 100%" role="img" aria-label="{{label}}">
+<rect x="0.5" y="0.5" width="639" height="399" rx="14" fill="{{bg}}" stroke="currentColor" style="stroke-opacity: 0.25"></rect>
+<line x1="0" y1="28" x2="640" y2="28" stroke="currentColor" style="stroke-opacity: 0.18"></line>
+<circle cx="16" cy="14" r="4" fill="currentColor" style="opacity: 0.35"></circle>
+<circle cx="30" cy="14" r="4" fill="currentColor" style="opacity: 0.2"></circle>
+<circle cx="44" cy="14" r="4" fill="currentColor" style="opacity: 0.12"></circle>
+<rect x="220" y="7" width="200" height="14" rx="7" fill="currentColor" style="opacity: 0.08"></rect>
+<text x="320" y="17.5" text-anchor="middle" fill="currentColor" style="font-size: 8px; opacity: 0.6">{{url}}</text>
+
+<!-- radar · operator console -->
+<sc-if value="{{is.radar}}" hint-placeholder-val="{{ true }}">
+<rect x="0" y="28" width="150" height="372" fill="currentColor" style="opacity: 0.04"></rect>
+<text x="14" y="50" fill="currentColor" style="font-size: 8px; font-weight: 700; letter-spacing: 0.12em; opacity: 0.6">TRACKS · LIVE</text>
+<sc-for list="{{tracks}}" as="t" hint-placeholder-count="8">
+<g>
+<rect x="10" y="{{t.y}}" width="130" height="30" rx="6" fill="currentColor" style="opacity: {{t.bgop}}"></rect>
+<rect x="18" y="{{t.iy}}" width="8" height="8" fill="{{t.fill}}" stroke="currentColor"></rect>
+<text x="34" y="{{t.ty}}" fill="currentColor" style="font-size: 8px; font-weight: 700">{{t.label}}</text>
+<rect x="34" y="{{t.by}}" width="{{t.w}}" height="3" rx="1.5" fill="currentColor" style="opacity: 0.35"></rect>
+</g>
+</sc-for>
+<g fill="none" stroke="currentColor" style="opacity: 0.35">
+<circle cx="320" cy="214" r="40"></circle><circle cx="320" cy="214" r="80"></circle><circle cx="320" cy="214" r="120"></circle><circle cx="320" cy="214" r="160" stroke-dasharray="2 6"></circle>
+<line x1="160" y1="214" x2="480" y2="214"></line><line x1="320" y1="40" x2="320" y2="390"></line>
+</g>
+<g style="transform-box: view-box; transform-origin: 320px 214px; animation: mspin 5s linear infinite">
+<path d="M320 214 L320 94 A120 120 0 0 1 404.85 129.15 Z" fill="currentColor" style="opacity: 0.16"></path>
+<line x1="320" y1="214" x2="320" y2="94" stroke="currentColor" stroke-width="1.5"></line>
+</g>
+<rect x="364" y="150" width="10" height="10" fill="currentColor" class="m-blink"></rect>
+<circle cx="268" cy="262" r="4" fill="currentColor"></circle>
+<circle cx="350" cy="296" r="4" fill="currentColor"></circle>
+<circle cx="250" cy="170" r="3" fill="none" stroke="currentColor"></circle>
+<text x="380" y="148" fill="currentColor" style="font-size: 8px; font-weight: 700">TRK 041</text>
+<rect x="490" y="40" width="140" height="120" rx="10" fill="currentColor"></rect>
+<text x="502" y="60" fill="{{bg}}" style="font-size: 8px; font-weight: 800; letter-spacing: 0.12em">ALERT · SUSPECT</text>
+<text x="502" y="88" fill="{{bg}}" style="font-size: 20px; font-weight: 900; letter-spacing: -0.04em">TRK 041</text>
+<rect x="502" y="100" width="90" height="4" rx="2" fill="{{bg}}" style="opacity: 0.5"></rect>
+<rect x="502" y="110" width="60" height="4" rx="2" fill="{{bg}}" style="opacity: 0.5"></rect>
+<rect x="502" y="128" width="54" height="20" rx="10" fill="{{bg}}"></rect><text x="529" y="141" text-anchor="middle" fill="currentColor" style="font-size: 7px; font-weight: 800">FRIEND</text>
+<rect x="562" y="128" width="56" height="20" rx="10" fill="none" stroke="{{bg}}"></rect><text x="590" y="141" text-anchor="middle" fill="{{bg}}" style="font-size: 7px; font-weight: 800">ENEMY</text>
+<rect x="490" y="172" width="140" height="150" rx="10" fill="none" stroke="currentColor" style="stroke-opacity: 0.25"></rect>
+<text x="502" y="190" fill="currentColor" style="font-size: 8px; font-weight: 700; letter-spacing: 0.12em; opacity: 0.6">COMMS · ENCRYPTED</text>
+<rect x="502" y="200" width="96" height="16" rx="8" fill="currentColor" style="opacity: 0.12"></rect>
+<rect x="522" y="222" width="96" height="16" rx="8" fill="currentColor" style="opacity: 0.25"></rect>
+<rect x="502" y="244" width="70" height="16" rx="8" fill="currentColor" style="opacity: 0.12"></rect>
+<rect x="502" y="292" width="56" height="20" rx="10" fill="currentColor"></rect><text x="530" y="305" text-anchor="middle" fill="{{bg}}" style="font-size: 7px; font-weight: 800">VOICE</text>
+<rect x="564" y="292" width="54" height="20" rx="10" fill="none" stroke="currentColor"></rect><text x="591" y="305" text-anchor="middle" fill="currentColor" style="font-size: 7px; font-weight: 800">MSG</text>
+<rect x="490" y="334" width="140" height="54" rx="10" fill="currentColor" style="opacity: 0.06"></rect>
+<text x="502" y="352" fill="currentColor" style="font-size: 8px; opacity: 0.6">ACCESS · IP ALLOW-LIST</text>
+<text x="502" y="372" fill="currentColor" style="font-size: 12px; font-weight: 800">Operator 02</text>
+</sc-if>
+
+<!-- moon · farm + shop -->
+<sc-if value="{{is.moon}}" hint-placeholder-val="{{ false }}">
+<rect x="16" y="40" width="96" height="22" rx="11" fill="currentColor"></rect>
+<circle cx="30" cy="51" r="6" fill="{{bg}}"></circle>
+<text x="42" y="55" fill="{{bg}}" style="font-size: 10px; font-weight: 800">1,240</text>
+<rect x="120" y="40" width="76" height="22" rx="11" fill="none" stroke="currentColor" style="stroke-opacity: 0.4"></rect>
+<text x="158" y="55" text-anchor="middle" fill="currentColor" style="font-size: 9px; font-weight: 700">Day 18</text>
+<sc-for list="{{plots}}" as="pl" hint-placeholder-count="24">
+<g>
+<rect x="{{pl.x}}" y="{{pl.y}}" width="54" height="54" rx="8" fill="currentColor" style="opacity: {{pl.op}}"></rect>
+<sc-if value="{{pl.sprout}}" hint-placeholder-val="{{ false }}"><path d="{{pl.leaf}}" fill="none" stroke="currentColor" stroke-width="1.6"></path></sc-if>
+<sc-if value="{{pl.fruit}}" hint-placeholder-val="{{ false }}"><circle cx="{{pl.cx}}" cy="{{pl.cy}}" r="9" fill="currentColor"></circle></sc-if>
+</g>
+</sc-for>
+<rect x="430" y="40" width="194" height="290" rx="14" fill="currentColor" style="opacity: 0.06"></rect>
+<text x="446" y="66" fill="currentColor" style="font-size: 14px; font-weight: 900; letter-spacing: -0.03em">Shop</text>
+<sc-for list="{{shop}}" as="sh" hint-placeholder-count="4">
+<g>
+<rect x="446" y="{{sh.y}}" width="162" height="50" rx="10" fill="{{bg}}" stroke="currentColor" style="stroke-opacity: 0.2"></rect>
+<rect x="456" y="{{sh.iy}}" width="30" height="30" rx="8" fill="currentColor" style="opacity: 0.25"></rect>
+<text x="496" y="{{sh.ty}}" fill="currentColor" style="font-size: 9px; font-weight: 700">{{sh.name}}</text>
+<rect x="566" y="{{sh.py}}" width="34" height="16" rx="8" fill="currentColor"></rect>
+<text x="583" y="{{sh.pty}}" text-anchor="middle" fill="{{bg}}" style="font-size: 7px; font-weight: 800">{{sh.price}}</text>
+</g>
+</sc-for>
+<rect x="16" y="344" width="400" height="40" rx="12" fill="currentColor"></rect>
+<text x="32" y="368" fill="{{bg}}" style="font-size: 10px; font-weight: 800">New resources spawned in the east field</text>
+</sc-if>
+
+<!-- hex · capture screen -->
+<sc-if value="{{is.hexMain}}" hint-placeholder-val="{{ false }}">
+<sc-for list="{{hexMap}}" as="hm" hint-placeholder-count="20">
+<polygon points="{{hm.pts}}" fill="{{hm.fill}}" stroke="currentColor" style="opacity: {{hm.op}}"></polygon>
+</sc-for>
+<g fill="currentColor">
+<rect x="282" y="120" width="76" height="70" rx="10"></rect>
+<rect x="296" y="96" width="48" height="30" rx="8" style="opacity: 0.85"></rect>
+<rect x="306" y="106" width="28" height="6" rx="3" fill="{{bg}}"></rect>
+<rect x="252" y="130" width="24" height="56" rx="8" style="opacity: 0.7"></rect>
+<rect x="364" y="130" width="24" height="56" rx="8" style="opacity: 0.7"></rect>
+<rect x="290" y="196" width="24" height="64" rx="8" style="opacity: 0.8"></rect>
+<rect x="326" y="196" width="24" height="64" rx="8" style="opacity: 0.8"></rect>
+</g>
+<circle cx="320" cy="180" r="118" fill="none" stroke="currentColor" stroke-dasharray="4 6" style="opacity: 0.4; transform-box: view-box; transform-origin: 320px 180px; animation: mspin 22s linear infinite"></circle>
+<rect x="470" y="44" width="154" height="222" rx="14" fill="currentColor" style="opacity: 0.06"></rect>
+<text x="486" y="70" fill="currentColor" style="font-size: 14px; font-weight: 900; letter-spacing: -0.03em">Wild mech</text>
+<text x="486" y="86" fill="currentColor" style="font-size: 8px; opacity: 0.6">Wandering · Lv 12</text>
+<sc-for list="{{stats}}" as="st" hint-placeholder-count="3">
+<g>
+<text x="486" y="{{st.ty}}" fill="currentColor" style="font-size: 8px; font-weight: 700">{{st.name}}</text>
+<rect x="486" y="{{st.by}}" width="122" height="5" rx="2.5" fill="currentColor" style="opacity: 0.15"></rect>
+<rect x="486" y="{{st.by}}" width="{{st.w}}" height="5" rx="2.5" fill="currentColor"></rect>
+</g>
+</sc-for>
+<rect x="486" y="222" width="122" height="30" rx="15" fill="currentColor"></rect>
+<text x="547" y="241" text-anchor="middle" fill="{{bg}}" style="font-size: 10px; font-weight: 900; letter-spacing: 0.08em">CAPTURE</text>
+<sc-for list="{{party}}" as="pt" hint-placeholder-count="4">
+<rect x="{{pt.x}}" y="316" width="64" height="64" rx="14" fill="{{pt.fill}}" stroke="currentColor" style="stroke-opacity: 0.3"></rect>
+</sc-for>
+<text x="16" y="306" fill="currentColor" style="font-size: 8px; font-weight: 700; letter-spacing: 0.12em; opacity: 0.6">PARTY</text>
+</sc-if>
+
+<!-- hex · bridge website -->
+<sc-if value="{{is.hexAlt}}" hint-placeholder-val="{{ false }}">
+<text x="24" y="70" fill="currentColor" style="font-size: 24px; font-weight: 900; letter-spacing: -0.05em">Bridge assets</text>
+<text x="24" y="88" fill="currentColor" style="font-size: 9px; opacity: 0.6">Move items between the game and the chain</text>
+<rect x="24" y="108" width="250" height="190" rx="14" fill="none" stroke="currentColor" style="stroke-opacity: 0.25"></rect>
+<text x="40" y="132" fill="currentColor" style="font-size: 9px; font-weight: 800; letter-spacing: 0.1em">IN GAME</text>
+<rect x="366" y="108" width="250" height="190" rx="14" fill="currentColor" style="opacity: 0.06"></rect>
+<text x="382" y="132" fill="currentColor" style="font-size: 9px; font-weight: 800; letter-spacing: 0.1em">ON CHAIN</text>
+<sc-for list="{{bridgeRows}}" as="br" hint-placeholder-count="4">
+<g>
+<rect x="40" y="{{br.y}}" width="218" height="30" rx="8" fill="currentColor" style="opacity: {{br.opL}}"></rect>
+<rect x="48" y="{{br.iy}}" width="16" height="16" rx="4" fill="currentColor" style="opacity: 0.4"></rect>
+<text x="72" y="{{br.ty}}" fill="currentColor" style="font-size: 8px; font-weight: 700">{{br.a}}</text>
+<rect x="382" y="{{br.y}}" width="218" height="30" rx="8" fill="currentColor" style="opacity: {{br.opR}}"></rect>
+<rect x="390" y="{{br.iy}}" width="16" height="16" rx="4" fill="currentColor" style="opacity: 0.4"></rect>
+<text x="414" y="{{br.ty}}" fill="currentColor" style="font-size: 8px; font-weight: 700">{{br.b}}</text>
+</g>
+</sc-for>
+<circle cx="320" cy="203" r="26" fill="currentColor"></circle>
+<path d="M308 203 L330 203 M322 195 L330 203 L322 211" fill="none" stroke="{{bg}}" stroke-width="2"></path>
+<sc-for list="{{nfts}}" as="nf" hint-placeholder-count="5">
+<g>
+<rect x="{{nf.x}}" y="314" width="110" height="72" rx="12" fill="{{nf.fill}}" stroke="currentColor" style="stroke-opacity: 0.25"></rect>
+<text x="{{nf.tx}}" y="374" fill="{{nf.tc}}" style="font-size: 8px; font-weight: 700">{{nf.name}}</text>
+</g>
+</sc-for>
+</sc-if>
+
+<!-- orbit · quest board -->
+<sc-if value="{{is.orbit}}" hint-placeholder-val="{{ false }}">
+<text x="24" y="68" fill="currentColor" style="font-size: 22px; font-weight: 900; letter-spacing: -0.05em">Season quests</text>
+<rect x="300" y="48" width="150" height="26" rx="13" fill="currentColor"></rect>
+<text x="375" y="65" text-anchor="middle" fill="{{bg}}" style="font-size: 9px; font-weight: 800">Moon Power · 12,450 XP</text>
+<sc-for list="{{quests}}" as="q" hint-placeholder-count="6">
+<g>
+<rect x="{{q.x}}" y="{{q.y}}" width="134" height="140" rx="14" fill="{{q.fill}}" stroke="currentColor" style="stroke-opacity: 0.2"></rect>
+<rect x="{{q.bx}}" y="{{q.by}}" width="44" height="16" rx="8" fill="{{q.badge}}"></rect>
+<text x="{{q.btx}}" y="{{q.bty}}" text-anchor="middle" fill="{{q.badgeText}}" style="font-size: 7px; font-weight: 800">{{q.xp}}</text>
+<text x="{{q.tx}}" y="{{q.ty}}" fill="{{q.text}}" style="font-size: 10px; font-weight: 800">{{q.title}}</text>
+<rect x="{{q.tx}}" y="{{q.ly}}" width="96" height="4" rx="2" fill="{{q.text}}" style="opacity: 0.35"></rect>
+<rect x="{{q.tx}}" y="{{q.py}}" width="110" height="6" rx="3" fill="{{q.text}}" style="opacity: 0.18"></rect>
+<rect x="{{q.tx}}" y="{{q.py}}" width="{{q.pw}}" height="6" rx="3" fill="{{q.text}}"></rect>
+</g>
+</sc-for>
+<rect x="466" y="88" width="158" height="296" rx="14" fill="currentColor" style="opacity: 0.06"></rect>
+<text x="480" y="112" fill="currentColor" style="font-size: 9px; font-weight: 800; letter-spacing: 0.1em">LEADERBOARD</text>
+<sc-for list="{{board}}" as="lb" hint-placeholder-count="7">
+<g>
+<text x="480" y="{{lb.y}}" fill="currentColor" style="font-size: 9px; font-weight: 800; opacity: 0.5">{{lb.n}}</text>
+<circle cx="506" cy="{{lb.cy}}" r="8" fill="currentColor" style="opacity: {{lb.op}}"></circle>
+<rect x="520" y="{{lb.ry}}" width="{{lb.w}}" height="5" rx="2.5" fill="currentColor" style="opacity: 0.5"></rect>
+</g>
+</sc-for>
+</sc-if>
+
+<!-- pins · map search -->
+<sc-if value="{{is.pinsMain}}" hint-placeholder-val="{{ false }}">
+<rect x="0" y="28" width="200" height="372" fill="currentColor" style="opacity: 0.05"></rect>
+<sc-for list="{{chat}}" as="ch" hint-placeholder-count="5">
+<g>
+<rect x="{{ch.x}}" y="{{ch.y}}" width="{{ch.w}}" height="{{ch.h}}" rx="10" fill="{{ch.fill}}" stroke="currentColor" style="stroke-opacity: {{ch.so}}"></rect>
+<rect x="{{ch.lx}}" y="{{ch.ly1}}" width="{{ch.lw1}}" height="4" rx="2" fill="{{ch.lc}}" style="opacity: 0.7"></rect>
+<rect x="{{ch.lx}}" y="{{ch.ly2}}" width="{{ch.lw2}}" height="4" rx="2" fill="{{ch.lc}}" style="opacity: 0.7"></rect>
+</g>
+</sc-for>
+<rect x="12" y="356" width="176" height="30" rx="15" fill="none" stroke="currentColor" style="stroke-opacity: 0.35"></rect>
+<text x="26" y="375" fill="currentColor" style="font-size: 8px; opacity: 0.6">2-bed near the river, low flood risk…</text>
+<g fill="none" stroke="currentColor" style="opacity: 0.2">
+<path d="M200 110 C 290 80, 360 150, 450 110 S 600 90, 640 130"></path>
+<path d="M200 220 C 280 190, 380 270, 470 220 S 600 210, 640 250"></path>
+<path d="M200 320 C 300 290, 380 360, 480 320 S 600 300, 640 340"></path>
+<line x1="200" y1="270" x2="640" y2="170"></line>
+</g>
+<sc-for list="{{dots}}" as="d" hint-placeholder-count="60">
+<circle cx="{{d.x}}" cy="{{d.y}}" r="{{d.r}}" fill="currentColor" style="opacity: {{d.op}}"></circle>
+</sc-for>
+<sc-for list="{{clusters}}" as="cl" hint-placeholder-count="4">
+<g>
+<circle cx="{{cl.x}}" cy="{{cl.y}}" r="{{cl.r}}" fill="currentColor"></circle>
+<text x="{{cl.x}}" y="{{cl.ty}}" text-anchor="middle" fill="{{bg}}" style="font-size: 9px; font-weight: 900">{{cl.n}}</text>
+</g>
+</sc-for>
+<rect x="430" y="232" width="176" height="120" rx="14" fill="{{bg}}" stroke="currentColor" style="stroke-opacity: 0.35"></rect>
+<rect x="442" y="244" width="152" height="52" rx="8" fill="currentColor" style="opacity: 0.18"></rect>
+<text x="442" y="314" fill="currentColor" style="font-size: 10px; font-weight: 800">[LISTING TITLE]</text>
+<rect x="442" y="324" width="70" height="16" rx="8" fill="currentColor"></rect>
+<text x="477" y="335" text-anchor="middle" fill="{{bg}}" style="font-size: 7px; font-weight: 800">Low risk</text>
+</sc-if>
+</svg>
+</sc-if>
+
+<!-- ═════ PHONE SCREENS ═════ -->
+<sc-if value="{{isPhone}}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 300 600" preserveAspectRatio="{{par}}" style="display: block; width: 100%; height: 100%" role="img" aria-label="{{label}}">
+<rect x="4" y="4" width="292" height="592" rx="44" fill="{{bg}}" stroke="currentColor" stroke-width="2" style="stroke-opacity: 0.35"></rect>
+<rect x="110" y="18" width="80" height="22" rx="11" fill="currentColor" style="opacity: 0.9"></rect>
+
+<!-- pixel · farm -->
+<sc-if value="{{is.pixelMain}}" hint-placeholder-val="{{ true }}">
+<sc-for list="{{res}}" as="rs" hint-placeholder-count="3">
+<g>
+<rect x="{{rs.x}}" y="56" width="80" height="24" rx="12" fill="{{rs.fill}}" stroke="currentColor" style="stroke-opacity: 0.3"></rect>
+<text x="{{rs.tx}}" y="72" text-anchor="middle" fill="{{rs.tc}}" style="font-size: 10px; font-weight: 800">{{rs.t}}</text>
+</g>
+</sc-for>
+<rect x="22" y="94" width="256" height="62" rx="16" fill="currentColor"></rect>
+<text x="38" y="118" fill="{{bg}}" style="font-size: 9px; font-weight: 700; opacity: 0.7">MISSION</text>
+<text x="38" y="138" fill="{{bg}}" style="font-size: 13px; font-weight: 900">Harvest 20 moon carrots</text>
+<sc-for list="{{pplots}}" as="pp" hint-placeholder-count="20">
+<g>
+<rect x="{{pp.x}}" y="{{pp.y}}" width="54" height="54" rx="10" fill="currentColor" style="opacity: {{pp.op}}"></rect>
+<sc-if value="{{pp.fruit}}" hint-placeholder-val="{{ false }}"><circle cx="{{pp.cx}}" cy="{{pp.cy}}" r="9" fill="currentColor"></circle></sc-if>
+</g>
+</sc-for>
+<rect x="22" y="520" width="256" height="56" rx="20" fill="currentColor" style="opacity: 0.08"></rect>
+<sc-for list="{{tabs}}" as="tb" hint-placeholder-count="4">
+<g>
+<rect x="{{tb.x}}" y="532" width="20" height="20" rx="6" fill="currentColor" style="opacity: {{tb.op}}"></rect>
+<text x="{{tb.tx}}" y="566" text-anchor="middle" fill="currentColor" style="font-size: 7px; font-weight: 700; opacity: {{tb.op}}">{{tb.t}}</text>
+</g>
+</sc-for>
+</sc-if>
+
+<!-- pixel · missions -->
+<sc-if value="{{is.pixelAlt}}" hint-placeholder-val="{{ false }}">
+<text x="24" y="84" fill="currentColor" style="font-size: 26px; font-weight: 900; letter-spacing: -0.05em">Missions</text>
+<text x="24" y="104" fill="currentColor" style="font-size: 10px; opacity: 0.6">Daily · resets in 06:12</text>
+<sc-for list="{{missions}}" as="ms" hint-placeholder-count="6">
+<g>
+<rect x="20" y="{{ms.y}}" width="260" height="62" rx="16" fill="{{ms.fill}}" stroke="currentColor" style="stroke-opacity: 0.2"></rect>
+<text x="36" y="{{ms.ty}}" fill="{{ms.tc}}" style="font-size: 11px; font-weight: 800">{{ms.t}}</text>
+<rect x="36" y="{{ms.py}}" width="150" height="5" rx="2.5" fill="{{ms.tc}}" style="opacity: 0.2"></rect>
+<rect x="36" y="{{ms.py}}" width="{{ms.pw}}" height="5" rx="2.5" fill="{{ms.tc}}"></rect>
+<rect x="206" y="{{ms.cy}}" width="58" height="24" rx="12" fill="{{ms.tc}}"></rect>
+<text x="235" y="{{ms.cty}}" text-anchor="middle" fill="{{ms.fill2}}" style="font-size: 9px; font-weight: 900">{{ms.c}}</text>
+</g>
+</sc-for>
+</sc-if>
+
+<!-- pins · conversation -->
+<sc-if value="{{is.pinsAlt}}" hint-placeholder-val="{{ false }}">
+<text x="24" y="80" fill="currentColor" style="font-size: 18px; font-weight: 900; letter-spacing: -0.04em">Ask about a home</text>
+<sc-for list="{{pchat}}" as="pc" hint-placeholder-count="4">
+<g>
+<rect x="{{pc.x}}" y="{{pc.y}}" width="{{pc.w}}" height="{{pc.h}}" rx="16" fill="{{pc.fill}}" stroke="currentColor" style="stroke-opacity: {{pc.so}}"></rect>
+<rect x="{{pc.lx}}" y="{{pc.ly1}}" width="{{pc.lw1}}" height="5" rx="2.5" fill="{{pc.lc}}" style="opacity: 0.75"></rect>
+<rect x="{{pc.lx}}" y="{{pc.ly2}}" width="{{pc.lw2}}" height="5" rx="2.5" fill="{{pc.lc}}" style="opacity: 0.75"></rect>
+</g>
+</sc-for>
+<rect x="20" y="330" width="220" height="150" rx="18" fill="{{bg}}" stroke="currentColor" style="stroke-opacity: 0.35"></rect>
+<rect x="32" y="342" width="196" height="76" rx="10" fill="currentColor" style="opacity: 0.18"></rect>
+<text x="32" y="440" fill="currentColor" style="font-size: 11px; font-weight: 800">[LISTING TITLE]</text>
+<rect x="32" y="452" width="64" height="16" rx="8" fill="currentColor"></rect>
+<text x="64" y="463" text-anchor="middle" fill="{{bg}}" style="font-size: 7px; font-weight: 800">Low risk</text>
+<rect x="20" y="520" width="260" height="44" rx="22" fill="none" stroke="currentColor" style="stroke-opacity: 0.35"></rect>
+<circle cx="258" cy="542" r="14" fill="currentColor"></circle>
+<path d="M252 542 L264 542 M259 537 L264 542 L259 547" fill="none" stroke="{{bg}}" stroke-width="1.8"></path>
+</sc-if>
+</svg>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"kind":{"editor":"enum","options":["radar","moon","pixel","hex","orbit","pins"],"default":"radar"},"screen":{"editor":"enum","options":["main","alt"],"default":"main"},"fit":{"editor":"enum","options":["meet","slice"],"default":"meet"},"tone":{"editor":"color","default":"#fafafa"},"bg":{"editor":"color","default":"#171717"},"$preview":{"width":640,"height":400}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const kind = this.props.kind ?? 'radar';
+    const screen = this.props.screen ?? 'main';
+    const bg = this.props.bg ?? '#171717';
+    const tone = this.props.tone ?? '#fafafa';
+    let seed = 7;
+    const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+    const isPhone = kind === 'pixel' || (kind === 'pins' && screen === 'alt');
+    const is = {
+      radar: kind === 'radar', moon: kind === 'moon', orbit: kind === 'orbit',
+      hexMain: kind === 'hex' && screen !== 'alt', hexAlt: kind === 'hex' && screen === 'alt',
+      pinsMain: kind === 'pins' && screen !== 'alt', pinsAlt: kind === 'pins' && screen === 'alt',
+      pixelMain: kind === 'pixel' && screen !== 'alt', pixelAlt: kind === 'pixel' && screen === 'alt'
+    };
+    const URL = { radar: 'aads.local / console', moon: 'morningmoon / village', hex: screen === 'alt' ? 'metalvalley / bridge' : 'metalvalley / capture', orbit: 'evermoon / quests', pins: 'estic.ai / search' };
+    const LABEL = { radar: 'Operator console mock', moon: 'Farm and shop mock', pixel: screen === 'alt' ? 'Missions screen mock' : 'Mobile farm mock', hex: screen === 'alt' ? 'Bridge website mock' : 'Capture screen mock', orbit: 'Quest board mock', pins: screen === 'alt' ? 'Conversational search mock' : 'Map search mock' };
+
+    const tracks = [];
+    for (let i = 0; i < 9; i++) {
+      const y = 60 + i * 36; const enemy = i === 1 || i === 6;
+      tracks.push({ y: y, iy: y + 8, ty: y + 14, by: y + 20, label: 'TRK 0' + (17 + i * 3), w: 40 + Math.round(rnd() * 60), fill: enemy ? 'currentColor' : 'none', bgop: i === 1 ? 0.14 : 0.04 });
+    }
+    const plots = [];
+    for (let r = 0; r < 4; r++) for (let c = 0; c < 6; c++) {
+      const x = 16 + c * 66, y = 76 + r * 66, v = rnd();
+      plots.push({ x: x, y: y, op: v < 0.3 ? 0.22 : 0.08, sprout: v >= 0.3 && v < 0.7, fruit: v >= 0.7, leaf: 'M' + (x + 27) + ' ' + (y + 40) + ' L' + (x + 27) + ' ' + (y + 22) + ' C ' + (x + 34) + ' ' + (y + 14) + ', ' + (x + 42) + ' ' + (y + 18) + ', ' + (x + 40) + ' ' + (y + 26), cx: x + 27, cy: y + 27 });
+    }
+    const shop = ['Moon seeds', 'Watering can', 'Golden hoe', 'Barn upgrade'].map((n, i) => { const y = 82 + i * 60; return { y: y, iy: y + 10, ty: y + 29, py: y + 17, pty: y + 28, name: n, price: (i + 1) * 40 + '' }; });
+    const hexMap = [];
+    for (let r = 0; r < 6; r++) for (let c = 0; c < 4; c++) {
+      const R = 18, w = Math.sqrt(3) * R, cx = 30 + c * w + (r % 2 ? w / 2 : 0), cy = 52 + r * R * 1.5;
+      const pts = []; for (let k = 0; k < 6; k++) { const a = Math.PI / 180 * (60 * k - 30); pts.push((cx + R * 0.9 * Math.cos(a)).toFixed(1) + ',' + (cy + R * 0.9 * Math.sin(a)).toFixed(1)); }
+      const v = rnd(); hexMap.push({ pts: pts.join(' '), fill: v < 0.15 ? 'currentColor' : 'none', op: v < 0.15 ? 0.85 : 0.3 });
+    }
+    const stats = [['Power', 0.78], ['Speed', 0.52], ['Bond', 0.3]].map((s, i) => ({ name: s[0], ty: 112 + i * 34, by: 118 + i * 34, w: Math.round(122 * s[1]) }));
+    const party = [0, 1, 2, 3].map((i) => ({ x: 16 + i * 76, fill: i === 0 ? 'currentColor' : 'none' }));
+    const bridgeRows = ['Mech core', 'Arm module', 'Scanner', 'Fuel cell'].map((n, i) => { const y = 146 + i * 36; return { y: y, iy: y + 7, ty: y + 18, a: n, b: i < 2 ? n + ' (NFT)' : '—', opL: i === 1 ? 0.18 : 0.06, opR: i < 2 ? 0.14 : 0.04 }; });
+    const nfts = ['#0412', '#0077', '#1290', '#0008', '#0333'].map((n, i) => ({ x: 24 + i * 120, tx: 36 + i * 120, name: 'MECH ' + n, fill: i === 0 ? 'currentColor' : 'none', tc: i === 0 ? bg : 'currentColor' }));
+    const qTitles = ['Follow on X', 'Join Discord', 'Invite 3 friends', 'Daily login', 'Share a clip', 'Monthly quest'];
+    const quests = qTitles.map((t, i) => {
+      const col = i % 3, row = Math.floor(i / 3), x = 24 + col * 146, y = 88 + row * 152, inv = i === 0;
+      return { x: x, y: y, fill: inv ? 'currentColor' : 'none', text: inv ? bg : 'currentColor', badge: inv ? bg : 'currentColor', badgeText: inv ? 'currentColor' : bg, bx: x + 78, by: y + 12, btx: x + 100, bty: y + 23, xp: '+' + (50 + i * 25) + ' XP', title: t, tx: x + 14, ty: y + 82, ly: y + 92, py: y + 116, pw: Math.round(110 * (0.2 + rnd() * 0.8)) };
+    });
+    const board = [];
+    for (let i = 0; i < 9; i++) board.push({ n: String(i + 1).padStart(2, '0'), y: 140 + i * 28, cy: 137 + i * 28, ry: 134 + i * 28, op: i === 0 ? 1 : 0.3, w: Math.round(90 - i * 7) });
+    const chat = [];
+    let cy = 44;
+    [[0, 140], [1, 120], [0, 160], [1, 100], [0, 150]].forEach((c, i) => {
+      const w = c[1], x = c[0] ? 188 - w : 12, h = 34;
+      chat.push({ x: x, y: cy, w: w, h: h, fill: c[0] ? 'currentColor' : 'none', so: c[0] ? 0 : 0.3, lc: c[0] ? bg : 'currentColor', lx: x + 10, ly1: cy + 10, ly2: cy + 20, lw1: w - 24, lw2: Math.round((w - 24) * 0.6) });
+      cy += h + 14;
+    });
+    const dots = [];
+    const centers = [[300, 150], [520, 120], [400, 300], [580, 300]];
+    for (let i = 0; i < 260; i++) {
+      const c = centers[i % 4];
+      const x = c[0] + ((rnd() + rnd() + rnd()) / 3 - 0.5) * 200, y = c[1] + ((rnd() + rnd() + rnd()) / 3 - 0.5) * 140;
+      if (x > 206 && x < 636 && y > 32 && y < 396) dots.push({ x: x.toFixed(1), y: y.toFixed(1), r: (0.8 + rnd()).toFixed(2), op: (0.25 + rnd() * 0.5).toFixed(2) });
+    }
+    const clusters = [[300, 150, 22, '128'], [520, 120, 18, '64'], [400, 300, 16, '41'], [580, 300, 14, '17']].map((c) => ({ x: c[0], y: c[1], r: c[2], ty: c[1] + 3, n: c[3] }));
+    const res = ['◎ 1,240', '✦ 32', '♥ 5'].map((t, i) => ({ x: 22 + i * 88, tx: 62 + i * 88, t: t, fill: i === 0 ? 'currentColor' : 'none', tc: i === 0 ? bg : 'currentColor' }));
+    const pplots = [];
+    for (let r = 0; r < 5; r++) for (let c = 0; c < 4; c++) { const x = 22 + c * 67, y = 172 + r * 67, v = rnd(); pplots.push({ x: x, y: y, op: v < 0.35 ? 0.24 : 0.08, fruit: v > 0.6, cx: x + 27, cy: y + 27 }); }
+    const tabs = ['Farm', 'Shop', 'Missions', 'Me'].map((t, i) => ({ x: 46 + i * 64, tx: 56 + i * 64, t: t, op: i === 0 ? 1 : 0.4 }));
+    const missions = ['Harvest 20 carrots', 'Visit the shop', 'Water 10 plots', 'Sell 5 crops', 'Log in 3 days', 'Upgrade the barn'].map((t, i) => {
+      const y = 124 + i * 72, done = i === 1 || i === 4;
+      return { y: y, ty: y + 26, py: y + 40, cy: y + 19, cty: y + 34, t: t, pw: done ? 150 : Math.round(150 * (0.15 + rnd() * 0.7)), c: done ? 'Claim' : 'Go', fill: done ? 'currentColor' : 'none', tc: done ? bg : 'currentColor', fill2: done ? 'currentColor' : bg };
+    });
+    const pchat = [];
+    let py = 104;
+    [[1, 180], [0, 220], [1, 140], [0, 200]].forEach((c) => {
+      const w = c[1], x = c[0] ? 280 - w : 20, h = 46;
+      pchat.push({ x: x, y: py, w: w, h: h, fill: c[0] ? 'currentColor' : 'none', so: c[0] ? 0 : 0.3, lc: c[0] ? bg : 'currentColor', lx: x + 14, ly1: py + 15, ly2: py + 28, lw1: w - 30, lw2: Math.round((w - 30) * 0.55) });
+      py += h + 8;
+    });
+    return {
+      tone: tone, bg: bg, par: (this.props.fit === 'slice' ? 'xMidYMid slice' : 'xMidYMid meet'),
+      isPhone: isPhone, isDesktop: !isPhone, is: is, url: URL[kind] || '', label: LABEL[kind] || 'Screen mock',
+      tracks: tracks, plots: plots, shop: shop, hexMap: hexMap, stats: stats, party: party, bridgeRows: bridgeRows, nfts: nfts,
+      quests: quests, board: board, chat: chat, dots: dots, clusters: clusters, res: res, pplots: pplots, tabs: tabs, missions: missions, pchat: pchat
+    };
+  }
+}
+</script>
+</body>
+</html>

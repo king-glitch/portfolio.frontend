@@ -1,0 +1,652 @@
+{
+	"about": {
+		"empty": {
+			"title": "Nothing to show yet"
+		},
+		"explore": {
+			"hint": "Drag anywhere to explore — scrolling works too",
+			"link": {
+				"notes": "Open the notes",
+				"project": "Open project {{name}}"
+			},
+			"recenter": {
+				"label": "Back to the centre"
+			},
+			"tile": {
+				"bars": {
+					"caption": "Words my notes use most"
+				},
+				"behind": {
+					"caption": "of the work lives behind the scenes — where nobody looks"
+				},
+				"chain": {
+					"caption": "{{chain}} of {{total}} projects live partly on-chain"
+				},
+				"chat": {
+					"answer": "It’s been live. ✓",
+					"caption": "Real-time, everywhere",
+					"question": "Is it live yet?"
+				},
+				"education": {
+					"caption": "B.Sc. Computer Science · {{school}}"
+				},
+				"games": {
+					"caption": "{{count}} games — farms, mechs, more"
+				},
+				"go": {
+					"caption": "Golang",
+					"value": "Go"
+				},
+				"habits": {
+					"items": {
+						"1": "Build the engine room",
+						"2": "Write rules that can’t bend",
+						"3": "Keep everyone in sync",
+						"4": "Make waiting disappear",
+						"5": "Lock the doors"
+					},
+					"title": "Five habits"
+				},
+				"hello": {
+					"title": "Say hello."
+				},
+				"hero": {
+					"eyebrow": "About",
+					"tagline": "Builds the parts you never see."
+				},
+				"languages": {
+					"count-one": "{{count}} language",
+					"count-other": "{{count}} languages"
+				},
+				"notes": {
+					"count-one": "{{count}} note — read it",
+					"count-other": "{{count}} notes — read them",
+					"fallback": "Notes — read them"
+				},
+				"pins": {
+					"caption": "pins on one smooth map",
+					"value": "4k+"
+				},
+				"production": {
+					"caption": "building for real users",
+					"eyebrow": "In production",
+					"unit": "yrs"
+				},
+				"projects": {
+					"caption": "projects, shipped"
+				},
+				"socket": {
+					"caption": "Live, both ways"
+				},
+				"solidity": {
+					"caption": "Solidity",
+					"value": "Sol"
+				},
+				"timeline": {
+					"caption": "From classroom to production"
+				},
+				"tools": {
+					"caption": "Tools I reach for"
+				},
+				"words": {
+					"items": {
+						"1": "Make it work",
+						"2": "Make it FAST",
+						"3": "make it fair"
+					}
+				}
+			},
+			"viewport": {
+				"label": "About William, as a wall of tiles. Drag or scroll to explore."
+			}
+		},
+		"meta": {
+			"title": "About — William Siefert"
+		},
+		"resume": {
+			"education": {
+				"degree": "B.Sc. Computer Science",
+				"focus": "Focus: multimedia intelligent technology",
+				"title": "Education"
+			},
+			"experience": {
+				"title": "Experience"
+			},
+			"header": {
+				"role": "Software developer — {{employer}}"
+			},
+			"print": {
+				"label": "Print"
+			},
+			"projects": {
+				"on-chain": "On-chain",
+				"part": "My part:",
+				"side": {
+					"behind-the-scenes": "Behind the scenes",
+					"on-screen": "On screen"
+				},
+				"title": "Selected projects",
+				"type": {
+					"game": "Game",
+					"platform": "Platform"
+				}
+			},
+			"summary": {
+				"body": "Software developer who builds the parts of apps and games people never see — server-side systems, real-time connections and smart contracts — so the parts they do see stay quick, fair and online when a lot of people show up at once.",
+				"title": "Summary"
+			}
+		},
+		"switch": {
+			"explore": {
+				"label": "Explore"
+			},
+			"group": {
+				"label": "View"
+			},
+			"resume": {
+				"label": "Resume"
+			}
+		}
+	},
+	"common": {
+		"art": {
+			"mock": {
+				"hex": {
+					"alt": {
+						"label": "Bridge website mock"
+					},
+					"main": {
+						"label": "Capture screen mock"
+					}
+				},
+				"moon": {
+					"label": "Farm and shop mock"
+				},
+				"orbit": {
+					"label": "Quest board mock"
+				},
+				"pins": {
+					"alt": {
+						"label": "Conversational search mock"
+					},
+					"main": {
+						"label": "Map search mock"
+					}
+				},
+				"pixel": {
+					"alt": {
+						"label": "Missions screen mock"
+					},
+					"main": {
+						"label": "Mobile farm mock"
+					}
+				},
+				"radar": {
+					"label": "Operator console mock"
+				}
+			}
+		},
+		"back-to-top": "Back to top",
+		"close": "Close",
+		"contact": {
+			"email": {
+				"label": "Email"
+			},
+			"github": {
+				"label": "GitHub"
+			},
+			"hint": "Placeholder: the real value is not set yet",
+			"linkedin": {
+				"label": "LinkedIn"
+			}
+		},
+		"cursor": {
+			"close": "Close",
+			"drag": "Drag",
+			"look-closer": "Look closer",
+			"next": "Next",
+			"open": "Open",
+			"read": "Read",
+			"say-hi": "Say hi",
+			"view": "View",
+			"write": "Write"
+		},
+		"errors": {
+			"boundary": {
+				"description": "An unexpected error occurred.",
+				"not-found": {
+					"description": "The requested page could not be found."
+				},
+				"status": "Error",
+				"title": "Oops!"
+			},
+			"load": {
+				"description": "Something went wrong while loading. Try again.",
+				"title": "Could not load this"
+			},
+			"retry": "Try again"
+		},
+		"filters": {
+			"all": "All",
+			"games": "Games",
+			"on-chain": "On-chain",
+			"platforms": "Platforms"
+		},
+		"loading": {
+			"title": "Loading"
+		},
+		"menu": {
+			"label": "Menu"
+		},
+		"next": "Next",
+		"not-found": {
+			"action": "Back home",
+			"title": "Nothing here"
+		},
+		"previous": "Previous",
+		"sides": {
+			"behind-the-scenes": "Behind the scenes",
+			"on-screen": "On screen"
+		}
+	},
+	"home": {
+		"contact": {
+			"copyright": "© {{year}} William Siefert",
+			"eyebrow": "Contact",
+			"lede": {
+				"accent": "Let’s make it boring — in the best way.",
+				"text": "Got something that has to stay quick, fair and online when everyone shows up at once?"
+			},
+			"terminal": ">_ open the terminal",
+			"title": "Say hello."
+		},
+		"habits": {
+			"empty": {
+				"title": "No habits listed yet"
+			},
+			"eyebrow": "How I build",
+			"hint": "Keep scrolling — the page moves sideways.",
+			"next": "Timeline ↓",
+			"title": {
+				"line-1": "Five",
+				"line-2": "habits,",
+				"line-3": "no exceptions."
+			}
+		},
+		"hello": {
+			"cta": "Resume at a glance →",
+			"empty": {
+				"title": "Nothing written here yet"
+			},
+			"eyebrow": "Hello",
+			"stats": {
+				"languages": {
+					"label": "Languages I can think in"
+				},
+				"pins": {
+					"label": "Pins on one map that still scrolls like butter"
+				},
+				"projects": {
+					"label": "Things shipped — games, platforms and one very serious radar"
+				},
+				"years": {
+					"label": "Building for real people, in production",
+					"suffix": "y"
+				}
+			}
+		},
+		"hero": {
+			"cards": {
+				"aria-label": "Selected projects",
+				"open": {
+					"aria-label": "Open project {{name}}"
+				}
+			},
+			"eyebrow": "William Siefert — software developer",
+			"lede": {
+				"accent": "so the half they do never stalls, leaks or drops a frame.",
+				"text": "I build the half of the product nobody screenshots —"
+			},
+			"scroll": {
+				"aria-label": "Scroll to About"
+			},
+			"tags": {
+				"always-on": "@always-on",
+				"game-ready": "@game-ready",
+				"zero-drama": "@zero-drama"
+			},
+			"title": {
+				"behind": "behind",
+				"line-1": "Quiet code",
+				"line-2": "loud products."
+			}
+		},
+		"index": {
+			"empty": {
+				"filtered": {
+					"title": "No projects match this filter"
+				},
+				"title": "No projects yet"
+			},
+			"eyebrow": "Selected work",
+			"filters": {
+				"aria-label": "Filter projects"
+			},
+			"row": {
+				"aria-label": "Open project {{name}}"
+			},
+			"title": "Index"
+		},
+		"marquee": {
+			"phrases": {
+				"1": "Make it work",
+				"2": "Make it fast",
+				"3": "Make it fair",
+				"4": "Make it last",
+				"5": "Make it fun",
+				"6": "Then ship it"
+			}
+		},
+		"meta": {
+			"title": "William Siefert — Software developer"
+		},
+		"notes": {
+			"all": "All notes →",
+			"empty": {
+				"title": "No notes yet"
+			},
+			"eyebrow": "Notes",
+			"title": {
+				"line-1": "Written",
+				"line-2": "down."
+			}
+		},
+		"spotlight": {
+			"aria-label": "What you see, and what I see",
+			"reveal": {
+				"eyebrow": "What I see",
+				"hint": "The part that has to work at 3 a.m.",
+				"lines": {
+					"1": "Every player,",
+					"2": "every pin,",
+					"3": "every coin, counted."
+				}
+			},
+			"see": {
+				"eyebrow": "What you see",
+				"hint": "Move your cursor over this — or tap it.",
+				"lines": {
+					"1": "A button,",
+					"2": "a map,",
+					"3": "a cute farm."
+				}
+			}
+		},
+		"stack": {
+			"description": "Six stops between your thumb and the result. Hover one to see which projects went through it.",
+			"eyebrow": "Under the hood",
+			"flow": {
+				"aria-label": "Stack stops"
+			},
+			"stops": {
+				"1": {
+					"description": "A game, a site, an app in your pocket",
+					"name": "Your screen"
+				},
+				"2": {
+					"description": "Messages flowing both ways, instantly",
+					"name": "A live line"
+				},
+				"3": {
+					"description": "Shops, missions, spawning, the rules of play",
+					"name": "The brain"
+				},
+				"4": {
+					"description": "Every player, item and bit of progress",
+					"name": "The memory"
+				},
+				"5": {
+					"description": "Rules nobody can quietly rewrite",
+					"name": "The rulebook"
+				},
+				"6": {
+					"description": "Where owned things actually live",
+					"name": "The ledger"
+				}
+			},
+			"title": {
+				"line-1": "How a tap",
+				"line-2": "becomes a thing."
+			},
+			"used-in": "{{name}} — used in"
+		},
+		"timeline": {
+			"bars": {
+				"aria-label": "Career timeline"
+			},
+			"empty": {
+				"title": "Nothing on the timeline yet"
+			},
+			"eyebrow": "Timeline",
+			"hint": "Pick a bar to read what happened there.",
+			"kinds": {
+				"education": "Education",
+				"work": "Work"
+			}
+		},
+		"toolkit": {
+			"aria-label": "Skills, as draggable bubbles",
+			"count-one": "{{count}} tool — grab it",
+			"count-other": "{{count}} tools — grab one",
+			"empty": {
+				"title": "No tools listed yet"
+			},
+			"eyebrow": "Toolkit",
+			"shake": "Shake the box",
+			"title": {
+				"line-1": "Throw it",
+				"line-2": "around."
+			}
+		}
+	},
+	"notes": {
+		"card": {
+			"read-time-one": "{{count}} min read",
+			"read-time-other": "{{count}} min read"
+		},
+		"list": {
+			"all": {
+				"empty": {
+					"description": "Nothing has been written yet.",
+					"title": "No notes yet"
+				}
+			},
+			"count-one": "Blog · {{count}} note",
+			"count-other": "Blog · {{count}} notes",
+			"featured": {
+				"action": "Read the note →",
+				"badge": "Latest"
+			},
+			"filter": {
+				"all": "All",
+				"aria-label": "Filter by topic"
+			},
+			"filtered": {
+				"empty": {
+					"action": "Clear filter",
+					"description": "No note carries that topic.",
+					"title": "No notes match"
+				}
+			},
+			"footnote": "These are sample posts to show the layouts. Replace them with your own writing.",
+			"headline": {
+				"lines": {
+					"1": "Notes from",
+					"2": "behind the screen."
+				}
+			}
+		},
+		"meta": {
+			"title": "Notes — William Siefert"
+		},
+		"post": {
+			"author": "William Siefert",
+			"back": "← All notes",
+			"code": {
+				"label": "{{lang}} code",
+				"lines-one": "{{count}} line",
+				"lines-other": "{{count}} lines"
+			},
+			"next": {
+				"aria-label": "Next note: {{title}}",
+				"eyebrow": "Next note · {{num}}"
+			},
+			"not-found": {
+				"action": "All notes",
+				"description": "That note does not exist.",
+				"title": "Note not found"
+			},
+			"progress": {
+				"aria-label": "Reading progress"
+			}
+		},
+		"sample": "Sample"
+	},
+	"shell": {
+		"brand": {
+			"aria-label": "Home",
+			"label": "W—SIEFERT"
+		},
+		"menu": {
+			"description": "Site navigation: pages, projects and quick links",
+			"jumps": {
+				"notes": {
+					"label": "Notes"
+				},
+				"process": {
+					"label": "Habits"
+				},
+				"skills": {
+					"label": "Toolkit"
+				},
+				"stack": {
+					"label": "Under the hood"
+				},
+				"timeline": {
+					"label": "Timeline"
+				}
+			},
+			"nav": {
+				"label": "Pages"
+			},
+			"pages": {
+				"about": {
+					"sub": "The thirty-second version",
+					"title": "About"
+				},
+				"contact": {
+					"sub": "Say hello",
+					"title": "Contact"
+				},
+				"home": {
+					"sub": "Start at the top",
+					"title": "Home"
+				},
+				"notes": {
+					"sub": "Things I wrote down",
+					"title": "Notes"
+				},
+				"work": {
+					"sub": "Six things I built",
+					"title": "Work"
+				}
+			},
+			"projects": {
+				"empty": {
+					"title": "No projects yet"
+				},
+				"heading": "Projects"
+			},
+			"terminal": {
+				"label": ">_ open the terminal"
+			}
+		},
+		"nav": {
+			"about": {
+				"label": "About"
+			},
+			"contact": {
+				"label": "Get in touch"
+			},
+			"label": "Primary",
+			"menu": {
+				"aria-label": "Open menu"
+			},
+			"notes": {
+				"label": "Notes"
+			}
+		},
+		"preloader": {
+			"name": "William Siefert",
+			"status": "Warming things up…",
+			"title": "Portfolio · {{year}}"
+		},
+		"skip-link": {
+			"label": "Skip to content"
+		},
+		"terminal": {
+			"button": {
+				"aria-label": "Open terminal",
+				"label": ">_ terminal"
+			}
+		}
+	},
+	"work": {
+		"architecture": {
+			"note": "Simplified — the shape of the system, not a spec."
+		},
+		"counter": {
+			"label": "Project {{index}} of {{total}}",
+			"placeholder": "—/—"
+		},
+		"dots": {
+			"label": "Panels",
+			"panel": "Go to panel {{index}}"
+		},
+		"end": {
+			"button": "Next project",
+			"eyebrow": "(Next project)",
+			"scroll": {
+				"hint": "Keep scrolling past the end to load it. The list loops forever."
+			},
+			"touch": {
+				"hint": "Tap to load the next project — the list loops back to the start."
+			}
+		},
+		"header": {
+			"discipline": "Discipline",
+			"index": "Index",
+			"project": "Project",
+			"scroll": "Scroll →"
+		},
+		"json": {
+			"blocks": {
+				"count-one": "{{count}} block",
+				"count-other": "{{count}} blocks"
+			},
+			"close": "Close JSON",
+			"description": "Block JSON for this page",
+			"title": "GET /projects/{{num}}"
+		},
+		"meta": {
+			"title": "Project — William Siefert"
+		},
+		"topbar": {
+			"close": "Close",
+			"json": "{ } JSON"
+		},
+		"viewport": {
+			"label": "Project {{name}}, scroll horizontally"
+		}
+	}
+}

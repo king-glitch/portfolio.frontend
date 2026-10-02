@@ -1,0 +1,17 @@
+export enum TerminalCommand {
+	Help = "help",
+	Whoami = "whoami",
+	Ls = "ls",
+	Open = "open",
+	Read = "read",
+	Cat = "cat",
+	Skills = "skills",
+	About = "about",
+	Blog = "blog",
+	Home = "home",
+	Contact = "contact",
+	Date = "date",
+	Clear = "clear",
+	Exit = "exit",
+	Sudo = "sudo",
+}

@@ -1,0 +1,91 @@
+{
+	"shell": {
+		"skip-link": {
+			"label": "Skip to content"
+		},
+		"brand": {
+			"label": "W—SIEFERT",
+			"aria-label": "Home"
+		},
+		"preloader": {
+			"name": "William Siefert",
+			"title": "Portfolio · {{year}}",
+			"status": "Warming things up…"
+		},
+		"nav": {
+			"label": "Primary",
+			"menu": {
+				"aria-label": "Open menu"
+			},
+			"about": {
+				"label": "About"
+			},
+			"notes": {
+				"label": "Notes"
+			},
+			"contact": {
+				"label": "Get in touch"
+			}
+		},
+		"menu": {
+			"description": "Site navigation: pages, projects and quick links",
+			"nav": {
+				"label": "Pages"
+			},
+			"pages": {
+				"home": {
+					"title": "Home",
+					"sub": "Start at the top"
+				},
+				"work": {
+					"title": "Work",
+					"sub": "Six things I built"
+				},
+				"about": {
+					"title": "About",
+					"sub": "The thirty-second version"
+				},
+				"notes": {
+					"title": "Notes",
+					"sub": "Things I wrote down"
+				},
+				"contact": {
+					"title": "Contact",
+					"sub": "Say hello"
+				}
+			},
+			"projects": {
+				"heading": "Projects",
+				"empty": {
+					"title": "No projects yet"
+				}
+			},
+			"jumps": {
+				"stack": {
+					"label": "Under the hood"
+				},
+				"process": {
+					"label": "Habits"
+				},
+				"timeline": {
+					"label": "Timeline"
+				},
+				"skills": {
+					"label": "Toolkit"
+				},
+				"notes": {
+					"label": "Notes"
+				}
+			},
+			"terminal": {
+				"label": ">_ open the terminal"
+			}
+		},
+		"terminal": {
+			"button": {
+				"label": ">_ terminal",
+				"aria-label": "Open terminal"
+			}
+		}
+	}
+}

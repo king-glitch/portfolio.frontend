@@ -1,0 +1,71 @@
+/* Home (plan 04). Keyframes for entrance motion, the outlined-text utilities and the 760px layout breakpoint. */
+
+@theme {
+	--breakpoint-desk: 760px;
+	--animate-rise: rise 1.2s var(--ease-out-expo) both;
+	--animate-box-in: box-in 1s var(--ease-wipe) 0.25s both;
+	--animate-fan-in: fan-in 1.4s var(--ease-out-expo) both;
+	--animate-bob: bob 4.5s ease-in-out infinite;
+	--animate-scroll-dot: scroll-dot 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+	--animate-packet: packet 1.6s linear infinite;
+
+	@keyframes rise {
+		from {
+			transform: translate3d(0, 108%, 0);
+		}
+	}
+	@keyframes box-in {
+		from {
+			transform: scaleX(0);
+		}
+	}
+	@keyframes fan-in {
+		from {
+			opacity: 0;
+			transform: translate3d(0, 160px, 0) rotate(8deg);
+		}
+	}
+	@keyframes bob {
+		50% {
+			translate: 0 -10px;
+		}
+	}
+	@keyframes scroll-dot {
+		0% {
+			transform: translateY(-14px);
+			opacity: 0;
+		}
+		40% {
+			opacity: 1;
+		}
+		100% {
+			transform: translateY(14px);
+			opacity: 0;
+		}
+	}
+	@keyframes packet {
+		from {
+			left: 0;
+		}
+		to {
+			left: calc(100% - 7px);
+		}
+	}
+}
+
+/* Hollow display text (prototype `.outline` / `.outline-inv`). */
+@utility text-outline {
+	color: transparent;
+	-webkit-text-stroke: 1.5px var(--foreground);
+}
+@utility text-outline-inverse {
+	color: transparent;
+	-webkit-text-stroke: 1.5px currentColor;
+}
+
+/* Entrance animations stay paused until the preloader finished (`data-loaded` on the section). */
+@utility gated {
+	[data-loaded="false"] & {
+		animation-play-state: paused;
+	}
+}

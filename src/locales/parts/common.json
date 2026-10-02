@@ -1,0 +1,75 @@
+{
+	"common": {
+		"art": {
+			"mock": {
+				"hex": {
+					"alt": { "label": "Bridge website mock" },
+					"main": { "label": "Capture screen mock" }
+				},
+				"moon": { "label": "Farm and shop mock" },
+				"orbit": { "label": "Quest board mock" },
+				"pins": {
+					"alt": { "label": "Conversational search mock" },
+					"main": { "label": "Map search mock" }
+				},
+				"pixel": {
+					"alt": { "label": "Missions screen mock" },
+					"main": { "label": "Mobile farm mock" }
+				},
+				"radar": { "label": "Operator console mock" }
+			}
+		},
+		"back-to-top": "Back to top",
+		"close": "Close",
+		"contact": {
+			"email": { "label": "Email" },
+			"github": { "label": "GitHub" },
+			"hint": "Placeholder: the real value is not set yet",
+			"linkedin": { "label": "LinkedIn" }
+		},
+		"cursor": {
+			"close": "Close",
+			"drag": "Drag",
+			"look-closer": "Look closer",
+			"next": "Next",
+			"open": "Open",
+			"read": "Read",
+			"say-hi": "Say hi",
+			"view": "View",
+			"write": "Write"
+		},
+		"errors": {
+			"boundary": {
+				"description": "An unexpected error occurred.",
+				"not-found": {
+					"description": "The requested page could not be found."
+				},
+				"status": "Error",
+				"title": "Oops!"
+			},
+			"load": {
+				"description": "Something went wrong while loading. Try again.",
+				"title": "Could not load this"
+			},
+			"retry": "Try again"
+		},
+		"filters": {
+			"all": "All",
+			"games": "Games",
+			"on-chain": "On-chain",
+			"platforms": "Platforms"
+		},
+		"loading": { "title": "Loading" },
+		"menu": { "label": "Menu" },
+		"next": "Next",
+		"not-found": {
+			"action": "Back home",
+			"title": "Nothing here"
+		},
+		"previous": "Previous",
+		"sides": {
+			"behind-the-scenes": "Behind the scenes",
+			"on-screen": "On screen"
+		}
+	}
+}
