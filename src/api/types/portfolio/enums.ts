@@ -48,13 +48,6 @@ export enum ProjectSide {
 	OnScreen = "on-screen",
 }
 
-export enum ProjectFilter {
-	All = "all",
-	Games = "games",
-	Platforms = "platforms",
-	OnChain = "on-chain",
-}
-
 export enum BlockTone {
 	Default = "default",
 	Invert = "invert",

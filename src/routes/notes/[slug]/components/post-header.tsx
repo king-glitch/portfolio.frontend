@@ -39,7 +39,7 @@ export const PostHeader: React.FC<PostHeaderProps> = ({ post }) => {
 				))}
 			</div>
 			<div className="mt-14 aspect-21/9 overflow-hidden rounded-[28px] ring-1 ring-border">
-				<ProjectMotif kind={post.kind} />
+				<ProjectMotif kind={post.kind} imageUrl={post.artUrl} />
 			</div>
 		</header>
 	);

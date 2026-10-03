@@ -5,11 +5,13 @@ import { cn } from "@/lib/utils";
 
 interface ArtFrameProps extends React.ComponentProps<"div"> {
 	kind: MotifKind;
+	imageUrl?: string;
 }
 
 /** Rounded, outlined box holding a project motif. */
 export const ArtFrame: React.FC<ArtFrameProps> = ({
 	kind,
+	imageUrl,
 	className,
 	children,
 	...props
@@ -22,7 +24,7 @@ export const ArtFrame: React.FC<ArtFrameProps> = ({
 			)}
 			{...props}
 		>
-			<ProjectMotif kind={kind} />
+			<ProjectMotif kind={kind} imageUrl={imageUrl} />
 			{children}
 		</div>
 	);

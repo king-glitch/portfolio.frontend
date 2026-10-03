@@ -84,6 +84,7 @@ export const ProjectViewport: React.FC<ProjectViewportProps> = ({
 							block={block}
 							index={index}
 							projectKind={project.kind}
+							projectArtUrl={project.artUrl}
 						/>
 					))}
 					<NextProject

@@ -1,6 +1,7 @@
 import { optionSets } from "@/lib/dynamic-form/options";
 import {
 	FieldKind,
+	OptionSet,
 	type FieldSpec,
 	type FormRecord,
 } from "@/types/dynamic-form";
@@ -20,6 +21,17 @@ export const asBool = (value: unknown): boolean => value === true;
 
 export const asRecords = (value: unknown): FormRecord[] =>
 	Array.isArray(value) ? value.filter(isRecord) : [];
+
+/** Client-only key of a list item (React key). Never saved: `normalize` removes it. */
+export const ITEM_KEY = "_key";
+
+/** The items with a key each; items that have none get one derived from their position, so a later removal keeps the others' keys. */
+export const withItemKeys = (items: FormRecord[]): FormRecord[] =>
+	items.map((item, index) =>
+		asString(item[ITEM_KEY]) ? item : { ...item, [ITEM_KEY]: `k-${index}` },
+	);
+
+export const newItemKey = (): string => crypto.randomUUID();
 
 const isEmpty = (value: unknown): boolean =>
 	value === undefined ||
@@ -47,10 +59,10 @@ export function emptyRecord(
 	const record: FormRecord = {};
 	for (const spec of fields) {
 		if (spec.optional) continue;
-		if (spec.kind === FieldKind.Select)
+		if (spec.kind === FieldKind.Select || spec.kind === FieldKind.Art)
 			record[spec.name] = spec.options
 				? (optionSets[spec.options][0]?.value ?? "")
-				: "";
+				: (optionSets[OptionSet.Kind][0]?.value ?? "");
 		else if (
 			spec.kind === FieldKind.Lines ||
 			spec.kind === FieldKind.Objects
@@ -62,9 +74,10 @@ export function emptyRecord(
 	return { ...record, ...defaults };
 }
 
-/** Ready to save: list lines trimmed and emptied lines dropped, nested records cleaned, empty optional keys removed. */
+/** Ready to save: list lines trimmed and emptied lines dropped, nested records cleaned, empty optional keys and client-only item keys removed. */
 export function normalize(record: FormRecord, fields: FieldSpec[]): FormRecord {
-	let out = record;
+	const { [ITEM_KEY]: _key, ...clean } = record;
+	let out = clean;
 	for (const spec of fields) {
 		const value = record[spec.name];
 		let cleaned = value;
@@ -134,12 +147,44 @@ export function normalizeBlocks(
 	});
 }
 
+/** True when the block has a blank required field. A block of an unknown type has none. */
+export const blockHasMissing = (
+	block: FormRecord,
+	specs: BlockSpecs,
+	nested: boolean,
+): boolean => {
+	const fields = specs[asString(block.type)];
+	return fields ? hasMissing(blockParams(block, nested), fields) : false;
+};
+
 export const blocksHaveMissing = (
 	blocks: FormRecord[],
 	specs: BlockSpecs,
 	nested: boolean,
-): boolean =>
-	blocks.some((block) => {
-		const fields = specs[asString(block.type)];
-		return fields ? hasMissing(blockParams(block, nested), fields) : false;
-	});
+): boolean => blocks.some((block) => blockHasMissing(block, specs, nested));
+
+/** Positions of the blocks with a blank required field. */
+export const invalidBlockIndexes = (
+	blocks: FormRecord[],
+	specs: BlockSpecs,
+	nested: boolean,
+): number[] =>
+	blocks.flatMap((block, index) =>
+		blockHasMissing(block, specs, nested) ? [index] : [],
+	);
+
+const SUMMARY_MAX = 60;
+
+/** The first filled text field of a block, cut short: what a collapsed card shows next to its type. */
+export function blockSummary(params: FormRecord, fields: FieldSpec[]): string {
+	for (const spec of fields) {
+		if (spec.kind !== FieldKind.Text && spec.kind !== FieldKind.Textarea)
+			continue;
+		const text = asString(params[spec.name]).trim();
+		if (text)
+			return text.length > SUMMARY_MAX
+				? `${text.slice(0, SUMMARY_MAX)}...`
+				: text;
+	}
+	return "";
+}

@@ -74,6 +74,8 @@ export interface TileData {
 	valueKey?: ParseKeys;
 	unit?: string;
 	motif?: MotifKind;
+	/** Uploaded art of the project behind `motif`. */
+	motifUrl?: string;
 	art?: MotifKind;
 	icon?: TileIcon;
 	iconTone?: TileTone;

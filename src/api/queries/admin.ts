@@ -5,9 +5,11 @@ import {
 	getMe,
 	listAdminFrames,
 	listAdminNotes,
+	listFiles,
 	listAdminProjects,
 	listSettings,
 } from "@/api/services/admin";
+import type { FileListParams } from "@/api/types/admin/storage";
 import { config } from "@/config";
 
 const keys = config.queryKeys.admin;
@@ -46,3 +48,11 @@ export const adminFramesQuery = () =>
 
 export const settingsQuery = () =>
 	queryOptions({ queryKey: [keys.settings], queryFn: listSettings });
+
+export const adminFilesQuery = (params: FileListParams) =>
+	infiniteQueryOptions({
+		queryKey: [keys.storage.files, params],
+		queryFn: ({ pageParam }) => listFiles(pageParam, params),
+		initialPageParam: "",
+		getNextPageParam: (page) => page.nextCursor,
+	});

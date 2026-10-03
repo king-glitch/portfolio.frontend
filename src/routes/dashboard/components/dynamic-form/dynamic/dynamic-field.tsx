@@ -1,6 +1,6 @@
 import React, { useId } from "react";
 import { useTranslation } from "react-i18next";
-import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
+import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import {
 	Select,
@@ -14,11 +14,16 @@ import { Textarea } from "@/components/ui/textarea";
 import { config } from "@/config";
 import { fieldLabels, optionSets } from "@/lib/dynamic-form/options";
 import { asBool, asString, asStrings } from "@/lib/dynamic-form/values";
-import { DynamicObjectsField } from "@/routes/dashboard/components/dynamic-form/dynamic-objects-field";
-import { DynamicProjectSelect } from "@/routes/dashboard/components/dynamic-form/dynamic-project-select";
+import { DynamicObjectsField } from "@/routes/dashboard/components/dynamic-form/dynamic/dynamic-objects-field";
+import { FileSelectField } from "@/routes/dashboard/components/storage/file/select/file-select-field";
+import { ProjectSelect } from "@/routes/dashboard/components/fields/project-select";
+import { LinesEditor } from "@/components/common/fields/lines-editor";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { FieldKind, type FieldSpec } from "@/types/dynamic-form";
+import { FileValueKey } from "@/types/ui";
 
-const LINE_BREAK = "\n";
+/** Choices up to this many read better as visible options than as a dropdown. */
+const TOGGLE_MAX = 3;
 
 interface DynamicFieldProps {
 	spec: FieldSpec;
@@ -38,6 +43,12 @@ export const DynamicField: React.FC<DynamicFieldProps> = ({
 	const id = useId();
 	const label = t(fieldLabels[spec.name]);
 	const text = asString(value);
+	const required =
+		!spec.optional &&
+		!spec.allowEmpty &&
+		(spec.kind === FieldKind.Text ||
+			spec.kind === FieldKind.Textarea ||
+			spec.kind === FieldKind.Month);
 	const missing =
 		invalid && !spec.optional && !spec.allowEmpty && text.trim() === "";
 
@@ -65,13 +76,10 @@ export const DynamicField: React.FC<DynamicFieldProps> = ({
 				);
 			case FieldKind.Lines:
 				return (
-					<Textarea
+					<LinesEditor
 						id={id}
-						value={asStrings(value).join(LINE_BREAK)}
-						rows={4}
-						onChange={(event) =>
-							onChange(event.target.value.split(LINE_BREAK))
-						}
+						value={asStrings(value)}
+						onChange={onChange}
 					/>
 				);
 			case FieldKind.Switch:
@@ -98,6 +106,26 @@ export const DynamicField: React.FC<DynamicFieldProps> = ({
 						label: t(choice.labelKey),
 					})),
 				];
+				if (choices.length <= TOGGLE_MAX)
+					return (
+						<ToggleGroup
+							variant="outline"
+							value={text ? [text] : []}
+							onValueChange={([next]) => {
+								// an optional choice can be switched off; a required one stays chosen
+								if (next || spec.optional) onChange(next ?? "");
+							}}
+						>
+							{choices.map((choice) => (
+								<ToggleGroupItem
+									key={choice.value}
+									value={choice.value}
+								>
+									{t(choice.labelKey)}
+								</ToggleGroupItem>
+							))}
+						</ToggleGroup>
+					);
 				return (
 					<Select
 						items={items}
@@ -123,13 +151,20 @@ export const DynamicField: React.FC<DynamicFieldProps> = ({
 			}
 			case FieldKind.Project:
 				return (
-					<DynamicProjectSelect
+					<ProjectSelect id={id} value={text} onChange={onChange} />
+				);
+			case FieldKind.File:
+				return (
+					<FileSelectField
 						id={id}
+						accept={spec.accept ?? []}
+						by={FileValueKey.Url}
 						value={text}
 						onChange={onChange}
 					/>
 				);
 			case FieldKind.Objects:
+			case FieldKind.Art:
 				return null;
 			case FieldKind.Text:
 				return (
@@ -161,13 +196,15 @@ export const DynamicField: React.FC<DynamicFieldProps> = ({
 			}
 			data-invalid={missing}
 		>
-			<FieldLabel htmlFor={id}>{label}</FieldLabel>
+			<FieldLabel htmlFor={id}>
+				{label}
+				{required ? (
+					<span aria-hidden="true" className="text-destructive">
+						*
+					</span>
+				) : null}
+			</FieldLabel>
 			{renderControl()}
-			{spec.kind === FieldKind.Lines ? (
-				<FieldDescription>
-					{t("dashboard.dynamic.lines.hint")}
-				</FieldDescription>
-			) : null}
 		</Field>
 	);
 };

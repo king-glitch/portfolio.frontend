@@ -1,38 +1,61 @@
 import React from "react";
-import type { ParseKeys } from "i18next";
+import type { UseQueryResult } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { ProjectFilter } from "@/api/types/portfolio/enums";
+import type { ProjectCategory } from "@/api/types/portfolio/project";
 import { FilterToggle } from "@/components/common/filters/filter-toggle";
+import { QueryErrorAlert } from "@/components/common/feedback/query-error-alert";
+import { Skeleton } from "@/components/ui/skeleton";
+import { config } from "@/config";
 import type { FilterOption } from "@/types/ui";
 
-const LABELS: Record<ProjectFilter, ParseKeys> = {
-	[ProjectFilter.All]: "common.filters.all",
-	[ProjectFilter.Games]: "common.filters.games",
-	[ProjectFilter.Platforms]: "common.filters.platforms",
-	[ProjectFilter.OnChain]: "common.filters.on-chain",
-};
-
 interface IndexFiltersProps {
-	value: ProjectFilter;
+	/** The owner-defined categories; chips follow it. */
+	categories: UseQueryResult<ProjectCategory[]>;
+	/** A category slug or the "all" constant. */
+	value: string;
 	/** Per-filter project counts; undefined while loading. */
-	counts?: Record<ProjectFilter, number>;
-	onChange: (value: ProjectFilter) => void;
+	counts?: Record<string, number>;
+	onChange: (value: string) => void;
 }
 
-/** Project filter chips (All / Games / Platforms / On-chain) with counts; scrolls sideways on narrow screens. */
+const SKELETON_CHIPS = 3;
+
+/** Project filter chips ("All" plus one per category) with counts; skeleton while loading, retry alert on error. */
 export const IndexFilters: React.FC<IndexFiltersProps> = ({
+	categories,
 	value,
 	counts,
 	onChange,
 }) => {
 	const { t } = useTranslation();
-	const options: FilterOption<ProjectFilter>[] = Object.values(
-		ProjectFilter,
-	).map((id) => ({
-		id,
-		label: t(LABELS[id]),
-		count: counts?.[id],
-	}));
+	if (categories.isPending)
+		return (
+			<div className="flex flex-wrap gap-2">
+				{Array.from({ length: SKELETON_CHIPS }, (_, index) => (
+					<Skeleton key={index} className="h-10 w-28 rounded-pill" />
+				))}
+			</div>
+		);
+	if (categories.isError)
+		return (
+			<QueryErrorAlert
+				onRetry={() => void categories.refetch()}
+				error={categories.error}
+			/>
+		);
+	// category labels are data (owner-defined), so they render as they are
+	const options: FilterOption<string>[] = [
+		{
+			id: config.portfolio.defaultFilter,
+			label: t("common.filters.all"),
+			count: counts?.[config.portfolio.defaultFilter],
+		},
+		...categories.data.map(({ slug, label }) => ({
+			id: slug,
+			label,
+			count: counts?.[slug],
+		})),
+	];
 	return (
 		<FilterToggle
 			value={value}

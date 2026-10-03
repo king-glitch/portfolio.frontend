@@ -145,8 +145,23 @@ export enum DashboardSection {
 	Projects = "projects",
 	Notes = "notes",
 	Gallery = "gallery",
+	Files = "files",
 	Settings = "settings",
 	Account = "account",
+}
+
+/** Which property of a stored file a file field keeps as its value. */
+export enum FileValueKey {
+	Id = "id",
+	Url = "url",
+}
+
+/** Where one file of an upload batch stands. */
+export enum UploadStatus {
+	Idle = "idle",
+	Pending = "pending",
+	Done = "done",
+	Failed = "failed",
 }
 
 /** Tabs of the dashboard settings; each is its own route. Values are the URL segments. */
@@ -154,4 +169,5 @@ export enum SettingsTab {
 	General = "general",
 	Seo = "seo",
 	Profile = "profile",
+	Categories = "categories",
 }

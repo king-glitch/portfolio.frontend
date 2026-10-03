@@ -53,7 +53,7 @@ export const PostCard: React.FC<PostCardProps> = ({
 			className={cn("flex flex-col gap-4 text-left", className)}
 		>
 			<span className={coverVariants({ variant })}>
-				<ProjectMotif kind={post.kind} />
+				<ProjectMotif kind={post.kind} imageUrl={post.artUrl} />
 			</span>
 			<span className="flex justify-between gap-3 text-[13px] text-muted-foreground">
 				<span>{meta}</span>

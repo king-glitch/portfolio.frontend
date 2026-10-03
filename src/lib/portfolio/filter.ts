@@ -1,38 +1,27 @@
-import { ProjectFilter } from "@/api/types/portfolio/enums";
 import type { ProjectSummary } from "@/api/types/portfolio/project";
+import { config } from "@/config";
 
-/** Predicate per filter; `Record` keeps it exhaustive when a filter is added. */
-export const matchesFilter: Record<
-	ProjectFilter,
-	(project: ProjectSummary) => boolean
-> = {
-	[ProjectFilter.All]: () => true,
-	[ProjectFilter.Games]: (p) => p.categories.includes(ProjectFilter.Games),
-	[ProjectFilter.Platforms]: (p) =>
-		p.categories.includes(ProjectFilter.Platforms),
-	[ProjectFilter.OnChain]: (p) =>
-		p.categories.includes(ProjectFilter.OnChain),
-};
+const isAll = (filter: string) => filter === config.portfolio.defaultFilter;
 
+/** `filter` is a category slug or the "all" constant. */
 export function filterProjects(
 	projects: ProjectSummary[],
-	filter: ProjectFilter,
+	filter: string,
 ): ProjectSummary[] {
-	return projects.filter(matchesFilter[filter]);
+	return isAll(filter)
+		? projects
+		: projects.filter((p) => p.categories.includes(filter));
 }
 
+/** Project count per category slug, plus the "all" constant. */
 export function countByFilter(
 	projects: ProjectSummary[],
-): Record<ProjectFilter, number> {
-	return {
-		[ProjectFilter.All]: filterProjects(projects, ProjectFilter.All).length,
-		[ProjectFilter.Games]: filterProjects(projects, ProjectFilter.Games)
-			.length,
-		[ProjectFilter.Platforms]: filterProjects(
-			projects,
-			ProjectFilter.Platforms,
-		).length,
-		[ProjectFilter.OnChain]: filterProjects(projects, ProjectFilter.OnChain)
-			.length,
-	};
+	slugs: string[],
+): Record<string, number> {
+	return Object.fromEntries(
+		[config.portfolio.defaultFilter, ...slugs].map((slug) => [
+			slug,
+			filterProjects(projects, slug).length,
+		]),
+	);
 }

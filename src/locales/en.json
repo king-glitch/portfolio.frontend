@@ -276,10 +276,7 @@
 			"retry": "Try again"
 		},
 		"filters": {
-			"all": "Everything",
-			"games": "Games",
-			"on-chain": "On-chain",
-			"platforms": "Platforms & tools"
+			"all": "Everything"
 		},
 		"loading": {
 			"title": "Loading"
@@ -360,6 +357,26 @@
 						"tracks-live": "TRACKS · LIVE",
 						"voice": "VOICE"
 					}
+				}
+			},
+			"forms": {
+				"unsaved": {
+					"title": "Discard unsaved changes?",
+					"description": "You have edits that are not saved. If you leave now they are lost.",
+					"stay": "Keep editing",
+					"discard": "Discard changes",
+					"hint": "Unsaved changes"
+				}
+			},
+			"fields": {
+				"lines": {
+					"row": "Line {{index}}",
+					"remove": "Remove line {{index}}",
+					"add": "Add line"
+				},
+				"tags": {
+					"placeholder": "Add a tag",
+					"empty": "No suggestion. Press Enter to add what you typed."
 				}
 			}
 		}
@@ -925,7 +942,8 @@
 				"notes": "Notes",
 				"gallery": "Gallery",
 				"settings": "Settings",
-				"account": "Account"
+				"account": "Account",
+				"files": "Files"
 			}
 		},
 		"breadcrumbs": {
@@ -964,12 +982,6 @@
 				"behind-the-scenes": "Behind the scenes",
 				"on-screen": "On screen"
 			},
-			"categories": {
-				"games": "Games",
-				"platforms": "Platforms & tools",
-				"on-chain": "On-chain",
-				"all": "All"
-			},
 			"variants": {
 				"split": "Split",
 				"split-rev": "Split, reversed",
@@ -1002,13 +1014,21 @@
 			"max": "At most {{max}} characters.",
 			"url": "Enter a full web address.",
 			"https": "The address must start with https://",
-			"email": "Enter a valid email address."
+			"email": "Enter a valid email address.",
+			"invalid": "This value is not valid."
 		},
 		"form": {
 			"submit": "Save",
 			"cancel": "Cancel",
 			"list": {
 				"hint": "Separate with commas."
+			},
+			"actions": {
+				"save-draft": "Save draft",
+				"publish": "Publish",
+				"unpublish": "Unpublish",
+				"save": "Save",
+				"view": "View on site"
 			}
 		},
 		"delete": {
@@ -1110,17 +1130,16 @@
 				"full": {
 					"label": "Full name"
 				},
-				"kind": {
-					"label": "Art"
-				},
+				"kind": {},
 				"side": {
 					"label": "Side"
 				},
-				"status": {
-					"label": "Status"
-				},
+				"status": {},
 				"categories": {
-					"label": "Categories"
+					"label": "Categories",
+					"unknown": "{{slug}} (unknown)",
+					"empty": "No categories defined yet.",
+					"manage": "Manage categories"
 				},
 				"tags": {
 					"label": "Tags"
@@ -1185,16 +1204,10 @@
 				"title": {
 					"label": "Title"
 				},
-				"kind": {
-					"label": "Art"
-				},
-				"status": {
-					"label": "Status"
-				},
+				"kind": {},
+				"status": {},
 				"project": {
-					"label": "Project",
-					"none": "No project",
-					"error": "Projects could not be loaded; only “No project” is available."
+					"label": "Project"
 				},
 				"published": {
 					"label": "Published at",
@@ -1212,6 +1225,10 @@
 				},
 				"blocks": {
 					"label": "Blocks"
+				},
+				"slug": {
+					"label": "Slug",
+					"hint": "The note's address. Leave empty to build it from the title."
 				}
 			}
 		},
@@ -1222,7 +1239,6 @@
 			"title": "Gallery",
 			"description": "Pictures shown on the gallery page, newest first.",
 			"more": "Load more",
-			"uploaded": "Picture uploaded.",
 			"saved": "Picture saved.",
 			"deleted": "Picture deleted.",
 			"empty": {
@@ -1230,13 +1246,13 @@
 				"description": "Upload the first one."
 			},
 			"upload": {
-				"button": "Upload",
-				"title": "Upload a picture",
-				"description": "The server shrinks it and strips camera data."
+				"button": "Add",
+				"title": "Add a picture",
+				"description": "Choose a picture from the file library or upload a new one."
 			},
 			"edit": {
 				"title": "Edit picture",
-				"description": "Change its tags or project."
+				"description": "Change its picture, tags or project."
 			},
 			"card": {
 				"untitled": "No project",
@@ -1251,18 +1267,17 @@
 			"form": {
 				"file": {
 					"label": "Picture",
-					"hint": "PNG, JPEG, WebP or GIF.",
+					"hint": "Pick a stored picture, or use the plus button to upload one.",
 					"required": "Choose a picture."
 				},
 				"tags": {
 					"label": "Tags"
 				},
 				"project": {
-					"label": "Project",
-					"none": "No project",
-					"error": "Projects could not be loaded; only “No project” is available."
+					"label": "Project"
 				}
-			}
+			},
+			"created": "Frame added."
 		},
 		"settings": {
 			"meta": {
@@ -1278,7 +1293,8 @@
 			"tabs": {
 				"general": "General",
 				"seo": "SEO",
-				"profile": "Profile"
+				"profile": "Profile",
+				"categories": "Categories"
 			},
 			"general": {
 				"meta": {
@@ -1322,7 +1338,7 @@
 					"invalid": "At most {{count}} keywords, each up to {{max}} characters."
 				},
 				"image": {
-					"label": "Preview image URL",
+					"label": "Preview image",
 					"hint": "Shown when the site is shared. Leave empty for none."
 				}
 			},
@@ -1330,7 +1346,6 @@
 				"meta": {
 					"title": "Profile settings — Dashboard"
 				},
-				"invalid": "The profile is not complete or valid.",
 				"name": {
 					"label": "Name"
 				},
@@ -1356,6 +1371,27 @@
 						"hint": "The handle only, not a link."
 					}
 				}
+			},
+			"categories": {
+				"meta": {
+					"title": "Categories"
+				},
+				"label": "Project categories",
+				"hint": "The site lists them as filters, in this order. A slug is what projects store: it can be changed only until you save.",
+				"add": "Add category",
+				"remove": "Remove {{name}}",
+				"move": {
+					"up": "Move {{name}} up",
+					"down": "Move {{name}} down"
+				},
+				"name": {
+					"label": "Label"
+				},
+				"slug": {
+					"label": "Slug",
+					"invalid": "2 to 32 lowercase letters, digits or hyphens"
+				},
+				"unique": "Slugs must be unique"
 			}
 		},
 		"authentication": {
@@ -1400,9 +1436,7 @@
 			"none": "None",
 			"add": "Add {{name}}",
 			"remove": "Remove {{name}}",
-			"lines": {
-				"hint": "One per line."
-			}
+			"lines": {}
 		},
 		"fields": {
 			"variant": "Layout",
@@ -1444,9 +1478,6 @@
 		"blocks": {
 			"hint": "Blocks are shown in this order. The server checks each one.",
 			"add": "Add block",
-			"type": {
-				"aria-label": "Block type to add"
-			},
 			"unsupported": "This block type is not editable here. Move or remove it.",
 			"move": {
 				"up": "Move {{name}} up",
@@ -1479,6 +1510,137 @@
 					"quote": "Quote",
 					"callout": "Callout"
 				}
+			},
+			"insert": "Insert block here",
+			"duplicate": "Duplicate {{name}}",
+			"invalid": "Needs attention",
+			"removed": "{{name}} removed",
+			"undo": "Undo"
+		},
+		"storage": {
+			"kinds": {
+				"image": "Images",
+				"video": "Video",
+				"audio": "Audio",
+				"document": "Documents",
+				"archive": "Archives",
+				"other": "Other"
+			},
+			"select": {
+				"placeholder": "Choose a file",
+				"empty": "No files found.",
+				"more": "Load more",
+				"external": {
+					"label": "External URL"
+				},
+				"add": {
+					"aria-label": "Upload a new file"
+				}
+			},
+			"preview": {
+				"open": {
+					"aria-label": "Open {{name}}"
+				},
+				"clear": {
+					"aria-label": "Remove {{name}}"
+				}
+			},
+			"upload": {
+				"title": "Upload",
+				"description": "The server checks the type and, for pictures, shrinks them and strips camera data.",
+				"submit": "Upload",
+				"required": "Choose at least one file.",
+				"file": {
+					"single": {
+						"label": "File"
+					},
+					"multiple": {
+						"label": "Files"
+					},
+					"hint": "Allowed: {{kinds}}."
+				},
+				"alt": {
+					"label": "Alt text",
+					"hint": "Describes the picture for screen readers. Optional."
+				},
+				"problems": {
+					"type": "{{name}} is not an allowed file type.",
+					"size": "{{name}} is too large (limit {{limit}})."
+				},
+				"rows": {
+					"pending": "Uploading",
+					"done": "Uploaded",
+					"failed": "Failed"
+				}
+			}
+		},
+		"files": {
+			"meta": {
+				"title": "Files — Dashboard"
+			},
+			"title": "Files",
+			"description": "Everything uploaded to the site. Projects, notes, the gallery and settings pick from here.",
+			"more": "Load more",
+			"details": "{{kind}} · {{size}}",
+			"saved": "File saved.",
+			"deleted": "File deleted.",
+			"upload": {
+				"button": "Upload"
+			},
+			"tabs": {
+				"aria-label": "File type",
+				"all": "All"
+			},
+			"search": {
+				"aria-label": "Search files",
+				"placeholder": "Search by name"
+			},
+			"empty": {
+				"title": "No files yet",
+				"description": "Upload the first one.",
+				"filtered": {
+					"title": "No matching files",
+					"description": "Try another search or file type."
+				}
+			},
+			"copy": {
+				"aria-label": "Copy URL of {{name}}",
+				"success": "URL copied.",
+				"error": "Could not copy the URL."
+			},
+			"open": {
+				"aria-label": "Open {{name}}"
+			},
+			"edit": {
+				"aria-label": "Edit {{name}}",
+				"title": "Edit file",
+				"description": "Rename it or change its alt text."
+			},
+			"delete": {
+				"aria-label": "Delete {{name}}",
+				"in-use": {
+					"title": "File in use",
+					"description": "A gallery frame still shows this file. Remove or change the frame first."
+				}
+			},
+			"form": {
+				"name": {
+					"label": "Name"
+				}
+			}
+		},
+		"art": {
+			"label": "Art",
+			"preset": {
+				"label": "Preset"
+			},
+			"image": {
+				"label": "Custom image (optional)",
+				"hint": "Shown instead of the preset. The preset is the fallback if the image fails to load.",
+				"clear": "Use preset"
+			},
+			"preview": {
+				"label": "Preview"
 			}
 		}
 	}

@@ -1,19 +1,12 @@
 import type { TFunction } from "i18next";
 import { z } from "zod";
 import { profileSchema } from "@/api/schemas/portfolio";
-import {
-	SettingKey,
-	type Setting,
-	type SettingUpdate,
-} from "@/api/types/admin/setting";
+import { SettingKey, type Setting } from "@/api/types/admin/setting";
 import { ExperienceKind } from "@/api/types/portfolio/enums";
 import type { Experience, Profile } from "@/api/types/portfolio/profile";
 import { coreSpecs, skillSpecs, timelineSpecs } from "@/lib/dynamic-form/specs";
 import { hasMissing, normalize } from "@/lib/dynamic-form/values";
-import {
-	settingValue,
-	update,
-} from "@/routes/dashboard/settings/components/settings-values";
+import { settingValue } from "@/routes/dashboard/settings/components/settings-values";
 import type { FieldSpec, FormRecord } from "@/types/dynamic-form";
 
 const NAME_MAX = 200;
@@ -38,7 +31,7 @@ const optionalUrl = (t: TFunction) =>
 			.startsWith("https://", t("dashboard.errors.https")),
 	]);
 
-export const profileFormSchema = (t: TFunction) =>
+const profileFields = (t: TFunction) =>
 	z.object({
 		name: z
 			.string()
@@ -72,7 +65,46 @@ export const profileFormSchema = (t: TFunction) =>
 		education: records(timelineSpecs, t),
 	});
 
-export type ProfileValues = z.infer<ReturnType<typeof profileFormSchema>>;
+export type ProfileValues = z.infer<ReturnType<typeof profileFields>>;
+
+const cleanEntries = (list: FormRecord[]): FormRecord[] =>
+	list.map((entry) => {
+		const cleaned = normalize(entry, timelineSpecs);
+		return { ...cleaned, end: cleaned.end ?? null };
+	});
+
+/** The form's lists cleaned up and checked against the stored profile's contract. */
+const contractOf = (values: ProfileValues) =>
+	profileSchema.safeParse({
+		...values,
+		skills: values.skills.map((skill) => normalize(skill, skillSpecs)),
+		core: values.core.map((item) => normalize(item, coreSpecs)),
+		experience: cleanEntries(values.experience),
+		education: cleanEntries(values.education),
+	});
+
+/**
+ * The form's own rules plus the profile contract, so a value the backend would not take fails on
+ * its field here instead of as a generic toast after submit.
+ */
+export const profileFormSchema = (t: TFunction) =>
+	profileFields(t).superRefine((values, ctx) => {
+		const parsed = contractOf(values);
+		if (parsed.success) return;
+		for (const issue of parsed.error.issues)
+			ctx.addIssue({
+				code: "custom",
+				path: issue.path,
+				message: t("dashboard.errors.invalid"),
+			});
+	});
+
+/** The profile to store. Only for values that passed `profileFormSchema`, which holds the same contract. */
+export function toProfile(values: ProfileValues): Profile {
+	const parsed = contractOf(values);
+	if (!parsed.success) throw parsed.error;
+	return parsed.data;
+}
 
 const emptyProfile: Profile = {
 	name: "",
@@ -114,23 +146,3 @@ export const timelineDefaults: Record<"experience" | "education", FormRecord> =
 		experience: { kind: ExperienceKind.Work },
 		education: { kind: ExperienceKind.Education },
 	};
-
-const cleanEntries = (list: FormRecord[]): FormRecord[] =>
-	list.map((entry) => {
-		const cleaned = normalize(entry, timelineSpecs);
-		return { ...cleaned, end: cleaned.end ?? null };
-	});
-
-/** The `profile` setting to save, or null when the result does not fit the profile contract. */
-export function toProfileUpdates(
-	values: ProfileValues,
-): SettingUpdate[] | null {
-	const parsed = profileSchema.safeParse({
-		...values,
-		skills: values.skills.map((skill) => normalize(skill, skillSpecs)),
-		core: values.core.map((item) => normalize(item, coreSpecs)),
-		experience: cleanEntries(values.experience),
-		education: cleanEntries(values.education),
-	});
-	return parsed.success ? [update(SettingKey.Profile, parsed.data)] : null;
-}

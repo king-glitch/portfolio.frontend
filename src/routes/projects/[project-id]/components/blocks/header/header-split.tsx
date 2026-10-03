@@ -28,6 +28,7 @@ export const HeaderSplit: React.FC<HeaderSplitProps> = ({
 	discipline,
 	tags,
 	kind,
+	imageUrl,
 }) => {
 	const { t } = useTranslation();
 	const meta = [
@@ -67,6 +68,7 @@ export const HeaderSplit: React.FC<HeaderSplitProps> = ({
 			</div>
 			<ArtFrame
 				kind={kind}
+				imageUrl={imageUrl}
 				data-speed="1.22"
 				className={ART_ORDER[variant]}
 			>

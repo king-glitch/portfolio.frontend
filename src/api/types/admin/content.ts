@@ -1,8 +1,4 @@
-import type {
-	MotifKind,
-	ProjectFilter,
-	ProjectSide,
-} from "@/api/types/portfolio/enums";
+import type { MotifKind, ProjectSide } from "@/api/types/portfolio/enums";
 import type { ContentStatus } from "@/api/types/admin/enums";
 
 /** A block as stored: validated by the backend against its JSON schema, edited here as JSON. */
@@ -23,10 +19,12 @@ export interface AdminProject {
 	kind: MotifKind;
 	side: ProjectSide;
 	tags: string[];
-	categories: ProjectFilter[];
+	categories: string[];
 	stack: string[];
 	about: string;
 	role: string[];
+	/** Uploaded art; "" = none (the motif of `kind` is shown). */
+	artUrl: string;
 	status: ContentStatus;
 	order: number;
 }
@@ -42,10 +40,11 @@ export interface ProjectInput {
 	kind: MotifKind;
 	side: ProjectSide;
 	tags: string[];
-	categories: ProjectFilter[];
+	categories: string[];
 	stack: string[];
 	about: string;
 	role: string[];
+	artUrl: string;
 	status: ContentStatus;
 	blocks: StoredBlock[];
 }
@@ -61,6 +60,8 @@ export interface AdminNote {
 	excerpt: string;
 	readMinutes: number;
 	sample: boolean;
+	/** Uploaded art; "" = none (the motif of `kind` is shown). */
+	artUrl: string;
 	project: ProjectRef | null;
 	status: ContentStatus;
 }
@@ -71,10 +72,13 @@ export interface AdminNoteDetail extends AdminNote {
 
 export interface NoteInput {
 	title: string;
+	/** Empty = generated from the title. */
+	slug: string;
 	tags: string[];
 	kind: MotifKind;
 	excerpt: string;
 	sample: boolean;
+	artUrl: string;
 	status: ContentStatus;
 	/** Document id of the linked project; null = none. */
 	projectId: string | null;

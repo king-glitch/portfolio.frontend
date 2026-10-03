@@ -16,14 +16,18 @@ const HEADERS: Record<HeaderVariant, React.FC<HeaderProps>> = {
 	[HeaderVariant.Vertical]: HeaderVertical,
 };
 
-interface BlockProjectHeaderProps extends HeaderProps {}
+interface BlockProjectHeaderProps extends HeaderProps {
+	projectArtUrl?: string;
+}
 
 /** First panel of a project; `variant` picks one of five layouts. */
-export const BlockProjectHeader: React.FC<BlockProjectHeaderProps> = (
-	params,
-) => {
+export const BlockProjectHeader: React.FC<BlockProjectHeaderProps> = ({
+	projectArtUrl,
+	...params
+}) => {
 	const Header = HEADERS[params.variant];
-	return <Header {...params} />;
+	// the header's own art wins, then the project's, then the drawing of `kind`
+	return <Header {...params} imageUrl={params.imageUrl || projectArtUrl} />;
 };
 
 export default BlockProjectHeader;

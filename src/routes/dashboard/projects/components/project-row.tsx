@@ -1,13 +1,15 @@
+// style-lint-ignore-file query-states -- the categories only supply labels; until they load (or if they fail) the slug shows
 import React from "react";
 import { RiArrowDownLine, RiArrowUpLine } from "@remixicon/react";
 import { useTranslation } from "react-i18next";
+import { useAdminProjectCategories } from "@/api/hooks/admin/settings/use-admin-project-categories";
 import type { AdminProject } from "@/api/types/admin/content";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { dashboardProjectPath } from "@/lib/routes";
 import { RowActions } from "@/routes/dashboard/components/row-actions";
-import { StatusBadge } from "@/routes/dashboard/components/status-badge";
+import { StatusBadge } from "@/routes/dashboard/components/status/status-badge";
 
 interface ProjectRowProps {
 	project: AdminProject;
@@ -29,6 +31,10 @@ export const ProjectRow: React.FC<ProjectRowProps> = ({
 	onDelete,
 }) => {
 	const { t } = useTranslation();
+	// labels are owner-defined data; a slug no longer in the setting shows as it is
+	const categories = useAdminProjectCategories();
+	const labelOf = (slug: string) =>
+		categories.data?.find((c) => c.slug === slug)?.label ?? slug;
 	return (
 		<TableRow>
 			<TableCell className="w-16 text-muted-foreground tabular-nums">
@@ -49,7 +55,7 @@ export const ProjectRow: React.FC<ProjectRowProps> = ({
 				<div className="flex flex-wrap gap-1">
 					{project.categories.map((category) => (
 						<Badge key={category} variant="secondary">
-							{t(`dashboard.options.categories.${category}`)}
+							{labelOf(category)}
 						</Badge>
 					))}
 				</div>

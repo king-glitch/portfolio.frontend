@@ -1,8 +1,9 @@
 import React from "react";
 import type { ParseKeys } from "i18next";
 import { useTranslation } from "react-i18next";
-import { ProjectFilter, ProjectSide } from "@/api/types/portfolio/enums";
+import { ProjectSide } from "@/api/types/portfolio/enums";
 import type { ProjectSummary } from "@/api/types/portfolio/project";
+import { config } from "@/config";
 import { clip, firstSentence } from "@/lib/portfolio/about-stats";
 import { ResumeHeading } from "@/routes/about/resume/components/resume-heading";
 import { ResumeEntry } from "@/routes/about/resume/components/resume-entry";
@@ -25,11 +26,13 @@ export const ResumeProjects: React.FC<ResumeProjectsProps> = ({ projects }) => {
 			<ResumeHeading>{t("about.resume.projects.title")}</ResumeHeading>
 			{projects.map((p) => {
 				const meta = [
-					p.categories.includes(ProjectFilter.Games)
+					p.categories.includes(config.portfolio.categorySlugs.games)
 						? t("about.resume.projects.type.game")
 						: t("about.resume.projects.type.platform"),
 					t(SIDES[p.side]),
-					p.categories.includes(ProjectFilter.OnChain)
+					p.categories.includes(
+						config.portfolio.categorySlugs.onChain,
+					)
 						? t("about.resume.projects.on-chain")
 						: null,
 				].filter(Boolean);

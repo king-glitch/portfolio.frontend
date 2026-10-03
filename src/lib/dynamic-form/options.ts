@@ -1,4 +1,4 @@
-import type { ParseKeys } from "i18next";
+import type { ParseKeys, TFunction } from "i18next";
 import {
 	BlockTone,
 	DeviceView,
@@ -70,6 +70,13 @@ export const optionSets: Record<OptionSet, SelectOption[]> = {
 	[OptionSet.Tone]: toOptions(tones),
 	[OptionSet.Experience]: toOptions(experiences),
 };
+
+/** The choices of `set` as `{ value, label }` for the react-hook-form select and toggle fields. */
+export const selectItems = (set: OptionSet, t: TFunction) =>
+	optionSets[set].map(({ value, labelKey }) => ({
+		value,
+		label: t(labelKey),
+	}));
 
 /** Label of every dynamic-form field. */
 export const fieldLabels: Record<FieldName, ParseKeys> = {

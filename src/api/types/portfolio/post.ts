@@ -22,6 +22,8 @@ export interface PostSummary {
 	excerpt: string;
 	readMinutes: number;
 	sample: boolean;
+	/** Uploaded art; the motif drawn from `kind` is the fallback. */
+	artUrl?: string;
 }
 
 export interface Post extends PostSummary {

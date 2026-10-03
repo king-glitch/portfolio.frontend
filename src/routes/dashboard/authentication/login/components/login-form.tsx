@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router";
 import { z } from "zod";
 import { useLogin } from "@/api/hooks/admin/auth/use-login";
-import { FormTextField } from "@/components/common/fields/form-text-field";
+import { FormTextField } from "@/components/common/fields/form/form-text-field";
 import { FormButton } from "@/components/common/buttons/form-button";
 import { FieldGroup } from "@/components/ui/field";
 import { Spinner } from "@/components/ui/spinner";

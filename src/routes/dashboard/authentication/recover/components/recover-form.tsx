@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { z } from "zod";
 import { useRecover } from "@/api/hooks/admin/auth/use-recover";
-import { FormTextField } from "@/components/common/fields/form-text-field";
+import { FormTextField } from "@/components/common/fields/form/form-text-field";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { FormButton } from "@/components/common/buttons/form-button";
 import { FieldGroup } from "@/components/ui/field";

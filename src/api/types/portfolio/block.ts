@@ -37,6 +37,7 @@ export type Block =
 				discipline: ProjectSide;
 				tags: string[];
 				kind: MotifKind;
+				imageUrl?: string;
 			}
 	  >
 	| BlockBase<
@@ -49,14 +50,23 @@ export type Block =
 	  >
 	| BlockBase<
 			BlockType.AboutSplit,
-			{ label: string; text: string; kind?: MotifKind; list?: string[] }
+			{
+				label: string;
+				text: string;
+				kind?: MotifKind;
+				imageUrl?: string;
+				list?: string[];
+			}
 	  >
 	| BlockBase<BlockType.NumberedList, { label: string; items: string[] }>
 	| BlockBase<BlockType.StackCards, { label: string; items: string[] }>
 	| BlockBase<BlockType.FeatureGrid, { label: string; items: string[] }>
 	| BlockBase<BlockType.Timeline, { label: string; items: string[] }>
 	| BlockBase<BlockType.Zigzag, { label: string; items: string[] }>
-	| BlockBase<BlockType.MotifFull, { kind: MotifKind; label?: string }>
+	| BlockBase<
+			BlockType.MotifFull,
+			{ kind: MotifKind; label?: string; imageUrl?: string }
+	  >
 	| BlockBase<
 			BlockType.Chips,
 			{ label: string; title: string; text: string; items: string[] }

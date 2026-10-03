@@ -1,7 +1,7 @@
-// style-lint-ignore-file query-states -- the projects only fill a select; a failed load leaves "None"
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useAdminProjects } from "@/api/hooks/admin/projects/use-admin-projects";
+import { QueryErrorAlert } from "@/components/common/feedback/query-error-alert";
 import {
 	Select,
 	SelectContent,
@@ -9,26 +9,37 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
 import { config } from "@/config";
 
-interface DynamicProjectSelectProps {
-	id: string;
+interface ProjectSelectProps {
+	id?: string;
 	/** Document id of the chosen project, "" for none. */
 	value: string;
 	onChange: (value: string) => void;
+	invalid?: boolean;
 }
 
-/** Pick one of the dashboard's projects (or none). While they load, or if they fail to, only "None" is offered. */
-export const DynamicProjectSelect: React.FC<DynamicProjectSelectProps> = ({
+/** Pick one of the dashboard's projects (or none). The one project picker of every form. */
+export const ProjectSelect: React.FC<ProjectSelectProps> = ({
 	id,
 	value,
 	onChange,
+	invalid,
 }) => {
 	const { t } = useTranslation();
 	const projects = useAdminProjects();
+	if (projects.isPending) return <Skeleton className="h-9 w-full" />;
+	if (projects.isError)
+		return (
+			<QueryErrorAlert
+				onRetry={() => void projects.refetch()}
+				error={projects.error}
+			/>
+		);
 	const items = [
 		{ value: config.dashboard.noValue, label: t("dashboard.dynamic.none") },
-		...(projects.data ?? []).map((project) => ({
+		...projects.data.map((project) => ({
 			value: project.id,
 			label: project.name,
 		})),
@@ -36,7 +47,6 @@ export const DynamicProjectSelect: React.FC<DynamicProjectSelectProps> = ({
 	return (
 		<Select
 			items={items}
-			disabled={projects.isPending}
 			value={value || config.dashboard.noValue}
 			onValueChange={(next) =>
 				onChange(
@@ -46,7 +56,7 @@ export const DynamicProjectSelect: React.FC<DynamicProjectSelectProps> = ({
 				)
 			}
 		>
-			<SelectTrigger id={id} className="w-full">
+			<SelectTrigger id={id} aria-invalid={invalid} className="w-full">
 				<SelectValue />
 			</SelectTrigger>
 			<SelectContent>
@@ -60,4 +70,4 @@ export const DynamicProjectSelect: React.FC<DynamicProjectSelectProps> = ({
 	);
 };
 
-export default DynamicProjectSelect;
+export default ProjectSelect;

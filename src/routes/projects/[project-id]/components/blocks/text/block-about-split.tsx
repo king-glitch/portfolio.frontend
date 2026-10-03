@@ -13,6 +13,7 @@ export const BlockAboutSplit: React.FC<BlockAboutSplitProps> = ({
 	label,
 	text,
 	kind,
+	imageUrl,
 	list,
 	index,
 	projectKind,
@@ -48,7 +49,11 @@ export const BlockAboutSplit: React.FC<BlockAboutSplitProps> = ({
 					))}
 				</ul>
 			) : (
-				<ArtFrame kind={kind ?? projectKind} data-speed="1.2" />
+				<ArtFrame
+					kind={kind ?? projectKind}
+					imageUrl={imageUrl}
+					data-speed="1.2"
+				/>
 			)}
 		</Panel>
 	);

@@ -24,7 +24,7 @@ export const FrameCard: React.FC<FrameCardProps> = ({
 		<Card size="sm" className="overflow-hidden pt-0">
 			<img
 				src={frame.imageUrl}
-				alt={t("dashboard.gallery.card.alt", { name })}
+				alt={frame.alt || t("dashboard.gallery.card.alt", { name })}
 				width={frame.width}
 				height={frame.height}
 				loading="lazy"

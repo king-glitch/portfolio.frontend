@@ -2,7 +2,7 @@ import React from "react";
 import { Controller, type Control } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { fieldLabels } from "@/lib/dynamic-form/options";
-import { DynamicObjectsField } from "@/routes/dashboard/components/dynamic-form/dynamic-objects-field";
+import { DynamicObjectsField } from "@/routes/dashboard/components/dynamic-form/dynamic/dynamic-objects-field";
 import type { ProfileValues } from "@/routes/dashboard/settings/profile/components/profile-form-schema";
 import type { FieldSpec, FormRecord } from "@/types/dynamic-form";
 

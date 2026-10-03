@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
 import { useChangeUsername } from "@/api/hooks/admin/auth/use-change-username";
-import { FormTextField } from "@/components/common/fields/form-text-field";
+import { FormTextField } from "@/components/common/fields/form/form-text-field";
 import { FormButton } from "@/components/common/buttons/form-button";
 import {
 	Card,

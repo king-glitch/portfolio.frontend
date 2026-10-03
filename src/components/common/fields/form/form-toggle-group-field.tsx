@@ -1,4 +1,3 @@
-// style-lint-ignore-file common-reuse -- one form uses it today; it belongs with the other react-hook-form fields
 import React from "react";
 import {
 	Controller,
@@ -23,7 +22,7 @@ interface FormToggleGroupFieldProps<T extends FieldValues> {
 	description?: string;
 }
 
-/** shadcn `Field` + multi-select `ToggleGroup` bound to react-hook-form (string-array values). */
+/** shadcn `Field` + single-select `ToggleGroup` bound to react-hook-form: for 2 or 3 short options. Pressing the chosen one keeps it. */
 export function FormToggleGroupField<T extends FieldValues>({
 	control,
 	name,
@@ -39,10 +38,11 @@ export function FormToggleGroupField<T extends FieldValues>({
 				<Field data-invalid={fieldState.invalid}>
 					<FieldLabel>{label}</FieldLabel>
 					<ToggleGroup
-						multiple
 						variant="outline"
-						value={field.value}
-						onValueChange={field.onChange}
+						value={[field.value]}
+						onValueChange={([next]) => {
+							if (next) field.onChange(next);
+						}}
 						className="flex-wrap"
 					>
 						{options.map((option) => (

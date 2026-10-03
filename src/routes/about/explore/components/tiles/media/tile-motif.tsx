@@ -10,7 +10,9 @@ export const TileMotif: React.FC<TileMotifProps> = ({ data }) => {
 	return (
 		<>
 			<div className="absolute inset-x-0 top-0 bottom-(--wall-cap-h)">
-				{data.motif ? <ProjectMotif kind={data.motif} /> : null}
+				{data.motif ? (
+					<ProjectMotif kind={data.motif} imageUrl={data.motifUrl} />
+				) : null}
 			</div>
 			<TileCaption
 				data={data}

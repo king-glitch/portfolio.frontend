@@ -5,6 +5,7 @@ import {
 	getProject,
 	listGallery,
 	listGalleryTags,
+	listProjectCategories,
 	listPosts,
 	listProjects,
 } from "@/api/services/portfolio";
@@ -15,6 +16,12 @@ const keys = config.queryKeys.portfolio;
 /** Query options shared by the hooks and the route loaders (same key = one cache entry). */
 export const profileQuery = () =>
 	queryOptions({ queryKey: [keys.profile], queryFn: getProfile });
+
+export const projectCategoriesQuery = () =>
+	queryOptions({
+		queryKey: [keys.categories],
+		queryFn: listProjectCategories,
+	});
 
 export const projectsQuery = () =>
 	queryOptions({ queryKey: [keys.projects.list], queryFn: listProjects });

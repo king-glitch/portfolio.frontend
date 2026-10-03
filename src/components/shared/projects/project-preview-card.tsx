@@ -24,7 +24,10 @@ export const ProjectPreviewCard: React.FC<ProjectPreviewCardProps> = ({
 			)}
 		>
 			<span className="relative block min-h-0 grow">
-				<ProjectPreviewMock kind={project.kind} />
+				<ProjectPreviewMock
+					kind={project.kind}
+					imageUrl={project.artUrl}
+				/>
 			</span>
 			<span className="flex items-center justify-between gap-3 border-t border-border px-3 py-3 sm:px-4">
 				<span className="flex min-w-0 items-baseline gap-2.5">

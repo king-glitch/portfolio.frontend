@@ -62,7 +62,9 @@ export const IndexPreview: React.FC<IndexPreviewProps> = ({ project }) => {
 			)}
 			style={{ transform: "translate3d(-999px,-999px,0)" }}
 		>
-			{shown ? <ProjectPreviewMock kind={shown.kind} /> : null}
+			{shown ? (
+				<ProjectPreviewMock kind={shown.kind} imageUrl={shown.artUrl} />
+			) : null}
 		</div>
 	);
 };

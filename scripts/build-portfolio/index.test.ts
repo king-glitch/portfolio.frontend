@@ -1,13 +1,11 @@
 import { expect, test } from "bun:test";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import {
-	BlockType,
-	MotifKind,
-	ProjectFilter,
-} from "@/api/types/portfolio/enums";
+import { BlockType, MotifKind } from "@/api/types/portfolio/enums";
+import { buildSeed, snakeKeys } from "./seed";
 import { buildFiles, buildProfile, buildProjects, toTs } from "./index";
 import {
+	CATEGORY_SLUGS,
 	categoriesFor,
 	hasKeyword,
 	kindFor,
@@ -87,14 +85,13 @@ test("tags and stack keywords", () => {
 	expect(hasKeyword("the mission system", "mission system")).toBe(true);
 });
 
-test("categories never contain All", () => {
+test("categories never contain all", () => {
 	expect(categoriesFor(" game web3")).toEqual([
-		ProjectFilter.Games,
-		ProjectFilter.OnChain,
+		CATEGORY_SLUGS.games,
+		CATEGORY_SLUGS.onChain,
 	]);
-	expect(categoriesFor("a tool")).toEqual([ProjectFilter.Platforms]);
-	for (const p of projects)
-		expect(p.categories).not.toContain(ProjectFilter.All);
+	expect(categoriesFor("a tool")).toEqual([CATEGORY_SLUGS.platforms]);
+	for (const p of projects) expect(p.categories).not.toContain("all");
 });
 
 test("block order per kind", () => {
@@ -181,4 +178,58 @@ test("output is deterministic and references enums, not literals", () => {
 	expect(a["projects.ts"]).not.toContain('"project-header"');
 	expect(a["profile.ts"]).toContain("ExperienceKind.Work");
 	expect(() => toTs({ type: "nope" })).toThrow();
+});
+
+test("seed has every project, note and the contact data", () => {
+	const seed = buildSeed(projects, buildProfile(me));
+	expect(seed.projects.map((p) => p.slug)).toEqual(projects.map((p) => p.id));
+	expect(seed.notes.map((n) => n.slug)).toEqual([
+		"scalable-game-backend",
+		"smart-contracts-you-can-sleep-next-to",
+		"four-thousand-pins-one-smooth-map",
+	]);
+	expect(seed.notes.map((n) => n.published_at)).toEqual([
+		"2026-10-03T00:00:00Z",
+		"2026-10-02T00:00:00Z",
+		"2026-10-01T00:00:00Z",
+	]);
+	expect(seed.project_categories.map((c) => c.slug)).toEqual([
+		"games",
+		"platforms",
+		"on-chain",
+	]);
+	expect(seed.profile).toMatchObject({
+		contact: { email: "wilhelm.hsf@gmail.com" },
+	});
+	for (const note of seed.notes)
+		expect(Object.keys(note)).not.toEqual(
+			expect.arrayContaining(["num", "read_minutes", "sample"]),
+		);
+});
+
+test("seed block keys are snake_case and lineage names its target by slug", () => {
+	const seed = buildSeed(projects, buildProfile(me));
+	const keys = (value: unknown): string[] =>
+		Array.isArray(value)
+			? value.flatMap(keys)
+			: value && typeof value === "object"
+				? Object.entries(value).flatMap(([k, v]) => [k, ...keys(v)])
+				: [];
+	expect(
+		keys(seed.projects.map((p) => p.blocks)).filter((k) => /[A-Z]/.test(k)),
+	).toEqual([]);
+	const lineage = seed.projects
+		.flatMap((p) => p.blocks)
+		.find((b) => (b as { type: string }).type === BlockType.Lineage);
+	expect(lineage).toMatchObject({
+		params: { from_slug: "morning-moon-village" },
+	});
+	expect(JSON.stringify(lineage)).not.toContain("from_id");
+});
+
+test("snakeKeys converts keys at any depth and leaves values alone", () => {
+	expect(snakeKeys({ imageUrl: "aB", items: [{ fromId: "x" }] })).toEqual({
+		image_url: "aB",
+		items: [{ from_id: "x" }],
+	});
 });

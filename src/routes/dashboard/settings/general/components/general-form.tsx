@@ -1,12 +1,14 @@
+import { UnsavedChangesDialog } from "@/components/common/forms/unsaved-changes-dialog";
+import { useUnsavedGuard } from "@/hooks/use-unsaved-guard";
 import React, { useMemo } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useSaveSettings } from "@/api/hooks/admin/settings/use-save-settings";
 import { ThemeDefault, type Setting } from "@/api/types/admin/setting";
-import { FormSelectField } from "@/components/common/fields/form-select-field";
-import { FormSwitchField } from "@/components/common/fields/form-switch-field";
-import { FormTextField } from "@/components/common/fields/form-text-field";
+import { FormToggleGroupField } from "@/components/common/fields/form/form-toggle-group-field";
+import { FormSwitchField } from "@/components/common/fields/form/form-switch-field";
+import { FormTextField } from "@/components/common/fields/form/form-text-field";
 import { FieldGroup } from "@/components/ui/field";
 import { toast } from "@/components/ui/toast";
 import { SettingsSaveButton } from "@/routes/dashboard/settings/components/settings-save-button";
@@ -31,6 +33,7 @@ export const GeneralForm: React.FC<GeneralFormProps> = ({ settings }) => {
 		resolver: zodResolver(schema),
 		defaultValues: toGeneralValues(settings),
 	});
+	const { blocker } = useUnsavedGuard(form.formState.isDirty);
 	const themes = Object.values(ThemeDefault).map((value) => ({
 		value,
 		label: t(`dashboard.settings.general.theme.options.${value}`),
@@ -49,35 +52,40 @@ export const GeneralForm: React.FC<GeneralFormProps> = ({ settings }) => {
 	);
 
 	return (
-		<form noValidate onSubmit={onSubmit} className="max-w-3xl">
-			<FieldGroup>
-				<FormTextField
-					control={form.control}
-					name="siteTitle"
-					label={t("dashboard.settings.general.title.label")}
-				/>
-				<FormSelectField
-					control={form.control}
-					name="themeDefault"
-					label={t("dashboard.settings.general.theme.label")}
-					description={t("dashboard.settings.general.theme.hint")}
-					options={themes}
-				/>
-				<FormSwitchField
-					control={form.control}
-					name="maintenanceMode"
-					label={t("dashboard.settings.general.maintenance.label")}
-					description={t(
-						"dashboard.settings.general.maintenance.hint",
-					)}
-				/>
-				<FeatureToggles control={form.control} />
-				<SettingsSaveButton
-					pending={save.isPending}
-					clean={!form.formState.isDirty}
-				/>
-			</FieldGroup>
-		</form>
+		<>
+			<form noValidate onSubmit={onSubmit} className="max-w-3xl">
+				<FieldGroup>
+					<FormTextField
+						control={form.control}
+						name="siteTitle"
+						label={t("dashboard.settings.general.title.label")}
+					/>
+					<FormToggleGroupField
+						control={form.control}
+						name="themeDefault"
+						label={t("dashboard.settings.general.theme.label")}
+						description={t("dashboard.settings.general.theme.hint")}
+						options={themes}
+					/>
+					<FormSwitchField
+						control={form.control}
+						name="maintenanceMode"
+						label={t(
+							"dashboard.settings.general.maintenance.label",
+						)}
+						description={t(
+							"dashboard.settings.general.maintenance.hint",
+						)}
+					/>
+					<FeatureToggles control={form.control} />
+					<SettingsSaveButton
+						pending={save.isPending}
+						clean={!form.formState.isDirty}
+					/>
+				</FieldGroup>
+			</form>
+			<UnsavedChangesDialog blocker={blocker} />
+		</>
 	);
 };
 

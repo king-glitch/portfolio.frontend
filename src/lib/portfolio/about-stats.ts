@@ -1,6 +1,7 @@
-import { ProjectFilter, ProjectSide } from "@/api/types/portfolio/enums";
+import { ProjectSide } from "@/api/types/portfolio/enums";
 import type { Experience, Profile } from "@/api/types/portfolio/profile";
 import type { ProjectSummary } from "@/api/types/portfolio/project";
+import { config } from "@/config";
 import { toFractionalYear, yearsSince } from "@/lib/portfolio/time";
 import { topWords } from "@/lib/portfolio/word-freq";
 import type { BarRow } from "@/types/about";
@@ -91,10 +92,10 @@ export function buildAboutStats(
 		behind: projects.filter((p) => p.side === ProjectSide.BehindTheScenes)
 			.length,
 		onChain: projects.filter((p) =>
-			p.categories.includes(ProjectFilter.OnChain),
+			p.categories.includes(config.portfolio.categorySlugs.onChain),
 		).length,
 		games: projects.filter((p) =>
-			p.categories.includes(ProjectFilter.Games),
+			p.categories.includes(config.portfolio.categorySlugs.games),
 		).length,
 		employer: employerOf(profile),
 		yearsInProduction: job ? yearsSince(job.start, now) : 0,

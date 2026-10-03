@@ -40,7 +40,10 @@ export const MenuPreview: React.FC<MenuPreviewProps> = ({ active }) => {
 						key={active.project.id}
 						className="absolute inset-0 bg-background transition-[opacity,scale] duration-900 ease-(--ease-out-expo) starting:scale-[1.06] starting:opacity-0"
 					>
-						<ProjectPreviewMock kind={active.project.kind} />
+						<ProjectPreviewMock
+							kind={active.project.kind}
+							imageUrl={active.project.artUrl}
+						/>
 					</div>
 				) : null}
 				<span className="absolute bottom-3.5 left-4 rounded-pill bg-foreground px-3 py-1.5 text-xs font-bold text-background">

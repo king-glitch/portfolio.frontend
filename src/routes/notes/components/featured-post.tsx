@@ -35,7 +35,7 @@ export const FeaturedPost: React.FC<FeaturedPostProps> = ({
 			)}
 		>
 			<span className="relative block aspect-4/3 overflow-hidden rounded-[28px] ring-1 ring-border">
-				<ProjectMotif kind={post.kind} />
+				<ProjectMotif kind={post.kind} imageUrl={post.artUrl} />
 				<TagPill className="absolute top-4 left-4.5 bg-background">
 					{t("notes.list.featured.badge")}
 				</TagPill>

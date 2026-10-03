@@ -4,8 +4,15 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Field, FieldLabel } from "@/components/ui/field";
-import { asRecords, emptyRecord } from "@/lib/dynamic-form/values";
-import { DynamicFields } from "@/routes/dashboard/components/dynamic-form/dynamic-fields";
+import {
+	ITEM_KEY,
+	asRecords,
+	asString,
+	emptyRecord,
+	newItemKey,
+	withItemKeys,
+} from "@/lib/dynamic-form/values";
+import { DynamicFields } from "@/routes/dashboard/components/dynamic-form/dynamic/dynamic-fields";
 import type { FieldSpec, FormRecord } from "@/types/dynamic-form";
 
 interface DynamicObjectsFieldProps {
@@ -30,12 +37,15 @@ export const DynamicObjectsField: React.FC<DynamicObjectsFieldProps> = ({
 	const { t } = useTranslation();
 	const fields = spec.fields ?? [];
 	const records = asRecords(value);
+	// keyed on first change; until then a position-derived key matches the one it will get
+	const keyOf = (record: FormRecord, index: number) =>
+		asString(record[ITEM_KEY]) || `k-${index}`;
 
 	return (
 		<Field>
 			<FieldLabel>{label}</FieldLabel>
 			{records.map((record, index) => (
-				<Card key={index} size="sm">
+				<Card key={keyOf(record, index)} size="sm">
 					<CardContent className="flex flex-col gap-4">
 						<DynamicFields
 							specs={fields}
@@ -43,8 +53,15 @@ export const DynamicObjectsField: React.FC<DynamicObjectsFieldProps> = ({
 							invalid={invalid}
 							onChange={(next) =>
 								onChange(
-									records.map((item, i) =>
-										i === index ? next : item,
+									withItemKeys(records).map((item, i) =>
+										i === index
+											? {
+													...next,
+													[ITEM_KEY]: asString(
+														item[ITEM_KEY],
+													),
+												}
+											: item,
 									),
 								)
 							}
@@ -54,7 +71,11 @@ export const DynamicObjectsField: React.FC<DynamicObjectsFieldProps> = ({
 							size="sm"
 							className="self-end"
 							onClick={() =>
-								onChange(records.filter((_, i) => i !== index))
+								onChange(
+									withItemKeys(records).filter(
+										(_, i) => i !== index,
+									),
+								)
 							}
 						>
 							<RiDeleteBinLine data-icon="inline-start" />
@@ -67,7 +88,13 @@ export const DynamicObjectsField: React.FC<DynamicObjectsFieldProps> = ({
 				variant="outline"
 				className="self-start"
 				onClick={() =>
-					onChange([...records, emptyRecord(fields, defaults)])
+					onChange([
+						...withItemKeys(records),
+						{
+							...emptyRecord(fields, defaults),
+							[ITEM_KEY]: newItemKey(),
+						},
+					])
 				}
 			>
 				<RiAddLine data-icon="inline-start" />

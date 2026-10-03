@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import type { ParseKeys } from "i18next";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router";
-import { z } from "zod";
+import { useProjectCategories } from "@/api/hooks/portfolio/use-project-categories";
 import { useProjects } from "@/api/hooks/portfolio/use-projects";
-import { ProjectFilter } from "@/api/types/portfolio/enums";
 import { QueryEmpty } from "@/components/common/feedback/query-empty";
 import { QueryErrorAlert } from "@/components/common/feedback/query-error-alert";
 import { config } from "@/config";
@@ -24,23 +23,26 @@ const COLUMNS: ParseKeys[] = [
 	"home.index.columns.side",
 ];
 
-/** Invalid or missing `?filter=` silently becomes the default. */
-const filterSchema = z
-	.enum(ProjectFilter)
-	.catch(config.portfolio.defaultFilter);
-
 interface ProjectIndexProps {}
 
 /** "Selected work" index: filterable rows bound to `?filter=`, with a cursor-following screen preview. */
 export const ProjectIndex: React.FC<ProjectIndexProps> = () => {
 	const { t } = useTranslation();
 	const { data, isPending, isError, refetch } = useProjects();
+	const categories = useProjectCategories();
 	const [params, setParams] = useSearchParams();
 	const [hoveredId, setHoveredId] = useState<string | null>(null);
 	const filterKey = config.portfolio.searchParams.filter;
-	const filter = filterSchema.parse(params.get(filterKey));
+	const requested = params.get(filterKey) ?? config.portfolio.defaultFilter;
+	// an unknown or removed category silently becomes the default (checked once the categories are known)
+	const filter =
+		categories.data &&
+		requested !== config.portfolio.defaultFilter &&
+		!categories.data.some((c) => c.slug === requested)
+			? config.portfolio.defaultFilter
+			: requested;
 
-	const onFilter = (next: ProjectFilter) => {
+	const onFilter = (next: string) => {
 		const nextParams = new URLSearchParams(params);
 		if (next === config.portfolio.defaultFilter)
 			nextParams.delete(filterKey);
@@ -96,8 +98,16 @@ export const ProjectIndex: React.FC<ProjectIndexProps> = () => {
 				}
 				aside={
 					<IndexFilters
+						categories={categories}
 						value={filter}
-						counts={data ? countByFilter(data) : undefined}
+						counts={
+							data && categories.data
+								? countByFilter(
+										data,
+										categories.data.map((c) => c.slug),
+									)
+								: undefined
+						}
 						onChange={onFilter}
 					/>
 				}

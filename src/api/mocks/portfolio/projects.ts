@@ -6,7 +6,6 @@ import {
 	HeaderVariant,
 	MockScreen,
 	MotifKind,
-	ProjectFilter,
 	ProjectSide,
 } from "@/api/types/portfolio/enums";
 import type { Project } from "@/api/types/portfolio/project";
@@ -19,7 +18,7 @@ export const projects: Project[] = [
 		kind: MotifKind.Pixel,
 		side: ProjectSide.BehindTheScenes,
 		tags: ["Golang", "MongoDB", "Solidity", "DeFi", "Soneium"],
-		categories: [ProjectFilter.Games, ProjectFilter.OnChain],
+		categories: ["games", "on-chain"],
 		stack: [
 			"golang",
 			"mongodb",
@@ -151,7 +150,7 @@ export const projects: Project[] = [
 		kind: MotifKind.Hex,
 		side: ProjectSide.BehindTheScenes,
 		tags: ["Golang", "MongoDB", "Solidity", "Real-time", "DeFi"],
-		categories: [ProjectFilter.Games, ProjectFilter.OnChain],
+		categories: ["games", "on-chain"],
 		stack: [
 			"golang",
 			"mongodb",
@@ -291,7 +290,7 @@ export const projects: Project[] = [
 		kind: MotifKind.Orbit,
 		side: ProjectSide.BehindTheScenes,
 		tags: ["Golang", "MongoDB", "NFTs", "Web3", "Missions"],
-		categories: [ProjectFilter.Platforms, ProjectFilter.OnChain],
+		categories: ["platforms", "on-chain"],
 		stack: ["golang", "mongodb", "nft", "web3", "mission system", "client"],
 		about: "Evermoon SocialFi is a platform from Evermoon that rewards people for taking part. Users join monthly quests, complete social media tasks and earn Moon Power (XP) to unlock rewards. With Web3 built in, active users can also collect $EVM tokens, NFTs and exclusive content. The campaign has since ended.",
 		role: [
@@ -376,7 +375,7 @@ export const projects: Project[] = [
 		kind: MotifKind.Pins,
 		side: ProjectSide.OnScreen,
 		tags: ["Generative AI", "Maps"],
-		categories: [ProjectFilter.Platforms],
+		categories: ["platforms"],
 		stack: [
 			"generative ai",
 			"map",
@@ -469,7 +468,7 @@ export const projects: Project[] = [
 		kind: MotifKind.Moon,
 		side: ProjectSide.BehindTheScenes,
 		tags: ["Golang", "Solidity", "DeFi", "NFTs", "In-game shop"],
-		categories: [ProjectFilter.Games, ProjectFilter.OnChain],
+		categories: ["games", "on-chain"],
 		stack: [
 			"golang",
 			"solidity",
@@ -584,7 +583,7 @@ export const projects: Project[] = [
 		kind: MotifKind.Radar,
 		side: ProjectSide.BehindTheScenes,
 		tags: ["Real-time", "Radar protocols", "Encryption", "Maps"],
-		categories: [ProjectFilter.Platforms],
+		categories: ["platforms"],
 		stack: [
 			"socket",
 			"trml",

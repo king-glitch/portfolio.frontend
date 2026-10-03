@@ -1,6 +1,7 @@
 import React from "react";
 import {
 	RiFolderLine,
+	RiFolderUploadLine,
 	RiImageLine,
 	RiSettings3Line,
 	RiStickyNoteLine,
@@ -58,6 +59,11 @@ const groups: NavGroup[] = [
 				section: DashboardSection.Gallery,
 				to: config.routes.dashboardGallery,
 				icon: RiImageLine,
+			},
+			{
+				section: DashboardSection.Files,
+				to: config.routes.dashboardFiles,
+				icon: RiFolderUploadLine,
 			},
 		],
 	},

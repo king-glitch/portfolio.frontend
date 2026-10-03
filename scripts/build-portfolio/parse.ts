@@ -1,7 +1,6 @@
 import {
 	ExperienceKind,
 	MotifKind,
-	ProjectFilter,
 	ProjectSide,
 } from "@/api/types/portfolio/enums";
 import type {
@@ -61,7 +60,7 @@ export interface ParsedProject {
 	tags: string[];
 	stack: string[];
 	side: ProjectSide;
-	categories: ProjectFilter[];
+	categories: string[];
 }
 
 export interface ParsedMe {
@@ -84,13 +83,20 @@ export function kindFor(title: string): MotifKind {
 	return MotifKind.Hex;
 }
 
-/** `All` is never stored; a project is a game or a platform, and may also be on-chain. */
-export function categoriesFor(hay: string): ProjectFilter[] {
-	const categories = [
-		/ game/.test(hay) ? ProjectFilter.Games : ProjectFilter.Platforms,
+/** Category slugs of the seeded `project_categories`; "all" is never stored. */
+export const CATEGORY_SLUGS = {
+	games: "games",
+	platforms: "platforms",
+	onChain: "on-chain",
+} as const;
+
+/** A project is a game or a platform, and may also be on-chain. */
+export function categoriesFor(hay: string): string[] {
+	const categories: string[] = [
+		/ game/.test(hay) ? CATEGORY_SLUGS.games : CATEGORY_SLUGS.platforms,
 	];
 	if (/web3|solidity|nft|defi|blockchain/.test(hay))
-		categories.push(ProjectFilter.OnChain);
+		categories.push(CATEGORY_SLUGS.onChain);
 	return categories;
 }
 

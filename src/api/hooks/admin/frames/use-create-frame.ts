@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { uploadFrame } from "@/api/services/admin";
+import { createFrame } from "@/api/services/admin";
 
-export const useUploadFrame = () => {
+export const useCreateFrame = () => {
 	const queryClient = useQueryClient();
 	return useMutation({
-		mutationFn: uploadFrame,
+		mutationFn: createFrame,
 		onSuccess: () => queryClient.invalidateQueries(),
 	});
 };

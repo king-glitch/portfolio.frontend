@@ -66,6 +66,8 @@ export type BlockParams<T extends BlockType> = BlockParamsMap[T];
 export interface BlockExtras {
 	index: number;
 	projectKind: MotifKind;
+	/** The project's uploaded art: the header's fallback when it has none of its own. */
+	projectArtUrl?: string;
 }
 
 /** Props of every block component: its params plus the extras it does not already define (the header's own `index` wins). */

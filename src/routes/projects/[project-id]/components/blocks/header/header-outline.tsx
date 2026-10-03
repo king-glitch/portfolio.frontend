@@ -17,6 +17,7 @@ export const HeaderOutline: React.FC<HeaderOutlineProps> = ({
 	discipline,
 	tags,
 	kind,
+	imageUrl,
 }) => {
 	const { t } = useTranslation();
 	return (
@@ -44,7 +45,7 @@ export const HeaderOutline: React.FC<HeaderOutlineProps> = ({
 					data-speed="1.3"
 					className="aspect-4/3 w-[min(34vw,460px)] overflow-hidden rounded-3xl ring-1 ring-border"
 				>
-					<ProjectMotif kind={kind} />
+					<ProjectMotif kind={kind} imageUrl={imageUrl} />
 				</div>
 			</div>
 		</Panel>

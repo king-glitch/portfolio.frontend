@@ -30,6 +30,7 @@ function projectData(
 	const p: ProjectSummary | undefined = own(kind, ctx);
 	return {
 		motif: kind,
+		motifUrl: p?.artUrl,
 		caption: p?.name,
 		captionKey,
 		link: p && {

@@ -20,6 +20,7 @@ Each part ships on its own and passes both gates (`bun run check`, `bun run lint
 All JSON snake_case, envelope `{ data, errors }` as today. Admin routes behind `adminGuard`.
 
 **Storage**
+
 - `GET /api/v1/storage/administration/files?kind=image,document&q=&cursor=&limit=` → `{ items: FileItem[], next_cursor: string | null }`
 - `POST /api/v1/storage/administration/files` multipart `file` (+ optional `alt`) → `FileItem`
 - `PATCH /api/v1/storage/administration/files/:id` `{ name?, alt? }` → `FileItem`
@@ -27,24 +28,29 @@ All JSON snake_case, envelope `{ data, errors }` as today. Admin routes behind `
 - `FileItem = { id, kind: "image"|"video"|"audio"|"document"|"archive"|"other", mime, size, width, height, name, alt, url, created_at }`
 
 **Gallery**
+
 - `POST /api/v1/gallery/administration/frames` JSON `{ file_id, tags: string[], project_id: string | null }` → `GalleryItem` (multipart removed)
 - `PATCH /api/v1/gallery/administration/frames/:id` JSON `{ tags?, project_id?, file_id? }` → `GalleryItem`
 - `GalleryItem` keeps every current field (`id, project, tags, width, height, image_url, created_at`) and adds `file_id`, `alt`. Public gallery parsing keeps working unchanged.
 
 **Categories**
+
 - Setting key `project_categories`: `[{ slug, label }]`, returned by the existing admin and public settings endpoints.
 - Project `categories: string[]` (slugs); unknown slug on create/update → 400 violation on `categories`.
 
 **Art**
+
 - Project and note: optional `art_url: string` (empty or https/http URI) on create/update requests and all summary/detail responses (public too).
 - Blocks `project-header`, `motif-full`, `about-split`: optional param `image_url` (uri).
 
 **Note slug**
+
 - `NoteCreateRequest.slug` and `NoteUpdateRequest.slug`: optional string. Empty → generated from the title (today's behaviour). Given → normalized with the same `GenerateBaseSlug` rule and must be unique (`409`/violation on `slug`). Detail/summary responses already return `slug`.
 - Admin note detail can be fetched by id (today). Public note route accepts the slug (today).
 - Dashboard note form: optional "Slug" field; placeholder shows the slug auto-derived from the title; left empty = auto.
 
 **Violations**
+
 - Backend violation keys stay snake_case (`project_id`, `blocks.3.params.title`); the frontend maps them (Part A2).
 
 ---
@@ -61,28 +67,28 @@ All JSON snake_case, envelope `{ data, errors }` as today. Admin routes behind `
 
 ### Bugs (fix first)
 
-| # | Severity | Where | Problem | Fix |
-|---|---|---|---|---|
-| A1 | **High — data loss** | `projects/components/project-form-schema.ts` (`role`, also `stack`, `tags`) + `lib/forms.ts` `splitList` | `role` entries are sentences that contain commas (see `api/mocks/portfolio/projects.ts`). Editing a project joins them with `", "` and splits on `","` on save, so every role sentence with a comma is cut into fragments. | `role` becomes a one-per-line list (same control as `FieldKind.Lines`, or the list editor in F3). Keep comma split only for short tokens (tags), and better: the tag combobox in F4. |
-| A2 | **High** | `lib/forms.ts` `applyViolations`, all form `*FieldNames` | Backend violation keys are snake_case (`project_id`, `published_at`) and block paths (`blocks.3.params.title`); form fields are camelCase. Exact-match lookup means those errors never reach a field; the user only sees the generic toast. The note-form comment claims a mapping that does not exist. | In `applyViolations`, map snake_case to camelCase before matching. Route `blocks.<n>.…` violations to the block editor (error on card `n`). Add a unit test. |
-| A3 | **Medium** | `config.dashboard.imageAccept` vs backend `galleryrules.ProcessImage` | Frontend accepts `webp`/`gif`; backend accepts only `jpeg`/`png`, so those uploads fail after the round trip. | One accepted list. Superseded by Parts B/C (one allowlist; `config.dashboard.fileAccept` matches the backend exactly). |
-| A4 | **Medium** | `components/dynamic-form/block-editor.tsx`, `dynamic-objects-field.tsx` | Cards are keyed by array index. Move/remove shifts DOM state (focus, open selects, `useId` labels, and any future collapse state) onto the wrong card. | Use `useFieldArray` for `blocks` (already installed; gives stable `field.id`, `move`, `insert`, `remove`). For nested `Objects` lists, keep a client-only `_key` stripped in `normalize`. |
-| A5 | **Medium** | `profile-form.tsx` `toProfileUpdates` | A second `profileSchema.safeParse` after zod passed; failure only shows a generic toast and no field. | Fold the contract constraints into `profileFormSchema`, so failures land on fields and the null branch disappears. |
-| A6 | Low | `project-form.tsx`, `note-form.tsx` doc comments | Say "blocks is edited as JSON"; they are edited with the block editor. | Update comments. |
+| #   | Severity             | Where                                                                                                    | Problem                                                                                                                                                                                                                                                                                                 | Fix                                                                                                                                                                                       |
+| --- | -------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| A1  | **High — data loss** | `projects/components/project-form-schema.ts` (`role`, also `stack`, `tags`) + `lib/forms.ts` `splitList` | `role` entries are sentences that contain commas (see `api/mocks/portfolio/projects.ts`). Editing a project joins them with `", "` and splits on `","` on save, so every role sentence with a comma is cut into fragments.                                                                              | `role` becomes a one-per-line list (same control as `FieldKind.Lines`, or the list editor in F3). Keep comma split only for short tokens (tags), and better: the tag combobox in F4.      |
+| A2  | **High**             | `lib/forms.ts` `applyViolations`, all form `*FieldNames`                                                 | Backend violation keys are snake_case (`project_id`, `published_at`) and block paths (`blocks.3.params.title`); form fields are camelCase. Exact-match lookup means those errors never reach a field; the user only sees the generic toast. The note-form comment claims a mapping that does not exist. | In `applyViolations`, map snake_case to camelCase before matching. Route `blocks.<n>.…` violations to the block editor (error on card `n`). Add a unit test.                              |
+| A3  | **Medium**           | `config.dashboard.imageAccept` vs backend `galleryrules.ProcessImage`                                    | Frontend accepts `webp`/`gif`; backend accepts only `jpeg`/`png`, so those uploads fail after the round trip.                                                                                                                                                                                           | One accepted list. Superseded by Parts B/C (one allowlist; `config.dashboard.fileAccept` matches the backend exactly).                                                                    |
+| A4  | **Medium**           | `components/dynamic-form/block-editor.tsx`, `dynamic-objects-field.tsx`                                  | Cards are keyed by array index. Move/remove shifts DOM state (focus, open selects, `useId` labels, and any future collapse state) onto the wrong card.                                                                                                                                                  | Use `useFieldArray` for `blocks` (already installed; gives stable `field.id`, `move`, `insert`, `remove`). For nested `Objects` lists, keep a client-only `_key` stripped in `normalize`. |
+| A5  | **Medium**           | `profile-form.tsx` `toProfileUpdates`                                                                    | A second `profileSchema.safeParse` after zod passed; failure only shows a generic toast and no field.                                                                                                                                                                                                   | Fold the contract constraints into `profileFormSchema`, so failures land on fields and the null branch disappears.                                                                        |
+| A6  | Low                  | `project-form.tsx`, `note-form.tsx` doc comments                                                         | Say "blocks is edited as JSON"; they are edited with the block editor.                                                                                                                                                                                                                                  | Update comments.                                                                                                                                                                          |
 
 ### Design / UX findings
 
-| # | Area | Finding |
-|---|---|---|
-| U1 | Validation | `invalid` is one boolean for the whole block list. The error sits under the editor ("a block has a blank required field") and every blank field turns red at once. No required markers. Users must hunt through long forms. |
-| U2 | Unsaved changes | No guard. Sidebar link, Cancel, settings tab switch or reload drops a long project/profile edit silently. |
-| U3 | Long forms | Save sits only at the bottom of forms that grow to many screens (project blocks, profile timeline). |
-| U4 | Block editor | Add only at the end; a type `Select` plus a separate Add button; no collapse, no duplicate, no insert-between; remove is one click with no undo. |
-| U5 | Inputs | Three list conventions: comma text (tags/stack/role), newline textarea (`Lines`), cards (`Objects`). The user must read the hint to know which one. |
-| U6 | Files | Every image is a URL text field (`image_url` in mock/gallery blocks, SEO social image). The gallery upload is a raw file input with no preview and no alt text (alt is derived from the project name). |
-| U7 | Duplication | Project picker is built three times (note form, frame form, `DynamicProjectSelect`). Kind/side/status option lists are rebuilt inline per form although `lib/dynamic-form/options.ts` already has them. Violates the DRY rule in `AGENTS.md`. |
-| U8 | Taxonomy | Project categories are a hardcoded enum on both sides (`ProjectFilter` + i18n labels + Go `IsValid`). Adding a category needs a deploy of two repos. |
-| U9 | Feature toggles | Free-text names with no list of the flags the site reads; a typo silently makes a dead flag. |
+| #   | Area            | Finding                                                                                                                                                                                                                                       |
+| --- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| U1  | Validation      | `invalid` is one boolean for the whole block list. The error sits under the editor ("a block has a blank required field") and every blank field turns red at once. No required markers. Users must hunt through long forms.                   |
+| U2  | Unsaved changes | No guard. Sidebar link, Cancel, settings tab switch or reload drops a long project/profile edit silently.                                                                                                                                     |
+| U3  | Long forms      | Save sits only at the bottom of forms that grow to many screens (project blocks, profile timeline).                                                                                                                                           |
+| U4  | Block editor    | Add only at the end; a type `Select` plus a separate Add button; no collapse, no duplicate, no insert-between; remove is one click with no undo.                                                                                              |
+| U5  | Inputs          | Three list conventions: comma text (tags/stack/role), newline textarea (`Lines`), cards (`Objects`). The user must read the hint to know which one.                                                                                           |
+| U6  | Files           | Every image is a URL text field (`image_url` in mock/gallery blocks, SEO social image). The gallery upload is a raw file input with no preview and no alt text (alt is derived from the project name).                                        |
+| U7  | Duplication     | Project picker is built three times (note form, frame form, `DynamicProjectSelect`). Kind/side/status option lists are rebuilt inline per form although `lib/dynamic-form/options.ts` already has them. Violates the DRY rule in `AGENTS.md`. |
+| U8  | Taxonomy        | Project categories are a hardcoded enum on both sides (`ProjectFilter` + i18n labels + Go `IsValid`). Adding a category needs a deploy of two repos.                                                                                          |
+| U9  | Feature toggles | Free-text names with no list of the flags the site reads; a typo silently makes a dead flag.                                                                                                                                                  |
 
 ---
 
@@ -101,34 +107,48 @@ New `storage` service owns **every uploaded file of any type**: images, video, a
 
 `FileKind` enum in `internal/ports/enum.go` with `IsValid()`: `image`, `video`, `audio`, `document`, `archive`, `other`. The kind is **derived from the sniffed MIME type**, never sent by the client. It exists for filtering and for the picker's `accept`.
 
-| kind | allowed MIME (allowlist in `internal/core/constant/storage.go`) | processing |
-|---|---|---|
-| image | `image/jpeg`, `image/png` | sniff, pixel guard, downscale, re-encode, strip EXIF (today's `ProcessImage`) |
-| video | `video/mp4`, `video/webm` | stored as-is |
-| audio | `audio/mpeg`, `audio/ogg`, `audio/wav` | stored as-is |
-| document | `application/pdf`, `text/plain`, `text/csv` | stored as-is |
-| archive | `application/zip` | stored as-is |
-| other | fonts (`font/woff2`, `font/woff`) | stored as-is |
+| kind     | allowed MIME (allowlist in `internal/core/constant/storage.go`) | processing                                                                    |
+| -------- | --------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| image    | `image/jpeg`, `image/png`                                       | sniff, pixel guard, downscale, re-encode, strip EXIF (today's `ProcessImage`) |
+| video    | `video/mp4`, `video/webm`                                       | stored as-is                                                                  |
+| audio    | `audio/mpeg`, `audio/ogg`, `audio/wav`                          | stored as-is                                                                  |
+| document | `application/pdf`, `text/plain`, `text/csv`                     | stored as-is                                                                  |
+| archive  | `application/zip`                                               | stored as-is                                                                  |
+| other    | fonts (`font/woff2`, `font/woff`)                               | stored as-is                                                                  |
 
 **Allowlist, not "anything".** Never accept types a browser executes on the API origin: `text/html`, `image/svg+xml`, `application/javascript`, `application/xhtml+xml`, XML. A file served from `/uploads` runs on the backend origin, so one HTML or SVG upload is a stored XSS. Unknown sniffed type is rejected with `ErrUnsupportedFile`. Add a type by adding it to the allowlist with its kind.
 
 Serving rules for `/uploads`:
+
 - `X-Content-Type-Options: nosniff` (helmet already sets it; confirm it covers the static route).
 - `Content-Disposition: attachment` for every kind except image, video and audio, so documents and archives download instead of rendering inline. PDF inline preview is skipped; add it with `Content-Security-Policy: sandbox` if wanted.
 - `Content-Type` from the stored sniffed MIME, not from the file extension.
 
+### Storage provider: Firebase (production), local (tests/dev only)
+
+Decision (user): files live in **Firebase Storage**. The local disk adapter stays only for tests and local development.
+
+- New adapter `internal/adapters/storage/firebase/storage.go` implementing `ports.StorageProvider`. Use `cloud.google.com/go/storage` against the Firebase bucket (Firebase Storage is a GCS bucket; the full Firebase Admin SDK is not needed). Credentials through Application Default Credentials (`GOOGLE_APPLICATION_CREDENTIALS`), or `APP_FIREBASE_CREDENTIALS_JSON` when set.
+- Port change: `Save` takes object metadata, e.g. `Save(ctx, key, data, ports.ObjectMeta{ContentType, Disposition})`. The adapter sets `ContentType`, `ContentDisposition` (`attachment` for every kind except image/video/audio) and `CacheControl: public, max-age=31536000, immutable` (keys are UUIDs, never rewritten). The serving rules from "Serving rules" above then hold on Firebase without any middleware.
+- `URL(key)` stays deterministic, with no stored token: `https://firebasestorage.googleapis.com/v0/b/<bucket>/o/<url-escaped key>?alt=media`. Requires Firebase Storage rules that allow public `read` on the upload prefix (writes only by the service account). Document the rules snippet in `docs/API.md`.
+- Keys live under a prefix (`APP_FIREBASE_PREFIX`, default `uploads/`).
+- Config: `APP_STORAGE_DRIVER` = `firebase` (default) | `local`. `APP_FIREBASE_BUCKET` required when `firebase`; boot fails fast when it is missing. `APP_STORAGE_DIR` and the `/uploads` static route exist only with `local`. Driver chosen once in the runtime bootstrap (`commands/runtime.go`); services only see `ports.StorageProvider`.
+- `.env.example`, `docker-compose.yml`, `Dockerfile` notes updated. Tests and local dev set `APP_STORAGE_DRIVER=local`.
+- `migrate-files` also copies existing files from `APP_STORAGE_DIR` into the active provider when the driver is `firebase` (reads local bytes, `Save` with sniffed metadata). Idempotent.
+- Tests: URL builder and metadata (disposition per kind) unit-tested; the adapter compiles against the real client. Integration against the Firebase Storage emulator is skipped; add it if the adapter grows logic.
+
 ### Model — `ports.FileModel`, collection `file`
 
-| field | type | note |
-|---|---|---|
-| `storage_key` | string | `uuid.ext`, unique index; extension from the sniffed MIME, never from the client name |
-| `kind` | `FileKind` | derived |
-| `mime` | string | sniffed |
-| `size` | int64 | bytes after processing |
-| `width`, `height` | int | images only; `0` otherwise |
-| `name` | string | sanitized original file name, editable |
-| `alt` | string | editable; used as `alt` for images |
-| base fields | | `created_at`/`updated_at` from hexag `ModelBase` |
+| field             | type       | note                                                                                  |
+| ----------------- | ---------- | ------------------------------------------------------------------------------------- |
+| `storage_key`     | string     | `uuid.ext`, unique index; extension from the sniffed MIME, never from the client name |
+| `kind`            | `FileKind` | derived                                                                               |
+| `mime`            | string     | sniffed                                                                               |
+| `size`            | int64      | bytes after processing                                                                |
+| `width`, `height` | int        | images only; `0` otherwise                                                            |
+| `name`            | string     | sanitized original file name, editable                                                |
+| `alt`             | string     | editable; used as `alt` for images                                                    |
+| base fields       |            | `created_at`/`updated_at` from hexag `ModelBase`                                      |
 
 Indexes: `{kind:1, _id:-1}` (filtered, cursor-paged list), collation index on `name` for search.
 
@@ -155,12 +175,12 @@ Indexes: `{kind:1, _id:-1}` (filtered, cursor-paged list), collation index on `n
 
 ### Routes — `routes/storage.go`, group `/api/v1/storage`
 
-| method | path | body / query | result |
-|---|---|---|---|
-| GET | `/administration/files` | `kind` (comma list), `q`, `cursor`, `limit` | `{items, next_cursor}` |
-| POST | `/administration/files` | multipart `file`, optional `alt` | `FileItem` (upload limiter) |
-| PATCH | `/administration/files/:id` | `{name?, alt?}` | `FileItem` |
-| DELETE | `/administration/files/:id` | | 409 `ErrFileInUse` when a gallery frame references it |
+| method | path                        | body / query                                | result                                                |
+| ------ | --------------------------- | ------------------------------------------- | ----------------------------------------------------- |
+| GET    | `/administration/files`     | `kind` (comma list), `q`, `cursor`, `limit` | `{items, next_cursor}`                                |
+| POST   | `/administration/files`     | multipart `file`, optional `alt`            | `FileItem` (upload limiter)                           |
+| PATCH  | `/administration/files/:id` | `{name?, alt?}`                             | `FileItem`                                            |
+| DELETE | `/administration/files/:id` |                                             | 409 `ErrFileInUse` when a gallery frame references it |
 
 All behind `adminGuard`. Literal segments before `/:id`. `GET /administration/files/kinds` is not needed: the frontend keeps the same allowlist in config (see C).
 
@@ -217,11 +237,11 @@ Location: `src/routes/dashboard/components/storage/` (used by gallery, settings,
 
 ### Wire-up
 
-| Form | Field today | Becomes |
-|---|---|---|
-| Gallery frame dialog | file input | `FileSelectField accept=[Image]` storing `fileId`; edit mode can change the picture |
-| SEO settings | `socialPreviewImage` URL text | `FileSelectField accept=[Image]` storing URL |
-| Project block `mock`, `gallery.items[]` | `image_url` text | `FieldKind.File` with `accept: [Image]` |
+| Form                                    | Field today                   | Becomes                                                                             |
+| --------------------------------------- | ----------------------------- | ----------------------------------------------------------------------------------- |
+| Gallery frame dialog                    | file input                    | `FileSelectField accept=[Image]` storing `fileId`; edit mode can change the picture |
+| SEO settings                            | `socialPreviewImage` URL text | `FileSelectField accept=[Image]` storing URL                                        |
+| Project block `mock`, `gallery.items[]` | `image_url` text              | `FieldKind.File` with `accept: [Image]`                                             |
 
 Dynamic form: add `FieldKind.File` and `accept?: FileKind[]` on `FieldSpec`. `DynamicField` renders `FileSelectField`. Any future file field (a CV PDF in the profile, an audio clip block) is one spec line with its own `accept`. Video in blocks only after the public renderer (`gallery-art`, mock block) can play video; until then blocks accept images only.
 
@@ -263,14 +283,14 @@ Run this part **last**, after Parts B–D (and G if done) are implemented and bo
 
 **Projects — all 6**, in this order (order = site order = `num`):
 
-| # | mock `id` (= backend slug) | name | note |
-|---|---|---|---|
-| 0001 | `morning-moon-pocket` | Morning Moon Pocket | has a `lineage` block with `fromId: "morning-moon-village"` (forward reference, see pass 2) |
-| 0002 | `metal-valley` | Metal Valley | |
-| 0003 | `evermoon-socialfi` | Evermoon SocialFi | |
-| 0004 | `estic-ai` | Estic AI | |
-| 0005 | `morning-moon-village` | Morning Moon Village | |
-| 0006 | `aads` | AADS | |
+| #    | mock `id` (= backend slug) | name                 | note                                                                                        |
+| ---- | -------------------------- | -------------------- | ------------------------------------------------------------------------------------------- |
+| 0001 | `morning-moon-pocket`      | Morning Moon Pocket  | has a `lineage` block with `fromId: "morning-moon-village"` (forward reference, see pass 2) |
+| 0002 | `metal-valley`             | Metal Valley         |                                                                                             |
+| 0003 | `evermoon-socialfi`        | Evermoon SocialFi    |                                                                                             |
+| 0004 | `estic-ai`                 | Estic AI             |                                                                                             |
+| 0005 | `morning-moon-village`     | Morning Moon Village |                                                                                             |
+| 0006 | `aads`                     | AADS                 |                                                                                             |
 
 - Backend slug is generated from `name` (`GenerateBaseSlug`: lowercase, non-alphanumerics to `-`). All 6 generated slugs equal the mock ids, so public URLs stay the same. The seed asserts this and fails loudly if one differs.
 - `num` is generated sequentially (`%04d`). Creating in the order above on an empty `project` collection gives `0001`–`0006`, matching the mocks.
@@ -278,11 +298,11 @@ Run this part **last**, after Parts B–D (and G if done) are implemented and bo
 
 **Notes — all 3**:
 
-| mock `slug` | title |
-|---|---|
-| `scalable-game-backend` | How to build a scalable backend for a game |
+| mock `slug`                             | title                                         |
+| --------------------------------------- | --------------------------------------------- |
+| `scalable-game-backend`                 | How to build a scalable backend for a game    |
 | `smart-contracts-you-can-sleep-next-to` | Writing smart contracts you can sleep next to |
-| `four-thousand-pins-one-smooth-map` | Four thousand pins, one smooth map |
+| `four-thousand-pins-one-smooth-map`     | Four thousand pins, one smooth map            |
 
 - Fields: `title`, `kind`, `tags`, `excerpt`, `blocks`; `status: published`. Not sent: `num`, `read_minutes`, `sample` (backend computes them).
 - **Slugs differ.** The backend derives a note slug from the title. Decision (user): note `slug` is an optional input on create/update for everyone (see API contract): given = used (normalized, unique), empty = auto from title. The seed passes the mock slugs, so `/notes/<slug>` links keep working.
@@ -309,13 +329,49 @@ Extend `scripts/build-portfolio/index.ts` to also write `content/seed.json` (che
 
 ```json
 {
-  "project_categories": [{ "slug": "games", "label": "Games" }],
-  "projects": [{ "slug": "morning-moon-pocket", "name": "…", "full": "…", "kind": "pixel", "side": "behind-the-scenes",
-                 "tags": [], "categories": ["games"], "stack": [], "about": "…", "role": [], "status": "published",
-                 "blocks": [{ "type": "lineage", "params": { "from_slug": "morning-moon-village", "…": "…" } }] }],
-  "notes": [{ "slug": "scalable-game-backend", "title": "…", "kind": "hex", "tags": [], "excerpt": "…",
-              "status": "published", "published_at": "2026-10-03T00:00:00Z", "blocks": [] }],
-  "profile": { "name": "…", "contact": { "email": "…", "github": "…", "linkedin": "…", "discord": "…" } }
+	"project_categories": [{ "slug": "games", "label": "Games" }],
+	"projects": [
+		{
+			"slug": "morning-moon-pocket",
+			"name": "…",
+			"full": "…",
+			"kind": "pixel",
+			"side": "behind-the-scenes",
+			"tags": [],
+			"categories": ["games"],
+			"stack": [],
+			"about": "…",
+			"role": [],
+			"status": "published",
+			"blocks": [
+				{
+					"type": "lineage",
+					"params": { "from_slug": "morning-moon-village", "…": "…" }
+				}
+			]
+		}
+	],
+	"notes": [
+		{
+			"slug": "scalable-game-backend",
+			"title": "…",
+			"kind": "hex",
+			"tags": [],
+			"excerpt": "…",
+			"status": "published",
+			"published_at": "2026-10-03T00:00:00Z",
+			"blocks": []
+		}
+	],
+	"profile": {
+		"name": "…",
+		"contact": {
+			"email": "…",
+			"github": "…",
+			"linkedin": "…",
+			"discord": "…"
+		}
+	}
 }
 ```
 
@@ -363,15 +419,15 @@ Ordered by value per effort.
 1. **Unsaved-changes guard (U2).** `useBlocker(form.formState.isDirty && !submitting)` from react-router + shadcn `AlertDialog` ("Discard changes?"), plus `beforeunload` while dirty. One hook in `src/hooks/use-unsaved-guard.ts`, used by project, note and every settings form.
 2. **Sticky action bar (U3).** A `FormActions` common component (`components/common/forms/`): sticky bottom bar with Save/Cancel, a "unsaved changes" hint while dirty, same button heights (Overlay Button Sizing Parity).
 3. **Block editor (U4, A4).** On top of `useFieldArray`:
-   - "Add block" as a `DropdownMenu` listing types (one click instead of select + button); an insert point between cards.
-   - Cards collapsible (shadcn `Collapsible`; add it). Collapsed header shows type + first text field as summary. New and invalid blocks open automatically.
-   - Duplicate action; remove shows a toast with Undo (re-insert at index) instead of a confirm dialog.
-   - Drag reorder: skipped; the arrow buttons work and are accessible. Add `@dnd-kit` only if ordering long lists gets painful.
+    - "Add block" as a `DropdownMenu` listing types (one click instead of select + button); an insert point between cards.
+    - Cards collapsible (shadcn `Collapsible`; add it). Collapsed header shows type + first text field as summary. New and invalid blocks open automatically.
+    - Duplicate action; remove shows a toast with Undo (re-insert at index) instead of a confirm dialog.
+    - Drag reorder: skipped; the arrow buttons work and are accessible. Add `@dnd-kit` only if ordering long lists gets painful.
 4. **Per-field validation (U1, A2).** Replace the global `invalid` flag: `blocksHaveMissing` returns the indexes of invalid blocks; the card shows a destructive badge and opens; on submit failure, scroll to and focus the first invalid field (`form.setFocus` for top-level, `scrollIntoView` for blocks). Mark required labels.
 5. **One list convention (U5).**
-   - Short tokens (tags, stack): `TagsField` = shadcn Combobox multiple with chips, suggestions from existing tags (`/note/tags`, `/gallery/tags`; add project tags to the admin list response or compute client-side from `useAdminProjects`). Free entry allowed.
-   - Sentences (role, notes, list items): `Lines` list editor = one `Input` per row with add/remove (via `useFieldArray`), not a newline textarea. Fixes A1 for good.
-   - Records: `Objects` cards (unchanged).
+    - Short tokens (tags, stack): `TagsField` = shadcn Combobox multiple with chips, suggestions from existing tags (`/note/tags`, `/gallery/tags`; add project tags to the admin list response or compute client-side from `useAdminProjects`). Free entry allowed.
+    - Sentences (role, notes, list items): `Lines` list editor = one `Input` per row with add/remove (via `useFieldArray`), not a newline textarea. Fixes A1 for good.
+    - Records: `Objects` cards (unchanged).
 6. **DRY (U7).** One `ProjectSelectField` (common under `routes/dashboard/components/`) used by note form, frame form and `FieldKind.Project`; forms read option lists from `optionSets` instead of rebuilding them.
 7. **After create**, go to the new item's edit page (toast "Created"), not back to the list, so the author can keep editing. Add a "View on site" link for published items.
 8. **Feature toggles (U9).** Keep free names, but list the flags the site reads (a typed `FeatureFlag` enum in `api/types`) as suggestions in a combobox, and show "not used by the site" on unknown names.
@@ -393,12 +449,12 @@ Built-in motifs stay as **presets and fallback**; uploaded art is **added on top
 - Keep `kind`: the SVGs use `currentColor`, so they follow the theme (light/dark, invert tone). An uploaded image does not, and a broken or deleted file needs a fallback. `kind` stays required in every schema.
 - Add an optional uploaded image beside `kind` wherever art is shown:
 
-| Owner | New field | Shown in |
-|---|---|---|
-| Project | `art_url` (top level) | project cards, menu preview, explore tiles |
-| Note | `art_url` (top level) | note cards, featured post, post header |
-| Block `project-header` | `image_url` (optional param) | header art; falls back to project `art_url`, then `kind` |
-| Block `motif-full`, `about-split` | `image_url` (optional param) | block art |
+| Owner                             | New field                    | Shown in                                                 |
+| --------------------------------- | ---------------------------- | -------------------------------------------------------- |
+| Project                           | `art_url` (top level)        | project cards, menu preview, explore tiles               |
+| Note                              | `art_url` (top level)        | note cards, featured post, post header                   |
+| Block `project-header`            | `image_url` (optional param) | header art; falls back to project `art_url`, then `kind` |
+| Block `motif-full`, `about-split` | `image_url` (optional param) | block art                                                |
 
 ### Backend
 
@@ -410,10 +466,11 @@ Built-in motifs stay as **presets and fallback**; uploaded art is **added on top
 
 - `ProjectMotif` gets an optional `imageUrl`. Same pattern as `ProjectMedia`: render `<img class="size-full object-cover">` when set, fall back to the SVG on `onError`. Call sites pass `project.artUrl` / `post.artUrl` / block `imageUrl`; there is no other render change.
 - **`ArtField`** (replaces the kind `Select` in project form, note form and the `kind` field of art blocks): one control with two rows.
-  1. **Preset** — `ToggleGroup` of the six motifs rendered as small live thumbnails (`ProjectMotif` at 80×60), selected state ringed. Writes `kind`.
-  2. **Custom image (optional)** — the `FileSelectField` from Part C (`accept=[Image]`, dropdown + **plus** to upload). Writes `art_url` / `image_url`. A "Use preset" clear action removes it.
+    1. **Preset** — `ToggleGroup` of the six motifs rendered as small live thumbnails (`ProjectMotif` at 80×60), selected state ringed. Writes `kind`.
+    2. **Custom image (optional)** — the `FileSelectField` from Part C (`accept=[Image]`, dropdown + **plus** to upload). Writes `art_url` / `image_url`. A "Use preset" clear action removes it.
 
-  A live preview next to it shows what the site will render (custom image if set, else the preset).
+    A live preview next to it shows what the site will render (custom image if set, else the preset).
+
 - Dynamic form: new `FieldKind.Art` that edits the pair `kind` + `image_url` in one control. Its spec names both keys, so `normalize` drops an empty `image_url` like any optional field.
 - `mock` and `gallery` block items keep `kind`/`screen` as the fallback mock; their `image_url` already uses the file picker (Part C). Show the mock preset as a thumbnail too, not a text select.
 
@@ -435,21 +492,21 @@ Built-in motifs stay as **presets and fallback**; uploaded art is **added on top
 
 ## Order of work
 
-| Step | Repo | Part | Depends on |
-|---|---|---|---|
-| 1 | FE | A1, A2, A5, A6 (bug fixes) | — |
-| 2 | BE | B: storage service, file kinds allowlist, routes, tests, bruno | — |
-| 3 | BE | B: gallery on `file_id` + `migrate-files` | 2 |
-| 4 | FE | C: data layer, files page, picker, upload dialog | 2 |
-| 5 | FE | C: gallery dialog, SEO, `FieldKind.File` wire-up (fixes A3) | 3, 4 |
-| 6 | BE | D: `project_categories` setting + validation | — |
-| 7 | FE | D: categories tab, hook, remove enum | 6 |
-| 8 | FE+BE | E: seed JSON export + `content seed` CLI, then run it | all code steps (run last) |
-| 9 | FE | F1–F4 (guard, action bar, block editor, validation) | 1 |
-| 10 | FE | F5–F8 | 9 |
-| 11 | BE | G: `art_url` on project/note, optional `image_url` on art block schemas | 2 |
-| 12 | FE | G: `ProjectMotif` image fallback, `ArtField`, `FieldKind.Art` | 4, 11 |
-| 13 | FE | H: status in action bar, `ToggleGroup` for 2–3 option enums | 9 |
+| Step | Repo  | Part                                                                    | Depends on                |
+| ---- | ----- | ----------------------------------------------------------------------- | ------------------------- |
+| 1    | FE    | A1, A2, A5, A6 (bug fixes)                                              | —                         |
+| 2    | BE    | B: storage service, file kinds allowlist, routes, tests, bruno          | —                         |
+| 3    | BE    | B: gallery on `file_id` + `migrate-files`                               | 2                         |
+| 4    | FE    | C: data layer, files page, picker, upload dialog                        | 2                         |
+| 5    | FE    | C: gallery dialog, SEO, `FieldKind.File` wire-up (fixes A3)             | 3, 4                      |
+| 6    | BE    | D: `project_categories` setting + validation                            | —                         |
+| 7    | FE    | D: categories tab, hook, remove enum                                    | 6                         |
+| 8    | FE+BE | E: seed JSON export + `content seed` CLI, then run it                   | all code steps (run last) |
+| 9    | FE    | F1–F4 (guard, action bar, block editor, validation)                     | 1                         |
+| 10   | FE    | F5–F8                                                                   | 9                         |
+| 11   | BE    | G: `art_url` on project/note, optional `image_url` on art block schemas | 2                         |
+| 12   | FE    | G: `ProjectMotif` image fallback, `ArtField`, `FieldKind.Art`           | 4, 11                     |
+| 13   | FE    | H: status in action bar, `ToggleGroup` for 2–3 option enums             | 9                         |
 
 ## Verify in the browser (per AGENTS.md)
 

@@ -1,3 +1,4 @@
+import { FileKind } from "@/api/types/admin/storage";
 import { BlockType, PostBlockType } from "@/api/types/portfolio/enums";
 import {
 	FieldKind,
@@ -30,6 +31,18 @@ const lines = (name: FieldName, flags: Flags = {}): FieldSpec => ({
 	allowEmpty: true,
 	...flags,
 });
+const file = (
+	name: FieldName,
+	accept: FileKind[],
+	flags: Flags = {},
+): FieldSpec => ({ name, kind: FieldKind.File, accept, ...flags });
+/** Motif preset (`kind`) with its optional uploaded image (`image_url`) as one control. */
+const art = (flags: Flags = {}): FieldSpec => ({
+	name: FieldName.Kind,
+	kind: FieldKind.Art,
+	imageName: FieldName.ImageUrl,
+	...flags,
+});
 const objects = (name: FieldName, fields: FieldSpec[]): FieldSpec => ({
 	name,
 	kind: FieldKind.Objects,
@@ -43,7 +56,7 @@ const media = [
 	select(FieldName.Screen, OptionSet.Screen),
 	select(FieldName.View, OptionSet.View),
 	text(FieldName.Caption, { allowEmpty: true }),
-	text(FieldName.ImageUrl, { optional: true }),
+	file(FieldName.ImageUrl, [FileKind.Image], { optional: true }),
 ];
 
 /** Fields of each project block (`params`), mirroring the backend's JSON schema for that block. */
@@ -55,7 +68,7 @@ export const projectBlockSpecs: Record<BlockType, FieldSpec[]> = {
 		text(FieldName.Index, { allowEmpty: true }),
 		select(FieldName.Discipline, OptionSet.Side),
 		lines(FieldName.Tags),
-		select(FieldName.Kind, OptionSet.Kind),
+		art(),
 	],
 	[BlockType.Quote]: [
 		area(FieldName.Text),
@@ -70,7 +83,7 @@ export const projectBlockSpecs: Record<BlockType, FieldSpec[]> = {
 	[BlockType.AboutSplit]: [
 		text(FieldName.Label),
 		area(FieldName.Text),
-		select(FieldName.Kind, OptionSet.Kind, { optional: true }),
+		art({ optional: true }),
 		lines(FieldName.List, { optional: true }),
 	],
 	[BlockType.NumberedList]: labelAndItems,
@@ -78,10 +91,7 @@ export const projectBlockSpecs: Record<BlockType, FieldSpec[]> = {
 	[BlockType.FeatureGrid]: labelAndItems,
 	[BlockType.Timeline]: labelAndItems,
 	[BlockType.Zigzag]: labelAndItems,
-	[BlockType.MotifFull]: [
-		select(FieldName.Kind, OptionSet.Kind),
-		text(FieldName.Label, { optional: true }),
-	],
+	[BlockType.MotifFull]: [art(), text(FieldName.Label, { optional: true })],
 	[BlockType.Chips]: [
 		text(FieldName.Label),
 		text(FieldName.Title),

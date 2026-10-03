@@ -12,6 +12,7 @@ interface BlockMotifFullProps extends BlockProps<BlockType.MotifFull> {}
 export const BlockMotifFull: React.FC<BlockMotifFullProps> = ({
 	kind,
 	label,
+	imageUrl,
 	index,
 }) => {
 	return (
@@ -19,6 +20,7 @@ export const BlockMotifFull: React.FC<BlockMotifFullProps> = ({
 			<div data-speed="1.25" className="absolute inset-0">
 				<ProjectMotif
 					kind={kind}
+					imageUrl={imageUrl}
 					className="bg-background text-foreground"
 				/>
 			</div>

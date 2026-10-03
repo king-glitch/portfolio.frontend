@@ -5,7 +5,7 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import { config } from "@/config";
 import { dashboardNotePath } from "@/lib/routes";
 import { RowActions } from "@/routes/dashboard/components/row-actions";
-import { StatusBadge } from "@/routes/dashboard/components/status-badge";
+import { StatusBadge } from "@/routes/dashboard/components/status/status-badge";
 
 interface NoteRowProps {
 	note: AdminNote;

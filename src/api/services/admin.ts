@@ -2,7 +2,9 @@ import { z } from "zod";
 import { HttpMethod, get, request } from "@/api/client";
 import { parseBody } from "@/api/parse";
 import {
+	adminFilePageSchema,
 	adminFramePageSchema,
+	adminFileSchema,
 	adminFrameSchema,
 	adminNoteListSchema,
 	adminNoteSchema,
@@ -31,15 +33,21 @@ import type {
 import type {
 	AdminFrame,
 	AdminFramePage,
+	FrameCreateInput,
 	FrameUpdateInput,
-	FrameUploadInput,
 } from "@/api/types/admin/gallery";
+import type {
+	AdminFile,
+	FileListParams,
+	FilePage,
+	FileUpdateInput,
+	FileUploadInput,
+} from "@/api/types/admin/storage";
 import type { Setting, SettingUpdate } from "@/api/types/admin/setting";
 import { config } from "@/config";
 import { setSession } from "@/lib/auth/session";
 
 const { auth, admin } = config.api.paths;
-const { listSeparator } = config.dashboard;
 const segment = encodeURIComponent;
 
 /** Authenticated call whose body is parsed against `schema`. */
@@ -116,10 +124,20 @@ export const getAdminProject = (id: string): Promise<AdminProjectDetail> =>
 		`${admin.projects}/${segment(id)}`,
 	);
 
+const projectBody = ({ artUrl, ...rest }: ProjectInput) => ({
+	...rest,
+	art_url: artUrl,
+});
+
 export const createProject = (
 	input: ProjectInput,
 ): Promise<AdminProjectDetail> =>
-	call(adminProjectSchema, HttpMethod.Post, admin.projects, input);
+	call(
+		adminProjectSchema,
+		HttpMethod.Post,
+		admin.projects,
+		projectBody(input),
+	);
 
 export const updateProject = (
 	id: string,
@@ -129,7 +147,7 @@ export const updateProject = (
 		adminProjectSchema,
 		HttpMethod.Put,
 		`${admin.projects}/${segment(id)}`,
-		input,
+		projectBody(input),
 	);
 
 export const deleteProject = (id: string) =>
@@ -145,10 +163,11 @@ export const listAdminNotes = (): Promise<AdminNote[]> =>
 export const getAdminNote = (id: string): Promise<AdminNoteDetail> =>
 	call(adminNoteSchema, HttpMethod.Get, `${admin.notes}/${segment(id)}`);
 
-const noteBody = ({ projectId, publishedAt, ...rest }: NoteInput) => ({
+const noteBody = ({ projectId, publishedAt, artUrl, ...rest }: NoteInput) => ({
 	...rest,
 	project_id: projectId,
 	published_at: publishedAt,
+	art_url: artUrl,
 });
 
 export const createNote = ({
@@ -189,33 +208,26 @@ export async function listAdminFrames(cursor: string): Promise<AdminFramePage> {
 	);
 }
 
-export async function uploadFrame({
-	file,
+export const createFrame = ({
+	fileId,
 	tags,
 	projectId,
-}: FrameUploadInput): Promise<AdminFrame> {
-	const form = new FormData();
-	form.set("file", file);
-	form.set("tags", tags.join(listSeparator));
-	if (projectId) form.set("project_id", projectId);
-	const data = await request(HttpMethod.Post, admin.frames, {
-		auth: true,
-		form,
+}: FrameCreateInput): Promise<AdminFrame> =>
+	call(adminFrameSchema, HttpMethod.Post, admin.frames, {
+		file_id: fileId,
+		tags,
+		project_id: projectId,
 	});
-	return parseBody(adminFrameSchema, admin.frames, data);
-}
 
-export async function updateFrame(
+export const updateFrame = (
 	id: string,
-	{ tags, projectId }: FrameUpdateInput,
-): Promise<AdminFrame> {
-	const path = `${admin.frames}/${segment(id)}`;
-	const data = await request(HttpMethod.Patch, path, {
-		auth: true,
-		body: { tags, project_id: projectId },
+	{ fileId, tags, projectId }: FrameUpdateInput,
+): Promise<AdminFrame> =>
+	call(adminFrameSchema, HttpMethod.Patch, `${admin.frames}/${segment(id)}`, {
+		file_id: fileId,
+		tags,
+		project_id: projectId,
 	});
-	return parseBody(adminFrameSchema, path, data);
-}
 
 export const deleteFrame = (id: string) =>
 	act(HttpMethod.Delete, `${admin.frames}/${segment(id)}`);
@@ -225,3 +237,49 @@ export const listSettings = (): Promise<Setting[]> =>
 
 export const saveSettings = (updates: SettingUpdate[]) =>
 	act(HttpMethod.Put, admin.settings, { settings: updates });
+
+/** One page of the file library, newest first; `kinds` empty = every kind. */
+export async function listFiles(
+	cursor: string,
+	{ kinds, q }: FileListParams,
+): Promise<FilePage> {
+	const { params } = config.api;
+	const data = await request(HttpMethod.Get, admin.files, {
+		auth: true,
+		params: {
+			[params.kind]: kinds.join(","),
+			[params.q]: q,
+			[params.cursor]: cursor,
+			[params.limit]: config.dashboard.filePageSize,
+		},
+	});
+	return parseBody(adminFilePageSchema, admin.files, data);
+}
+
+export async function uploadFile({
+	file,
+	alt,
+}: FileUploadInput): Promise<AdminFile> {
+	const form = new FormData();
+	form.set("file", file);
+	if (alt) form.set("alt", alt);
+	const data = await request(HttpMethod.Post, admin.files, {
+		auth: true,
+		form,
+	});
+	return parseBody(adminFileSchema, admin.files, data);
+}
+
+export const updateFile = (
+	id: string,
+	input: FileUpdateInput,
+): Promise<AdminFile> =>
+	call(
+		adminFileSchema,
+		HttpMethod.Patch,
+		`${admin.files}/${segment(id)}`,
+		input,
+	);
+
+export const deleteFile = (id: string) =>
+	act(HttpMethod.Delete, `${admin.files}/${segment(id)}`);

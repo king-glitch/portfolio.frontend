@@ -1,0 +1,992 @@
+{
+	"project_categories": [
+		{ "slug": "games", "label": "Games" },
+		{ "slug": "platforms", "label": "Platforms & tools" },
+		{ "slug": "on-chain", "label": "On-chain" }
+	],
+	"projects": [
+		{
+			"slug": "morning-moon-pocket",
+			"name": "Morning Moon Pocket",
+			"full": "Morning Moon Pocket",
+			"kind": "pixel",
+			"side": "behind-the-scenes",
+			"tags": ["Golang", "MongoDB", "Solidity", "DeFi", "Soneium"],
+			"categories": ["games", "on-chain"],
+			"stack": [
+				"golang",
+				"mongodb",
+				"solidity",
+				"defi",
+				"soneium",
+				"mission system",
+				"shop system",
+				"client",
+				"data",
+				"smart contract"
+			],
+			"about": "Morning Moon Village, rebuilt for phones. The same farming and resource gathering on a touch-first screen, with the whole server side rewritten for global players on the Soneium chain.",
+			"role": [
+				"Rewrote the server side in Golang and MongoDB with a new database schema and optimised code, so it scales to far more players.",
+				"Moved the old features onto the new architecture and kept the live ones working.",
+				"Added new features such as a shop system and a mission system, and kept every player in sync in real time.",
+				"Rewrote most of the Solidity smart contracts for the game’s DeFi mechanics, so they are safe, efficient and fit the new architecture.",
+				"Worked with the client-side team so server features felt smooth on mobile."
+			],
+			"status": "published",
+			"blocks": [
+				{
+					"type": "project-header",
+					"params": {
+						"variant": "vertical",
+						"title": "Morning Moon Pocket",
+						"subtitle": "Morning Moon Pocket",
+						"index": "0001",
+						"discipline": "behind-the-scenes",
+						"tags": [
+							"Golang",
+							"MongoDB",
+							"Solidity",
+							"DeFi",
+							"Soneium"
+						],
+						"kind": "pixel"
+					}
+				},
+				{
+					"type": "chips",
+					"params": {
+						"label": "The brief",
+						"title": "Rebuilt.",
+						"text": "The whole server side, rebuilt for mobile and for global players on the Soneium chain.",
+						"items": ["Golang", "MongoDB", "Solidity", "Soneium"]
+					}
+				},
+				{
+					"type": "lineage",
+					"params": {
+						"label": "Lineage",
+						"from": "Morning Moon Village",
+						"to": "Morning Moon Pocket",
+						"text": "Same farming loop, new pocket-sized client, a rebuilt server side and rewritten contracts underneath.",
+						"from_slug": "morning-moon-village"
+					}
+				},
+				{
+					"type": "gallery",
+					"params": {
+						"label": "Screens",
+						"items": [
+							{
+								"kind": "pixel",
+								"screen": "main",
+								"view": "phone",
+								"caption": "Farm"
+							},
+							{
+								"kind": "pixel",
+								"screen": "alt",
+								"view": "phone",
+								"caption": "Missions"
+							}
+						],
+						"caption": "Illustrative mock"
+					}
+				},
+				{
+					"type": "numbered-list",
+					"params": {
+						"label": "What I did",
+						"items": [
+							"Rewrote the server side in Golang and MongoDB with a new database schema and optimised code, so it scales to far more players.",
+							"Moved the old features onto the new architecture and kept the live ones working.",
+							"Added new features such as a shop system and a mission system, and kept every player in sync in real time.",
+							"Rewrote most of the Solidity smart contracts for the game’s DeFi mechanics, so they are safe, efficient and fit the new architecture.",
+							"Worked with the client-side team so server features felt smooth on mobile."
+						]
+					}
+				},
+				{
+					"type": "architecture",
+					"params": {
+						"label": "How it works",
+						"nodes": [
+							{
+								"name": "Mobile client",
+								"description": "Pocket-sized farm"
+							},
+							{
+								"name": "Go services",
+								"description": "Shop, missions, more"
+							},
+							{
+								"name": "MongoDB",
+								"description": "Players and progress"
+							},
+							{
+								"name": "Solidity on Soneium",
+								"description": "Rewritten DeFi contracts"
+							}
+						]
+					}
+				},
+				{
+					"type": "stack-cards",
+					"params": {
+						"label": "What was hard",
+						"items": [
+							"Rewriting old features on a new architecture while keeping the old ones working took careful planning with the client-side team.",
+							"More players with the same feel, on a short timeline, left a lot of testing and debugging to keep the new build stable.",
+							"The smart contracts had to get faster and stay just as secure, which left no room for shortcuts."
+						]
+					}
+				}
+			]
+		},
+		{
+			"slug": "metal-valley",
+			"name": "Metal Valley",
+			"full": "Metal Valley",
+			"kind": "hex",
+			"side": "behind-the-scenes",
+			"tags": ["Golang", "MongoDB", "Solidity", "Real-time", "DeFi"],
+			"categories": ["games", "on-chain"],
+			"stack": [
+				"golang",
+				"mongodb",
+				"solidity",
+				"socket",
+				"defi",
+				"nft",
+				"web3",
+				"client",
+				"backend",
+				"smart contract",
+				"blockchain"
+			],
+			"about": "A hybrid game that mixes Web2 gameplay with Web3 ownership. Players are mech hunters on a distant archipelago: they find wandering robots, capture and train them, customise them, and restore them to help humanity again.",
+			"role": [
+				"Built the Golang WebSocket layer that links players to the game, made to stay fast, secure and reliable with many players online.",
+				"Built core mechanics such as capturing and training robots.",
+				"Kept the socket server and the API server in step by sharing the same MongoDB state.",
+				"Wrote most of the Solidity smart contracts for the game’s DeFi mechanics on the Bitkub chain, focused on safety and efficiency.",
+				"Built the website and backend that bridge items between the game and the chain, where players manage their assets and NFTs.",
+				"Worked with the client-side team so server features fit the game smoothly."
+			],
+			"status": "published",
+			"blocks": [
+				{
+					"type": "project-header",
+					"params": {
+						"variant": "outline",
+						"title": "Metal Valley",
+						"subtitle": "Metal Valley",
+						"index": "0002",
+						"discipline": "behind-the-scenes",
+						"tags": [
+							"Golang",
+							"MongoDB",
+							"Solidity",
+							"Real-time",
+							"DeFi"
+						],
+						"kind": "hex"
+					}
+				},
+				{
+					"type": "about-split",
+					"params": {
+						"label": "About",
+						"text": "A hybrid game that mixes Web2 gameplay with Web3 ownership. Players are mech hunters on a distant archipelago: they find wandering robots, capture and train them, customise them, and restore them to help humanity again.",
+						"kind": "hex"
+					}
+				},
+				{
+					"type": "gallery",
+					"params": {
+						"label": "Screens",
+						"items": [
+							{
+								"kind": "hex",
+								"screen": "main",
+								"view": "desktop",
+								"caption": "Capture"
+							},
+							{
+								"kind": "hex",
+								"screen": "alt",
+								"view": "desktop",
+								"caption": "Bridge website"
+							}
+						],
+						"caption": "Illustrative mock"
+					}
+				},
+				{
+					"type": "architecture",
+					"params": {
+						"label": "How it works",
+						"nodes": [
+							{
+								"name": "Game client",
+								"description": "Explore, capture, train"
+							},
+							{
+								"name": "Socket server",
+								"description": "Real-time, many players"
+							},
+							{
+								"name": "Shared MongoDB",
+								"description": "One state for sockets and API"
+							},
+							{
+								"name": "Core mechanics",
+								"description": "Capture & training system"
+							},
+							{
+								"name": "Bridge site + backend",
+								"description": "Game items ↔ chain assets"
+							},
+							{
+								"name": "Smart contracts",
+								"description": "Solidity — DeFi, NFTs"
+							}
+						]
+					}
+				},
+				{
+					"type": "timeline",
+					"params": {
+						"label": "What I did",
+						"items": [
+							"Built the Golang WebSocket layer that links players to the game, made to stay fast, secure and reliable with many players online.",
+							"Built core mechanics such as capturing and training robots.",
+							"Kept the socket server and the API server in step by sharing the same MongoDB state.",
+							"Wrote most of the Solidity smart contracts for the game’s DeFi mechanics on the Bitkub chain, focused on safety and efficiency.",
+							"Built the website and backend that bridge items between the game and the chain, where players manage their assets and NFTs.",
+							"Worked with the client-side team so server features fit the game smoothly."
+						]
+					}
+				},
+				{
+					"type": "zigzag",
+					"params": {
+						"label": "What was hard",
+						"items": [
+							"Many players at once meant fast and secure sockets, planned for scale from day one.",
+							"The networked game state and the game logic both had to be optimised, without drifting apart.",
+							"Sharing state between the socket server and the API server, so they always agree.",
+							"The smart contracts had to be efficient without giving up any security.",
+							"With blockchain mechanics and NFTs in the mix, testing and debugging never stopped until the game was stable."
+						]
+					}
+				}
+			]
+		},
+		{
+			"slug": "evermoon-socialfi",
+			"name": "Evermoon SocialFi",
+			"full": "Evermoon SocialFi",
+			"kind": "orbit",
+			"side": "behind-the-scenes",
+			"tags": ["Golang", "MongoDB", "NFTs", "Web3", "Missions"],
+			"categories": ["platforms", "on-chain"],
+			"stack": [
+				"golang",
+				"mongodb",
+				"nft",
+				"web3",
+				"mission system",
+				"client"
+			],
+			"about": "Evermoon SocialFi is a platform from Evermoon that rewards people for taking part. Users join monthly quests, complete social media tasks and earn Moon Power (XP) to unlock rewards. With Web3 built in, active users can also collect $EVM tokens, NFTs and exclusive content. The campaign has since ended.",
+			"role": [
+				"Built the server side of the platform in Golang and MongoDB, including the mission system and the quest engine for monthly quests and social-task verification."
+			],
+			"status": "published",
+			"blocks": [
+				{
+					"type": "project-header",
+					"params": {
+						"variant": "center",
+						"title": "Evermoon SocialFi",
+						"subtitle": "Evermoon SocialFi",
+						"index": "0003",
+						"discipline": "behind-the-scenes",
+						"tags": [
+							"Golang",
+							"MongoDB",
+							"NFTs",
+							"Web3",
+							"Missions"
+						],
+						"kind": "orbit"
+					}
+				},
+				{
+					"type": "chips",
+					"params": {
+						"label": "About",
+						"title": "$EVM",
+						"text": "Evermoon SocialFi is a platform from Evermoon that rewards people for taking part. Users join monthly quests, complete social media tasks and earn Moon Power (XP) to unlock rewards. With Web3 built in, active users can also collect $EVM tokens, NFTs and exclusive content. The campaign has since ended.",
+						"items": [
+							"Monthly quests",
+							"Social tasks",
+							"Moon Power XP",
+							"NFT rewards"
+						]
+					}
+				},
+				{
+					"type": "mock",
+					"params": {
+						"label": "Quest board",
+						"kind": "orbit",
+						"screen": "main",
+						"view": "desktop",
+						"caption": "Illustrative mock"
+					}
+				},
+				{
+					"type": "quote",
+					"params": {
+						"text": "Built the server side of the platform in Golang and MongoDB, including the mission system and the quest engine for monthly quests and social-task verification.",
+						"cite": "What I did"
+					}
+				},
+				{
+					"type": "architecture",
+					"params": {
+						"label": "How it works",
+						"nodes": [
+							{
+								"name": "Platform",
+								"description": "Tasks and activities"
+							},
+							{
+								"name": "Mission system",
+								"description": "Quests, social tasks, XP"
+							},
+							{
+								"name": "Rewards",
+								"description": "$EVM tokens, NFTs"
+							}
+						]
+					}
+				},
+				{
+					"type": "quote",
+					"params": {
+						"text": "The quest engine had to work hand in hand with the client-side team, so testing and communication mattered as much as the code.",
+						"cite": "Challenge",
+						"tone": "invert"
+					}
+				}
+			]
+		},
+		{
+			"slug": "estic-ai",
+			"name": "Estic AI",
+			"full": "Estic AI",
+			"kind": "pins",
+			"side": "on-screen",
+			"tags": ["Generative AI", "Maps"],
+			"categories": ["platforms"],
+			"stack": [
+				"generative ai",
+				"map",
+				"client",
+				"server-side",
+				"backend",
+				"data"
+			],
+			"about": "Estic AI is a real estate platform that helps you find a home by simply talking to it. It pairs generative AI with detailed local data, so every search comes with context, not just listings. It offers features such as conversational search, hyper-local insights, climate-risk simulation, white-label chatbots, and a data marketplace for licensing-grade real estate datasets.",
+			"role": [
+				"Developed the client-side of the platform as a freelance frontend developer with Tetragram: the map, the search and the interface people use every day, in React and TypeScript.",
+				"Worked with the server-side team so the screens stayed fast with real data behind them."
+			],
+			"status": "published",
+			"blocks": [
+				{
+					"type": "project-header",
+					"params": {
+						"variant": "split-rev",
+						"title": "Estic AI",
+						"subtitle": "Estic AI",
+						"index": "0004",
+						"discipline": "on-screen",
+						"tags": ["Generative AI", "Maps"],
+						"kind": "pins"
+					}
+				},
+				{
+					"type": "gallery",
+					"params": {
+						"label": "Screens",
+						"items": [
+							{
+								"kind": "pins",
+								"screen": "main",
+								"view": "desktop",
+								"caption": "Map search"
+							},
+							{
+								"kind": "pins",
+								"screen": "alt",
+								"view": "phone",
+								"caption": "Conversation"
+							}
+						],
+						"caption": "Illustrative mock"
+					}
+				},
+				{
+					"type": "about-split",
+					"params": {
+						"label": "About",
+						"text": "Estic AI is a real estate platform that helps you find a home by simply talking to it. It pairs generative AI with detailed local data, so every search comes with context, not just listings",
+						"list": [
+							"Conversational search",
+							"Hyper-local insights",
+							"Climate-risk simulation",
+							"White-label chatbots",
+							"A data marketplace for licensing-grade real estate datasets"
+						]
+					}
+				},
+				{
+					"type": "stack-cards",
+					"params": {
+						"label": "What I did",
+						"items": [
+							"Developed the client-side of the platform as a freelance frontend developer with Tetragram: the map, the search and the interface people use every day, in React and TypeScript.",
+							"Worked with the server-side team so the screens stayed fast with real data behind them."
+						]
+					}
+				},
+				{
+					"type": "numbered-list",
+					"params": {
+						"label": "What was hard",
+						"items": [
+							"The product used new tools and patterns, so the UI framework needed careful groundwork.",
+							"The map shows 4k+ pins zoomed out and about 1k+ zoomed in, so it asks the backend for only the pins in the current view and clusters them on the client with Leaflet.",
+							"Many features and data sources meant security had to be part of every integration."
+						]
+					}
+				}
+			]
+		},
+		{
+			"slug": "morning-moon-village",
+			"name": "Morning Moon Village",
+			"full": "Morning Moon Village",
+			"kind": "moon",
+			"side": "behind-the-scenes",
+			"tags": ["Golang", "Solidity", "DeFi", "NFTs", "In-game shop"],
+			"categories": ["games", "on-chain"],
+			"stack": [
+				"golang",
+				"solidity",
+				"defi",
+				"nft",
+				"shop system",
+				"client",
+				"server-side",
+				"backend",
+				"smart contract",
+				"blockchain"
+			],
+			"about": "A farming game with real DeFi yield farming inside it. Players grow crops, gather resources and learn how yield farming works while they play, earning tokens along the way. NFTs add a competitive edge, and the cute 3D world keeps it friendly.",
+			"role": [
+				"Learned a Golang backend that had grown for five years under other hands, then extended it with features such as the new shop system and resource spawning.",
+				"Connected the game to the blockchain so its DeFi mechanics and NFTs work in play.",
+				"Wrote Solidity smart contracts for the DeFi mechanics, built with security in mind.",
+				"Worked closely with the client-side team, so new features landed in the game without friction."
+			],
+			"status": "published",
+			"blocks": [
+				{
+					"type": "project-header",
+					"params": {
+						"variant": "center",
+						"title": "Morning Moon Village",
+						"subtitle": "Morning Moon Village",
+						"index": "0005",
+						"discipline": "behind-the-scenes",
+						"tags": [
+							"Golang",
+							"Solidity",
+							"DeFi",
+							"NFTs",
+							"In-game shop"
+						],
+						"kind": "moon"
+					}
+				},
+				{
+					"type": "about-split",
+					"params": {
+						"label": "About",
+						"text": "A farming game with real DeFi yield farming inside it. Players grow crops, gather resources and learn how yield farming works while they play, earning tokens along the way. NFTs add a competitive edge, and the cute 3D world keeps it friendly.",
+						"kind": "moon"
+					}
+				},
+				{
+					"type": "mock",
+					"params": {
+						"label": "Farm & shop",
+						"kind": "moon",
+						"screen": "main",
+						"view": "desktop",
+						"caption": "Illustrative mock"
+					}
+				},
+				{
+					"type": "stack-cards",
+					"params": {
+						"label": "What I did",
+						"items": [
+							"Learned a Golang backend that had grown for five years under other hands, then extended it with features such as the new shop system and resource spawning.",
+							"Connected the game to the blockchain so its DeFi mechanics and NFTs work in play.",
+							"Wrote Solidity smart contracts for the DeFi mechanics, built with security in mind.",
+							"Worked closely with the client-side team, so new features landed in the game without friction."
+						]
+					}
+				},
+				{
+					"type": "architecture",
+					"params": {
+						"label": "How it works",
+						"nodes": [
+							{
+								"name": "Game client",
+								"description": "3D farming game"
+							},
+							{
+								"name": "Game server",
+								"description": "Shop, resource spawning"
+							},
+							{
+								"name": "Smart contracts",
+								"description": "Solidity — DeFi, NFTs"
+							}
+						]
+					}
+				},
+				{
+					"type": "quote",
+					"params": {
+						"text": "Real money moves through NFTs and DeFi, so testing went deep on both how things work and how they could be abused.",
+						"cite": "Hardest part",
+						"tone": "invert"
+					}
+				},
+				{
+					"type": "numbered-list",
+					"params": {
+						"label": "What was hard",
+						"items": [
+							"Understanding five years of server-side code written by others, so new features fit instead of fighting it.",
+							"The DeFi mechanics live in Solidity smart contracts, so every contract had to be secure before it went live.",
+							"Real money moves through NFTs and DeFi, so testing went deep on both how things work and how they could be abused."
+						]
+					}
+				}
+			]
+		},
+		{
+			"slug": "aads",
+			"name": "AADS",
+			"full": "Army Air Defense System",
+			"kind": "radar",
+			"side": "behind-the-scenes",
+			"tags": ["Real-time", "Radar protocols", "Encryption", "Maps"],
+			"categories": ["platforms"],
+			"stack": [
+				"socket",
+				"trml",
+				"encrypt",
+				"map",
+				"client",
+				"real-time",
+				"backend",
+				"data"
+			],
+			"about": "Software that turns raw radar signals into a live air picture for military operators in Thailand. It tracks aircraft from surveillance radars, lets operators talk and message each other, and raises an alert when an aircraft looks hostile. Access to each control depends on where the operator logs in from.",
+			"role": [
+				"Built the TypeScript backend as the full-stack developer on a four-person team, from my internship at the university research lab.",
+				"Decoded radar messages in the TRML and DR127ADV protocols and turned them into readable tracks on a map.",
+				"Built the socket link between server and client, so every operator sees updates and control changes in real time.",
+				"Designed the operator screen: a live map with zoom and pan, voice calls, messaging and alerts for suspect aircraft."
+			],
+			"status": "published",
+			"blocks": [
+				{
+					"type": "project-header",
+					"params": {
+						"variant": "split",
+						"title": "AADS",
+						"subtitle": "Army Air Defense System",
+						"index": "0006",
+						"discipline": "behind-the-scenes",
+						"tags": [
+							"Real-time",
+							"Radar protocols",
+							"Encryption",
+							"Maps"
+						],
+						"kind": "radar"
+					}
+				},
+				{
+					"type": "quote",
+					"params": {
+						"text": "Software that turns raw radar signals into a live air picture for military operators in Thailand.",
+						"cite": "Brief"
+					}
+				},
+				{
+					"type": "mock",
+					"params": {
+						"label": "Operator console",
+						"kind": "radar",
+						"screen": "main",
+						"view": "desktop",
+						"caption": "Illustrative mock"
+					}
+				},
+				{
+					"type": "architecture",
+					"params": {
+						"label": "How it works",
+						"nodes": [
+							{
+								"name": "Surveillance radars",
+								"description": "Encoded track messages"
+							},
+							{
+								"name": "Decoder",
+								"description": "TRML · DR127ADV → readable"
+							},
+							{
+								"name": "Node.js socket server",
+								"description": "Real-time state, both ways"
+							},
+							{
+								"name": "Operator UI",
+								"description": "Map, voice, messaging, alerts"
+							}
+						]
+					}
+				},
+				{
+					"type": "feature-grid",
+					"params": {
+						"label": "What it does",
+						"items": [
+							"Real-time aircraft tracking from surveillance radars",
+							"Fake aircraft for training and for rehearsing real situations",
+							"Access control based on the operator's IP address",
+							"Voice calls and encrypted messaging between operators",
+							"Alerts for suspect aircraft, so operators react sooner",
+							"One-click state changes, like marking an aircraft as friend or enemy",
+							"A map you can zoom and pan, with alert settings each operator can tune"
+						]
+					}
+				},
+				{
+					"type": "timeline",
+					"params": {
+						"label": "What I did",
+						"items": [
+							"Built the TypeScript backend as the full-stack developer on a four-person team, from my internship at the university research lab.",
+							"Decoded radar messages in the TRML and DR127ADV protocols and turned them into readable tracks on a map.",
+							"Built the socket link between server and client, so every operator sees updates and control changes in real time.",
+							"Designed the operator screen: a live map with zoom and pan, voice calls, messaging and alerts for suspect aircraft."
+						]
+					}
+				},
+				{
+					"type": "zigzag",
+					"params": {
+						"label": "What was hard",
+						"items": [
+							"The radar protocols are dense and the data never stops, so decoding had to be both exact and fast.",
+							"The socket link had to stay up and stay private, which meant planning the network and its security together.",
+							"Operators work under pressure. The screen went through many rounds of testing until it felt obvious to use."
+						]
+					}
+				}
+			]
+		}
+	],
+	"notes": [
+		{
+			"slug": "scalable-game-backend",
+			"title": "How to build a scalable backend for a game",
+			"kind": "hex",
+			"tags": ["Go", "Architecture"],
+			"excerpt": "Sockets, an API, one shared database and a queue. The boring parts that let a game survive launch day.",
+			"status": "published",
+			"published_at": "2026-10-03T00:00:00Z",
+			"blocks": [
+				{
+					"type": "p",
+					"text": "I have built game backends in Go and MongoDB for a few years now. The pattern that keeps coming back is not clever. It is a handful of boring decisions made early, so the game can grow without a rewrite."
+				},
+				{ "type": "h", "text": "Split the live line from the API" },
+				{
+					"type": "p",
+					"text": "A game has two kinds of traffic. Players need a live connection that pushes state both ways, and they also make ordinary requests: buy this, claim that, load my profile. Giving each its own server lets you scale and fix them separately."
+				},
+				{
+					"type": "list",
+					"items": [
+						"Socket server: keeps connections open and moves live state",
+						"API server: handles requests, shops, missions, rewards",
+						"One database both can read and write, so they always agree",
+						"A queue for slow work, so a player never waits on it"
+					]
+				},
+				{ "type": "h", "text": "Build it general, not one-off" },
+				{
+					"type": "p",
+					"text": "The best reuse I ever got was a generic queue. One small type that any service in any project can use, instead of a new queue per feature. Generics make that cheap in Go."
+				},
+				{
+					"type": "code",
+					"lang": "go",
+					"text": "// One queue, every service.\ntype Queue[T any] struct{ jobs chan T }\n\nfunc NewQueue[T any](size, workers int, handle func(T)) *Queue[T] {\n    q := &Queue[T]{jobs: make(chan T, size)}\n    for i := 0; i < workers; i++ {\n        go func() {\n            for job := range q.jobs {\n                handle(job)\n            }\n        }()\n    }\n    return q\n}\n\n// Push blocks when the queue is full: back-pressure, not endless memory.\nfunc (q *Queue[T]) Push(job T) { q.jobs <- job }"
+				},
+				{
+					"type": "quote",
+					"text": "A full queue should slow the producer down, not eat the server."
+				},
+				{ "type": "h", "text": "Read before you rewrite" },
+				{
+					"type": "p",
+					"text": "I once inherited five years of backend code written by other people. The first job was not to improve it. It was to understand it well enough to add features, like a new shop system, without fighting it. Only when the old schema stood in the way did a rewrite pay off: a new schema, optimised code, and the old features kept working on top."
+				},
+				{ "type": "h", "text": "Measure, then optimise" },
+				{
+					"type": "p",
+					"text": "Guessing which part is slow is how weeks disappear. Measure the socket path and the API path separately, fix the one that hurts, and measure again."
+				}
+			]
+		},
+		{
+			"slug": "smart-contracts-you-can-sleep-next-to",
+			"title": "Writing smart contracts you can sleep next to",
+			"kind": "moon",
+			"tags": ["Solidity", "Security"],
+			"excerpt": "Contracts that move real money cannot be patched at 3 a.m. Habits that help me sleep.",
+			"status": "published",
+			"published_at": "2026-10-02T00:00:00Z",
+			"blocks": [
+				{
+					"type": "p",
+					"text": "A game server can be fixed in minutes. A deployed contract mostly cannot. I write the DeFi parts of games on chains like Soneium and Bitkub, so I treat every contract as something I will not get to take back."
+				},
+				{ "type": "h", "text": "Habits" },
+				{
+					"type": "list",
+					"items": [
+						"Keep it small: fewer lines, fewer places to hide a bug",
+						"Review twice, once as the author and once as an attacker",
+						"Test how it breaks, not only how it works",
+						"Decide the upgrade path before the first deploy",
+						"Make it efficient without trading away safety"
+					]
+				},
+				{ "type": "h", "text": "Update state before you pay" },
+				{
+					"type": "p",
+					"text": "The oldest trick is still the best. Change your own books first, then move the money, so a caller that re-enters finds nothing left to take."
+				},
+				{
+					"type": "code",
+					"lang": "solidity",
+					"text": "function claim() external {\n    uint256 amount = rewards[msg.sender];\n    require(amount > 0, \"nothing to claim\");\n\n    rewards[msg.sender] = 0; // effects first\n    token.safeTransfer(msg.sender, amount); // interaction last\n}"
+				},
+				{
+					"type": "quote",
+					"text": "If you cannot explain how it could be abused, you have not tested it yet."
+				},
+				{ "type": "h", "text": "Test the abuse" },
+				{
+					"type": "p",
+					"text": "With NFTs and DeFi in the mix, real value moves. Happy-path tests prove the contract works. Abuse tests prove it is safe: double claims, odd amounts, wrong callers, and the order of calls."
+				}
+			]
+		},
+		{
+			"slug": "four-thousand-pins-one-smooth-map",
+			"title": "Four thousand pins, one smooth map",
+			"kind": "pins",
+			"tags": ["React", "Maps"],
+			"excerpt": "How a map with 4k+ pins stays smooth: ask for what you can see, cluster it on the client.",
+			"status": "published",
+			"published_at": "2026-10-01T00:00:00Z",
+			"blocks": [
+				{
+					"type": "p",
+					"text": "On Estic AI you find a home by talking to an AI, and the map sits next to the chat. Zoomed out, the map holds 4k+ pins. Zoomed in, about 1k+. Drawing all of them at once is the fastest way to make a browser cry."
+				},
+				{ "type": "h", "text": "Ask only for what you can see" },
+				{
+					"type": "p",
+					"text": "The client sends the edges of the current view to the backend, and the backend returns only the pins inside them. Move or zoom the map and the view changes, so the request changes too. The pin count follows the zoom level instead of the size of the database."
+				},
+				{
+					"type": "code",
+					"lang": "ts",
+					"text": "// Ask for the pins inside the current view, nothing else.\nmap.on(\"moveend\", async () => {\n  const b = map.getBounds();\n  const pins = await fetchPins({\n    south: b.getSouth(),\n    west: b.getWest(),\n    north: b.getNorth(),\n    east: b.getEast(),\n  });\n  cluster.clearLayers();\n  cluster.addLayers(pins.map(toMarker));\n});"
+				},
+				{ "type": "h", "text": "Cluster on the client" },
+				{
+					"type": "p",
+					"text": "I use Leaflet with a cluster plugin. Pins that sit close together collapse into one numbered marker and split apart as you zoom in. The map stays readable zoomed out and detailed zoomed in, and the browser only draws what a person can actually see."
+				},
+				{
+					"type": "list",
+					"items": [
+						"The backend sends pins for the view, not for the whole country",
+						"The client clusters them, so there is one marker per cluster",
+						"Zoom out: many pins, grouped. Zoom in: fewer pins, shown one by one"
+					]
+				},
+				{
+					"type": "quote",
+					"text": "The fastest pin to draw is the one you never fetched."
+				},
+				{ "type": "h", "text": "The search side is separate" },
+				{
+					"type": "p",
+					"text": "The map is only half of the product. The backend also works like a search engine, so the AI can turn a sentence like “2-bed near the river” into results. The map just shows what that search returns, in the part of the world you are looking at."
+				}
+			]
+		}
+	],
+	"profile": {
+		"name": "William Siefert",
+		"headline": "Software engineer",
+		"about": "Hi, I’m William, or Tiger. I write Go and TypeScript, mostly the kind with sockets, queues and smart contracts behind it. I like systems that are general, dynamic and still standing when traffic triples, and I build the simple front end on top because a clean UI is half of a reliable product. I learned by building, breaking and rebuilding. Off the clock: games, green tea and too much Reddit.",
+		"skills": [
+			{
+				"label": "Programming Languages",
+				"items": [
+					"Golang",
+					"Typescript",
+					"Solidity",
+					"Python",
+					"PHP",
+					"Java",
+					"C#"
+				]
+			},
+			{
+				"label": "Frameworks and Libraries",
+				"items": ["MongoDB", "SQL", "React"]
+			},
+			{
+				"label": "Tools and Technologies",
+				"items": [
+					"Git",
+					"Docker",
+					"AWS",
+					"Google Cloud Platform",
+					"Web3",
+					"Blockchain"
+				]
+			},
+			{
+				"label": "Soft Skills",
+				"items": [
+					"Problem-solving",
+					"Time Management",
+					"Communication",
+					"Teamwork"
+				]
+			},
+			{
+				"label": "Hardskills",
+				"items": [
+					"Backend Development",
+					"Server-side Development",
+					"Smart Contract Development",
+					"Socket Communication",
+					"Performance Optimization",
+					"Scalability",
+					"Security Measures"
+				]
+			}
+		],
+		"core": [
+			{
+				"label": "Backend Development",
+				"text": "General, dynamic servers that scale with traffic and keep data safe."
+			},
+			{
+				"label": "Smart Contract Development",
+				"text": "Solidity contracts for games and apps on Soneium and Bitkub, written with security in mind from the first line."
+			},
+			{
+				"label": "Socket Communication",
+				"text": "Real-time links between players and servers, so every screen shows the same thing at the same moment."
+			},
+			{
+				"label": "Performance Optimization",
+				"text": "Measuring first, then fixing the slow parts of code and architecture without breaking the rest."
+			},
+			{
+				"label": "Security Measures",
+				"text": "Encryption, authentication and careful coding, so the only people inside are the ones invited."
+			}
+		],
+		"experience": [
+			{
+				"id": "software-engineer-x10-interactive",
+				"title": "Software Engineer X10 Interactive",
+				"period": "2023 — Present",
+				"notes": [
+					"Build and look after game servers, web apps and blockchain products on the Soneium and Bitkub chains, from the first prototype to live launches.",
+					"Keep quality high with code reviews and tests, and ship alongside designers, client developers and product people."
+				],
+				"kind": "work",
+				"start": "2023-01",
+				"end": null
+			},
+			{
+				"id": "fullstack-developer-intern-bangkok-university-multimedia-intelligent-technology",
+				"title": "Fullstack Developer Intern Bangkok University Multimedia Intelligent Technology",
+				"period": "June 2022 — June 2023",
+				"notes": [
+					"Interned in the university research lab, building AADS, a military air defence system, and the School Bus Backend and Administration System."
+				],
+				"kind": "work",
+				"start": "2022-06",
+				"end": "2023-06"
+			}
+		],
+		"education": [
+			{
+				"id": "bangkok-university",
+				"title": "Bangkok University",
+				"period": "2019 — 2023",
+				"notes": [
+					"Bachelor of Science in Computer Science, majoring in multimedia intelligent technology. GPA 3.90. Senior project: the School Bus Backend and Administration System."
+				],
+				"kind": "education",
+				"start": "2019-01",
+				"end": "2023-01"
+			}
+		],
+		"contact": {
+			"email": "wilhelm.hsf@gmail.com",
+			"github": "https://github.com/king-glitch",
+			"linkedin": "https://www.linkedin.com/in/william-siefert",
+			"discord": "rachamon"
+		}
+	}
+}

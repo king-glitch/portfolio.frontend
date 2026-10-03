@@ -1,3 +1,6 @@
+import type { FileKind } from "@/api/types/admin/storage";
+import type { MotifKind } from "@/api/types/portfolio/enums";
+
 /** How a field of a schema-driven form is edited. */
 export enum FieldKind {
 	Text = "text",
@@ -12,6 +15,10 @@ export enum FieldKind {
 	Objects = "objects",
 	/** A project of the dashboard, stored as its document id. */
 	Project = "project",
+	/** A stored file of the library, kept as its URL. */
+	File = "file",
+	/** Motif preset (`name`) plus optional uploaded image (`imageName`), edited as one control. */
+	Art = "art",
 }
 
 /** Option lists a `Select` field draws from. */
@@ -69,6 +76,10 @@ export interface FieldSpec {
 	kind: FieldKind;
 	/** Options of a `Select`. */
 	options?: OptionSet;
+	/** Kinds a `File` field takes (the picker and its upload are limited to them). */
+	accept?: FileKind[];
+	/** `Art` only: the field that holds the uploaded image next to the preset in `name`. */
+	imageName?: FieldName;
 	/** Sub-fields of an `Objects` list. */
 	fields?: FieldSpec[];
 	/** Dropped from the saved JSON while empty (the backend rejects some empty optional values). */
@@ -81,3 +92,14 @@ export interface FieldSpec {
 
 /** One block, list item or profile entry: plain JSON the backend validates. */
 export type FormRecord = Record<string, unknown>;
+
+/** The part of a project or note form the block editor works on. */
+export interface BlocksFormValues {
+	blocks: FormRecord[];
+}
+
+/** What a form needs to hold to use the art control: the motif preset and the uploaded image URL ("" = none). */
+export interface ArtFormValues {
+	kind: MotifKind;
+	artUrl: string;
+}

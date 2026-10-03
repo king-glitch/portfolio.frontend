@@ -17,6 +17,7 @@ export const HeaderVertical: React.FC<HeaderVerticalProps> = ({
 	discipline,
 	tags,
 	kind,
+	imageUrl,
 }) => {
 	const { t } = useTranslation();
 	const fit: React.CSSProperties & Record<"--chars", number> = {
@@ -31,7 +32,12 @@ export const HeaderVertical: React.FC<HeaderVerticalProps> = ({
 			>
 				{title}
 			</h1>
-			<ArtFrame kind={kind} data-speed="1.15" className="min-h-55" />
+			<ArtFrame
+				kind={kind}
+				imageUrl={imageUrl}
+				data-speed="1.15"
+				className="min-h-55"
+			/>
 			<div className="flex flex-col justify-between gap-6">
 				<Eyebrow>{index}</Eyebrow>
 				<div className="flex flex-col gap-4.5">

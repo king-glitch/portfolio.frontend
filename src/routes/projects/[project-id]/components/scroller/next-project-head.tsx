@@ -38,6 +38,7 @@ export const NextProjectHead: React.FC<NextProjectHeadProps> = ({ id }) => {
 			block={first}
 			index={1}
 			projectKind={project.data.kind}
+			projectArtUrl={project.data.artUrl}
 		/>
 	);
 };

@@ -1,4 +1,4 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it, test } from "bun:test";
 import { BlockType, PostBlockType } from "@/api/types/portfolio/enums";
 import {
 	noteBlockSpecs,
@@ -6,13 +6,17 @@ import {
 	timelineSpecs,
 } from "@/lib/dynamic-form/specs";
 import {
+	ITEM_KEY,
 	blockParams,
+	blockSummary,
 	blocksHaveMissing,
 	emptyRecord,
+	invalidBlockIndexes,
 	normalize,
 	normalizeBlocks,
 	withBlockParams,
 } from "@/lib/dynamic-form/values";
+import { FieldKind, FieldName } from "@/types/dynamic-form";
 
 const quoteFields = projectBlockSpecs[BlockType.Quote];
 
@@ -135,4 +139,47 @@ describe("dynamic form values", () => {
 		);
 		expect(out).toEqual([{ type: "list", items: ["a"] }]);
 	});
+
+	it("removes the client-only item keys, in nested records too", () => {
+		const fields = projectBlockSpecs[BlockType.Architecture];
+		const cleaned = normalize(
+			{
+				label: "A",
+				nodes: [{ [ITEM_KEY]: "k-0", name: "n", description: "d" }],
+				[ITEM_KEY]: "x",
+			},
+			fields,
+		);
+		expect(cleaned).toEqual({
+			label: "A",
+			nodes: [{ name: "n", description: "d" }],
+		});
+	});
+});
+
+test("blockSummary is the first filled text field, cut short", () => {
+	const fields = [
+		{ name: FieldName.Label, kind: FieldKind.Text },
+		{ name: FieldName.Title, kind: FieldKind.Text },
+	];
+	expect(blockSummary({ label: " ", title: "Hello" }, fields)).toBe("Hello");
+	expect(blockSummary({}, fields)).toBe("");
+	expect(blockSummary({ label: "x".repeat(80) }, fields)).toBe(
+		`${"x".repeat(60)}...`,
+	);
+});
+
+test("invalidBlockIndexes lists the blocks with a blank required field", () => {
+	const specs = { quote: [{ name: FieldName.Text, kind: FieldKind.Text }] };
+	expect(
+		invalidBlockIndexes(
+			[
+				{ type: "quote", text: "a" },
+				{ type: "quote", text: " " },
+				{ type: "unknown" },
+			],
+			specs,
+			false,
+		),
+	).toEqual([1]);
 });

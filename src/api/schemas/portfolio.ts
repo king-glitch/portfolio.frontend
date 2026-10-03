@@ -9,13 +9,17 @@ import {
 	MockScreen,
 	MotifKind,
 	PostBlockType,
-	ProjectFilter,
 	ProjectSide,
 } from "@/api/types/portfolio/enums";
 import type { GalleryPage } from "@/api/types/portfolio/gallery";
 import type { Post, PostSummary } from "@/api/types/portfolio/post";
 import type { Profile } from "@/api/types/portfolio/profile";
-import type { Project, ProjectSummary } from "@/api/types/portfolio/project";
+import type {
+	Project,
+	ProjectCategory,
+	ProjectSummary,
+} from "@/api/types/portfolio/project";
+import { SettingKey } from "@/api/types/admin/setting";
 import { config } from "@/config";
 
 /**
@@ -35,6 +39,12 @@ const media = z
 	.transform(({ image_url, ...rest }) => ({ ...rest, imageUrl: image_url }));
 
 const items = z.array(z.string());
+
+/** Optional uploaded art of a block: `image_url` on the wire. */
+const withImage = <T extends { image_url?: string | undefined }>({
+	image_url,
+	...rest
+}: T) => ({ ...rest, imageUrl: image_url });
 
 const block = <T extends BlockType>(type: T) => z.literal(type);
 
@@ -57,15 +67,18 @@ const listBlock = <
 const blockSchema: z.ZodType<Block> = z.discriminatedUnion("type", [
 	z.object({
 		type: block(BlockType.ProjectHeader),
-		params: z.object({
-			variant: z.enum(HeaderVariant),
-			title: z.string(),
-			subtitle: z.string(),
-			index: z.string(),
-			discipline: z.enum(ProjectSide),
-			tags: items,
-			kind: z.enum(MotifKind),
-		}),
+		params: z
+			.object({
+				variant: z.enum(HeaderVariant),
+				title: z.string(),
+				subtitle: z.string(),
+				index: z.string(),
+				discipline: z.enum(ProjectSide),
+				tags: items,
+				kind: z.enum(MotifKind),
+				image_url: z.string().optional(),
+			})
+			.transform(withImage),
 	}),
 	z.object({
 		type: block(BlockType.Quote),
@@ -85,12 +98,15 @@ const blockSchema: z.ZodType<Block> = z.discriminatedUnion("type", [
 	}),
 	z.object({
 		type: block(BlockType.AboutSplit),
-		params: z.object({
-			label: z.string(),
-			text: z.string(),
-			kind: z.enum(MotifKind).optional(),
-			list: items.optional(),
-		}),
+		params: z
+			.object({
+				label: z.string(),
+				text: z.string(),
+				kind: z.enum(MotifKind).optional(),
+				image_url: z.string().optional(),
+				list: items.optional(),
+			})
+			.transform(withImage),
 	}),
 	listBlock(BlockType.NumberedList),
 	listBlock(BlockType.StackCards),
@@ -99,10 +115,13 @@ const blockSchema: z.ZodType<Block> = z.discriminatedUnion("type", [
 	listBlock(BlockType.Zigzag),
 	z.object({
 		type: block(BlockType.MotifFull),
-		params: z.object({
-			kind: z.enum(MotifKind),
-			label: z.string().optional(),
-		}),
+		params: z
+			.object({
+				kind: z.enum(MotifKind),
+				label: z.string().optional(),
+				image_url: z.string().optional(),
+			})
+			.transform(withImage),
 	}),
 	z.object({
 		type: block(BlockType.Chips),
@@ -160,15 +179,21 @@ const summaryFields = {
 	kind: z.enum(MotifKind),
 	side: z.enum(ProjectSide),
 	tags: items,
-	categories: z.array(z.enum(ProjectFilter)),
+	categories: z.array(z.string()),
 	stack: items,
 	about: z.string(),
 	role: items,
+	art_url: z.string().optional(),
 };
 
-const toSummary = ({ slug, ...rest }: z.output<typeof projectSummary>) => ({
+const toSummary = ({
+	slug,
+	art_url,
+	...rest
+}: z.output<typeof projectSummary>) => ({
 	...rest,
 	id: slug,
+	artUrl: art_url || undefined,
 });
 
 const projectSummary = z.object({ id: z.string(), ...summaryFields });
@@ -208,16 +233,19 @@ const noteFields = {
 	excerpt: z.string(),
 	read_minutes: z.number(),
 	sample: z.boolean(),
+	art_url: z.string().optional(),
 };
 
 const toPostSummary = ({
 	published_at,
 	read_minutes,
+	art_url,
 	...rest
 }: z.output<z.ZodObject<typeof noteFields>>): PostSummary => ({
 	...rest,
 	date: formatDate(published_at),
 	readMinutes: read_minutes,
+	artUrl: art_url || undefined,
 });
 
 export const postListSchema = z
@@ -297,3 +325,15 @@ export const galleryTagsSchema = z.object({
 	total: z.number(),
 	tags: z.array(z.object({ tag: z.string(), count: z.number() })),
 });
+
+/** The `project_categories` setting value. */
+export const projectCategoriesSchema: z.ZodType<ProjectCategory[]> = z.array(
+	z.object({ slug: z.string(), label: z.string() }),
+);
+
+/** Public settings are a `{ key: value }` map; a key the owner never saved reads as no categories. */
+export const publicCategoriesSchema = z
+	.object({
+		[SettingKey.ProjectCategories]: projectCategoriesSchema.optional(),
+	})
+	.transform((settings) => settings[SettingKey.ProjectCategories] ?? []);

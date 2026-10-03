@@ -13,13 +13,13 @@ import { FrameForm } from "@/routes/dashboard/gallery/components/frame-form";
 interface FrameDialogProps {
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
-	/** Undefined = upload. */
+	/** Undefined = add. */
 	frame: AdminFrame | undefined;
 	/** Changes on every opening: the form remounts, so it always starts clean. */
 	session: number;
 }
 
-/** Upload or edit dialog of the gallery. */
+/** Add or edit dialog of the gallery. */
 export const FrameDialog: React.FC<FrameDialogProps> = ({
 	open,
 	onOpenChange,

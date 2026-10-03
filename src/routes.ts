@@ -52,6 +52,10 @@ export default [
 			"routes/dashboard/gallery/index.tsx",
 		),
 		route(
+			segment(config.routes.dashboardFiles),
+			"routes/dashboard/files/index.tsx",
+		),
+		route(
 			segment(config.routes.dashboardSettings),
 			"routes/dashboard/settings/layout.tsx",
 			[
@@ -76,6 +80,13 @@ export default [
 						config.routes.dashboardSettings,
 					),
 					"routes/dashboard/settings/profile/index.tsx",
+				),
+				route(
+					segment(
+						config.routes.dashboardSettingsCategories,
+						config.routes.dashboardSettings,
+					),
+					"routes/dashboard/settings/categories/index.tsx",
 				),
 			],
 		),

@@ -1,4 +1,4 @@
-import { ProjectFilter } from "./api/types/portfolio/enums";
+import { FileKind } from "./api/types/admin/storage";
 
 /**
  * Single source of static values (AGENTS §4). Each domain sub-object is owned
@@ -26,15 +26,18 @@ export const config = {
 		dashboardNoteNew: "/dashboard/notes/new",
 		dashboardNote: "/dashboard/notes/:noteId",
 		dashboardGallery: "/dashboard/gallery",
+		dashboardFiles: "/dashboard/files",
 		dashboardSettings: "/dashboard/settings",
 		dashboardSettingsGeneral: "/dashboard/settings/general",
 		dashboardSettingsSeo: "/dashboard/settings/seo",
 		dashboardSettingsProfile: "/dashboard/settings/profile",
+		dashboardSettingsCategories: "/dashboard/settings/categories",
 		dashboardAccount: "/dashboard/account",
 	},
 	queryKeys: {
 		portfolio: {
 			profile: "portfolio.profile",
+			categories: "portfolio.categories",
 			projects: {
 				list: "portfolio.projects.list",
 				detail: "portfolio.projects.detail",
@@ -59,6 +62,9 @@ export const config = {
 				detail: "admin.notes.detail",
 			},
 			frames: "admin.frames",
+			storage: {
+				files: "admin.storage.files",
+			},
 			settings: "admin.settings",
 		},
 	},
@@ -70,8 +76,30 @@ export const config = {
 		noValue: "__none__",
 		/** Frames per request in the dashboard gallery. */
 		framePageSize: 24,
-		/** Upload picker accepts these. */
-		imageAccept: "image/png,image/jpeg,image/webp,image/gif",
+		/** Files per request in the file library and the picker. */
+		filePageSize: 24,
+		/** Search and kind filter of the files page live in these URL params. */
+		fileSearchParams: { kind: "kind", q: "q" },
+		/** `kind` param value meaning every kind. */
+		fileKindAll: "all",
+		/** Accepted MIME types per kind (an `<input accept>` value). Must equal the backend allowlist (`internal/core/constant/storage.go`). */
+		fileAccept: {
+			[FileKind.Image]: "image/jpeg,image/png",
+			[FileKind.Video]: "video/mp4,video/webm",
+			[FileKind.Audio]: "audio/mpeg,audio/ogg,audio/wav",
+			[FileKind.Document]: "application/pdf,text/plain,text/csv",
+			[FileKind.Archive]: "application/zip",
+			[FileKind.Other]: "font/woff2,font/woff",
+		} satisfies Record<FileKind, string>,
+		/** Largest upload per kind in bytes (backend `APP_UPLOAD_MAX_BYTES` for images, `APP_UPLOAD_MAX_FILE_BYTES` for the rest). */
+		fileMaxBytes: {
+			[FileKind.Image]: 10 * 1024 * 1024,
+			[FileKind.Video]: 50 * 1024 * 1024,
+			[FileKind.Audio]: 50 * 1024 * 1024,
+			[FileKind.Document]: 50 * 1024 * 1024,
+			[FileKind.Archive]: 50 * 1024 * 1024,
+			[FileKind.Other]: 50 * 1024 * 1024,
+		} satisfies Record<FileKind, number>,
 		/** Most tags the backend takes per item is its own limit; the form only splits the text. */
 		listSeparator: ",",
 	},
@@ -83,6 +111,7 @@ export const config = {
 		timeoutMs: 10000,
 		paths: {
 			profile: "/settings/profile",
+			settingsPublic: "/settings/public",
 			projects: "/project/projects",
 			notes: "/note/notes",
 			galleryFrames: "/gallery/frames",
@@ -100,13 +129,20 @@ export const config = {
 				projectsOrder: "/project/administration/projects/order",
 				notes: "/note/administration/notes",
 				frames: "/gallery/administration/frames",
+				files: "/storage/administration/files",
 				settings: "/settings/administration/settings",
 			},
 		},
 		/** `errors.code` of a rejected session token (expired, revoked, unknown): the only 401 that signs you out. */
 		invalidTokenCode: "Service.Authentication.InvalidToken",
 		/** Query param names the backend expects (kebab-case). */
-		params: { tag: "tag", cursor: "cursor", limit: "limit" },
+		params: {
+			tag: "tag",
+			cursor: "cursor",
+			limit: "limit",
+			kind: "kind",
+			q: "q",
+		},
 	},
 	gallery: {
 		/** Frames per request; the server returns the next cursor with each page. */
@@ -119,6 +155,8 @@ export const config = {
 	query: {
 		// ponytail: content changes only when the owner edits it; one-minute cache, refetch on remount after that
 		staleTimeMs: 60_000,
+		/** Mutation `meta` key: the caller words a 409 itself, so the generic toast is skipped. */
+		ownConflictMeta: "ownConflict",
 		/** Retries for network, timeout, rate-limit and 5xx failures. Client errors are final. */
 		retry: 2,
 		retryBaseMs: 500,
@@ -154,7 +192,10 @@ export const config = {
 		pluralSeparator: "-",
 	},
 	portfolio: {
-		defaultFilter: ProjectFilter.All,
+		/** The site filter's "All": a code constant, never a stored category. */
+		defaultFilter: "all",
+		/** Slugs the stats and the resume read (the owner may rename the labels, not these slugs). */
+		categorySlugs: { games: "games", onChain: "on-chain" },
 		// Search param names (overview §2).
 		searchParams: { filter: "filter", tag: "tag" },
 		/** Words per minute used by the build script for `readMinutes`. */

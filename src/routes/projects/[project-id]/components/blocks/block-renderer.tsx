@@ -24,6 +24,7 @@ interface BlockRendererProps {
 	/** 1-based position among non-header blocks. */
 	index: number;
 	projectKind: MotifKind;
+	projectArtUrl?: string;
 }
 
 /**
@@ -75,7 +76,8 @@ const BlockRendererImpl: React.FC<BlockRendererImplProps> = ({
 	block,
 	index,
 	projectKind,
-}) => renderBlock(block, { index, projectKind });
+	projectArtUrl,
+}) => renderBlock(block, { index, projectKind, projectArtUrl });
 
 /** Memoised: scrolling re-renders the viewport, never the panels. */
 export const BlockRenderer = React.memo(BlockRendererImpl);

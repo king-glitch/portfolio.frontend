@@ -8,14 +8,15 @@ import type {
 	ProjectRef,
 	StoredBlock,
 } from "@/api/types/admin/content";
-import type { AdminFramePage } from "@/api/types/admin/gallery";
+import type { AdminFrame, AdminFramePage } from "@/api/types/admin/gallery";
+import {
+	FileKind,
+	type AdminFile,
+	type FilePage,
+} from "@/api/types/admin/storage";
 import type { AdminUser, Session } from "@/api/types/admin/auth";
 import type { Setting } from "@/api/types/admin/setting";
-import {
-	MotifKind,
-	ProjectFilter,
-	ProjectSide,
-} from "@/api/types/portfolio/enums";
+import { MotifKind, ProjectSide } from "@/api/types/portfolio/enums";
 
 /** Admin responses (snake_case wire) parsed into the dashboard's models. */
 
@@ -61,22 +62,33 @@ const projectFields = {
 	kind: z.enum(MotifKind),
 	side: z.enum(ProjectSide),
 	tags: items,
-	categories: z.array(z.enum(ProjectFilter)),
+	categories: z.array(z.string()),
 	stack: items,
 	about: z.string(),
 	role: items,
+	art_url: z.string().optional(),
 	status: z.enum(ContentStatus),
 	order: z.number(),
 };
 
+const toProject = ({
+	art_url,
+	...rest
+}: z.output<z.ZodObject<typeof projectFields>>): AdminProject => ({
+	...rest,
+	artUrl: art_url ?? "",
+});
+
 export const adminProjectListSchema: z.ZodType<AdminProject[]> = z
 	.object({ projects: z.array(z.object(projectFields)) })
-	.transform(({ projects }) => projects);
+	.transform(({ projects }) => projects.map(toProject));
 
-export const adminProjectSchema: z.ZodType<AdminProjectDetail> = z.object({
-	...projectFields,
-	blocks,
-});
+export const adminProjectSchema: z.ZodType<AdminProjectDetail> = z
+	.object({ ...projectFields, blocks })
+	.transform(({ blocks: stored, ...rest }) => ({
+		...toProject(rest),
+		blocks: stored satisfies StoredBlock[],
+	}));
 
 const noteFields = {
 	id: z.string(),
@@ -89,6 +101,7 @@ const noteFields = {
 	excerpt: z.string(),
 	read_minutes: z.number(),
 	sample: z.boolean(),
+	art_url: z.string().optional(),
 	project: projectRef.nullable(),
 	status: z.enum(ContentStatus),
 };
@@ -96,11 +109,13 @@ const noteFields = {
 const toNote = ({
 	published_at,
 	read_minutes,
+	art_url,
 	...rest
 }: z.output<z.ZodObject<typeof noteFields>>): AdminNote => ({
 	...rest,
 	publishedAt: published_at,
 	readMinutes: read_minutes,
+	artUrl: art_url ?? "",
 });
 
 export const adminNoteListSchema: z.ZodType<AdminNote[]> = z
@@ -114,38 +129,75 @@ export const adminNoteSchema: z.ZodType<AdminNoteDetail> = z
 		blocks: stored satisfies StoredBlock[],
 	}));
 
+const frameFields = {
+	id: z.string(),
+	file_id: z.string(),
+	alt: z.string(),
+	project: projectRef.nullable(),
+	tags: items,
+	width: z.number(),
+	height: z.number(),
+	image_url: z.string(),
+};
+
+const toFrame = ({
+	file_id,
+	image_url,
+	...rest
+}: z.output<z.ZodObject<typeof frameFields>>): AdminFrame => ({
+	...rest,
+	fileId: file_id,
+	imageUrl: image_url,
+});
+
 export const adminFramePageSchema: z.ZodType<AdminFramePage> = z
 	.object({
-		items: z.array(
-			z.object({
-				id: z.string(),
-				project: projectRef.nullable(),
-				tags: items,
-				width: z.number(),
-				height: z.number(),
-				image_url: z.string(),
-			}),
-		),
+		items: z.array(z.object(frameFields)),
 		next_cursor: z.string().nullable(),
 	})
 	.transform(({ items: frames, next_cursor }) => ({
-		frames: frames.map(({ image_url, ...rest }) => ({
-			...rest,
-			imageUrl: image_url,
-		})),
+		frames: frames.map(toFrame),
 		nextCursor: next_cursor,
 	}));
 
-export const adminFrameSchema = z
+export const adminFrameSchema: z.ZodType<AdminFrame> = z
+	.object(frameFields)
+	.transform(toFrame);
+
+const fileFields = {
+	id: z.string(),
+	kind: z.enum(FileKind),
+	mime: z.string(),
+	size: z.number(),
+	width: z.number(),
+	height: z.number(),
+	name: z.string(),
+	alt: z.string(),
+	url: z.string(),
+	created_at: z.string(),
+};
+
+const toFile = ({
+	created_at,
+	...rest
+}: z.output<z.ZodObject<typeof fileFields>>): AdminFile => ({
+	...rest,
+	createdAt: created_at,
+});
+
+export const adminFileSchema: z.ZodType<AdminFile> = z
+	.object(fileFields)
+	.transform(toFile);
+
+export const adminFilePageSchema: z.ZodType<FilePage> = z
 	.object({
-		id: z.string(),
-		project: projectRef.nullable(),
-		tags: items,
-		width: z.number(),
-		height: z.number(),
-		image_url: z.string(),
+		items: z.array(z.object(fileFields)),
+		next_cursor: z.string().nullable(),
 	})
-	.transform(({ image_url, ...rest }) => ({ ...rest, imageUrl: image_url }));
+	.transform(({ items: files, next_cursor }) => ({
+		files: files.map(toFile),
+		nextCursor: next_cursor,
+	}));
 
 export const settingListSchema: z.ZodType<Setting[]> = z
 	.object({

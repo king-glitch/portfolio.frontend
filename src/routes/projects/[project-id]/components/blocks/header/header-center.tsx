@@ -16,6 +16,7 @@ export const HeaderCenter: React.FC<HeaderCenterProps> = ({
 	discipline,
 	tags,
 	kind,
+	imageUrl,
 }) => {
 	const { t } = useTranslation();
 	return (
@@ -27,6 +28,7 @@ export const HeaderCenter: React.FC<HeaderCenterProps> = ({
 			>
 				<ProjectMotif
 					kind={kind}
+					imageUrl={imageUrl}
 					className="bg-background text-foreground"
 				/>
 			</div>

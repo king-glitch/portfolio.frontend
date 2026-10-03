@@ -8,6 +8,7 @@ import {
 	postSchema,
 	profileSchema,
 	projectListSchema,
+	publicCategoriesSchema,
 	projectSchema,
 	projectSlugsSchema,
 } from "@/api/schemas/portfolio";
@@ -19,7 +20,11 @@ import type {
 } from "@/api/types/portfolio/gallery";
 import type { Post, PostSummary } from "@/api/types/portfolio/post";
 import type { Profile } from "@/api/types/portfolio/profile";
-import type { Project, ProjectSummary } from "@/api/types/portfolio/project";
+import type {
+	Project,
+	ProjectCategory,
+	ProjectSummary,
+} from "@/api/types/portfolio/project";
 import { config } from "@/config";
 
 const { paths, params } = config.api;
@@ -37,6 +42,9 @@ const segment = encodeURIComponent;
 
 export const getProfile = (): Promise<Profile> =>
 	fetchParsed(profileSchema, paths.profile);
+
+export const listProjectCategories = (): Promise<ProjectCategory[]> =>
+	fetchParsed(publicCategoriesSchema, paths.settingsPublic);
 
 export const listProjects = (): Promise<ProjectSummary[]> =>
 	fetchParsed(projectListSchema, paths.projects);
