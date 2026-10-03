@@ -100,7 +100,8 @@ export const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
 					<div className="flex shrink-0 flex-wrap items-center justify-between gap-4 px-[clamp(16px,4vw,48px)] py-5">
 						<div className="flex min-w-0 flex-col gap-2">
 							<span className="text-[clamp(22px,3vw,40px)] leading-none font-extrabold tracking-[-0.04em]">
-								{frame?.projectName}
+								{frame?.projectName ??
+									t("gallery.tile.untitled")}
 							</span>
 							<span className="flex flex-wrap gap-2">
 								{frame?.tags.map((tag) => (
@@ -119,13 +120,13 @@ export const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
 								icon={RiArrowRightLine}
 								onClick={() => onStep(1)}
 							/>
-							{frame ? (
+							{frame?.projectSlug ? (
 								<PillButton
 									size={PillSize.Lg}
 									nativeButton={false}
 									render={
 										<Link
-											to={projectPath(frame.projectId)}
+											to={projectPath(frame.projectSlug)}
 											viewTransition
 										/>
 									}

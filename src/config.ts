@@ -17,6 +17,20 @@ export const config = {
 		note: "/notes/:slug",
 		/** Owner-only admin app; reached through the hidden hero gesture, never linked. */
 		dashboard: "/dashboard",
+		dashboardLogin: "/dashboard/authentication/login",
+		dashboardRecover: "/dashboard/authentication/recover",
+		dashboardProjects: "/dashboard/projects",
+		dashboardProjectNew: "/dashboard/projects/new",
+		dashboardProject: "/dashboard/projects/:projectId",
+		dashboardNotes: "/dashboard/notes",
+		dashboardNoteNew: "/dashboard/notes/new",
+		dashboardNote: "/dashboard/notes/:noteId",
+		dashboardGallery: "/dashboard/gallery",
+		dashboardSettings: "/dashboard/settings",
+		dashboardSettingsGeneral: "/dashboard/settings/general",
+		dashboardSettingsSeo: "/dashboard/settings/seo",
+		dashboardSettingsProfile: "/dashboard/settings/profile",
+		dashboardAccount: "/dashboard/account",
 	},
 	queryKeys: {
 		portfolio: {
@@ -34,9 +48,65 @@ export const config = {
 				tags: "portfolio.gallery.tags",
 			},
 		},
+		admin: {
+			me: "admin.me",
+			projects: {
+				list: "admin.projects.list",
+				detail: "admin.projects.detail",
+			},
+			notes: {
+				list: "admin.notes.list",
+				detail: "admin.notes.detail",
+			},
+			frames: "admin.frames",
+			settings: "admin.settings",
+		},
 	},
-	mock: {
-		latencyMs: 600,
+	/** Owner dashboard (`/dashboard`). */
+	dashboard: {
+		/** Session token and expiry. ponytail: localStorage is readable by any script on the page; httpOnly cookies need backend support. */
+		sessionStorageKey: "dashboard.session",
+		/** Select value meaning "nothing chosen" (an empty value is ignored by the select). */
+		noValue: "__none__",
+		/** Frames per request in the dashboard gallery. */
+		framePageSize: 24,
+		/** Upload picker accepts these. */
+		imageAccept: "image/png,image/jpeg,image/webp,image/gif",
+		/** Most tags the backend takes per item is its own limit; the form only splits the text. */
+		listSeparator: ",",
+	},
+	api: {
+		/** Backend root. Set `VITE_API_URL` per environment (see `.env.example`). */
+		// ponytail: optional chaining because React Router's config loader imports this file without Vite's env
+		baseUrl:
+			import.meta.env?.VITE_API_URL ?? "http://localhost:8000/api/v1",
+		timeoutMs: 10000,
+		paths: {
+			profile: "/settings/profile",
+			projects: "/project/projects",
+			notes: "/note/notes",
+			galleryFrames: "/gallery/frames",
+			galleryTags: "/gallery/tags",
+			auth: {
+				login: "/authentication/login",
+				logout: "/authentication/logout",
+				me: "/authentication/me",
+				changePassword: "/authentication/change-password",
+				changeUsername: "/authentication/change-username",
+				recover: "/authentication/recover",
+			},
+			admin: {
+				projects: "/project/administration/projects",
+				projectsOrder: "/project/administration/projects/order",
+				notes: "/note/administration/notes",
+				frames: "/gallery/administration/frames",
+				settings: "/settings/administration/settings",
+			},
+		},
+		/** `errors.code` of a rejected session token (expired, revoked, unknown): the only 401 that signs you out. */
+		invalidTokenCode: "Service.Authentication.InvalidToken",
+		/** Query param names the backend expects (kebab-case). */
+		params: { tag: "tag", cursor: "cursor", limit: "limit" },
 	},
 	gallery: {
 		/** Frames per request; the server returns the next cursor with each page. */
@@ -47,10 +117,15 @@ export const config = {
 		tagLimit: 10,
 	},
 	query: {
-		// ponytail: mock service, staleTime Infinity; add per-query staleTime when a backend exists
-		staleTimeMs: Number.POSITIVE_INFINITY,
-		retry: 1,
+		// ponytail: content changes only when the owner edits it; one-minute cache, refetch on remount after that
+		staleTimeMs: 60_000,
+		/** Retries for network, timeout, rate-limit and 5xx failures. Client errors are final. */
+		retry: 2,
+		retryBaseMs: 500,
+		retryMaxMs: 4000,
 	},
+	/** `published_at` shown as "Oct 2026". */
+	dateFormat: { month: "short", year: "numeric" } as const,
 	/** Hidden dashboard gesture on the hero: click "Quiet", then "loud", then hold "behind". */
 	secret: {
 		windowMs: 6000,

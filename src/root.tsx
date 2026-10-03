@@ -1,10 +1,11 @@
-import React from "react";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { Outlet } from "react-router";
+import { Toaster } from "@/components/ui/toast";
 import { PreloaderProvider } from "@/contexts/preloader-context";
 import { ShellProvider } from "@/contexts/shell-context";
 import { queryClient } from "@/lib/query-client";
 import "@/main.css";
+import { QueryClientProvider } from "@tanstack/react-query";
+import React from "react";
+import { Outlet } from "react-router";
 
 export { RootDocument as Layout } from "@/components/shared/root/root-document";
 export { RootError as ErrorBoundary } from "@/components/shared/root/root-error";
@@ -19,6 +20,7 @@ const Root: React.FC<RootProps> = () => {
 			<PreloaderProvider>
 				<ShellProvider>
 					<Outlet />
+					<Toaster />
 				</ShellProvider>
 			</PreloaderProvider>
 		</QueryClientProvider>

@@ -18,6 +18,7 @@ interface GalleryTileProps {
  */
 export const GalleryTile: React.FC<GalleryTileProps> = ({ frame, onOpen }) => {
 	const { t } = useTranslation();
+	const name = frame.projectName ?? t("gallery.tile.untitled");
 
 	const drift = (e: React.PointerEvent<HTMLButtonElement>) => {
 		const box = e.currentTarget.getBoundingClientRect();
@@ -40,9 +41,7 @@ export const GalleryTile: React.FC<GalleryTileProps> = ({ frame, onOpen }) => {
 		<Button
 			variant="ghost"
 			data-cursor={CursorLabel.View}
-			aria-label={t("gallery.tile.open.aria-label", {
-				name: frame.projectName,
-			})}
+			aria-label={t("gallery.tile.open.aria-label", { name })}
 			onClick={() => onOpen(frame.id)}
 			onPointerMove={drift}
 			onPointerLeave={settle}
@@ -60,7 +59,7 @@ export const GalleryTile: React.FC<GalleryTileProps> = ({ frame, onOpen }) => {
 				</span>
 				<span className="flex items-center justify-between gap-3 border-t px-4 py-3 transition-transform duration-600 ease-(--ease-out-expo) desk:absolute desk:inset-x-0 desk:bottom-0 desk:translate-y-full desk:border-t-0 desk:bg-foreground desk:text-background desk:group-hover/tile:translate-y-0 desk:group-focus-visible/tile:translate-y-0">
 					<span className="truncate text-sm font-bold tracking-tight">
-						{frame.projectName}
+						{name}
 					</span>
 					<RiArrowRightUpLine
 						aria-hidden="true"

@@ -1,5 +1,5 @@
 import React from "react";
-import { NotFoundError } from "@/api/errors";
+import { isNotFound } from "@/api/errors";
 import { useProject } from "@/api/hooks/portfolio/use-project";
 import { useProjects } from "@/api/hooks/portfolio/use-projects";
 import { QueryEmpty } from "@/components/common/feedback/query-empty";
@@ -19,18 +19,20 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ projectId }) => {
 
 	if (project.isPending) return <ProjectPageSkeleton />;
 	if (project.isError) {
-		const body =
-			project.error instanceof NotFoundError ? (
-				<QueryEmpty
-					titleKey="common.not-found.title"
-					action={{
-						to: config.routes.home,
-						labelKey: "common.not-found.action",
-					}}
-				/>
-			) : (
-				<QueryErrorAlert onRetry={() => void project.refetch()} />
-			);
+		const body = isNotFound(project.error) ? (
+			<QueryEmpty
+				titleKey="common.not-found.title"
+				action={{
+					to: config.routes.home,
+					labelKey: "common.not-found.action",
+				}}
+			/>
+		) : (
+			<QueryErrorAlert
+				onRetry={() => void project.refetch()}
+				error={project.error}
+			/>
+		);
 		return (
 			<main className="fixed inset-0 flex items-center justify-center p-6">
 				<div className="w-full max-w-md">{body}</div>

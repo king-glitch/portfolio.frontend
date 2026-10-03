@@ -6,3 +6,9 @@ export const projectPath = (projectId: string) =>
 
 export const notePath = (slug: string) =>
 	generatePath(config.routes.note, { slug });
+
+export const dashboardProjectPath = (projectId: string) =>
+	generatePath(config.routes.dashboardProject, { projectId });
+
+export const dashboardNotePath = (noteId: string) =>
+	generatePath(config.routes.dashboardNote, { noteId });

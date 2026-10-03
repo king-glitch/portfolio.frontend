@@ -86,7 +86,11 @@ const Gallery: React.FC<GalleryProps> = () => {
 	const renderBody = () => {
 		if (gallery.isError && !frames)
 			return (
-				<QueryErrorAlert onRetry={gallery.refetch} className="mt-16" />
+				<QueryErrorAlert
+					onRetry={gallery.refetch}
+					error={gallery.error}
+					className="mt-16"
+				/>
 			);
 		if (!frames)
 			return (

@@ -227,6 +227,48 @@
 				"status": "Error",
 				"title": "Oops!"
 			},
+			"kinds": {
+				"network": {
+					"title": "You look offline",
+					"description": "The server could not be reached. Check your connection and try again."
+				},
+				"timeout": {
+					"title": "That took too long",
+					"description": "The server did not answer in time. Try again."
+				},
+				"not-found": {
+					"title": "Nothing here",
+					"description": "This does not exist (any more)."
+				},
+				"validation": {
+					"title": "Request rejected",
+					"description": "The server did not accept that request. Reload the page and try again."
+				},
+				"unauthorized": {
+					"title": "Sign-in failed",
+					"description": "Wrong credentials, or the session has ended. Sign in again."
+				},
+				"forbidden": {
+					"title": "Not allowed",
+					"description": "You do not have access to this."
+				},
+				"conflict": {
+					"title": "Out of date",
+					"description": "This changed while you were looking. Reload and try again."
+				},
+				"rate-limited": {
+					"title": "Slow down",
+					"description": "Too many requests. Wait a moment, then try again."
+				},
+				"server": {
+					"title": "The server is struggling",
+					"description": "Something broke on our side. Try again in a moment."
+				},
+				"invalid": {
+					"title": "Unexpected answer",
+					"description": "The server sent something this page cannot read. Try again later."
+				}
+			},
 			"load": {
 				"description": "Something went wrong while loading. Try again.",
 				"title": "Could not load this"
@@ -859,14 +901,585 @@
 			"title": "Gallery — William Siefert"
 		},
 		"tile": {
+			"alt": "Frame from {{name}}",
 			"open": {
 				"aria-label": "View a frame from {{name}}"
 			},
-			"alt": "Frame from {{name}}"
+			"untitled": "a frame"
 		},
 		"end": "That is every frame.",
 		"loading": {
 			"label": "Loading more frames"
+		}
+	},
+	"dashboard": {
+		"brand": "Dashboard",
+		"nav": {
+			"logo": "D",
+			"groups": {
+				"content": "Content",
+				"site": "Site"
+			},
+			"items": {
+				"projects": "Projects",
+				"notes": "Notes",
+				"gallery": "Gallery",
+				"settings": "Settings",
+				"account": "Account"
+			}
+		},
+		"breadcrumbs": {
+			"new": "New",
+			"edit": "Edit"
+		},
+		"topbar": {
+			"site": "View site",
+			"theme": {
+				"aria-label": "Switch between light and dark"
+			}
+		},
+		"user": {
+			"unknown": "Admin",
+			"menu": {
+				"label": "Signed in",
+				"account": "Account",
+				"site": "View site",
+				"logout": "Sign out"
+			}
+		},
+		"statuses": {
+			"draft": "Draft",
+			"published": "Published"
+		},
+		"options": {
+			"kinds": {
+				"radar": "Radar",
+				"moon": "Moon",
+				"pixel": "Pixel",
+				"hex": "Hex",
+				"orbit": "Orbit",
+				"pins": "Pins"
+			},
+			"sides": {
+				"behind-the-scenes": "Behind the scenes",
+				"on-screen": "On screen"
+			},
+			"categories": {
+				"games": "Games",
+				"platforms": "Platforms & tools",
+				"on-chain": "On-chain",
+				"all": "All"
+			},
+			"variants": {
+				"split": "Split",
+				"split-rev": "Split, reversed",
+				"center": "Centered",
+				"outline": "Outline",
+				"vertical": "Vertical"
+			},
+			"screens": {
+				"main": "Main",
+				"alt": "Alternate"
+			},
+			"views": {
+				"desktop": "Desktop",
+				"phone": "Phone"
+			},
+			"tones": {
+				"default": "Default",
+				"invert": "Inverted"
+			},
+			"experiences": {
+				"work": "Work",
+				"education": "Education"
+			}
+		},
+		"errors": {
+			"required": "This field is required.",
+			"password": "Use at least {{min}} characters.",
+			"username": "Use {{min}} to {{max}} characters.",
+			"block": "A block has an empty required field.",
+			"max": "At most {{max}} characters.",
+			"url": "Enter a full web address.",
+			"https": "The address must start with https://",
+			"email": "Enter a valid email address."
+		},
+		"form": {
+			"submit": "Save",
+			"cancel": "Cancel",
+			"list": {
+				"hint": "Separate with commas."
+			}
+		},
+		"delete": {
+			"title": "Delete “{{name}}”?",
+			"description": "This cannot be undone.",
+			"cancel": "Keep it",
+			"confirm": "Delete"
+		},
+		"row": {
+			"edit": {
+				"aria-label": "Edit {{name}}"
+			},
+			"delete": {
+				"aria-label": "Delete {{name}}"
+			}
+		},
+		"account": {
+			"meta": {
+				"title": "Account — Dashboard"
+			},
+			"title": "Account",
+			"description": "Your sign-in details.",
+			"summary": {
+				"last-login": "Last sign-in: {{date}}",
+				"never": "never"
+			},
+			"username": {
+				"title": "Username",
+				"description": "Change the name you sign in with.",
+				"new": {
+					"label": "New username"
+				},
+				"password": {
+					"label": "Current password"
+				},
+				"submit": "Change username",
+				"success": "Username changed."
+			},
+			"password": {
+				"title": "Password",
+				"description": "Use at least {{min}} characters.",
+				"current": {
+					"label": "Current password"
+				},
+				"new": {
+					"label": "New password"
+				},
+				"submit": "Change password",
+				"success": "Password changed."
+			}
+		},
+		"projects": {
+			"list": {
+				"meta": {
+					"title": "Projects — Dashboard"
+				},
+				"title": "Projects",
+				"description": "Order here is the order on the site.",
+				"new": "New project",
+				"deleted": "Project deleted.",
+				"columns": {
+					"num": "No.",
+					"name": "Project",
+					"status": "Status",
+					"categories": "Categories",
+					"actions": "Actions"
+				},
+				"move": {
+					"up": "Move {{name}} up",
+					"down": "Move {{name}} down"
+				},
+				"empty": {
+					"title": "No projects yet",
+					"description": "Create the first one.",
+					"action": "New project"
+				}
+			},
+			"new": {
+				"meta": {
+					"title": "New project — Dashboard"
+				},
+				"title": "New project"
+			},
+			"edit": {
+				"meta": {
+					"title": "Edit project — Dashboard"
+				},
+				"title": "Edit project"
+			},
+			"not-found": {
+				"title": "Project not found",
+				"action": "All projects"
+			},
+			"form": {
+				"success": "Project saved.",
+				"name": {
+					"label": "Name"
+				},
+				"full": {
+					"label": "Full name"
+				},
+				"kind": {
+					"label": "Art"
+				},
+				"side": {
+					"label": "Side"
+				},
+				"status": {
+					"label": "Status"
+				},
+				"categories": {
+					"label": "Categories"
+				},
+				"tags": {
+					"label": "Tags"
+				},
+				"stack": {
+					"label": "Stack"
+				},
+				"role": {
+					"label": "Role"
+				},
+				"about": {
+					"label": "About"
+				},
+				"blocks": {
+					"label": "Blocks"
+				}
+			}
+		},
+		"notes": {
+			"list": {
+				"meta": {
+					"title": "Notes — Dashboard"
+				},
+				"title": "Notes",
+				"description": "Posts shown on the site once published.",
+				"new": "New note",
+				"deleted": "Note deleted.",
+				"unpublished": "Not published",
+				"no-project": "None",
+				"columns": {
+					"num": "No.",
+					"title": "Note",
+					"status": "Status",
+					"project": "Project",
+					"published": "Published",
+					"actions": "Actions"
+				},
+				"empty": {
+					"title": "No notes yet",
+					"description": "Write the first one.",
+					"action": "New note"
+				}
+			},
+			"new": {
+				"meta": {
+					"title": "New note — Dashboard"
+				},
+				"title": "New note"
+			},
+			"edit": {
+				"meta": {
+					"title": "Edit note — Dashboard"
+				},
+				"title": "Edit note"
+			},
+			"not-found": {
+				"title": "Note not found",
+				"action": "All notes"
+			},
+			"form": {
+				"success": "Note saved.",
+				"title": {
+					"label": "Title"
+				},
+				"kind": {
+					"label": "Art"
+				},
+				"status": {
+					"label": "Status"
+				},
+				"project": {
+					"label": "Project",
+					"none": "No project",
+					"error": "Projects could not be loaded; only “No project” is available."
+				},
+				"published": {
+					"label": "Published at",
+					"hint": "Local time. Empty = not dated."
+				},
+				"tags": {
+					"label": "Tags"
+				},
+				"excerpt": {
+					"label": "Excerpt"
+				},
+				"sample": {
+					"label": "Sample",
+					"description": "Marks the note as placeholder copy."
+				},
+				"blocks": {
+					"label": "Blocks"
+				}
+			}
+		},
+		"gallery": {
+			"meta": {
+				"title": "Gallery — Dashboard"
+			},
+			"title": "Gallery",
+			"description": "Pictures shown on the gallery page, newest first.",
+			"more": "Load more",
+			"uploaded": "Picture uploaded.",
+			"saved": "Picture saved.",
+			"deleted": "Picture deleted.",
+			"empty": {
+				"title": "No pictures yet",
+				"description": "Upload the first one."
+			},
+			"upload": {
+				"button": "Upload",
+				"title": "Upload a picture",
+				"description": "The server shrinks it and strips camera data."
+			},
+			"edit": {
+				"title": "Edit picture",
+				"description": "Change its tags or project."
+			},
+			"card": {
+				"untitled": "No project",
+				"alt": "Picture from {{name}}",
+				"edit": {
+					"aria-label": "Edit picture from {{name}}"
+				},
+				"delete": {
+					"aria-label": "Delete picture from {{name}}"
+				}
+			},
+			"form": {
+				"file": {
+					"label": "Picture",
+					"hint": "PNG, JPEG, WebP or GIF.",
+					"required": "Choose a picture."
+				},
+				"tags": {
+					"label": "Tags"
+				},
+				"project": {
+					"label": "Project",
+					"none": "No project",
+					"error": "Projects could not be loaded; only “No project” is available."
+				}
+			}
+		},
+		"settings": {
+			"meta": {
+				"title": "Settings — Dashboard"
+			},
+			"title": "Settings",
+			"description": "Site-wide values, grouped by what they change.",
+			"save": "Save changes",
+			"saved": "Settings saved.",
+			"empty": {
+				"title": "No settings"
+			},
+			"tabs": {
+				"general": "General",
+				"seo": "SEO",
+				"profile": "Profile"
+			},
+			"general": {
+				"meta": {
+					"title": "General settings — Dashboard"
+				},
+				"title": {
+					"label": "Site title"
+				},
+				"theme": {
+					"label": "Default theme",
+					"hint": "What visitors see before they choose.",
+					"options": {
+						"light": "Light",
+						"dark": "Dark",
+						"system": "Follow the device"
+					}
+				},
+				"maintenance": {
+					"label": "Maintenance mode",
+					"hint": "Tells visitors the site is being worked on."
+				},
+				"toggles": {
+					"label": "Feature flags",
+					"hint": "Named switches the site can read.",
+					"name": "Name",
+					"enabled": "On",
+					"add": "Add a flag",
+					"remove": "Remove flag {{name}}",
+					"unique": "Flag names must be different."
+				}
+			},
+			"seo": {
+				"meta": {
+					"title": "SEO settings — Dashboard"
+				},
+				"description": {
+					"label": "Description"
+				},
+				"keywords": {
+					"label": "Keywords",
+					"invalid": "At most {{count}} keywords, each up to {{max}} characters."
+				},
+				"image": {
+					"label": "Preview image URL",
+					"hint": "Shown when the site is shared. Leave empty for none."
+				}
+			},
+			"profile": {
+				"meta": {
+					"title": "Profile settings — Dashboard"
+				},
+				"invalid": "The profile is not complete or valid.",
+				"name": {
+					"label": "Name"
+				},
+				"headline": {
+					"label": "Headline"
+				},
+				"about": {
+					"label": "About"
+				},
+				"contact": {
+					"legend": "Contact",
+					"email": {
+						"label": "Email"
+					},
+					"github": {
+						"label": "GitHub URL"
+					},
+					"linkedin": {
+						"label": "LinkedIn URL"
+					},
+					"discord": {
+						"label": "Discord handle",
+						"hint": "The handle only, not a link."
+					}
+				}
+			}
+		},
+		"authentication": {
+			"login": {
+				"meta": {
+					"title": "Sign in — Dashboard"
+				},
+				"title": "Sign in",
+				"description": "Owner access to the portfolio dashboard.",
+				"username": {
+					"label": "Username"
+				},
+				"password": {
+					"label": "Password"
+				},
+				"submit": "Sign in",
+				"recover": "Forgot your password?"
+			},
+			"recover": {
+				"meta": {
+					"title": "Recover access — Dashboard"
+				},
+				"title": "Recover access",
+				"description": "Use your recovery code to set a new password.",
+				"code": {
+					"label": "Recovery code"
+				},
+				"password": {
+					"label": "New password",
+					"hint": "At least {{min}} characters."
+				},
+				"submit": "Set new password",
+				"back": "Back to sign in",
+				"done": {
+					"title": "Password changed",
+					"description": "Save this new recovery code now. It is shown only once and the old one no longer works.",
+					"action": "Go to sign in"
+				}
+			}
+		},
+		"dynamic": {
+			"none": "None",
+			"add": "Add {{name}}",
+			"remove": "Remove {{name}}",
+			"lines": {
+				"hint": "One per line."
+			}
+		},
+		"fields": {
+			"variant": "Layout",
+			"title": "Title",
+			"subtitle": "Subtitle",
+			"index": "Index label",
+			"discipline": "Side",
+			"tags": "Tags",
+			"kind": "Art",
+			"text": "Text",
+			"cite": "Cite",
+			"tone": "Tone",
+			"value": "Value",
+			"label": "Label",
+			"caption": "Caption",
+			"list": "List",
+			"items": "Items",
+			"screen": "Screen",
+			"view": "View",
+			"nodes": "Nodes",
+			"name": "Name",
+			"description": "Description",
+			"from": "From",
+			"to": "To",
+			"lang": "Language",
+			"ordered": "Numbered",
+			"id": "Id",
+			"period": "Period label",
+			"notes": "Notes",
+			"start": "Start",
+			"end": "End (empty = now)",
+			"skills": "Skills",
+			"core": "Core skills",
+			"experience": "Experience",
+			"education": "Education",
+			"image-url": "Image URL",
+			"from-id": "Linked project"
+		},
+		"blocks": {
+			"hint": "Blocks are shown in this order. The server checks each one.",
+			"add": "Add block",
+			"type": {
+				"aria-label": "Block type to add"
+			},
+			"unsupported": "This block type is not editable here. Move or remove it.",
+			"move": {
+				"up": "Move {{name}} up",
+				"down": "Move {{name}} down"
+			},
+			"remove": "Remove {{name}}",
+			"types": {
+				"project": {
+					"project-header": "Header",
+					"quote": "Quote",
+					"big-number": "Big number",
+					"about-split": "About",
+					"numbered-list": "Numbered list",
+					"stack-cards": "Stack cards",
+					"feature-grid": "Feature grid",
+					"timeline": "Timeline",
+					"zigzag": "Zigzag",
+					"motif-full": "Full motif",
+					"chips": "Chips",
+					"mock": "Screen mock",
+					"gallery": "Gallery",
+					"architecture": "Architecture",
+					"lineage": "Lineage"
+				},
+				"note": {
+					"p": "Paragraph",
+					"h": "Heading",
+					"list": "List",
+					"code": "Code",
+					"quote": "Quote",
+					"callout": "Callout"
+				}
+			}
 		}
 	}
 }

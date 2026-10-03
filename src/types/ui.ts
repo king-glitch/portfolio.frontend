@@ -139,3 +139,19 @@ export enum CompanionPlace {
 	About = "about",
 	Gallery = "gallery",
 }
+
+/** Top-level pages of the owner dashboard, in sidebar order. Values are the URL segments. */
+export enum DashboardSection {
+	Projects = "projects",
+	Notes = "notes",
+	Gallery = "gallery",
+	Settings = "settings",
+	Account = "account",
+}
+
+/** Tabs of the dashboard settings; each is its own route. Values are the URL segments. */
+export enum SettingsTab {
+	General = "general",
+	Seo = "seo",
+	Profile = "profile",
+}

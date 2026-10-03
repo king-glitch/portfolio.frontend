@@ -1,5 +1,5 @@
 import React from "react";
-import { NotFoundError } from "@/api/errors";
+import { isNotFound } from "@/api/errors";
 import { usePost } from "@/api/hooks/portfolio/use-post";
 import { QueryEmpty } from "@/components/common/feedback/query-empty";
 import { QueryErrorAlert } from "@/components/common/feedback/query-error-alert";
@@ -42,7 +42,7 @@ const Note: React.FC<NoteProps> = ({ params }) => {
 	if (isError) {
 		return (
 			<main className="mx-auto max-w-340 px-[clamp(16px,4vw,48px)] pt-32 pb-24">
-				{error instanceof NotFoundError ? (
+				{isNotFound(error) ? (
 					<QueryEmpty
 						titleKey="notes.post.not-found.title"
 						descriptionKey="notes.post.not-found.description"
@@ -52,7 +52,7 @@ const Note: React.FC<NoteProps> = ({ params }) => {
 						}}
 					/>
 				) : (
-					<QueryErrorAlert onRetry={refetch} />
+					<QueryErrorAlert onRetry={refetch} error={error} />
 				)}
 			</main>
 		);

@@ -10,7 +10,80 @@ import { config } from "./config";
 const segment = (full: string, parent = "") =>
 	full.slice(parent.length).replace(/^\//, "");
 
+const dashboard = config.routes.dashboard;
+
 export default [
+	route(
+		segment(config.routes.dashboardLogin),
+		"routes/dashboard/authentication/login/index.tsx",
+	),
+	route(
+		segment(config.routes.dashboardRecover),
+		"routes/dashboard/authentication/recover/index.tsx",
+	),
+	layout("routes/dashboard/layout.tsx", [
+		route(segment(dashboard), "routes/dashboard/index.tsx"),
+		route(
+			segment(config.routes.dashboardProjects),
+			"routes/dashboard/projects/index.tsx",
+		),
+		route(
+			segment(config.routes.dashboardProjectNew),
+			"routes/dashboard/projects/new/index.tsx",
+		),
+		route(
+			segment(config.routes.dashboardProject),
+			"routes/dashboard/projects/[project-id]/index.tsx",
+		),
+		route(
+			segment(config.routes.dashboardNotes),
+			"routes/dashboard/notes/index.tsx",
+		),
+		route(
+			segment(config.routes.dashboardNoteNew),
+			"routes/dashboard/notes/new/index.tsx",
+		),
+		route(
+			segment(config.routes.dashboardNote),
+			"routes/dashboard/notes/[note-id]/index.tsx",
+		),
+		route(
+			segment(config.routes.dashboardGallery),
+			"routes/dashboard/gallery/index.tsx",
+		),
+		route(
+			segment(config.routes.dashboardSettings),
+			"routes/dashboard/settings/layout.tsx",
+			[
+				index("routes/dashboard/settings/index.tsx"),
+				route(
+					segment(
+						config.routes.dashboardSettingsGeneral,
+						config.routes.dashboardSettings,
+					),
+					"routes/dashboard/settings/general/index.tsx",
+				),
+				route(
+					segment(
+						config.routes.dashboardSettingsSeo,
+						config.routes.dashboardSettings,
+					),
+					"routes/dashboard/settings/seo/index.tsx",
+				),
+				route(
+					segment(
+						config.routes.dashboardSettingsProfile,
+						config.routes.dashboardSettings,
+					),
+					"routes/dashboard/settings/profile/index.tsx",
+				),
+			],
+		),
+		route(
+			segment(config.routes.dashboardAccount),
+			"routes/dashboard/account/index.tsx",
+		),
+	]),
 	layout("routes/layout.tsx", [
 		index("routes/index.tsx"),
 		route(

@@ -1,9 +1,17 @@
-import { NotFoundError } from "@/api/errors";
-import { buildGalleryFrames } from "@/api/mocks/portfolio/gallery";
-import { posts } from "@/api/mocks/portfolio/posts";
-import { profile } from "@/api/mocks/portfolio/profile";
-import { projects } from "@/api/mocks/portfolio/projects";
-import { sleep } from "@/api/mocks/sleep";
+import type { z } from "zod";
+import { get } from "@/api/client";
+import { parseBody } from "@/api/parse";
+import {
+	galleryPageSchema,
+	galleryTagsSchema,
+	postListSchema,
+	postSchema,
+	profileSchema,
+	projectListSchema,
+	projectSchema,
+	projectSlugsSchema,
+} from "@/api/schemas/portfolio";
+import { BlockType } from "@/api/types/portfolio/enums";
 import type {
 	GalleryPage,
 	GalleryParams,
@@ -14,64 +22,75 @@ import type { Profile } from "@/api/types/portfolio/profile";
 import type { Project, ProjectSummary } from "@/api/types/portfolio/project";
 import { config } from "@/config";
 
-// ponytail: mock seam. Swap each body for an HTTP call (and add the Axios client) when a backend exists.
+const { paths, params } = config.api;
 
-export async function getProfile(): Promise<Profile> {
-	await sleep();
-	return profile;
+/** GET `path` and parse the body against the contract. */
+async function fetchParsed<S extends z.ZodType>(
+	schema: S,
+	path: string,
+	query?: Record<string, string | number | undefined>,
+): Promise<z.output<S>> {
+	return parseBody(schema, path, await get(path, query));
 }
 
-export async function listProjects(): Promise<ProjectSummary[]> {
-	await sleep();
-	return projects.map(({ blocks: _blocks, ...summary }) => summary);
-}
+const segment = encodeURIComponent;
 
+export const getProfile = (): Promise<Profile> =>
+	fetchParsed(profileSchema, paths.profile);
+
+export const listProjects = (): Promise<ProjectSummary[]> =>
+	fetchParsed(projectListSchema, paths.projects);
+
+/** `id` is the project's slug. Lineage links arrive as document ids and leave as slugs. */
 export async function getProject(id: string): Promise<Project> {
-	await sleep();
-	const project = projects.find((p) => p.id === id);
-	if (!project) throw new NotFoundError("project", id);
-	return project;
-}
-
-export async function listPosts(): Promise<PostSummary[]> {
-	await sleep();
-	return posts.map(({ blocks: _blocks, ...summary }) => summary);
-}
-
-export async function getPost(slug: string): Promise<Post> {
-	await sleep();
-	const post = posts.find((p) => p.slug === slug);
-	if (!post) throw new NotFoundError("post", slug);
-	return post;
-}
-
-/** One page of frames, optionally of one tag. `cursor` is opaque to the client (here: an offset). */
-export async function listGallery({
-	tag,
-	cursor,
-	limit,
-}: GalleryParams): Promise<GalleryPage> {
-	await sleep();
-	const all = buildGalleryFrames(projects);
-	const matching = tag ? all.filter((f) => f.tags.includes(tag)) : all;
-	const from = cursor ? Number(cursor) : 0;
-	const to = from + limit;
+	const project = await fetchParsed(
+		projectSchema,
+		`${paths.projects}/${segment(id)}`,
+	);
+	if (
+		!project.blocks.some(
+			(b) => b.type === BlockType.Lineage && b.params.fromId,
+		)
+	)
+		return project;
+	const slugs = await fetchParsed(projectSlugsSchema, paths.projects);
 	return {
-		frames: matching.slice(from, to),
-		nextCursor: to < matching.length ? String(to) : null,
+		...project,
+		blocks: project.blocks.map((b) =>
+			b.type === BlockType.Lineage && b.params.fromId
+				? {
+						...b,
+						params: {
+							...b.params,
+							// a deleted or unpublished target leaves the name as plain text
+							fromId: slugs.get(b.params.fromId),
+						},
+					}
+				: b,
+		),
 	};
 }
 
+export const listPosts = (): Promise<PostSummary[]> =>
+	fetchParsed(postListSchema, paths.notes);
+
+export const getPost = (slug: string): Promise<Post> =>
+	fetchParsed(postSchema, `${paths.notes}/${segment(slug)}`);
+
+/** One page of frames, optionally of one tag. `cursor` is the backend's opaque `next_cursor`. */
+export const listGallery = ({
+	tag,
+	cursor,
+	limit,
+}: GalleryParams): Promise<GalleryPage> =>
+	fetchParsed(galleryPageSchema, paths.galleryFrames, {
+		[params.tag]: tag,
+		[params.cursor]: cursor,
+		[params.limit]: limit,
+	});
+
 /** The most used tags with their frame counts, for the filter chips. */
-export async function listGalleryTags(): Promise<GalleryTags> {
-	await sleep();
-	const all = buildGalleryFrames(projects);
-	const counts = new Map<string, number>();
-	for (const tag of all.flatMap((f) => f.tags))
-		counts.set(tag, (counts.get(tag) ?? 0) + 1);
-	const tags = [...counts]
-		.sort((a, b) => b[1] - a[1])
-		.slice(0, config.gallery.tagLimit)
-		.map(([tag, count]) => ({ tag, count }));
-	return { total: all.length, tags };
-}
+export const listGalleryTags = (): Promise<GalleryTags> =>
+	fetchParsed(galleryTagsSchema, paths.galleryTags, {
+		[params.limit]: config.gallery.tagLimit,
+	});

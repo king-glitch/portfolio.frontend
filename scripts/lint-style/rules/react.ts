@@ -483,7 +483,7 @@ function isHookImportSource(source: string): boolean {
 }
 
 function isMutationHookName(name: string): boolean {
-	return /^use(Create|Update|Delete|Toggle|Cancel|Send|Save|Set|Reject|Approve)/.test(
+	return /^use(Create|Update|Delete|Toggle|Cancel|Send|Save|Set|Reject|Approve|Login|Logout|Recover|Change|Upload|Reorder)/.test(
 		name,
 	);
 }

@@ -871,6 +871,10 @@ const fixtures: Record<RuleId, RuleFixture> = {
 		valid: [
 			oneFile(
 				"src/components/common/widgets/foo.tsx",
+				'import { useLogin } from "@/api/hooks/admin/auth/use-login";\nexport const Foo = () => {\n\tconst login = useLogin();\n\treturn <button disabled={login.isPending} />;\n};\n',
+			),
+			oneFile(
+				"src/components/common/widgets/foo.tsx",
 				'import { useFoo } from "@/api/hooks/use-foo";\nexport const Foo = () => {\n\tconst { data, isLoading, isError, refetch } = useFoo();\n\treturn <div>{isLoading ? "..." : data}</div>;\n};\n',
 			),
 		].map((files) => ({ files })),

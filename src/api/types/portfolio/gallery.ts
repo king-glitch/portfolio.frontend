@@ -1,28 +1,13 @@
-import type { MockScreen, MotifKind } from "@/api/types/portfolio/enums";
-
-/** Which stand-in picture to draw while a frame has no uploaded image. */
-export enum GalleryArtKind {
-	Screen = "screen",
-	Concept = "concept",
-}
-
-export interface GalleryArt {
-	kind: MotifKind;
-	screen: MockScreen;
-	art: GalleryArtKind;
-}
-
 export interface GalleryFrame {
 	id: string;
-	projectId: string;
-	projectName: string;
+	/** Frames not linked to a project (or whose project is gone) have none. */
+	projectSlug: string | null;
+	projectName: string | null;
 	tags: string[];
 	/** Picture size, so a tile reserves its space before the image loads. */
 	width: number;
 	height: number;
-	/** Uploaded picture; null until one exists, then `art` is drawn instead. */
-	imageUrl: string | null;
-	art: GalleryArt;
+	imageUrl: string;
 }
 
 /** One page of frames; `nextCursor` is null on the last page. */
