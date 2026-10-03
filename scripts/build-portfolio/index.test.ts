@@ -32,11 +32,11 @@ test("parses every ME.md section", () => {
 });
 
 test("experience start/end are explicit year-months", () => {
-	expect(me.experience[0]).toMatchObject({
+	expect(me.experience[0]).toMatchObject({ start: "2023-01", end: null });
+	expect(me.experience[1]).toMatchObject({
 		start: "2022-06",
 		end: "2023-06",
 	});
-	expect(me.experience[1]).toMatchObject({ start: "2023-01", end: null });
 	expect(me.education[0]).toMatchObject({ start: "2019-01", end: "2023-01" });
 	expect(toYearMonth("Present")).toBeNull();
 });
@@ -53,12 +53,12 @@ test("kindFor maps titles", () => {
 
 test("ids and numbers", () => {
 	expect(projects.map((p) => p.id)).toEqual([
-		"aads",
-		"morning-moon-village",
 		"morning-moon-pocket",
 		"metal-valley",
 		"evermoon-socialfi",
 		"estic-ai",
+		"morning-moon-village",
+		"aads",
 	]);
 	expect(projects.map((p) => p.num)).toEqual([
 		"0001",
@@ -72,7 +72,7 @@ test("ids and numbers", () => {
 });
 
 test("tags and stack keywords", () => {
-	const aads = projects[0];
+	const aads = projects.find((p) => p.id === "aads");
 	expect(aads?.tags).toEqual([
 		"Real-time",
 		"Radar protocols",
@@ -105,7 +105,6 @@ test("block order per kind", () => {
 		B.ProjectHeader,
 		B.Quote,
 		B.Mock,
-		B.BigNumber,
 		B.Architecture,
 		B.FeatureGrid,
 		B.Timeline,
@@ -133,7 +132,6 @@ test("block order per kind", () => {
 		B.ProjectHeader,
 		B.AboutSplit,
 		B.Gallery,
-		B.BigNumber,
 		B.Architecture,
 		B.Timeline,
 		B.Zigzag,
@@ -148,7 +146,6 @@ test("block order per kind", () => {
 	]);
 	expect(types("estic-ai")).toEqual([
 		B.ProjectHeader,
-		B.BigNumber,
 		B.Gallery,
 		B.AboutSplit,
 		B.StackCards,
@@ -157,24 +154,15 @@ test("block order per kind", () => {
 });
 
 test("AADS payload matches the plan example", () => {
-	const aads = projects[0];
-	expect(aads?.blocks[3]).toEqual({
-		type: BlockType.BigNumber,
-		params: {
-			value: "2",
-			label: "Radar protocols, decoded",
-			caption:
-				"TRML and DR127ADV messages turned into readable, real-time tracks.",
-		},
-	});
-	const arch = aads?.blocks[4];
+	const aads = projects.find((p) => p.id === "aads");
+	const arch = aads?.blocks[3];
 	expect(
 		arch?.type === BlockType.Architecture && arch.params.nodes[1],
 	).toEqual({
 		name: "Decoder",
 		description: "TRML · DR127ADV → readable",
 	});
-	const grid = aads?.blocks[5];
+	const grid = aads?.blocks[4];
 	expect(
 		grid?.type === BlockType.FeatureGrid && grid.params.items,
 	).toHaveLength(7);

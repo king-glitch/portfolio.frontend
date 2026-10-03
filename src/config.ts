@@ -184,7 +184,6 @@ export const config = {
 				minOpacity: 0.16,
 				overshoot: 1.1,
 			},
-			pinsStat: { value: 4, suffix: "k+" },
 		},
 		spotlight: {
 			maxRadiusPx: 240,

@@ -6,9 +6,9 @@ interface ContactLinksSkeletonProps {
 	className?: string;
 }
 
-const PILLS = ["email", "github", "linkedin"];
+const PILLS = ["email", "github", "linkedin", "discord"];
 
-/** Three pill-sized placeholders, same height as ContactLinks (xl pill, 64px). */
+/** Four pill-sized placeholders, same height as ContactLinks (xl pill, 64px). */
 export const ContactLinksSkeleton: React.FC<ContactLinksSkeletonProps> = ({
 	className,
 }) => {

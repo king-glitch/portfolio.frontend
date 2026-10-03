@@ -15,7 +15,7 @@ import { HomePad } from "@/types/home";
 
 interface StackFlowProps {}
 
-/** "How a tap becomes a thing": six stops joined by moving packets; selecting one lists the projects that used it. */
+/** "How a tap becomes a thing": five stops joined by moving packets; selecting one lists the projects that used it. */
 export const StackFlow: React.FC<StackFlowProps> = () => {
 	const { t } = useTranslation();
 	const { data, isPending, isError, refetch } = useProjects();

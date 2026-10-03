@@ -134,9 +134,6 @@ const Notes: React.FC<NotesProps> = () => {
 				{isPending ? <TagFilterSkeleton /> : null}
 			</div>
 			{renderBody()}
-			<p className="mt-24 border-t border-border pt-6 text-[13px] text-muted-foreground">
-				{t("notes.list.footnote")}
-			</p>
 		</main>
 	);
 };

@@ -17,7 +17,7 @@
 					"caption": "Words my notes use most"
 				},
 				"behind": {
-					"caption": "of my work happens behind the scenes, where nobody looks"
+					"caption": "of my projects run on a backend I built. The UI sits on top."
 				},
 				"chain": {
 					"caption": "{{chain}} of {{total}} projects live partly on-chain"
@@ -39,11 +39,11 @@
 				},
 				"habits": {
 					"items": {
-						"1": "Build the engine room",
-						"2": "Write rules that can’t bend",
-						"3": "Keep everyone in sync",
-						"4": "Make waiting disappear",
-						"5": "Lock the doors"
+						"1": "Build it general",
+						"2": "Scale before it has to",
+						"3": "Measure, then optimise",
+						"4": "Treat keys like loaded guns",
+						"5": "Keep it boring"
 					},
 					"title": "Five habits"
 				},
@@ -52,7 +52,7 @@
 				},
 				"hero": {
 					"eyebrow": "About",
-					"tagline": "I build the parts you never see."
+					"tagline": "I build systems that scale, and the UI on top."
 				},
 				"languages": {
 					"count-one": "{{count}} language",
@@ -63,20 +63,16 @@
 					"count-other": "{{count}} notes — read them",
 					"fallback": "Notes — read them"
 				},
-				"pins": {
-					"caption": "pins on one smooth map",
-					"value": "4k+"
-				},
 				"production": {
-					"caption": "building for real users",
+					"caption": "years shipping to real users",
 					"eyebrow": "In production",
 					"unit": "yrs"
 				},
 				"projects": {
 					"caption": "projects, shipped",
 					"captions": {
-						"orbit": "Evermoon — quests & XP",
-						"pins-map": "Estic AI — map search",
+						"orbit": "Evermoon SocialFi — quests & Moon Power",
+						"pins-map": "Estic AI — find a home by AI",
 						"radar": "AADS — radar, decoded"
 					}
 				},
@@ -95,10 +91,14 @@
 				},
 				"words": {
 					"items": {
-						"1": "Make it work",
-						"2": "Make it FAST",
-						"3": "make it fair"
+						"1": "Make it scale",
+						"2": "Make it fast",
+						"3": "Make it safe"
 					}
+				},
+				"hours": {
+					"caption": "hours of coding, tracked",
+					"value": "6k+"
 				}
 			},
 			"viewport": {
@@ -112,13 +112,14 @@
 			"education": {
 				"degree": "B.Sc. Computer Science",
 				"focus": "Focus: multimedia intelligent technology",
+				"gpa": "GPA 3.90 · Senior project: School Bus Backend and Administration System",
 				"title": "Education"
 			},
 			"experience": {
 				"title": "Experience"
 			},
 			"header": {
-				"role": "Software developer — {{employer}}"
+				"role": "Software engineer — {{employer}}"
 			},
 			"print": {
 				"label": "Print"
@@ -137,7 +138,7 @@
 				}
 			},
 			"summary": {
-				"body": "Software developer who builds the parts of apps and games people never see — server-side systems, real-time connections and smart contracts — so the parts they do see stay quick, fair and online when a lot of people show up at once.",
+				"body": "Software engineer who builds general, scalable systems: Go and TypeScript backends, real-time sockets and Solidity smart contracts, plus a simple front end on top. Three games in production, built to stay fast, secure and online when a lot of people show up at once. Based in Bangkok, open to remote work and relocation.",
 				"title": "Summary"
 			}
 		},
@@ -202,6 +203,11 @@
 			},
 			"linkedin": {
 				"label": "LinkedIn"
+			},
+			"discord": {
+				"copied": "Copied {{handle}}",
+				"label": "Discord",
+				"value": "Discord: {{handle}}"
 			}
 		},
 		"cursor": {
@@ -243,7 +249,7 @@
 		"not-found": {
 			"action": "Back home",
 			"title": "Nothing here",
-			"mascot": "Nothing here. I looked everywhere."
+			"mascot": "Nothing here. I’m Void, I would know."
 		},
 		"previous": "Previous",
 		"sides": {
@@ -280,14 +286,14 @@
 					"pins-alt": {
 						"ask-about-a": "Ask about a home",
 						"listing": {
-							"title": "[LISTING TITLE]"
+							"title": "Riverside condo"
 						},
 						"low-risk": "Low risk"
 					},
 					"pins-main": {
 						"2-bed-near": "2-bed near the river, low flood risk…",
 						"listing": {
-							"title": "[LISTING TITLE]"
+							"title": "Riverside condo"
 						},
 						"low-risk": "Low risk"
 					},
@@ -321,8 +327,8 @@
 			"copyright": "© {{year}} William Siefert",
 			"eyebrow": "Contact",
 			"lede": {
-				"accent": "Let’s talk — I’ll help make it boring, in the best way.",
-				"text": "Building something that has to stay quick, fair and online when everyone shows up at once?"
+				"accent": "Let’s talk. I’ll bring the green tea.",
+				"text": "Hiring, freelance, or a hard backend problem? Bangkok, remote or abroad."
 			},
 			"terminal": ">_ open the terminal",
 			"title": "Say hello.",
@@ -336,30 +342,30 @@
 			"hint": "Keep scrolling — this section moves sideways.",
 			"items": {
 				"1": {
-					"body": "The logic, data and plumbing every screen depends on, kept tidy as the product grows.",
-					"title": "Build the engine room"
+					"title": "Build it general",
+					"body": "Not one-off. A generic queue or type that every service and project can reuse."
 				},
 				"2": {
-					"body": "Rules that live on a blockchain can’t be undone, so I write them slowly and review them twice.",
-					"title": "Write rules that can’t bend"
+					"title": "Scale before it has to",
+					"body": "Design for ten times the traffic early, so launch day is a non-event."
 				},
 				"3": {
-					"body": "When something changes on one screen, every other screen should see it straight away.",
-					"title": "Keep everyone in sync"
+					"title": "Measure, then optimise",
+					"body": "Find the slow part with numbers, fix that one, then measure again."
 				},
 				"4": {
-					"body": "Measure, trim, rethink — until nobody notices loading any more.",
-					"title": "Make waiting disappear"
+					"title": "Treat keys like loaded guns",
+					"body": "Money and keys get reviewed twice: for how they work and how they could be abused."
 				},
 				"5": {
-					"body": "Careful code, real authentication and encryption, so only the people you invite get in.",
-					"title": "Lock the doors"
+					"title": "Keep it boring",
+					"body": "Clear structure and plain code, so the next person, or me in a year, can change it safely."
 				}
 			},
 			"lines": {
-				"1": "Five",
-				"2": "habits,",
-				"3": "no exceptions."
+				"1": "Rules",
+				"2": "I build",
+				"3": "by."
 			},
 			"next": "Timeline ↓"
 		},
@@ -371,16 +377,13 @@
 			"eyebrow": "Hello",
 			"stats": {
 				"languages": {
-					"label": "Programming languages I work in"
-				},
-				"pins": {
-					"label": "Pins on a single map that still scrolls smoothly"
+					"label": "Languages I argue in"
 				},
 				"projects": {
-					"label": "Projects shipped — games, platforms and one very serious radar"
+					"label": "Launch days survived"
 				},
 				"years": {
-					"label": "Years building software real people use",
+					"label": "Years of breaking things on purpose",
 					"suffix": "y"
 				}
 			}
@@ -393,10 +396,10 @@
 					"aria-label": "Open project {{name}}"
 				}
 			},
-			"eyebrow": "William Siefert — software developer",
+			"eyebrow": "William Siefert — software engineer",
 			"lede": {
-				"accent": "so the half you see stays fast, fair and online when everyone shows up at once.",
-				"text": "I build the back half of apps and games — servers, real-time connections and smart contracts —"
+				"accent": "and the simple UI on top, so the whole thing stays fast, secure and online.",
+				"text": "I build scalable backends, real-time systems and smart contracts —"
 			},
 			"lines": {
 				"1": "Quiet code",
@@ -406,9 +409,9 @@
 				"aria-label": "Scroll to About"
 			},
 			"tags": {
-				"always-on": "@always-on",
-				"game-ready": "@game-ready",
-				"zero-drama": "@zero-drama"
+				"scalable": "@scalable",
+				"optimized": "@optimized",
+				"secure": "@secure"
 			}
 		},
 		"index": {
@@ -429,16 +432,17 @@
 		},
 		"marquee": {
 			"phrases": {
-				"1": "Make it work",
-				"2": "Make it fast",
-				"3": "Make it fair",
-				"4": "Make it last",
-				"5": "Make it fun",
-				"6": "Then ship it"
+				"1": "Optimization",
+				"2": "Performance",
+				"3": "Scalability",
+				"4": "Reliability",
+				"5": "Security",
+				"6": "Maintainability"
 			}
 		},
 		"meta": {
-			"title": "William Siefert — Software developer"
+			"description": "Bangkok-based software developer building scalable backends, real-time systems and smart contracts, plus the clean UI on top.",
+			"title": "William Siefert — Software developer, Go · TypeScript · Web3"
 		},
 		"notes": {
 			"all": "All notes →",
@@ -457,23 +461,23 @@
 				"eyebrow": "What I see",
 				"hint": "The part that has to keep working at 3 a.m.",
 				"lines": {
-					"1": "Every player,",
-					"2": "every pin,",
-					"3": "every coin, counted."
+					"1": "General,",
+					"2": "dynamic, scalable,",
+					"3": "optimized, secure."
 				}
 			},
 			"see": {
 				"eyebrow": "What you see",
 				"hint": "Hover or tap here to look behind the screen.",
 				"lines": {
-					"1": "A button,",
-					"2": "a map,",
-					"3": "a cute farm."
+					"1": "It loads.",
+					"2": "It syncs.",
+					"3": "It works."
 				}
 			}
 		},
 		"stack": {
-			"description": "Every tap travels through these six stops before anything changes on your screen. Hover or tap a stop to see which of my projects use it.",
+			"description": "Every tap travels through these five stops before anything changes on your screen. Hover or tap a stop to see which of my projects use it.",
 			"eyebrow": "Under the hood",
 			"flow": {
 				"aria-label": "Stack stops"
@@ -484,28 +488,24 @@
 			},
 			"stops": {
 				"1": {
-					"description": "A game, a site, an app in your pocket",
-					"name": "Your screen"
+					"name": "Your screen",
+					"description": "React and TypeScript: a game, a site, an app in your pocket"
 				},
 				"2": {
-					"description": "Messages flowing both ways, instantly",
-					"name": "A live line"
+					"name": "A live line",
+					"description": "WebSocket: messages flowing both ways, instantly"
 				},
 				"3": {
-					"description": "Shops, missions, spawning, the rules of play",
-					"name": "The brain"
+					"name": "The brain",
+					"description": "Go: the API, queues, shops, missions and the rules of play"
 				},
 				"4": {
-					"description": "Every player, item and bit of progress",
-					"name": "The memory"
+					"name": "The memory",
+					"description": "MongoDB and PostgreSQL: every player, item and bit of progress"
 				},
 				"5": {
-					"description": "Rules nobody can quietly rewrite",
-					"name": "The rulebook"
-				},
-				"6": {
-					"description": "Where owned things actually live",
-					"name": "The ledger"
+					"name": "The ledger",
+					"description": "Solidity on Soneium and Bitkub: rules nobody can quietly rewrite"
 				}
 			},
 			"used-in": "{{name}} — used in"
@@ -568,7 +568,6 @@
 					"title": "No notes match"
 				}
 			},
-			"footnote": "These are sample posts to show the layouts. Replace them with your own writing.",
 			"headline": {
 				"lines": {
 					"1": "Notes from",
@@ -718,12 +717,12 @@
 			"name": "William Siefert",
 			"title": "Portfolio · {{year}}",
 			"statuses": {
-				"1": "Warming things up…",
-				"2": "Wiring the sockets…",
-				"3": "Reading the contracts twice…",
+				"1": "Spinning up goroutines…",
+				"2": "Opening the sockets…",
+				"3": "Reading the contract twice…",
 				"4": "Ready. Say hi."
 			},
-			"hint": "Say hi — it is watching you."
+			"hint": "Say hi. Void is watching you."
 		},
 		"skip-link": {
 			"label": "Skip to content"
@@ -780,19 +779,19 @@
 			},
 			"titlebar": {
 				"esc": "esc",
-				"label": "william@x10 — ~/portfolio"
+				"label": "tiger@portfolio — ~/portfolio"
 			},
-			"whoami": "William Siefert — software developer. I build the parts of apps and games you never see, so the parts you do see feel effortless."
+			"whoami": "William “Tiger” Siefert — software engineer. Go, TypeScript, Solidity. I build systems that scale, and the UI on top."
 		},
 		"companion": {
-			"label": "Talk to the mascot",
+			"label": "Talk to Void",
 			"idle": "Still there? Try the terminal, bottom left.",
 			"places": {
 				"home": {
-					"1": "Hi! I live behind the screen.",
-					"2": "Scroll down — the good stuff is the back end.",
+					"1": "Hi! I’m Void. I live behind the screen.",
+					"2": "Scroll down. The good stuff is the queue nobody sees.",
 					"3": "Psst: hover the big words.",
-					"4": "Zero downtime. I checked."
+					"4": "Zero downtime. I checked. Twice. It was 3 a.m."
 				},
 				"project": {
 					"1": "Keep going — the next project waits at the end.",
@@ -800,7 +799,7 @@
 					"3": "Esc closes this page."
 				},
 				"notes": {
-					"1": "He writes things down. I just read them.",
+					"1": "Tiger writes things down so I don’t have to remember. Convenient.",
 					"2": "Pick a topic up top."
 				},
 				"note": {

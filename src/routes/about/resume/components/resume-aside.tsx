@@ -32,6 +32,8 @@ export const ResumeAside: React.FC<ResumeAsideProps> = ({ profile }) => {
 					{education?.title} · {education?.period}
 					<br />
 					{t("about.resume.education.focus")}
+					<br />
+					{t("about.resume.education.gpa")}
 				</p>
 			</section>
 		</aside>

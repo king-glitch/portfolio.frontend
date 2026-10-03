@@ -55,7 +55,7 @@ export const SiteNav: React.FC<SiteNavProps> = () => {
 		>
 			<nav
 				aria-label={t("shell.nav.label")}
-				className="pointer-events-auto grid h-16 w-full max-w-225 grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center rounded-pill bg-background pr-2.5 pl-5.5 text-foreground shadow-[0_20px_50px_-20px_rgba(0,0,0,.6)] invert-surface"
+				className="pointer-events-auto flex h-16 w-full max-w-225 items-center justify-between rounded-pill bg-background pr-2.5 pl-5.5 text-foreground shadow-[0_20px_50px_-20px_rgba(0,0,0,.6)] invert-surface desk:grid desk:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]"
 			>
 				<PillButton
 					variant={PillVariant.Ghost}

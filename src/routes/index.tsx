@@ -30,7 +30,10 @@ export function clientLoader() {
 }
 
 export function meta() {
-	return [{ title: i18n.t("home.meta.title") }];
+	return [
+		{ title: i18n.t("home.meta.title") },
+		{ name: "description", content: i18n.t("home.meta.description") },
+	];
 }
 
 interface HomeProps {}

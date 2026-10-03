@@ -28,12 +28,11 @@ const STATS: StatDef[] = [
 	{ id: "projects", labelKey: "home.hello.stats.projects.label", pad: 2 },
 	{ id: "languages", labelKey: "home.hello.stats.languages.label", pad: 2 },
 	{ id: "years", labelKey: "home.hello.stats.years.label", pad: 2 },
-	{ id: "pins", labelKey: "home.hello.stats.pins.label", pad: 1 },
 ];
 
 interface HelloProps {}
 
-/** About section: scroll-revealed paragraph plus four counted stats, all derived (no invented numbers except the 4k+ pins). */
+/** About section: scroll-revealed paragraph plus three counted stats, all derived from the profile. */
 export const Hello: React.FC<HelloProps> = () => {
 	const { t } = useTranslation();
 	const profile = useProfile();
@@ -49,20 +48,14 @@ export const Hello: React.FC<HelloProps> = () => {
 
 	const values = (): Record<string, { value: number; suffix?: string }> => {
 		const skills = profile.data?.skills[0]?.items.length ?? 0;
-		const experience = profile.data?.experience ?? [];
-		const start =
-			experience.find((e) => /x10/i.test(e.title))?.start ??
-			experience[0]?.start;
+		// Years of coding: the education entry starts when the first code was written.
+		const start = profile.data?.education[0]?.start;
 		return {
 			projects: { value: projects.data?.length ?? 0 },
 			languages: { value: skills },
 			years: {
 				value: start ? yearsSince(start) : 0,
 				suffix: t("home.hello.stats.years.suffix"),
-			},
-			pins: {
-				value: config.home.hello.pinsStat.value,
-				suffix: config.home.hello.pinsStat.suffix,
 			},
 		};
 	};
@@ -132,7 +125,7 @@ export const Hello: React.FC<HelloProps> = () => {
 				</div>
 				<div className="min-w-0">{renderWords()}</div>
 			</div>
-			<div className="mt-[clamp(72px,9vw,140px)] grid grid-cols-1 border-t desk:grid-cols-4">
+			<div className="mt-[clamp(72px,9vw,140px)] grid grid-cols-1 border-t desk:grid-cols-3">
 				{renderStats()}
 			</div>
 		</HomeSection>

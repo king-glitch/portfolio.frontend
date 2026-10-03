@@ -27,7 +27,7 @@ export const HeaderVertical: React.FC<HeaderVerticalProps> = ({
 			<h1
 				data-speed="0.9"
 				style={fit}
-				className="m-0 rotate-180 text-[min(clamp(64px,9vw,170px),calc((100svh-13rem)/(var(--chars)*0.56)))] leading-[0.82] font-black tracking-[-0.07em] whitespace-nowrap [writing-mode:vertical-rl] max-desk:rotate-0 max-desk:[writing-mode:horizontal-tb]"
+				className="m-0 rotate-180 text-[min(clamp(64px,9vw,170px),calc((100svh-13rem)/(var(--chars)*0.56)))] leading-[0.82] font-black tracking-[-0.07em] whitespace-nowrap [writing-mode:vertical-rl] max-desk:rotate-0 max-desk:text-[clamp(40px,13vw,96px)] max-desk:whitespace-normal max-desk:[writing-mode:horizontal-tb]"
 			>
 				{title}
 			</h1>

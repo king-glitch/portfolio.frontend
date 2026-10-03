@@ -185,16 +185,15 @@ export const WALL_CELLS: CellSpec[] = [
 		data: (c) => ({ title: c.profile.name.split(" ")[0] }),
 	},
 	{
-		id: "pins",
+		id: "hours",
 		col: 0,
 		row: 2,
 		cols: 2,
 		rows: 1,
 		kind: AboutTileKind.Stat,
 		data: () => ({
-			art: MotifKind.Pins,
-			valueKey: "about.explore.tile.pins.value",
-			captionKey: "about.explore.tile.pins.caption",
+			valueKey: "about.explore.tile.hours.value",
+			captionKey: "about.explore.tile.hours.caption",
 		}),
 	},
 	{

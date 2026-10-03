@@ -36,6 +36,7 @@ const STACK_STOP_KEYWORDS = [
 	"real-time",
 	"golang",
 	"server-side",
+	"backend",
 	"mongodb",
 	"data",
 	"solidity",

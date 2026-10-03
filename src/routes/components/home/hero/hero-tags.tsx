@@ -8,9 +8,9 @@ const tagVariants = cva(
 	{
 		variants: {
 			tag: {
-				[HeroTag.AlwaysOn]: "-top-4.5 left-[13%]",
-				[HeroTag.GameReady]: "-bottom-7.5 left-[40%]",
-				[HeroTag.ZeroDrama]: "-top-3 right-[12%]",
+				[HeroTag.Scalable]: "-top-4.5 left-[13%]",
+				[HeroTag.Optimized]: "-bottom-7.5 left-[40%]",
+				[HeroTag.Secure]: "-top-3 right-[12%]",
 			},
 		},
 	},
@@ -21,9 +21,9 @@ const pillVariants = cva(
 	{
 		variants: {
 			tag: {
-				[HeroTag.AlwaysOn]: "-rotate-12",
-				[HeroTag.GameReady]: "-rotate-4",
-				[HeroTag.ZeroDrama]: "rotate-10",
+				[HeroTag.Scalable]: "-rotate-12",
+				[HeroTag.Optimized]: "-rotate-4",
+				[HeroTag.Secure]: "rotate-10",
 			},
 		},
 	},
@@ -32,9 +32,9 @@ const pillVariants = cva(
 const arrowVariants = cva("absolute size-3 rotate-45 bg-foreground", {
 	variants: {
 		tag: {
-			[HeroTag.AlwaysOn]: "-bottom-1.25 left-[48%]",
-			[HeroTag.GameReady]: "-top-1.25 left-[44%]",
-			[HeroTag.ZeroDrama]: "-bottom-1.25 left-[44%]",
+			[HeroTag.Scalable]: "-bottom-1.25 left-[48%]",
+			[HeroTag.Optimized]: "-top-1.25 left-[44%]",
+			[HeroTag.Secure]: "-bottom-1.25 left-[44%]",
 		},
 	},
 });

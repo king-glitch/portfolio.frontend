@@ -11,9 +11,19 @@ interface ResumeHeaderProps {
 /** Name, role at the current employer, contact links. */
 export const ResumeHeader: React.FC<ResumeHeaderProps> = ({ profile }) => {
 	const { t } = useTranslation();
-	const { email, github, linkedin } = profile.contact;
+	const { email, github, linkedin, discord } = profile.contact;
+	const lines = [
+		{ id: "email", href: `mailto:${email}`, text: email },
+		{ id: "github", href: github, text: displayUrl(github) },
+		{ id: "linkedin", href: linkedin, text: displayUrl(linkedin) },
+		{
+			id: "discord",
+			href: undefined,
+			text: t("common.contact.discord.value", { handle: discord }),
+		},
+	];
 	return (
-		<header className="flex flex-wrap items-end justify-between gap-6 border-b-2 border-print-foreground pb-5.5">
+		<header className="flex flex-col gap-4 border-b-2 border-print-foreground pb-5.5 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
 			<div>
 				<h1 className="m-0 text-[clamp(34px,5vw,52px)] leading-[0.95] font-extrabold tracking-tighter">
 					{profile.name}
@@ -24,12 +34,11 @@ export const ResumeHeader: React.FC<ResumeHeaderProps> = ({ profile }) => {
 					})}
 				</p>
 			</div>
-			<div className="text-right text-[13px] leading-relaxed text-print-muted">
-				<a href={`mailto:${email}`}>{email}</a>
-				<br />
-				<a href={github}>{displayUrl(github)}</a> ·{" "}
-				<a href={linkedin}>{displayUrl(linkedin)}</a>
-			</div>
+			<ul className="m-0 flex list-none flex-col gap-0.5 p-0 text-[13px] leading-relaxed text-print-muted sm:text-right">
+				{lines.map(({ id, href, text }) => (
+					<li key={id}>{href ? <a href={href}>{text}</a> : text}</li>
+				))}
+			</ul>
 		</header>
 	);
 };

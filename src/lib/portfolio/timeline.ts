@@ -27,10 +27,13 @@ export interface TimelineModel {
 	spanLabel: string;
 }
 
-/** Bar label of the prototype: drops the "Software Developer" role prefix, shortens the lab name. */
+/** Bar label of the prototype: drops the "Software Engineer" role prefix, shortens the lab name. */
 export function shortTitle(title: string): string {
 	return title
-		.replace(/^Software Developer\s*/i, "")
+		.replace(
+			/^(?:Software (?:Developer|Engineer)|Full-?stack Developer(?: Intern)?)\s*/i,
+			"",
+		)
 		.replace(" Multimedia Intelligent Technology", " — MIT lab");
 }
 

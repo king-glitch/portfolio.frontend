@@ -20,9 +20,10 @@ export interface AboutStats {
 	words: { word: string; pct: number }[];
 }
 
-const ROLE_PREFIX = /^Software Developer\s*/i;
+const ROLE_PREFIX =
+	/^(?:Software (?:Developer|Engineer)|Full-?stack Developer(?: Intern)?)\s*/i;
 
-/** "Software Developer X10 Interactive" -> { name: "X10 Interactive", role: "Software Developer" }. */
+/** "Software Engineer X10 Interactive" -> { name: "X10 Interactive", role: "Software Engineer" }. */
 export function splitRole(title: string): {
 	name: string;
 	role: string | null;

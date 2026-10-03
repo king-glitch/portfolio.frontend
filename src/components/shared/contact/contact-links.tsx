@@ -6,6 +6,7 @@ import { useProfile } from "@/api/hooks/portfolio/use-profile";
 import type { Contact } from "@/api/types/portfolio/profile";
 import { PillButton } from "@/components/common/buttons/pill-button";
 import { QueryErrorAlert } from "@/components/common/feedback/query-error-alert";
+import { DiscordPill } from "@/components/shared/contact/discord-pill";
 import { ContactLinksSkeleton } from "@/components/shared/contact/contact-links-skeleton";
 import { cn } from "@/lib/utils";
 import { PillSize, PillVariant } from "@/types/ui";
@@ -43,7 +44,7 @@ interface ContactLinksProps {
 	className?: string;
 }
 
-/** Contact pills: the email address leads, GitHub and LinkedIn follow by name. */
+/** Contact pills: the email address leads, GitHub, LinkedIn and Discord follow by name. */
 export const ContactLinks: React.FC<ContactLinksProps> = ({ className }) => {
 	const { t } = useTranslation();
 	const { data, isPending, isError, refetch } = useProfile();
@@ -91,6 +92,7 @@ export const ContactLinks: React.FC<ContactLinksProps> = ({ className }) => {
 					</PillButton>
 				);
 			})}
+			<DiscordPill handle={data.contact.discord} />
 		</div>
 	);
 };

@@ -73,7 +73,7 @@ export const SiteMenu: React.FC<SiteMenuProps> = () => {
 					<DialogDescription className="sr-only">
 						{t("shell.menu.description")}
 					</DialogDescription>
-					<div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4 px-[clamp(16px,5vw,64px)] py-5.5">
+					<div className="flex shrink-0 items-center justify-between gap-4 px-[clamp(16px,5vw,64px)] py-5.5 desk:grid desk:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
 						<span className="text-xl font-extrabold tracking-[-0.04em]">
 							{t("shell.brand.label")}
 						</span>
@@ -90,7 +90,7 @@ export const SiteMenu: React.FC<SiteMenuProps> = () => {
 						</PillButton>
 					</div>
 
-					<div className="grid min-h-0 grow grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] gap-[5vw] px-[clamp(16px,5vw,64px)] pt-3 pb-7 max-desk:grid-cols-[minmax(0,1fr)]">
+					<div className="grid grow grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] gap-[5vw] px-[clamp(16px,5vw,64px)] pt-3 pb-7 max-desk:grid-cols-[minmax(0,1fr)] desk:min-h-0">
 						<nav
 							aria-label={t("shell.menu.nav.label")}
 							className="flex flex-col justify-center border-t border-current/30 [&:hover_a:not(:hover):not(:focus-visible)]:opacity-30 [&:hover_button:not(:hover):not(:focus-visible)]:opacity-30"
@@ -119,7 +119,7 @@ export const SiteMenu: React.FC<SiteMenuProps> = () => {
 						</div>
 					</div>
 
-					<div className="flex flex-wrap items-center justify-between gap-4 border-t border-current/30 px-[clamp(16px,5vw,64px)] pt-4.5 pb-6">
+					<div className="flex shrink-0 flex-wrap items-center justify-between gap-4 border-t border-current/30 px-[clamp(16px,5vw,64px)] pt-4.5 pb-6">
 						<MenuContacts />
 						<PillButton
 							variant={PillVariant.Ghost}

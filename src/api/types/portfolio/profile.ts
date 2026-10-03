@@ -26,6 +26,8 @@ export interface Contact {
 	email: string;
 	github: string;
 	linkedin: string;
+	/** Handle only, not a link. */
+	discord: string;
 }
 
 export interface Profile {

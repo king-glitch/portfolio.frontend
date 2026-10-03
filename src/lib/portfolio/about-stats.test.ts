@@ -30,6 +30,9 @@ test("text helpers", () => {
 });
 
 test("splitRole", () => {
+	expect(splitRole("Software Engineer X10 Interactive").role).toBe(
+		"Software Engineer",
+	);
 	expect(splitRole("Software Developer X10 Interactive")).toEqual({
 		name: "X10 Interactive",
 		role: "Software Developer",

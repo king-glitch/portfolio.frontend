@@ -12,244 +12,8 @@ import {
 import type { Project } from "@/api/types/portfolio/project";
 export const projects: Project[] = [
 	{
-		id: "aads",
-		num: "0001",
-		name: "AADS",
-		full: "Army Air Defense System",
-		kind: MotifKind.Radar,
-		side: ProjectSide.BehindTheScenes,
-		tags: ["Real-time", "Radar protocols", "Encryption", "Maps"],
-		categories: [ProjectFilter.Platforms],
-		stack: [
-			"socket",
-			"trml",
-			"encrypt",
-			"map",
-			"client",
-			"real-time",
-			"data",
-		],
-		about: "Software that turns raw radar signals into a live air picture for military operators. It tracks aircraft from surveillance radars across Thailand, lets operators talk and message each other, and raises an alert when an aircraft looks hostile. Access to each control depends on where the operator logs in from.",
-		role: [
-			"Decoded radar messages in the TRML and DR127ADV protocols and turned them into readable tracks on a map.",
-			"Built the socket link between server and client, so every operator sees updates and control changes in real time.",
-			"Designed the operator screen: a live map with zoom and pan, voice calls, messaging and alerts for suspect aircraft.",
-		],
-		blocks: [
-			{
-				type: BlockType.ProjectHeader,
-				params: {
-					variant: HeaderVariant.Split,
-					title: "AADS",
-					subtitle: "Army Air Defense System",
-					index: "0001",
-					discipline: ProjectSide.BehindTheScenes,
-					tags: [
-						"Real-time",
-						"Radar protocols",
-						"Encryption",
-						"Maps",
-					],
-					kind: MotifKind.Radar,
-				},
-			},
-			{
-				type: BlockType.Quote,
-				params: {
-					text: "Software that turns raw radar signals into a live air picture for military operators.",
-					cite: "Brief",
-				},
-			},
-			{
-				type: BlockType.Mock,
-				params: {
-					label: "Operator console",
-					kind: MotifKind.Radar,
-					screen: MockScreen.Main,
-					view: DeviceView.Desktop,
-					caption: "Illustrative mock — swap for a real screenshot",
-				},
-			},
-			{
-				type: BlockType.BigNumber,
-				params: {
-					value: "2",
-					label: "Radar protocols, decoded",
-					caption:
-						"TRML and DR127ADV messages turned into readable, real-time tracks.",
-				},
-			},
-			{
-				type: BlockType.Architecture,
-				params: {
-					label: "How it works",
-					nodes: [
-						{
-							name: "Surveillance radars",
-							description: "Encoded track messages",
-						},
-						{
-							name: "Decoder",
-							description: "TRML · DR127ADV → readable",
-						},
-						{
-							name: "Socket server",
-							description: "Real-time state, both ways",
-						},
-						{
-							name: "Operator UI",
-							description: "Map, voice, messaging, alerts",
-						},
-					],
-				},
-			},
-			{
-				type: BlockType.FeatureGrid,
-				params: {
-					label: "What it does",
-					items: [
-						"Real-time aircraft tracking from surveillance radars",
-						"Fake aircraft for training and for rehearsing real situations",
-						"Access control based on the operator's IP address",
-						"Voice calls and encrypted messaging between operators",
-						"Alerts for suspect aircraft, so operators react sooner",
-						"One-click state changes, like marking an aircraft as friend or enemy",
-						"A map you can zoom and pan, with alert settings each operator can tune",
-					],
-				},
-			},
-			{
-				type: BlockType.Timeline,
-				params: {
-					label: "What I did",
-					items: [
-						"Decoded radar messages in the TRML and DR127ADV protocols and turned them into readable tracks on a map.",
-						"Built the socket link between server and client, so every operator sees updates and control changes in real time.",
-						"Designed the operator screen: a live map with zoom and pan, voice calls, messaging and alerts for suspect aircraft.",
-					],
-				},
-			},
-			{
-				type: BlockType.Zigzag,
-				params: {
-					label: "What was hard",
-					items: [
-						"The radar protocols are dense and the data never stops, so decoding had to be both exact and fast.",
-						"The socket link had to stay up and stay private, which meant planning the network and its security together.",
-						"Operators work under pressure. The screen went through many rounds of testing until it felt obvious to use.",
-					],
-				},
-			},
-		],
-	},
-	{
-		id: "morning-moon-village",
-		num: "0002",
-		name: "Morning Moon Village",
-		full: "Morning Moon Village",
-		kind: MotifKind.Moon,
-		side: ProjectSide.BehindTheScenes,
-		tags: ["Solidity", "DeFi", "NFTs", "In-game shop"],
-		categories: [ProjectFilter.Games, ProjectFilter.OnChain],
-		stack: [
-			"solidity",
-			"defi",
-			"nft",
-			"shop system",
-			"client",
-			"server-side",
-			"smart contract",
-			"blockchain",
-		],
-		about: "A farming game with real DeFi yield farming inside it. Players grow crops, gather resources and learn how yield farming works while they play, earning tokens along the way. NFTs add a competitive edge, and the cute 3D world keeps it friendly.",
-		role: [
-			"Built server-side features such as the shop system and resource spawning, and kept them fast as the player count grew.",
-			"Connected the game to the blockchain so its DeFi mechanics and NFTs work in play.",
-			"Worked closely with the client-side team, so new features landed in the game without friction.",
-		],
-		blocks: [
-			{
-				type: BlockType.ProjectHeader,
-				params: {
-					variant: HeaderVariant.Center,
-					title: "Morning Moon Village",
-					subtitle: "Morning Moon Village",
-					index: "0002",
-					discipline: ProjectSide.BehindTheScenes,
-					tags: ["Solidity", "DeFi", "NFTs", "In-game shop"],
-					kind: MotifKind.Moon,
-				},
-			},
-			{
-				type: BlockType.AboutSplit,
-				params: {
-					label: "About",
-					text: "A farming game with real DeFi yield farming inside it. Players grow crops, gather resources and learn how yield farming works while they play, earning tokens along the way. NFTs add a competitive edge, and the cute 3D world keeps it friendly.",
-					kind: MotifKind.Moon,
-				},
-			},
-			{
-				type: BlockType.Mock,
-				params: {
-					label: "Farm & shop",
-					kind: MotifKind.Moon,
-					screen: MockScreen.Main,
-					view: DeviceView.Desktop,
-					caption: "Illustrative mock — swap for a real screenshot",
-				},
-			},
-			{
-				type: BlockType.StackCards,
-				params: {
-					label: "What I did",
-					items: [
-						"Built server-side features such as the shop system and resource spawning, and kept them fast as the player count grew.",
-						"Connected the game to the blockchain so its DeFi mechanics and NFTs work in play.",
-						"Worked closely with the client-side team, so new features landed in the game without friction.",
-					],
-				},
-			},
-			{
-				type: BlockType.Architecture,
-				params: {
-					label: "How it works",
-					nodes: [
-						{ name: "Game client", description: "3D farming game" },
-						{
-							name: "Game server",
-							description: "Shop, resource spawning",
-						},
-						{
-							name: "Smart contracts",
-							description: "Solidity — DeFi, NFTs",
-						},
-					],
-				},
-			},
-			{
-				type: BlockType.Quote,
-				params: {
-					text: "Real money moves through NFTs and DeFi, so testing went deep on both how things work and how they could be abused.",
-					cite: "Hardest part",
-					tone: BlockTone.Invert,
-				},
-			},
-			{
-				type: BlockType.NumberedList,
-				params: {
-					label: "What was hard",
-					items: [
-						"The DeFi mechanics live in Solidity smart contracts, so every contract had to be secure before it went live.",
-						"Server features only work if the client is ready for them, which took close planning with the client-side team.",
-						"Real money moves through NFTs and DeFi, so testing went deep on both how things work and how they could be abused.",
-					],
-				},
-			},
-		],
-	},
-	{
 		id: "morning-moon-pocket",
-		num: "0003",
+		num: "0001",
 		name: "Morning Moon Pocket",
 		full: "Morning Moon Pocket",
 		kind: MotifKind.Pixel,
@@ -265,14 +29,15 @@ export const projects: Project[] = [
 			"mission system",
 			"shop system",
 			"client",
-			"server-side",
+			"data",
 			"smart contract",
 		],
-		about: "Morning Moon Village, rebuilt for phones. Players get the same farming and resource gathering on a pocket-sized screen, with an interface made for touch and performance tuned for mobile.",
+		about: "Morning Moon Village, rebuilt for phones. The same farming and resource gathering on a touch-first screen, with the whole server side rewritten for global players on the Soneium chain.",
 		role: [
-			"Rewrote the server-side code in Golang and MongoDB for global players on the Soneium chain, with speed, scale and security as the goals.",
-			"Added new features such as a shop system and a mission system, all built to handle a large number of players.",
-			"Rewrote most of the Solidity smart contracts for the game's DeFi mechanics, so they are safe, efficient and fit the new architecture.",
+			"Rewrote the server side in Golang and MongoDB with a new database schema and optimised code, so it scales to far more players.",
+			"Moved the old features onto the new architecture and kept the live ones working.",
+			"Added new features such as a shop system and a mission system, and kept every player in sync in real time.",
+			"Rewrote most of the Solidity smart contracts for the game’s DeFi mechanics, so they are safe, efficient and fit the new architecture.",
 			"Worked with the client-side team so server features felt smooth on mobile.",
 		],
 		blocks: [
@@ -282,7 +47,7 @@ export const projects: Project[] = [
 					variant: HeaderVariant.Vertical,
 					title: "Morning Moon Pocket",
 					subtitle: "Morning Moon Pocket",
-					index: "0003",
+					index: "0001",
 					discipline: ProjectSide.BehindTheScenes,
 					tags: ["Golang", "MongoDB", "Solidity", "DeFi", "Soneium"],
 					kind: MotifKind.Pixel,
@@ -325,7 +90,7 @@ export const projects: Project[] = [
 							caption: "Missions",
 						},
 					],
-					caption: "Illustrative mock — swap for a real screenshot",
+					caption: "Illustrative mock",
 				},
 			},
 			{
@@ -333,9 +98,10 @@ export const projects: Project[] = [
 				params: {
 					label: "What I did",
 					items: [
-						"Rewrote the server-side code in Golang and MongoDB for global players on the Soneium chain, with speed, scale and security as the goals.",
-						"Added new features such as a shop system and a mission system, all built to handle a large number of players.",
-						"Rewrote most of the Solidity smart contracts for the game's DeFi mechanics, so they are safe, efficient and fit the new architecture.",
+						"Rewrote the server side in Golang and MongoDB with a new database schema and optimised code, so it scales to far more players.",
+						"Moved the old features onto the new architecture and kept the live ones working.",
+						"Added new features such as a shop system and a mission system, and kept every player in sync in real time.",
+						"Rewrote most of the Solidity smart contracts for the game’s DeFi mechanics, so they are safe, efficient and fit the new architecture.",
 						"Worked with the client-side team so server features felt smooth on mobile.",
 					],
 				},
@@ -369,9 +135,9 @@ export const projects: Project[] = [
 				params: {
 					label: "What was hard",
 					items: [
-						"Rebuilding the server for far more players without changing how the game feels took careful planning with the client-side team.",
+						"Rewriting old features on a new architecture while keeping the old ones working took careful planning with the client-side team.",
+						"More players with the same feel, on a short timeline, left a lot of testing and debugging to keep the new build stable.",
 						"The smart contracts had to get faster and stay just as secure, which left no room for shortcuts.",
-						"The timeline was short, so a lot of testing and debugging went into keeping the new build stable.",
 					],
 				},
 			},
@@ -379,31 +145,34 @@ export const projects: Project[] = [
 	},
 	{
 		id: "metal-valley",
-		num: "0004",
+		num: "0002",
 		name: "Metal Valley",
 		full: "Metal Valley",
 		kind: MotifKind.Hex,
 		side: ProjectSide.BehindTheScenes,
-		tags: ["Solidity", "Real-time", "DeFi", "NFTs", "Web3"],
+		tags: ["Golang", "MongoDB", "Solidity", "Real-time", "DeFi"],
 		categories: [ProjectFilter.Games, ProjectFilter.OnChain],
 		stack: [
+			"golang",
+			"mongodb",
 			"solidity",
 			"socket",
 			"defi",
 			"nft",
 			"web3",
 			"client",
-			"server-side",
+			"backend",
 			"smart contract",
 			"blockchain",
 		],
 		about: "A hybrid game that mixes Web2 gameplay with Web3 ownership. Players are mech hunters on a distant archipelago: they find wandering robots, capture and train them, customise them, and restore them to help humanity again.",
 		role: [
-			"Built the server-side socket layer that links players to the game, made to stay fast, secure and reliable with many players online.",
+			"Built the Golang WebSocket layer that links players to the game, made to stay fast, secure and reliable with many players online.",
 			"Built core mechanics such as capturing and training robots.",
-			"Worked with the client-side team so server features fit the game smoothly.",
-			"Wrote most of the Solidity smart contracts for the game's DeFi mechanics, focused on safety and efficiency.",
+			"Kept the socket server and the API server in step by sharing the same MongoDB state.",
+			"Wrote most of the Solidity smart contracts for the game’s DeFi mechanics on the Bitkub chain, focused on safety and efficiency.",
 			"Built the website and backend that bridge items between the game and the chain, where players manage their assets and NFTs.",
+			"Worked with the client-side team so server features fit the game smoothly.",
 		],
 		blocks: [
 			{
@@ -412,9 +181,15 @@ export const projects: Project[] = [
 					variant: HeaderVariant.Outline,
 					title: "Metal Valley",
 					subtitle: "Metal Valley",
-					index: "0004",
+					index: "0002",
 					discipline: ProjectSide.BehindTheScenes,
-					tags: ["Solidity", "Real-time", "DeFi", "NFTs", "Web3"],
+					tags: [
+						"Golang",
+						"MongoDB",
+						"Solidity",
+						"Real-time",
+						"DeFi",
+					],
 					kind: MotifKind.Hex,
 				},
 			},
@@ -444,16 +219,7 @@ export const projects: Project[] = [
 							caption: "Bridge website",
 						},
 					],
-					caption: "Illustrative mock — swap for a real screenshot",
-				},
-			},
-			{
-				type: BlockType.BigNumber,
-				params: {
-					value: "W2+W3",
-					label: "Hybrid by design",
-					caption:
-						"A Web2 game loop, with items and assets bridged between the game and the chain.",
+					caption: "Illustrative mock",
 				},
 			},
 			{
@@ -468,6 +234,10 @@ export const projects: Project[] = [
 						{
 							name: "Socket server",
 							description: "Real-time, many players",
+						},
+						{
+							name: "Shared MongoDB",
+							description: "One state for sockets and API",
 						},
 						{
 							name: "Core mechanics",
@@ -489,11 +259,12 @@ export const projects: Project[] = [
 				params: {
 					label: "What I did",
 					items: [
-						"Built the server-side socket layer that links players to the game, made to stay fast, secure and reliable with many players online.",
+						"Built the Golang WebSocket layer that links players to the game, made to stay fast, secure and reliable with many players online.",
 						"Built core mechanics such as capturing and training robots.",
-						"Worked with the client-side team so server features fit the game smoothly.",
-						"Wrote most of the Solidity smart contracts for the game's DeFi mechanics, focused on safety and efficiency.",
+						"Kept the socket server and the API server in step by sharing the same MongoDB state.",
+						"Wrote most of the Solidity smart contracts for the game’s DeFi mechanics on the Bitkub chain, focused on safety and efficiency.",
 						"Built the website and backend that bridge items between the game and the chain, where players manage their assets and NFTs.",
+						"Worked with the client-side team so server features fit the game smoothly.",
 					],
 				},
 			},
@@ -502,9 +273,9 @@ export const projects: Project[] = [
 				params: {
 					label: "What was hard",
 					items: [
-						"Many players at once meant the server side had to be planned for scale from day one, together with the client-side team.",
-						"The socket link had to be fast and secure at the same time, which shaped the whole network design.",
-						"Capturing and training robots had to feel good to play and stay cheap to run on the server.",
+						"Many players at once meant fast and secure sockets, planned for scale from day one.",
+						"The networked game state and the game logic both had to be optimised, without drifting apart.",
+						"Sharing state between the socket server and the API server, so they always agree.",
 						"The smart contracts had to be efficient without giving up any security.",
 						"With blockchain mechanics and NFTs in the mix, testing and debugging never stopped until the game was stable.",
 					],
@@ -514,17 +285,17 @@ export const projects: Project[] = [
 	},
 	{
 		id: "evermoon-socialfi",
-		num: "0005",
+		num: "0003",
 		name: "Evermoon SocialFi",
 		full: "Evermoon SocialFi",
 		kind: MotifKind.Orbit,
 		side: ProjectSide.BehindTheScenes,
-		tags: ["NFTs", "Web3", "Missions"],
+		tags: ["Golang", "MongoDB", "NFTs", "Web3", "Missions"],
 		categories: [ProjectFilter.Platforms, ProjectFilter.OnChain],
-		stack: ["nft", "web3", "mission system", "client", "server-side"],
-		about: "Evermoon SocialFi is a platform from Evermoon that rewards people for taking part. Users join monthly quests, complete social media tasks and earn Moon Power (XP) to unlock rewards. With Web3 built in, active users can also collect $EVM tokens, NFTs and exclusive content.",
+		stack: ["golang", "mongodb", "nft", "web3", "mission system", "client"],
+		about: "Evermoon SocialFi is a platform from Evermoon that rewards people for taking part. Users join monthly quests, complete social media tasks and earn Moon Power (XP) to unlock rewards. With Web3 built in, active users can also collect $EVM tokens, NFTs and exclusive content. The campaign has since ended.",
 		role: [
-			"Built the server-side features of the platform, including the mission system.",
+			"Built the server side of the platform in Golang and MongoDB, including the mission system and the quest engine for monthly quests and social-task verification.",
 		],
 		blocks: [
 			{
@@ -533,9 +304,9 @@ export const projects: Project[] = [
 					variant: HeaderVariant.Center,
 					title: "Evermoon SocialFi",
 					subtitle: "Evermoon SocialFi",
-					index: "0005",
+					index: "0003",
 					discipline: ProjectSide.BehindTheScenes,
-					tags: ["NFTs", "Web3", "Missions"],
+					tags: ["Golang", "MongoDB", "NFTs", "Web3", "Missions"],
 					kind: MotifKind.Orbit,
 				},
 			},
@@ -544,7 +315,7 @@ export const projects: Project[] = [
 				params: {
 					label: "About",
 					title: "$EVM",
-					text: "Evermoon SocialFi is a platform from Evermoon that rewards people for taking part. Users join monthly quests, complete social media tasks and earn Moon Power (XP) to unlock rewards. With Web3 built in, active users can also collect $EVM tokens, NFTs and exclusive content.",
+					text: "Evermoon SocialFi is a platform from Evermoon that rewards people for taking part. Users join monthly quests, complete social media tasks and earn Moon Power (XP) to unlock rewards. With Web3 built in, active users can also collect $EVM tokens, NFTs and exclusive content. The campaign has since ended.",
 					items: [
 						"Monthly quests",
 						"Social tasks",
@@ -560,13 +331,13 @@ export const projects: Project[] = [
 					kind: MotifKind.Orbit,
 					screen: MockScreen.Main,
 					view: DeviceView.Desktop,
-					caption: "Illustrative mock — swap for a real screenshot",
+					caption: "Illustrative mock",
 				},
 			},
 			{
 				type: BlockType.Quote,
 				params: {
-					text: "Built the server-side features of the platform, including the mission system.",
+					text: "Built the server side of the platform in Golang and MongoDB, including the mission system and the quest engine for monthly quests and social-task verification.",
 					cite: "What I did",
 				},
 			},
@@ -590,7 +361,7 @@ export const projects: Project[] = [
 			{
 				type: BlockType.Quote,
 				params: {
-					text: "The mission system had to work hand in hand with the client-side app, so both teams planned it together and kept it fast.",
+					text: "The quest engine had to work hand in hand with the client-side team, so testing and communication mattered as much as the code.",
 					cite: "Challenge",
 					tone: BlockTone.Invert,
 				},
@@ -599,17 +370,24 @@ export const projects: Project[] = [
 	},
 	{
 		id: "estic-ai",
-		num: "0006",
+		num: "0004",
 		name: "Estic AI",
 		full: "Estic AI",
 		kind: MotifKind.Pins,
 		side: ProjectSide.OnScreen,
 		tags: ["Generative AI", "Maps"],
 		categories: [ProjectFilter.Platforms],
-		stack: ["generative ai", "map", "client", "server-side", "data"],
+		stack: [
+			"generative ai",
+			"map",
+			"client",
+			"server-side",
+			"backend",
+			"data",
+		],
 		about: "Estic AI is a real estate platform that helps you find a home by simply talking to it. It pairs generative AI with detailed local data, so every search comes with context, not just listings. It offers features such as conversational search, hyper-local insights, climate-risk simulation, white-label chatbots, and a data marketplace for licensing-grade real estate datasets.",
 		role: [
-			"Developed the client-side of the platform: the map, search and interface people use every day.",
+			"Developed the client-side of the platform as a freelance frontend developer with Tetregram: the map, the search and the interface people use every day, in React and TypeScript.",
 			"Worked with the server-side team so the screens stayed fast with real data behind them.",
 		],
 		blocks: [
@@ -619,19 +397,10 @@ export const projects: Project[] = [
 					variant: HeaderVariant.SplitRev,
 					title: "Estic AI",
 					subtitle: "Estic AI",
-					index: "0006",
+					index: "0004",
 					discipline: ProjectSide.OnScreen,
 					tags: ["Generative AI", "Maps"],
 					kind: MotifKind.Pins,
-				},
-			},
-			{
-				type: BlockType.BigNumber,
-				params: {
-					value: "4k+",
-					label: "Pins on one map",
-					caption:
-						"The map shows 4k+ pins at once, and both the map and search had to stay smooth.",
 				},
 			},
 			{
@@ -652,7 +421,7 @@ export const projects: Project[] = [
 							caption: "Conversation",
 						},
 					],
-					caption: "Illustrative mock — swap for a real screenshot",
+					caption: "Illustrative mock",
 				},
 			},
 			{
@@ -674,7 +443,7 @@ export const projects: Project[] = [
 				params: {
 					label: "What I did",
 					items: [
-						"Developed the client-side of the platform: the map, search and interface people use every day.",
+						"Developed the client-side of the platform as a freelance frontend developer with Tetregram: the map, the search and the interface people use every day, in React and TypeScript.",
 						"Worked with the server-side team so the screens stayed fast with real data behind them.",
 					],
 				},
@@ -685,8 +454,248 @@ export const projects: Project[] = [
 					label: "What was hard",
 					items: [
 						"The product used new tools and patterns, so the UI framework needed careful groundwork.",
-						"The map shows 4k+ pins at once, and both the map and search had to stay smooth.",
+						"The map shows 4k+ pins zoomed out and about 1k+ zoomed in, so it asks the backend for only the pins in the current view and clusters them on the client with Leaflet.",
 						"Many features and data sources meant security had to be part of every integration.",
+					],
+				},
+			},
+		],
+	},
+	{
+		id: "morning-moon-village",
+		num: "0005",
+		name: "Morning Moon Village",
+		full: "Morning Moon Village",
+		kind: MotifKind.Moon,
+		side: ProjectSide.BehindTheScenes,
+		tags: ["Golang", "Solidity", "DeFi", "NFTs", "In-game shop"],
+		categories: [ProjectFilter.Games, ProjectFilter.OnChain],
+		stack: [
+			"golang",
+			"solidity",
+			"defi",
+			"nft",
+			"shop system",
+			"client",
+			"server-side",
+			"backend",
+			"smart contract",
+			"blockchain",
+		],
+		about: "A farming game with real DeFi yield farming inside it. Players grow crops, gather resources and learn how yield farming works while they play, earning tokens along the way. NFTs add a competitive edge, and the cute 3D world keeps it friendly.",
+		role: [
+			"Learned a Golang backend that had grown for five years under other hands, then extended it with features such as the new shop system and resource spawning.",
+			"Connected the game to the blockchain so its DeFi mechanics and NFTs work in play.",
+			"Wrote Solidity smart contracts for the DeFi mechanics, built with security in mind.",
+			"Worked closely with the client-side team, so new features landed in the game without friction.",
+		],
+		blocks: [
+			{
+				type: BlockType.ProjectHeader,
+				params: {
+					variant: HeaderVariant.Center,
+					title: "Morning Moon Village",
+					subtitle: "Morning Moon Village",
+					index: "0005",
+					discipline: ProjectSide.BehindTheScenes,
+					tags: [
+						"Golang",
+						"Solidity",
+						"DeFi",
+						"NFTs",
+						"In-game shop",
+					],
+					kind: MotifKind.Moon,
+				},
+			},
+			{
+				type: BlockType.AboutSplit,
+				params: {
+					label: "About",
+					text: "A farming game with real DeFi yield farming inside it. Players grow crops, gather resources and learn how yield farming works while they play, earning tokens along the way. NFTs add a competitive edge, and the cute 3D world keeps it friendly.",
+					kind: MotifKind.Moon,
+				},
+			},
+			{
+				type: BlockType.Mock,
+				params: {
+					label: "Farm & shop",
+					kind: MotifKind.Moon,
+					screen: MockScreen.Main,
+					view: DeviceView.Desktop,
+					caption: "Illustrative mock",
+				},
+			},
+			{
+				type: BlockType.StackCards,
+				params: {
+					label: "What I did",
+					items: [
+						"Learned a Golang backend that had grown for five years under other hands, then extended it with features such as the new shop system and resource spawning.",
+						"Connected the game to the blockchain so its DeFi mechanics and NFTs work in play.",
+						"Wrote Solidity smart contracts for the DeFi mechanics, built with security in mind.",
+						"Worked closely with the client-side team, so new features landed in the game without friction.",
+					],
+				},
+			},
+			{
+				type: BlockType.Architecture,
+				params: {
+					label: "How it works",
+					nodes: [
+						{ name: "Game client", description: "3D farming game" },
+						{
+							name: "Game server",
+							description: "Shop, resource spawning",
+						},
+						{
+							name: "Smart contracts",
+							description: "Solidity — DeFi, NFTs",
+						},
+					],
+				},
+			},
+			{
+				type: BlockType.Quote,
+				params: {
+					text: "Real money moves through NFTs and DeFi, so testing went deep on both how things work and how they could be abused.",
+					cite: "Hardest part",
+					tone: BlockTone.Invert,
+				},
+			},
+			{
+				type: BlockType.NumberedList,
+				params: {
+					label: "What was hard",
+					items: [
+						"Understanding five years of server-side code written by others, so new features fit instead of fighting it.",
+						"The DeFi mechanics live in Solidity smart contracts, so every contract had to be secure before it went live.",
+						"Real money moves through NFTs and DeFi, so testing went deep on both how things work and how they could be abused.",
+					],
+				},
+			},
+		],
+	},
+	{
+		id: "aads",
+		num: "0006",
+		name: "AADS",
+		full: "Army Air Defense System",
+		kind: MotifKind.Radar,
+		side: ProjectSide.BehindTheScenes,
+		tags: ["Real-time", "Radar protocols", "Encryption", "Maps"],
+		categories: [ProjectFilter.Platforms],
+		stack: [
+			"socket",
+			"trml",
+			"encrypt",
+			"map",
+			"client",
+			"real-time",
+			"backend",
+			"data",
+		],
+		about: "Software that turns raw radar signals into a live air picture for military operators in Thailand. It tracks aircraft from surveillance radars, lets operators talk and message each other, and raises an alert when an aircraft looks hostile. Access to each control depends on where the operator logs in from.",
+		role: [
+			"Built the TypeScript backend as the full-stack developer on a four-person team, from my internship at the university research lab.",
+			"Decoded radar messages in the TRML and DR127ADV protocols and turned them into readable tracks on a map.",
+			"Built the socket link between server and client, so every operator sees updates and control changes in real time.",
+			"Designed the operator screen: a live map with zoom and pan, voice calls, messaging and alerts for suspect aircraft.",
+		],
+		blocks: [
+			{
+				type: BlockType.ProjectHeader,
+				params: {
+					variant: HeaderVariant.Split,
+					title: "AADS",
+					subtitle: "Army Air Defense System",
+					index: "0006",
+					discipline: ProjectSide.BehindTheScenes,
+					tags: [
+						"Real-time",
+						"Radar protocols",
+						"Encryption",
+						"Maps",
+					],
+					kind: MotifKind.Radar,
+				},
+			},
+			{
+				type: BlockType.Quote,
+				params: {
+					text: "Software that turns raw radar signals into a live air picture for military operators in Thailand.",
+					cite: "Brief",
+				},
+			},
+			{
+				type: BlockType.Mock,
+				params: {
+					label: "Operator console",
+					kind: MotifKind.Radar,
+					screen: MockScreen.Main,
+					view: DeviceView.Desktop,
+					caption: "Illustrative mock",
+				},
+			},
+			{
+				type: BlockType.Architecture,
+				params: {
+					label: "How it works",
+					nodes: [
+						{
+							name: "Surveillance radars",
+							description: "Encoded track messages",
+						},
+						{
+							name: "Decoder",
+							description: "TRML · DR127ADV → readable",
+						},
+						{
+							name: "Node.js socket server",
+							description: "Real-time state, both ways",
+						},
+						{
+							name: "Operator UI",
+							description: "Map, voice, messaging, alerts",
+						},
+					],
+				},
+			},
+			{
+				type: BlockType.FeatureGrid,
+				params: {
+					label: "What it does",
+					items: [
+						"Real-time aircraft tracking from surveillance radars",
+						"Fake aircraft for training and for rehearsing real situations",
+						"Access control based on the operator's IP address",
+						"Voice calls and encrypted messaging between operators",
+						"Alerts for suspect aircraft, so operators react sooner",
+						"One-click state changes, like marking an aircraft as friend or enemy",
+						"A map you can zoom and pan, with alert settings each operator can tune",
+					],
+				},
+			},
+			{
+				type: BlockType.Timeline,
+				params: {
+					label: "What I did",
+					items: [
+						"Built the TypeScript backend as the full-stack developer on a four-person team, from my internship at the university research lab.",
+						"Decoded radar messages in the TRML and DR127ADV protocols and turned them into readable tracks on a map.",
+						"Built the socket link between server and client, so every operator sees updates and control changes in real time.",
+						"Designed the operator screen: a live map with zoom and pan, voice calls, messaging and alerts for suspect aircraft.",
+					],
+				},
+			},
+			{
+				type: BlockType.Zigzag,
+				params: {
+					label: "What was hard",
+					items: [
+						"The radar protocols are dense and the data never stops, so decoding had to be both exact and fast.",
+						"The socket link had to stay up and stay private, which meant planning the network and its security together.",
+						"Operators work under pressure. The screen went through many rounds of testing until it felt obvious to use.",
 					],
 				},
 			},

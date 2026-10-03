@@ -18,7 +18,7 @@ const stopVariants = cva(
 
 interface StackStopProps {
 	stop: StackStopModel;
-	/** 0-based position, shown as 01..06. */
+	/** 0-based position, shown as 01..05. */
 	index: number;
 	/** Projects that went through this stop; undefined while loading. */
 	count?: number;

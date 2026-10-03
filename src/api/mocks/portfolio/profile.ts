@@ -3,8 +3,8 @@ import { ExperienceKind } from "@/api/types/portfolio/enums";
 import type { Profile } from "@/api/types/portfolio/profile";
 export const profile: Profile = {
 	name: "William Siefert",
-	headline: "Software developer",
-	about: "I’m William. I build the parts of apps and games you never see — the bits that keep everything quick, fair and online when a lot of people show up at once. I like hard problems, short feedback loops, and leaving code a little nicer than I found it.",
+	headline: "Software engineer",
+	about: "Hi, I’m William, or Tiger. I write Go and TypeScript, mostly the kind with sockets, queues and smart contracts behind it. I like systems that are general, dynamic and still standing when traffic triples, and I build the simple front end on top because a clean UI is half of a reliable product. I learned by building, breaking and rebuilding. Off the clock: games, green tea and too much Reddit.",
 	skills: [
 		{
 			label: "Programming Languages",
@@ -58,11 +58,11 @@ export const profile: Profile = {
 	core: [
 		{
 			label: "Backend Development",
-			text: "Server-side apps that stay fast, scale with traffic and keep data safe.",
+			text: "General, dynamic servers that scale with traffic and keep data safe.",
 		},
 		{
 			label: "Smart Contract Development",
-			text: "Solidity contracts for games and apps, written with security in mind from the first line.",
+			text: "Solidity contracts for games and apps on Soneium and Bitkub, written with security in mind from the first line.",
 		},
 		{
 			label: "Socket Communication",
@@ -70,7 +70,7 @@ export const profile: Profile = {
 		},
 		{
 			label: "Performance Optimization",
-			text: "Finding the slow parts of code and architecture, and fixing them without breaking anything else.",
+			text: "Measuring first, then fixing the slow parts of code and architecture without breaking the rest.",
 		},
 		{
 			label: "Security Measures",
@@ -79,27 +79,27 @@ export const profile: Profile = {
 	],
 	experience: [
 		{
-			id: "bangkok-university-multimedia-intelligent-technology",
-			title: "Bangkok University Multimedia Intelligent Technology",
-			period: "June 2022 — June 2023",
-			notes: [
-				"Worked on student research projects in multimedia and intelligent technology, including AADS (an air defence system for the army) and a school bus tracking system.",
-			],
-			kind: ExperienceKind.Work,
-			start: "2022-06",
-			end: "2023-06",
-		},
-		{
-			id: "software-developer-x10-interactive",
-			title: "Software Developer X10 Interactive",
+			id: "software-engineer-x10-interactive",
+			title: "Software Engineer X10 Interactive",
 			period: "2023 — Present",
 			notes: [
-				"Build and look after web apps, game servers and blockchain products, from the first prototype to live launches.",
-				"Keep quality high with code reviews and tests, and ship on time alongside designers, client developers and product people.",
+				"Build and look after game servers, web apps and blockchain products on the Soneium and Bitkub chains, from the first prototype to live launches.",
+				"Keep quality high with code reviews and tests, and ship alongside designers, client developers and product people.",
 			],
 			kind: ExperienceKind.Work,
 			start: "2023-01",
 			end: null,
+		},
+		{
+			id: "fullstack-developer-intern-bangkok-university-multimedia-intelligent-technology",
+			title: "Fullstack Developer Intern Bangkok University Multimedia Intelligent Technology",
+			period: "June 2022 — June 2023",
+			notes: [
+				"Interned in the university research lab, building AADS, a military air defence system, and the School Bus Backend and Administration System.",
+			],
+			kind: ExperienceKind.Work,
+			start: "2022-06",
+			end: "2023-06",
 		},
 	],
 	education: [
@@ -108,7 +108,7 @@ export const profile: Profile = {
 			title: "Bangkok University",
 			period: "2019 — 2023",
 			notes: [
-				"Bachelor of Science in Computer Science, majoring in multimedia intelligent technology. Four years of fundamentals plus hands-on research projects, which is where I learned to enjoy the hard parts.",
+				"Bachelor of Science in Computer Science, majoring in multimedia intelligent technology. GPA 3.90. Senior project: the School Bus Backend and Administration System.",
 			],
 			kind: ExperienceKind.Education,
 			start: "2019-01",
@@ -119,5 +119,6 @@ export const profile: Profile = {
 		email: "wilhelm.hsf@gmail.com",
 		github: "https://github.com/king-glitch",
 		linkedin: "https://www.linkedin.com/in/william-siefert",
+		discord: "rachamon",
 	},
 };

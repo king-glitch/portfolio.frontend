@@ -26,7 +26,7 @@ export const ProjectPreviewCard: React.FC<ProjectPreviewCardProps> = ({
 			<span className="relative block min-h-0 grow">
 				<ProjectPreviewMock kind={project.kind} />
 			</span>
-			<span className="flex items-center justify-between gap-3 border-t border-border px-4 py-3">
+			<span className="flex items-center justify-between gap-3 border-t border-border px-3 py-3 sm:px-4">
 				<span className="flex min-w-0 items-baseline gap-2.5">
 					<span className="text-[11px] font-medium tracking-widest text-muted-foreground tabular-nums">
 						{project.num}
@@ -35,7 +35,7 @@ export const ProjectPreviewCard: React.FC<ProjectPreviewCardProps> = ({
 						{project.name}
 					</span>
 				</span>
-				<TagPill className="shrink-0 text-muted-foreground">
+				<TagPill className="shrink-0 text-muted-foreground max-sm:hidden">
 					{t(`common.sides.${project.side}`)}
 				</TagPill>
 			</span>

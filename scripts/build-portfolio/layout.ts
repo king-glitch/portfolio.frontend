@@ -9,7 +9,7 @@ import {
 } from "@/api/types/portfolio/enums";
 import type { ParsedProject } from "./parse";
 
-const MOCK_CAPTION = "Illustrative mock — swap for a real screenshot";
+const MOCK_CAPTION = "Illustrative mock";
 
 /** First sentence of a text (design/me-data.js first()). */
 function first(s: string): string {
@@ -67,22 +67,16 @@ export function layoutBlocks(p: ParsedProject): Block[] {
 					},
 				},
 				{
-					type: BlockType.BigNumber,
-					params: {
-						value: "2",
-						label: "Radar protocols, decoded",
-						caption:
-							"TRML and DR127ADV messages turned into readable, real-time tracks.",
-					},
-				},
-				{
 					type: BlockType.Architecture,
 					params: {
 						label: "How it works",
 						nodes: nodes(
 							["Surveillance radars", "Encoded track messages"],
 							["Decoder", "TRML · DR127ADV → readable"],
-							["Socket server", "Real-time state, both ways"],
+							[
+								"Node.js socket server",
+								"Real-time state, both ways",
+							],
 							["Operator UI", "Map, voice, messaging, alerts"],
 						),
 					},
@@ -248,21 +242,13 @@ export function layoutBlocks(p: ParsedProject): Block[] {
 					},
 				},
 				{
-					type: BlockType.BigNumber,
-					params: {
-						value: "W2+W3",
-						label: "Hybrid by design",
-						caption:
-							"A Web2 game loop, with items and assets bridged between the game and the chain.",
-					},
-				},
-				{
 					type: BlockType.Architecture,
 					params: {
 						label: "How it works",
 						nodes: nodes(
 							["Game client", "Explore, capture, train"],
 							["Socket server", "Real-time, many players"],
+							["Shared MongoDB", "One state for sockets and API"],
 							["Core mechanics", "Capture & training system"],
 							[
 								"Bridge site + backend",
@@ -346,14 +332,6 @@ export function layoutBlocks(p: ParsedProject): Block[] {
 				: [];
 			return [
 				header(p, HeaderVariant.SplitRev),
-				{
-					type: BlockType.BigNumber,
-					params: {
-						value: "4k+",
-						label: "Pins on one map",
-						caption: p.challenges[1] ?? "",
-					},
-				},
 				{
 					type: BlockType.Gallery,
 					params: {

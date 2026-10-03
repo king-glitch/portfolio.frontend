@@ -1,7 +1,7 @@
 import type { ProjectSummary } from "@/api/types/portfolio/project";
 import type { StackStop } from "@/types/home";
 
-/** Prototype ARCH (design/Main.dc.html line 1311). Copy lives in `home.stack.stops.<n>.*`. */
+/** Five stops of a tap: screen, backend, socket, database, chain. Copy lives in `home.stack.stops.<n>.*`. */
 export const STACK_STOPS: StackStop[] = [
 	{
 		id: "client",
@@ -19,7 +19,7 @@ export const STACK_STOPS: StackStop[] = [
 		id: "brain",
 		nameKey: "home.stack.stops.3.name",
 		descriptionKey: "home.stack.stops.3.description",
-		keywords: ["golang", "server-side"],
+		keywords: ["golang", "server-side", "backend"],
 	},
 	{
 		id: "memory",
@@ -28,16 +28,16 @@ export const STACK_STOPS: StackStop[] = [
 		keywords: ["mongodb", "data"],
 	},
 	{
-		id: "rulebook",
+		id: "ledger",
 		nameKey: "home.stack.stops.5.name",
 		descriptionKey: "home.stack.stops.5.description",
-		keywords: ["solidity", "smart contract"],
-	},
-	{
-		id: "ledger",
-		nameKey: "home.stack.stops.6.name",
-		descriptionKey: "home.stack.stops.6.description",
-		keywords: ["soneium", "blockchain", "on-chain"],
+		keywords: [
+			"solidity",
+			"smart contract",
+			"soneium",
+			"blockchain",
+			"on-chain",
+		],
 	},
 ];
 

@@ -10,7 +10,7 @@ import { projectPath } from "@/lib/routes";
 import { CursorLabel } from "@/types/cursor";
 
 const fanCardVariants = cva(
-	"group/fan relative aspect-4/3 w-[78vw] flex-none snap-center outline-none hover:z-40! max-desk:translate-none! max-desk:rotate-none! desk:absolute desk:top-0 desk:left-1/2 desk:w-[clamp(200px,24vw,390px)]",
+	"group/fan relative aspect-4/3 outline-none hover:z-40! max-desk:translate-none! max-desk:rotate-none! desk:absolute desk:top-0 desk:left-1/2 desk:w-[clamp(200px,24vw,390px)]",
 );
 
 interface HeroFanCardProps {
@@ -20,7 +20,7 @@ interface HeroFanCardProps {
 	total: number;
 }
 
-/** One card of the hero deck: fanned and rotated from the centre on desktop, a snap-scroll tile on mobile. */
+/** One card of the hero deck: fanned and rotated from the centre on desktop, a grid tile on mobile. */
 export const HeroFanCard: React.FC<HeroFanCardProps> = ({
 	project,
 	index,

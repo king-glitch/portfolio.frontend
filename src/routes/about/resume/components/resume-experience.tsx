@@ -17,28 +17,30 @@ export const ResumeExperience: React.FC<ResumeExperienceProps> = ({
 	return (
 		<section>
 			<ResumeHeading>{t("about.resume.experience.title")}</ResumeHeading>
-			{[...profile.experience].reverse().map((job) => {
-				const { name, role } = splitRole(job.title);
-				return (
-					<ResumeEntry key={job.id}>
-						<div className="flex flex-wrap justify-between gap-3">
-							<span className="text-[15px] font-extrabold tracking-[-0.01em]">
-								{role ? `${name} — ${role}` : name}
-							</span>
-							<span className="text-[13px] text-print-muted tabular-nums">
-								{job.period}
-							</span>
-						</div>
-						<ul className="mt-1.5 mb-0 list-disc pl-4.5 text-[13.5px] leading-relaxed">
-							{job.notes.map((note) => (
-								<li key={note} className="mt-0.75">
-									{note}
-								</li>
-							))}
-						</ul>
-					</ResumeEntry>
-				);
-			})}
+			{[...profile.experience]
+				.sort((a, b) => b.start.localeCompare(a.start))
+				.map((job) => {
+					const { name, role } = splitRole(job.title);
+					return (
+						<ResumeEntry key={job.id}>
+							<div className="flex flex-wrap justify-between gap-3">
+								<span className="text-[15px] font-extrabold tracking-[-0.01em]">
+									{role ? `${name} — ${role}` : name}
+								</span>
+								<span className="text-[13px] text-print-muted tabular-nums">
+									{job.period}
+								</span>
+							</div>
+							<ul className="mt-1.5 mb-0 list-disc pl-4.5 text-[13.5px] leading-relaxed">
+								{job.notes.map((note) => (
+									<li key={note} className="mt-0.75">
+										{note}
+									</li>
+								))}
+							</ul>
+						</ResumeEntry>
+					);
+				})}
 		</section>
 	);
 };

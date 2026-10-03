@@ -63,7 +63,7 @@ const HeroFanImpl: React.FC<HeroFanImplProps> = () => {
 				ref={deckRef}
 				role="group"
 				aria-label={t("home.hero.cards.aria-label")}
-				className="relative mt-[clamp(40px,5vw,72px)] h-[calc(clamp(200px,24vw,390px)*0.75+110px)] w-full will-change-transform max-desk:mt-6 max-desk:flex max-desk:h-auto max-desk:snap-x max-desk:snap-mandatory max-desk:gap-3.5 max-desk:overflow-x-auto max-desk:px-4 max-desk:pt-6 max-desk:pb-8"
+				className="relative mt-[clamp(40px,5vw,72px)] h-[calc(clamp(200px,24vw,390px)*0.75+110px)] w-full will-change-transform max-desk:mt-6 max-desk:grid max-desk:h-auto max-desk:grid-cols-2 max-desk:gap-3 max-desk:px-4 max-desk:pt-6 max-desk:pb-8"
 			>
 				{renderCards()}
 			</div>

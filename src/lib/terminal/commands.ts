@@ -176,6 +176,7 @@ const HANDLERS: Record<TerminalCommand, Handler> = {
 							profile.contact.email,
 							profile.contact.github,
 							profile.contact.linkedin,
+							`discord: ${profile.contact.discord}`,
 						].join(" · "),
 					}),
 				]

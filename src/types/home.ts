@@ -31,9 +31,9 @@ export interface StackStop {
 
 /** The three floating hero tags; also the `home.hero.tags.<tag>` i18n key segment. */
 export enum HeroTag {
-	AlwaysOn = "always-on",
-	GameReady = "game-ready",
-	ZeroDrama = "zero-drama",
+	Scalable = "scalable",
+	Optimized = "optimized",
+	Secure = "secure",
 }
 
 /** Vertical padding of a home section (the next/previous section supplies the other side). */
