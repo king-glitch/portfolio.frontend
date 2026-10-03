@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import type { ParseKeys } from "i18next";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router";
 import { z } from "zod";
@@ -15,6 +16,13 @@ import { IndexFilters } from "@/routes/components/home/index/index-filters";
 import { IndexPreview } from "@/routes/components/home/index/index-preview";
 import { ProjectIndexRow } from "@/routes/components/home/index/project-index-row";
 import { ProjectIndexSkeleton } from "@/routes/components/home/index/project-index-skeleton";
+
+const COLUMNS: ParseKeys[] = [
+	"home.index.columns.number",
+	"home.index.columns.project",
+	"home.index.columns.stack",
+	"home.index.columns.side",
+];
 
 /** Invalid or missing `?filter=` silently becomes the default. */
 const filterSchema = z
@@ -94,7 +102,18 @@ export const ProjectIndex: React.FC<ProjectIndexProps> = () => {
 					/>
 				}
 			/>
-			<div className="mt-7 border-t">{renderRows()}</div>
+			<div
+				aria-hidden="true"
+				className="mt-10 hidden grid-cols-[96px_minmax(0,1fr)_minmax(0,0.9fr)_130px_40px] gap-6 px-1 pb-3 text-[11px] font-medium tracking-widest text-muted-foreground uppercase desk:grid"
+			>
+				{COLUMNS.map((key) => (
+					<span key={key}>{t(key)}</span>
+				))}
+				<span />
+			</div>
+			<div className="border-t max-desk:mt-7 [&:hover_a:not(:hover):not(:focus-visible)]:opacity-30">
+				{renderRows()}
+			</div>
 			<IndexPreview projects={data ?? []} hoveredId={hoveredId} />
 		</HomeSection>
 	);

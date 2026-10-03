@@ -387,7 +387,7 @@ export const projects: Project[] = [
 		],
 		about: "Estic AI is a real estate platform that helps you find a home by simply talking to it. It pairs generative AI with detailed local data, so every search comes with context, not just listings. It offers features such as conversational search, hyper-local insights, climate-risk simulation, white-label chatbots, and a data marketplace for licensing-grade real estate datasets.",
 		role: [
-			"Developed the client-side of the platform as a freelance frontend developer with Tetregram: the map, the search and the interface people use every day, in React and TypeScript.",
+			"Developed the client-side of the platform as a freelance frontend developer with Tetragram: the map, the search and the interface people use every day, in React and TypeScript.",
 			"Worked with the server-side team so the screens stayed fast with real data behind them.",
 		],
 		blocks: [
@@ -443,7 +443,7 @@ export const projects: Project[] = [
 				params: {
 					label: "What I did",
 					items: [
-						"Developed the client-side of the platform as a freelance frontend developer with Tetregram: the map, the search and the interface people use every day, in React and TypeScript.",
+						"Developed the client-side of the platform as a freelance frontend developer with Tetragram: the map, the search and the interface people use every day, in React and TypeScript.",
 						"Worked with the server-side team so the screens stayed fast with real data behind them.",
 					],
 				},

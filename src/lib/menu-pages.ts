@@ -43,6 +43,14 @@ export const MENU_PAGES: MenuPage[] = [
 		isCurrent: (pathname) => pathname.startsWith(config.routes.about),
 	},
 	{
+		id: "gallery",
+		titleKey: "shell.menu.pages.gallery.title",
+		subKey: "shell.menu.pages.gallery.sub",
+		kind: MotifKind.Pixel,
+		to: config.routes.gallery,
+		isCurrent: (pathname) => pathname.startsWith(config.routes.gallery),
+	},
+	{
 		id: "notes",
 		titleKey: "shell.menu.pages.notes.title",
 		subKey: "shell.menu.pages.notes.sub",

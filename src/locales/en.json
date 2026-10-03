@@ -119,7 +119,7 @@
 				"title": "Experience"
 			},
 			"header": {
-				"role": "Software engineer — {{employer}}"
+				"role": "Software engineer · Go · TypeScript · Web3"
 			},
 			"print": {
 				"label": "Print"
@@ -384,6 +384,7 @@
 				},
 				"years": {
 					"label": "Years of breaking things on purpose",
+					"hint": "Since {{year}}",
 					"suffix": "y"
 				}
 			}
@@ -415,6 +416,12 @@
 			}
 		},
 		"index": {
+			"columns": {
+				"number": "No.",
+				"project": "Project",
+				"side": "Discipline",
+				"stack": "Stack"
+			},
 			"empty": {
 				"filtered": {
 					"title": "No projects match this filter"
@@ -683,6 +690,10 @@
 				"work": {
 					"sub": "Six projects, explained",
 					"title": "Work"
+				},
+				"gallery": {
+					"sub": "Frames from the build",
+					"title": "Gallery"
 				}
 			},
 			"projects": {
@@ -809,8 +820,53 @@
 				"about": {
 					"1": "Drag the wall around. I dare you.",
 					"2": "Switch to Resume for the short version."
+				},
+				"gallery": {
+					"1": "Hover a frame. Click it to blow it up.",
+					"2": "Arrow keys flip through. Esc closes."
 				}
+			},
+			"theme": {
+				"dark": "Lights off. Much better.",
+				"light": "Ow. My eyes. Warn me next time."
 			}
+		}
+	},
+	"gallery": {
+		"count-one": "{{count}} frame",
+		"count-other": "{{count}} frames",
+		"empty": {
+			"action": "Clear filter",
+			"title": "No frames here yet"
+		},
+		"filter": {
+			"all": "All",
+			"aria-label": "Filter frames by tag"
+		},
+		"headline": {
+			"lines": {
+				"1": "Frames from",
+				"2": "the build."
+			}
+		},
+		"lightbox": {
+			"counter": "{{index}} / {{total}}",
+			"description": "Use the arrow keys or the buttons to flip through frames. Escape closes.",
+			"project": "Open project",
+			"title": "Frame viewer"
+		},
+		"meta": {
+			"title": "Gallery — William Siefert"
+		},
+		"tile": {
+			"open": {
+				"aria-label": "View a frame from {{name}}"
+			},
+			"alt": "Frame from {{name}}"
+		},
+		"end": "That is every frame.",
+		"loading": {
+			"label": "Loading more frames"
 		}
 	}
 }

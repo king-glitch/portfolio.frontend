@@ -9,6 +9,7 @@ export function companionPlace(pathname: string): CompanionPlace {
 	if (matchPath(routes.project, pathname)) return CompanionPlace.Project;
 	if (matchPath(routes.note, pathname)) return CompanionPlace.Note;
 	if (matchPath(routes.notes, pathname)) return CompanionPlace.Notes;
+	if (matchPath(routes.gallery, pathname)) return CompanionPlace.Gallery;
 	if (matchPath({ path: routes.about, end: false }, pathname))
 		return CompanionPlace.About;
 	return CompanionPlace.Home;
@@ -34,6 +35,10 @@ export const COMPANION_LINES: Record<CompanionPlace, ParseKeys[]> = {
 	[CompanionPlace.Note]: [
 		"shell.companion.places.note.1",
 		"shell.companion.places.note.2",
+	],
+	[CompanionPlace.Gallery]: [
+		"shell.companion.places.gallery.1",
+		"shell.companion.places.gallery.2",
 	],
 	[CompanionPlace.About]: [
 		"shell.companion.places.about.1",

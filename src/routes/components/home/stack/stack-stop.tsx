@@ -9,8 +9,8 @@ const stopVariants = cva(
 	{
 		variants: {
 			selected: {
-				true: "-translate-y-3 bg-foreground text-background hover:bg-foreground",
-				false: "bg-card text-foreground opacity-70 ring-1 ring-border hover:bg-card",
+				true: "-translate-y-3 bg-foreground text-background hover:bg-foreground hover:text-background dark:hover:bg-foreground",
+				false: "bg-card text-foreground opacity-70 ring-1 ring-border hover:bg-card hover:text-foreground dark:hover:bg-card",
 			},
 		},
 	},

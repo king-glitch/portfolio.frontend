@@ -1,7 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import type { Profile } from "@/api/types/portfolio/profile";
-import { employerOf } from "@/lib/portfolio/about-stats";
 import { displayUrl } from "@/lib/utils";
 
 interface ResumeHeaderProps {
@@ -29,9 +28,7 @@ export const ResumeHeader: React.FC<ResumeHeaderProps> = ({ profile }) => {
 					{profile.name}
 				</h1>
 				<p className="mt-2 mb-0 text-base font-semibold">
-					{t("about.resume.header.role", {
-						employer: employerOf(profile),
-					})}
+					{t("about.resume.header.role")}
 				</p>
 			</div>
 			<ul className="m-0 flex list-none flex-col gap-0.5 p-0 text-[13px] leading-relaxed text-print-muted sm:text-right">

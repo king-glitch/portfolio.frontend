@@ -1,15 +1,21 @@
 import React from "react";
+import { cn } from "@/lib/utils";
 
-interface HelloStatCellProps {
-	children: React.ReactNode;
-}
+interface HelloStatCellProps extends React.ComponentProps<"div"> {}
 
 /** Ruled cell of the stats row (shared by the loaded stat and its skeleton). */
-export const HelloStatCell: React.FC<HelloStatCellProps> = ({ children }) => {
+export const HelloStatCell: React.FC<HelloStatCellProps> = ({
+	className,
+	...props
+}) => {
 	return (
-		<div className="flex flex-col gap-3.5 border-b py-7 pr-6 desk:border-r desk:border-b-0">
-			{children}
-		</div>
+		<div
+			className={cn(
+				"relative flex min-h-[clamp(240px,30vw,420px)] flex-col justify-between gap-8 overflow-hidden border-b p-6 desk:border-r desk:border-b-0",
+				className,
+			)}
+			{...props}
+		/>
 	);
 };
 

@@ -13,7 +13,7 @@ interface IndexPreviewProps {
 	hoveredId: string | null;
 }
 
-/** Floating 340x240 screen preview that trails the cursor over the index rows (desktop only, decorative). */
+/** Floating 384x256 screen preview that trails the cursor over the index rows (desktop only, decorative). */
 export const IndexPreview: React.FC<IndexPreviewProps> = ({
 	projects,
 	hoveredId,
@@ -28,8 +28,10 @@ export const IndexPreview: React.FC<IndexPreviewProps> = ({
 			aria-hidden="true"
 			style={OFFSCREEN}
 			className={cn(
-				"pointer-events-none fixed top-0 left-0 z-55 h-60 w-85 overflow-hidden rounded-[20px] bg-card shadow-2xl ring-1 ring-border transition-opacity duration-350",
-				hoveredId === null ? "opacity-0" : "opacity-100",
+				"pointer-events-none fixed top-0 left-0 z-55 h-64 w-96 overflow-hidden rounded-[20px] bg-card shadow-2xl ring-1 ring-border transition-[opacity,scale,clip-path] duration-600 ease-(--ease-out-expo)",
+				hoveredId === null
+					? "scale-75 opacity-0 [clip-path:inset(0_0_100%_0_round_20px)]"
+					: "scale-100 opacity-100 [clip-path:inset(0_round_20px)]",
 			)}
 		>
 			{projects.map((project) => (
@@ -37,8 +39,10 @@ export const IndexPreview: React.FC<IndexPreviewProps> = ({
 					key={project.id}
 					kind={project.kind}
 					className={cn(
-						"transition-opacity duration-300",
-						hoveredId === project.id ? "opacity-100" : "opacity-0",
+						"transition-[opacity,scale] duration-700 ease-(--ease-out-expo)",
+						hoveredId === project.id
+							? "scale-100 opacity-100"
+							: "scale-110 opacity-0",
 					)}
 				/>
 			))}

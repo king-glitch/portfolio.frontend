@@ -27,6 +27,7 @@ export default [
 				"routes/about/resume/index.tsx",
 			),
 		]),
+		route(segment(config.routes.gallery), "routes/gallery/index.tsx"),
 		route(segment(config.routes.notes), "routes/notes/index.tsx"),
 		route(segment(config.routes.note), "routes/notes/[slug]/index.tsx"),
 	]),

@@ -96,7 +96,7 @@ Estic AI is a real estate platform that helps you find a home by simply talking 
 
 # Role
 
-- Developed the client-side of the platform as a freelance frontend developer with Tetregram: the map, the search and the interface people use every day, in React and TypeScript.
+- Developed the client-side of the platform as a freelance frontend developer with Tetragram: the map, the search and the interface people use every day, in React and TypeScript.
 - Worked with the server-side team so the screens stayed fast with real data behind them.
 
 # Challenges

@@ -31,14 +31,15 @@ interface SiteNavProps {}
 export const SiteNav: React.FC<SiteNavProps> = () => {
 	const { t } = useTranslation();
 	const { loaded } = usePreloader();
-	const { setMenuOpen } = useShell();
+	const { menuOpen, setMenuOpen } = useShell();
 	const goSection = useGoSection();
 	const chrome = useChromeVisible();
 	const brandRef = useRef<HTMLButtonElement>(null);
 	useScramble(brandRef);
 	const { theme, toggle } = useTheme();
 	const ThemeIcon = theme === Theme.Dark ? RiSunLine : RiMoonLine;
-	const visible = loaded && chrome;
+	// Hidden while the full-screen menu covers it, so it drops back in after the menu wipes away.
+	const visible = loaded && chrome && !menuOpen;
 
 	return (
 		<header
@@ -49,8 +50,10 @@ export const SiteNav: React.FC<SiteNavProps> = () => {
 					: "0ms",
 			}}
 			className={cn(
-				"pointer-events-none fixed inset-x-0 top-[max(20px,env(safe-area-inset-top))] z-100 flex justify-center px-4 transition-opacity duration-500 ease-out invert-scope [view-transition-name:site-nav] print:hidden",
-				visible ? "opacity-100" : "opacity-0",
+				"pointer-events-none fixed inset-x-0 top-[max(20px,env(safe-area-inset-top))] z-100 flex justify-center px-4 transition-[opacity,translate] duration-500 ease-out invert-scope [view-transition-name:site-nav] print:hidden",
+				visible
+					? "translate-y-0 opacity-100"
+					: "-translate-y-6 opacity-0",
 			)}
 		>
 			<nav
@@ -91,7 +94,13 @@ export const SiteNav: React.FC<SiteNavProps> = () => {
 						variant={PillVariant.Ghost}
 						label={t("shell.nav.theme.aria-label")}
 						icon={ThemeIcon}
-						onClick={toggle}
+						onClick={(e) => {
+							const box = e.currentTarget.getBoundingClientRect();
+							toggle({
+								x: box.left + box.width / 2,
+								y: box.top + box.height / 2,
+							});
+						}}
 					/>
 					<PillButton
 						magnetic

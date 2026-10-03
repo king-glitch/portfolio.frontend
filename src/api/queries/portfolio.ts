@@ -1,9 +1,11 @@
-import { queryOptions } from "@tanstack/react-query";
+import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
 import { NotFoundError } from "@/api/errors";
 import {
 	getPost,
 	getProfile,
 	getProject,
+	listGallery,
+	listGalleryTags,
 	listPosts,
 	listProjects,
 } from "@/api/services/portfolio";
@@ -39,3 +41,21 @@ export const postQuery = (slug: string) =>
 		queryFn: () => getPost(slug),
 		retry: retryUnlessMissing,
 	});
+
+/** Infinite list of frames; each tag is its own cache entry and the server hands out the cursor. */
+export const galleryQuery = (tag: string | undefined) =>
+	infiniteQueryOptions({
+		queryKey: [keys.gallery.list, tag],
+		queryFn: ({ pageParam }) =>
+			listGallery({
+				tag,
+				cursor: pageParam,
+				limit: config.gallery.pageSize,
+			}),
+		/** The first page has an empty cursor. */
+		initialPageParam: "",
+		getNextPageParam: (page) => page.nextCursor,
+	});
+
+export const galleryTagsQuery = () =>
+	queryOptions({ queryKey: [keys.gallery.tags], queryFn: listGalleryTags });

@@ -30,6 +30,12 @@ const STATS: StatDef[] = [
 	{ id: "years", labelKey: "home.hello.stats.years.label", pad: 2 },
 ];
 
+const SKELETON_BARS = [
+	"h-4 w-8",
+	"h-[clamp(79px,11.7vw,198px)] w-48",
+	"h-3.5 w-44",
+];
+
 interface HelloProps {}
 
 /** About section: scroll-revealed paragraph plus three counted stats, all derived from the profile. */
@@ -46,16 +52,23 @@ export const Hello: React.FC<HelloProps> = () => {
 		void projects.refetch();
 	};
 
-	const values = (): Record<string, { value: number; suffix?: string }> => {
-		const skills = profile.data?.skills[0]?.items.length ?? 0;
+	const values = (): Record<
+		string,
+		{ value: number; suffix?: string; hint: string }
+	> => {
+		const languages = profile.data?.skills[0]?.items ?? [];
+		const names = projects.data?.map((p) => p.name) ?? [];
 		// Years of coding: the education entry starts when the first code was written.
 		const start = profile.data?.education[0]?.start;
 		return {
-			projects: { value: projects.data?.length ?? 0 },
-			languages: { value: skills },
+			projects: { value: names.length, hint: names.join(" · ") },
+			languages: { value: languages.length, hint: languages.join(" · ") },
 			years: {
 				value: start ? yearsSince(start) : 0,
 				suffix: t("home.hello.stats.years.suffix"),
+				hint: t("home.hello.stats.years.hint", {
+					year: start?.slice(0, 4),
+				}),
 			},
 		};
 	};
@@ -84,18 +97,21 @@ export const Hello: React.FC<HelloProps> = () => {
 	const renderStats = () => {
 		if (failed || (!pending && !about)) return null;
 		const map = values();
-		return STATS.map(({ id, labelKey, pad }) => {
+		return STATS.map(({ id, labelKey, pad }, i) => {
 			const stat = map[id];
 			if (pending || !stat)
 				return (
 					<HelloStatCell key={id}>
-						<Skeleton className="h-[clamp(54px,6.8vw,109px)] w-40" />
-						<Skeleton className="h-3.5 w-44" />
+						{SKELETON_BARS.map((bar) => (
+							<Skeleton key={bar} className={bar} />
+						))}
 					</HelloStatCell>
 				);
 			return (
 				<HelloStat
 					key={id}
+					index={i + 1}
+					hint={stat.hint}
 					value={stat.value}
 					pad={pad}
 					suffix={stat.suffix}

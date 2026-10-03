@@ -8,8 +8,20 @@ import { MascotBubble } from "@/components/common/mascot/mascot-bubble";
 import { Button } from "@/components/ui/button";
 import { config } from "@/config";
 import { usePreloader } from "@/contexts/preloader-context";
+import { useTheme } from "@/hooks/use-theme";
 import { COMPANION_LINES, companionPlace } from "@/lib/companion";
-import { BubbleSide, CompanionPlace, type MascotHandle } from "@/types/ui";
+import {
+	BubbleSide,
+	CompanionPlace,
+	Theme,
+	type MascotHandle,
+} from "@/types/ui";
+
+/** What Void says when the theme changes. */
+const THEME_LINES: Record<Theme, ParseKeys> = {
+	[Theme.Dark]: "shell.companion.theme.dark",
+	[Theme.Light]: "shell.companion.theme.light",
+};
 
 /** Bottom-right everywhere; on About it sits above the wall minimap. */
 const dockVariants = cva(
@@ -24,6 +36,8 @@ const dockVariants = cva(
 				[CompanionPlace.Notes]:
 					"bottom-[max(20px,env(safe-area-inset-bottom))]",
 				[CompanionPlace.Note]:
+					"bottom-[max(20px,env(safe-area-inset-bottom))]",
+				[CompanionPlace.Gallery]:
 					"bottom-[max(20px,env(safe-area-inset-bottom))]",
 				[CompanionPlace.About]:
 					"bottom-44 max-desk:bottom-[max(84px,env(safe-area-inset-bottom))]",
@@ -49,6 +63,16 @@ export const Companion: React.FC<CompanionProps> = () => {
 	const [talk, setTalk] = useState<{ key: ParseKeys; line: number } | null>(
 		null,
 	);
+
+	// Theme change (an event): Void flinches or sighs, then comments.
+	const { theme } = useTheme();
+	const lastTheme = useRef(theme);
+	useEffect(() => {
+		if (lastTheme.current === theme) return;
+		lastTheme.current = theme;
+		mascot.current?.poke(9);
+		setTalk({ key: THEME_LINES[theme], line: -1 });
+	}, [theme]);
 
 	// Arrival on a page (an event, not derived state): pop and greet with its first line.
 	useEffect(() => {

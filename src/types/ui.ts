@@ -137,4 +137,5 @@ export enum CompanionPlace {
 	Notes = "notes",
 	Note = "note",
 	About = "about",
+	Gallery = "gallery",
 }

@@ -638,3 +638,40 @@
 		animation-play-state: paused;
 	}
 }
+
+/* Scroll-linked rise for list rows; browsers without scroll-driven animations just show them. */
+@keyframes row-reveal {
+	from {
+		transform: translateY(56px);
+	}
+}
+@utility reveal-on-scroll {
+	@supports (animation-timeline: view()) {
+		animation: row-reveal linear both;
+		animation-timeline: view();
+		animation-range: entry 0% entry 70%;
+	}
+}
+
+/* Theme switch: the new theme spreads as a circle from the toggle (`useTheme` sets --vt-x/--vt-y). */
+html[data-vt="theme"]::view-transition-old(root),
+html[data-vt="theme"]::view-transition-new(root),
+html[data-vt="theme"]::view-transition-old(site-nav),
+html[data-vt="theme"]::view-transition-new(site-nav),
+html[data-vt="theme"]::view-transition-old(terminal-launcher),
+html[data-vt="theme"]::view-transition-new(terminal-launcher) {
+	animation: none;
+	mix-blend-mode: normal;
+	box-shadow: none;
+}
+html[data-vt="theme"]::view-transition-new(root) {
+	animation: theme-spread 0.9s var(--ease-wipe) both;
+}
+@keyframes theme-spread {
+	from {
+		clip-path: circle(0 at var(--vt-x) var(--vt-y));
+	}
+	to {
+		clip-path: circle(150vmax at var(--vt-x) var(--vt-y));
+	}
+}

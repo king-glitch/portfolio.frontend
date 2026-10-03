@@ -13,6 +13,7 @@ export const config = {
 		aboutExplore: "/about/explore",
 		aboutResume: "/about/resume",
 		notes: "/notes",
+		gallery: "/gallery",
 		note: "/notes/:slug",
 		/** Owner-only admin app; reached through the hidden hero gesture, never linked. */
 		dashboard: "/dashboard",
@@ -28,10 +29,22 @@ export const config = {
 				list: "portfolio.posts.list",
 				detail: "portfolio.posts.detail",
 			},
+			gallery: {
+				list: "portfolio.gallery.list",
+				tags: "portfolio.gallery.tags",
+			},
 		},
 	},
 	mock: {
 		latencyMs: 600,
+	},
+	gallery: {
+		/** Frames per request; the server returns the next cursor with each page. */
+		pageSize: 6,
+		/** The next page is requested this far before the end of the list reaches the viewport. */
+		loadMoreMarginPx: 600,
+		/** Filter chips shown besides "All". */
+		tagLimit: 10,
 	},
 	query: {
 		// ponytail: mock service, staleTime Infinity; add per-query staleTime when a backend exists
