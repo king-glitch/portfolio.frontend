@@ -1,4 +1,5 @@
 import React from "react";
+import { RiCheckLine } from "@remixicon/react";
 import type { ParseKeys } from "i18next";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
@@ -50,6 +51,8 @@ interface StatusActionsProps {
 	pending: boolean;
 	/** The status being saved while `pending`: its button shows the spinner. */
 	pendingStatus: ContentStatus | undefined;
+	/** The last save went through: its button shows a check until the form is edited again. */
+	saved: boolean;
 	cancelTo: string;
 	/** Public page of a published item. */
 	viewTo?: string;
@@ -62,6 +65,7 @@ export const StatusActions: React.FC<StatusActionsProps> = ({
 	dirty,
 	pending,
 	pendingStatus,
+	saved,
 	cancelTo,
 	viewTo,
 	onSave,
@@ -88,19 +92,28 @@ export const StatusActions: React.FC<StatusActionsProps> = ({
 				</FormButton>
 			) : null}
 			<div className="ml-auto flex gap-2">
-				{ACTIONS[status].map((action) => (
-					<FormButton
-						key={action.status}
-						variant={action.outline ? "outline" : "default"}
-						disabled={pending}
-						onClick={() => onSave(action.status)}
-					>
-						{pending && pendingStatus === action.status ? (
-							<Spinner data-icon="inline-start" />
-						) : null}
-						{t(action.labelKey)}
-					</FormButton>
-				))}
+				{ACTIONS[status].map((action) => {
+					const mine = pendingStatus === action.status;
+					return (
+						<FormButton
+							key={action.status}
+							variant={action.outline ? "outline" : "default"}
+							disabled={pending}
+							onClick={() => onSave(action.status)}
+						>
+							{pending && mine ? (
+								<Spinner data-icon="inline-start" />
+							) : null}
+							{saved && !dirty && !pending && mine ? (
+								<RiCheckLine
+									data-icon="inline-start"
+									className="motion-safe:animate-pop"
+								/>
+							) : null}
+							{t(action.labelKey)}
+						</FormButton>
+					);
+				})}
 			</div>
 		</FormActions>
 	);

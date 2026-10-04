@@ -10,7 +10,7 @@ import { usePreloader } from "@/contexts/preloader-context";
 import { useShell } from "@/contexts/shell-context";
 import { useScramble } from "@/hooks/motion/use-scramble";
 import { useChromeVisible } from "@/hooks/use-chrome-visible";
-import { useTheme } from "@/hooks/use-theme";
+import { useThemeSwitch } from "@/hooks/theme/use-theme-switch";
 import { config } from "@/config";
 import { cn } from "@/lib/utils";
 import { PillSize, PillVariant, Theme } from "@/types/ui";
@@ -36,7 +36,7 @@ export const SiteNav: React.FC<SiteNavProps> = () => {
 	const chrome = useChromeVisible();
 	const brandRef = useRef<HTMLButtonElement>(null);
 	useScramble(brandRef);
-	const { theme, toggle } = useTheme();
+	const { theme, switchTheme } = useThemeSwitch();
 	const ThemeIcon = theme === Theme.Dark ? RiSunLine : RiMoonLine;
 	// Hidden while the full-screen menu covers it, so it drops back in after the menu wipes away.
 	const visible = loaded && chrome && !menuOpen;
@@ -94,13 +94,7 @@ export const SiteNav: React.FC<SiteNavProps> = () => {
 						variant={PillVariant.Ghost}
 						label={t("shell.nav.theme.aria-label")}
 						icon={ThemeIcon}
-						onClick={(e) => {
-							const box = e.currentTarget.getBoundingClientRect();
-							toggle({
-								x: box.left + box.width / 2,
-								y: box.top + box.height / 2,
-							});
-						}}
+						onClick={(e) => switchTheme(e.currentTarget)}
 					/>
 					<PillButton
 						magnetic

@@ -7,9 +7,14 @@ import { Mascot } from "@/components/common/mascot/mascot";
 import { MascotBubble } from "@/components/common/mascot/mascot-bubble";
 import { Button } from "@/components/ui/button";
 import { config } from "@/config";
+import { useCompanion } from "@/contexts/companion-context";
 import { usePreloader } from "@/contexts/preloader-context";
-import { useTheme } from "@/hooks/use-theme";
-import { COMPANION_LINES, companionPlace } from "@/lib/companion";
+import { useTheme } from "@/hooks/theme/use-theme";
+import {
+	COMPANION_EVENTS,
+	COMPANION_LINES,
+	companionPlace,
+} from "@/lib/companion";
 import {
 	BubbleSide,
 	CompanionPlace,
@@ -23,7 +28,7 @@ const THEME_LINES: Record<Theme, ParseKeys> = {
 	[Theme.Light]: "shell.companion.theme.light",
 };
 
-/** Bottom-right everywhere; on About it sits above the wall minimap. */
+/** Bottom-right everywhere; on About it sits above the wall minimap, in the dashboard above the sticky form bars. */
 const dockVariants = cva(
 	"fixed right-[max(20px,env(safe-area-inset-right))] z-97 flex items-center transition-[translate,opacity] duration-700 ease-(--ease-out-expo) starting:translate-y-24 starting:opacity-0 print:hidden",
 	{
@@ -41,6 +46,8 @@ const dockVariants = cva(
 					"bottom-[max(20px,env(safe-area-inset-bottom))]",
 				[CompanionPlace.About]:
 					"bottom-44 max-desk:bottom-[max(84px,env(safe-area-inset-bottom))]",
+				[CompanionPlace.Dashboard]:
+					"bottom-[max(88px,calc(env(safe-area-inset-bottom)+72px))]",
 			},
 		},
 	},
@@ -58,10 +65,36 @@ export const Companion: React.FC<CompanionProps> = () => {
 	const { loaded } = usePreloader();
 	const { pathname } = useLocation();
 	const place = companionPlace(pathname);
+	// The dashboard greets once per visit; the site greets on every page.
+	const arrival = place === CompanionPlace.Dashboard ? place : pathname;
 	const lines = COMPANION_LINES[place];
+	const first = lines[0];
 	const mascot = useRef<MascotHandle>(null);
+	const dock = useRef<HTMLDivElement>(null);
+	const { attach } = useCompanion();
 	const [talk, setTalk] = useState<{ key: ParseKeys; line: number } | null>(
 		null,
+	);
+
+	// Other components poke Void through the companion context (and the mutation cache through the bus).
+	useEffect(
+		() =>
+			attach({
+				react: (event) => {
+					const { strength, key } = COMPANION_EVENTS[event];
+					mascot.current?.poke(strength);
+					if (key) setTalk({ key, line: -1 });
+				},
+				origin: () => {
+					const box = dock.current?.getBoundingClientRect();
+					if (!box) return undefined;
+					return {
+						x: box.left + box.width / 2,
+						y: box.top + box.height / 2,
+					};
+				},
+			}),
+		[attach],
 	);
 
 	// Theme change (an event): Void flinches or sighs, then comments.
@@ -78,9 +111,8 @@ export const Companion: React.FC<CompanionProps> = () => {
 	useEffect(() => {
 		if (!loaded) return;
 		mascot.current?.poke(6);
-		const first = COMPANION_LINES[companionPlace(pathname)][0];
 		if (first) setTalk({ key: first, line: 0 });
-	}, [loaded, pathname]);
+	}, [loaded, arrival, first]);
 
 	// Each line stays up for a while.
 	useEffect(() => {
@@ -118,7 +150,7 @@ export const Companion: React.FC<CompanionProps> = () => {
 			window.addEventListener(e, arm, { passive: true });
 		arm();
 		return stop;
-	}, [loaded, pathname]);
+	}, [loaded, arrival]);
 
 	if (!loaded) return null;
 
@@ -130,9 +162,9 @@ export const Companion: React.FC<CompanionProps> = () => {
 	};
 
 	return (
-		<div className={dockVariants({ place })}>
+		<div ref={dock} data-companion className={dockVariants({ place })}>
 			{talk ? (
-				<span className="pointer-events-none absolute right-full mr-3">
+				<span className="pointer-events-none absolute right-full mr-3 max-sm:hidden">
 					<MascotBubble side={BubbleSide.Right}>
 						{t(talk.key)}
 					</MascotBubble>

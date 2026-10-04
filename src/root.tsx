@@ -1,4 +1,5 @@
 import { Toaster } from "@/components/ui/toast";
+import { CompanionProvider } from "@/contexts/companion-context";
 import { PreloaderProvider } from "@/contexts/preloader-context";
 import { ShellProvider } from "@/contexts/shell-context";
 import { queryClient } from "@/lib/query-client";
@@ -19,8 +20,10 @@ const Root: React.FC<RootProps> = () => {
 		<QueryClientProvider client={queryClient}>
 			<PreloaderProvider>
 				<ShellProvider>
-					<Outlet />
-					<Toaster />
+					<CompanionProvider>
+						<Outlet />
+						<Toaster />
+					</CompanionProvider>
 				</ShellProvider>
 			</PreloaderProvider>
 		</QueryClientProvider>

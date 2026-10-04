@@ -22,7 +22,7 @@ export const NoteRow: React.FC<NoteRowProps> = ({ note, onDelete }) => {
 			)
 		: t("dashboard.notes.list.unpublished");
 	return (
-		<TableRow>
+		<TableRow className="group/row">
 			<TableCell className="w-16 text-muted-foreground tabular-nums">
 				{note.num}
 			</TableCell>

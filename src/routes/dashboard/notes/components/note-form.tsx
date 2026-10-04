@@ -165,6 +165,7 @@ export const NoteForm: React.FC<NoteFormProps> = ({ note }) => {
 						dirty={form.formState.isDirty}
 						pending={save.isPending}
 						pendingStatus={target}
+						saved={save.isSuccess}
 						cancelTo={config.routes.dashboardNotes}
 						viewTo={note ? notePath(note.slug) : undefined}
 						onSave={submit}

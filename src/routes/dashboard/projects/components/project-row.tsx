@@ -36,7 +36,7 @@ export const ProjectRow: React.FC<ProjectRowProps> = ({
 	const labelOf = (slug: string) =>
 		categories.data?.find((c) => c.slug === slug)?.label ?? slug;
 	return (
-		<TableRow>
+		<TableRow className="group/row">
 			<TableCell className="w-16 text-muted-foreground tabular-nums">
 				{project.num}
 			</TableCell>

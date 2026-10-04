@@ -13,7 +13,7 @@ interface RowActionsProps {
 	children?: React.ReactNode;
 }
 
-/** Right-aligned edit and delete buttons of a table row. */
+/** Right-aligned edit and delete buttons of a table row. With a mouse they appear on row hover or focus (the row is `group/row`); on touch they are always there. */
 export const RowActions: React.FC<RowActionsProps> = ({
 	name,
 	editTo,
@@ -22,7 +22,7 @@ export const RowActions: React.FC<RowActionsProps> = ({
 }) => {
 	const { t } = useTranslation();
 	return (
-		<div className="flex justify-end gap-1">
+		<div className="flex justify-end gap-1 transition-opacity pointer-fine:opacity-0 pointer-fine:group-hover/row:opacity-100 pointer-fine:focus-within:opacity-100">
 			{children}
 			<Button
 				variant="ghost"

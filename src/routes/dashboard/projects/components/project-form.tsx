@@ -167,6 +167,7 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
 						dirty={form.formState.isDirty}
 						pending={save.isPending}
 						pendingStatus={target}
+						saved={save.isSuccess}
 						cancelTo={config.routes.dashboardProjects}
 						viewTo={project ? projectPath(project.slug) : undefined}
 						onSave={submit}

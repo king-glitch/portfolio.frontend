@@ -24,6 +24,10 @@ export default [
 	layout("routes/dashboard/layout.tsx", [
 		route(segment(dashboard), "routes/dashboard/index.tsx"),
 		route(
+			segment(config.routes.dashboardOverview),
+			"routes/dashboard/overview/index.tsx",
+		),
+		route(
 			segment(config.routes.dashboardProjects),
 			"routes/dashboard/projects/index.tsx",
 		),

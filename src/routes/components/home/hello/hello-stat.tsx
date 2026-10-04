@@ -59,11 +59,14 @@ export const HelloStat: React.FC<HelloStatProps> = ({
 			ref={ref}
 			onPointerMove={drift}
 			onPointerLeave={settle}
-			className="group/stat"
+			className="group/stat isolate bg-background"
 		>
+			{/* Own blend group (isolate + opaque bg) and a layer that lives before hover: Chrome/Safari
+			    otherwise promote the flood on hover-in and demote it at the end, re-rasterizing the
+			    difference blend each time, which blinks the cell. */}
 			<span
 				aria-hidden="true"
-				className="absolute inset-0 origin-bottom scale-y-0 bg-foreground transition-transform duration-700 ease-(--ease-out-expo) group-hover/stat:scale-y-100"
+				className="absolute inset-0 origin-bottom scale-y-0 bg-foreground transition-transform duration-700 ease-(--ease-out-expo) will-change-transform group-hover/stat:scale-y-100"
 			/>
 			{/* Difference blend: white text reads as foreground on the page and as background on the flood, at every frame of the wipe. */}
 			<div className="relative flex flex-1 flex-col justify-between gap-8 text-white mix-blend-difference">

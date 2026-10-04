@@ -138,10 +138,37 @@ export enum CompanionPlace {
 	Note = "note",
 	About = "about",
 	Gallery = "gallery",
+	Dashboard = "dashboard",
+}
+
+/** Something that happened which Void reacts to (a mutation result, the start of a theme switch). */
+export enum CompanionEvent {
+	Saved = "saved",
+	Published = "published",
+	Uploaded = "uploaded",
+	Reordered = "reordered",
+	Deleted = "deleted",
+	Error = "error",
+	/** Void squashes before the theme spreads from it. */
+	Anticipate = "anticipate",
+}
+
+/** A point in viewport pixels. */
+export interface Point {
+	x: number;
+	y: number;
+}
+
+/** What the mounted companion offers the rest of the app (registered through the companion context). */
+export interface CompanionTarget {
+	react: (event: CompanionEvent) => void;
+	/** Centre of the mascot, or undefined while it is not on screen. */
+	origin: () => Point | undefined;
 }
 
 /** Top-level pages of the owner dashboard, in sidebar order. Values are the URL segments. */
 export enum DashboardSection {
+	Overview = "overview",
 	Projects = "projects",
 	Notes = "notes",
 	Gallery = "gallery",

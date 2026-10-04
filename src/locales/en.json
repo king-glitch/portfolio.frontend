@@ -883,11 +883,25 @@
 				"gallery": {
 					"1": "Hover a frame. Click it to blow it up.",
 					"2": "Arrow keys flip through. Esc closes."
+				},
+				"dashboard": {
+					"1": "Welcome back. I kept the lights on.",
+					"2": "Project order here is the order on the site. Use the arrows.",
+					"3": "Upload a picture once in Files, use it anywhere.",
+					"4": "I’d help edit, but I’m only a head."
 				}
 			},
 			"theme": {
 				"dark": "Lights off. Much better.",
 				"light": "Ow. My eyes. Warn me next time."
+			},
+			"events": {
+				"saved": "Saved. I felt that.",
+				"published": "Live! Go have a look.",
+				"uploaded": "Got it. Nice picture.",
+				"reordered": "New order. Much better.",
+				"deleted": "Gone. I won’t tell anyone.",
+				"error": "Ouch. That didn’t go through."
 			}
 		}
 	},
@@ -938,6 +952,7 @@
 				"site": "Site"
 			},
 			"items": {
+				"overview": "Overview",
 				"projects": "Projects",
 				"notes": "Notes",
 				"gallery": "Gallery",
@@ -1641,6 +1656,22 @@
 			},
 			"preview": {
 				"label": "Preview"
+			}
+		},
+		"overview": {
+			"meta": {
+				"title": "Overview — Dashboard"
+			},
+			"title": "Overview",
+			"description": "What is on the site, at a glance.",
+			"drafts": {
+				"count-one": "{{count}} draft",
+				"count-other": "{{count}} drafts"
+			},
+			"empty": {
+				"title": "Nothing here yet",
+				"description": "Add the first one.",
+				"action": "Open"
 			}
 		}
 	}

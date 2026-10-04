@@ -1,5 +1,8 @@
+// style-lint-ignore-file query-states -- the counts are decoration on the nav items; they appear once the lists load
+
 import React from "react";
 import {
+	RiDashboardLine,
 	RiFolderLine,
 	RiFolderUploadLine,
 	RiImageLine,
@@ -11,6 +14,7 @@ import {
 import type { ParseKeys } from "i18next";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router";
+import { useOverviewStats } from "@/api/hooks/admin/use-overview-stats";
 import {
 	Sidebar,
 	SidebarContent,
@@ -20,6 +24,7 @@ import {
 	SidebarGroupLabel,
 	SidebarHeader,
 	SidebarMenu,
+	SidebarMenuBadge,
 	SidebarMenuButton,
 	SidebarMenuItem,
 	SidebarRail,
@@ -45,6 +50,11 @@ const groups: NavGroup[] = [
 		id: "content",
 		labelKey: "dashboard.nav.groups.content",
 		items: [
+			{
+				section: DashboardSection.Overview,
+				to: config.routes.dashboardOverview,
+				icon: RiDashboardLine,
+			},
 			{
 				section: DashboardSection.Projects,
 				to: config.routes.dashboardProjects,
@@ -91,6 +101,7 @@ interface ShellSidebarProps {}
 export const ShellSidebar: React.FC<ShellSidebarProps> = () => {
 	const { t } = useTranslation();
 	const { pathname } = useLocation();
+	const stats = useOverviewStats();
 	return (
 		<Sidebar collapsible="icon">
 			<SidebarHeader>
@@ -98,7 +109,12 @@ export const ShellSidebar: React.FC<ShellSidebarProps> = () => {
 					<SidebarMenuItem>
 						<SidebarMenuButton
 							size="lg"
-							render={<Link to={config.routes.dashboard} />}
+							render={
+								<Link
+									to={config.routes.dashboard}
+									viewTransition
+								/>
+							}
 						>
 							<span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-foreground text-sm font-bold text-background">
 								{t("dashboard.nav.logo")}
@@ -119,26 +135,47 @@ export const ShellSidebar: React.FC<ShellSidebarProps> = () => {
 						<SidebarGroupContent>
 							<SidebarMenu>
 								{group.items.map(
-									({ section, to, icon: Icon }) => (
-										<SidebarMenuItem key={section}>
-											<SidebarMenuButton
-												isActive={pathname.startsWith(
-													to,
-												)}
-												tooltip={t(
-													`dashboard.nav.items.${section}`,
-												)}
-												render={<Link to={to} />}
-											>
-												<Icon />
-												<span>
-													{t(
+									({ section, to, icon: Icon }) => {
+										const stat = stats.find(
+											(item) => item.section === section,
+										);
+										const ready =
+											stat &&
+											!stat.isPending &&
+											!stat.isError;
+										return (
+											<SidebarMenuItem key={section}>
+												<SidebarMenuButton
+													isActive={pathname.startsWith(
+														to,
+													)}
+													tooltip={t(
 														`dashboard.nav.items.${section}`,
 													)}
-												</span>
-											</SidebarMenuButton>
-										</SidebarMenuItem>
-									),
+													render={
+														<Link
+															to={to}
+															viewTransition
+														/>
+													}
+												>
+													<Icon />
+													<span>
+														{t(
+															`dashboard.nav.items.${section}`,
+														)}
+													</span>
+												</SidebarMenuButton>
+												{ready ? (
+													<SidebarMenuBadge>
+														{stat.count +
+															(stat.drafts ?? 0)}
+														{stat.more ? "+" : null}
+													</SidebarMenuBadge>
+												) : null}
+											</SidebarMenuItem>
+										);
+									},
 								)}
 							</SidebarMenu>
 						</SidebarGroupContent>

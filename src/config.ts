@@ -19,6 +19,7 @@ export const config = {
 		dashboard: "/dashboard",
 		dashboardLogin: "/dashboard/authentication/login",
 		dashboardRecover: "/dashboard/authentication/recover",
+		dashboardOverview: "/dashboard/overview",
 		dashboardProjects: "/dashboard/projects",
 		dashboardProjectNew: "/dashboard/projects/new",
 		dashboardProject: "/dashboard/projects/:projectId",
@@ -70,6 +71,8 @@ export const config = {
 	},
 	/** Owner dashboard (`/dashboard`). */
 	dashboard: {
+		/** `<html data-area>` while the dashboard is mounted: scopes its motion and view-transition rules in main.css. */
+		area: "dashboard",
 		/** Session token and expiry. ponytail: localStorage is readable by any script on the page; httpOnly cookies need backend support. */
 		sessionStorageKey: "dashboard.session",
 		/** Select value meaning "nothing chosen" (an empty value is ignored by the select). */
@@ -175,6 +178,10 @@ export const config = {
 		talkMs: 4500,
 		/** No pointer, key or scroll for this long: it says its idle line (once per page). */
 		idleMs: 40000,
+		/** Mutation `meta` key that names the `CompanionEvent` Void shows on success. */
+		metaKey: "companion",
+		/** Void squashes this long before the theme spreads from it (skipped with reduced motion). */
+		anticipationMs: 120,
 	},
 	media: {
 		/** Sideways (horizontal) scrolling only on laptops/desktops; phones and tablets scroll normally. */
@@ -185,6 +192,8 @@ export const config = {
 		darkClass: "dark",
 		// ponytail: two themes, first visit follows the OS; add a "system" option if users ask
 		darkQuery: "(prefers-color-scheme: dark)",
+		/** The spread circle reaches this many times the farthest corner, so the bounce dips back visibly. */
+		spreadReach: 1.15,
 	},
 	i18n: {
 		// ponytail: en only; add a language detector when a 2nd locale exists

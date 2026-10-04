@@ -12,12 +12,15 @@ const PreloaderContext = React.createContext<PreloaderContextValue | null>(
 
 interface PreloaderProviderProps {
 	children: React.ReactNode;
+	/** Areas without a preloader (the dashboard) start loaded so the companion shows at once. */
+	initialLoaded?: boolean;
 }
 
 export const PreloaderProvider: React.FC<PreloaderProviderProps> = ({
 	children,
+	initialLoaded = false,
 }) => {
-	const [loaded, setLoaded] = React.useState(false);
+	const [loaded, setLoaded] = React.useState(initialLoaded);
 	const value = React.useMemo(() => ({ loaded, setLoaded }), [loaded]);
 	return (
 		<PreloaderContext.Provider value={value}>
