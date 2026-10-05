@@ -58,12 +58,4 @@ export const MENU_PAGES: MenuPage[] = [
 		to: config.routes.notes,
 		isCurrent: (pathname) => pathname.startsWith(config.routes.notes),
 	},
-	{
-		id: "contact",
-		titleKey: "shell.menu.pages.contact.title",
-		subKey: "shell.menu.pages.contact.sub",
-		kind: MotifKind.Moon,
-		section: config.sections.contact,
-		isCurrent: never,
-	},
 ];
