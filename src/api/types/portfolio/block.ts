@@ -1,11 +1,7 @@
 import type {
-	BlockTone,
 	BlockType,
-	DeviceView,
-	HeaderVariant,
-	MockScreen,
-	MotifKind,
-	ProjectSide,
+	MediaFit,
+	MediaTone,
 } from "@/api/types/portfolio/enums";
 
 interface BlockBase<T extends BlockType, P> {
@@ -13,12 +9,15 @@ interface BlockBase<T extends BlockType, P> {
 	params: P;
 }
 
-export interface MediaItem {
-	kind: MotifKind;
-	screen: MockScreen;
-	view: DeviceView;
-	caption: string;
-	imageUrl?: string;
+/** One image of a project page. `width`/`height` are intrinsic pixels (they reserve the box). */
+export interface MediaAsset {
+	url: string;
+	alt: string;
+	caption?: string;
+	width?: number;
+	height?: number;
+	fit: MediaFit;
+	tone: MediaTone;
 }
 
 export interface ArchitectureNode {
@@ -26,60 +25,31 @@ export interface ArchitectureNode {
 	description: string;
 }
 
+export interface ChallengeItem {
+	problem: string;
+	approach?: string;
+}
+
+/**
+ * Header, overview, contributions and links carry only their labels: their content is the
+ * project's own fields (`name`, `about`, `role`, `links` …), so it is written once.
+ */
 export type Block =
+	| BlockBase<BlockType.ProjectHeader, { tagline: string }>
+	| BlockBase<BlockType.Overview, { label: string }>
 	| BlockBase<
-			BlockType.ProjectHeader,
-			{
-				variant: HeaderVariant;
-				title: string;
-				subtitle: string;
-				index: string;
-				discipline: ProjectSide;
-				tags: string[];
-				kind: MotifKind;
-				imageUrl?: string;
-			}
+			BlockType.Filmstrip,
+			{ label: string; caption?: string; items: MediaAsset[] }
 	  >
-	| BlockBase<
-			BlockType.Quote,
-			{ text: string; cite: string; tone?: BlockTone }
-	  >
-	| BlockBase<
-			BlockType.BigNumber,
-			{ value: string; label: string; caption: string }
-	  >
-	| BlockBase<
-			BlockType.AboutSplit,
-			{
-				label: string;
-				text: string;
-				kind?: MotifKind;
-				imageUrl?: string;
-				list?: string[];
-			}
-	  >
-	| BlockBase<BlockType.NumberedList, { label: string; items: string[] }>
-	| BlockBase<BlockType.StackCards, { label: string; items: string[] }>
-	| BlockBase<BlockType.FeatureGrid, { label: string; items: string[] }>
-	| BlockBase<BlockType.Timeline, { label: string; items: string[] }>
-	| BlockBase<BlockType.Zigzag, { label: string; items: string[] }>
-	| BlockBase<
-			BlockType.MotifFull,
-			{ kind: MotifKind; label?: string; imageUrl?: string }
-	  >
-	| BlockBase<
-			BlockType.Chips,
-			{ label: string; title: string; text: string; items: string[] }
-	  >
-	| BlockBase<BlockType.Mock, MediaItem & { label: string }>
-	| BlockBase<
-			BlockType.Gallery,
-			{ label: string; items: MediaItem[]; caption: string }
-	  >
+	| BlockBase<BlockType.Showcase, MediaAsset & { label?: string }>
+	| BlockBase<BlockType.Contributions, { label: string }>
 	| BlockBase<
 			BlockType.Architecture,
 			{ label: string; nodes: ArchitectureNode[] }
 	  >
+	| BlockBase<BlockType.Challenge, { label: string; items: ChallengeItem[] }>
+	| BlockBase<BlockType.Statement, { text: string }>
+	| BlockBase<BlockType.FeatureGrid, { label: string; items: string[] }>
 	| BlockBase<
 			BlockType.Lineage,
 			{
@@ -90,9 +60,10 @@ export type Block =
 				to: string;
 				text: string;
 			}
-	  >;
+	  >
+	| BlockBase<BlockType.Links, { label: string }>;
 
-/** Params of one block type, e.g. `BlockProps<BlockType.Quote>`. */
+/** Params of one block type, e.g. `BlockProps<BlockType.Statement>`. */
 export type BlockProps<T extends BlockType> = Extract<
 	Block,
 	{ type: T }

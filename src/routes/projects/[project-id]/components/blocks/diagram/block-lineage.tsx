@@ -35,22 +35,17 @@ export const BlockLineage: React.FC<BlockLineageProps> = ({
 					<Link
 						to={projectPath(fromId)}
 						viewTransition
-						data-speed="0.9"
 						data-cursor={CursorLabel.Open}
 						className={nameVariants({ outline: true })}
 					>
 						{from}
 					</Link>
 				) : (
-					<span
-						data-speed="0.9"
-						className={nameVariants({ outline: true })}
-					>
+					<span className={nameVariants({ outline: true })}>
 						{from}
 					</span>
 				)}
 				<svg
-					data-speed="1"
 					width="72"
 					height="72"
 					viewBox="0 0 72 72"
@@ -62,9 +57,7 @@ export const BlockLineage: React.FC<BlockLineageProps> = ({
 				>
 					<path d="M8 8 V44 H60 M46 30 L60 44 L46 58" />
 				</svg>
-				<span data-speed="1.1" className={nameVariants()}>
-					{to}
-				</span>
+				<span className={nameVariants()}>{to}</span>
 			</div>
 			<p className="m-0 max-w-140 text-[clamp(17px,1.5vw,22px)] leading-normal text-muted-foreground">
 				{text}

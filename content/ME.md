@@ -35,120 +35,82 @@ Hi, I’m William, or Tiger. I write Go and TypeScript, mostly the kind with soc
 
 # About
 
-Morning Moon Village, rebuilt for phones. The same farming and resource gathering on a touch-first screen, with the whole server side rewritten for global players on the Soneium chain.
+Morning Moon Village, folded into a pocket. A cozy farming RPG that opens instantly as a mini app on Soneium: plant, fish, fight, craft, raise pets, and farm real on-chain yield in between.
 
 # Role
 
-- Rewrote the server side in Golang and MongoDB with a new database schema and optimised code, so it scales to far more players.
-- Moved the old features onto the new architecture and kept the live ones working.
-- Added new features such as a shop system and a mission system, and kept every player in sync in real time.
-- Rewrote most of the Solidity smart contracts for the game’s DeFi mechanics, so they are safe, efficient and fit the new architecture.
-- Worked with the client-side team so server features felt smooth on mobile.
-
-# Challenges
-
-- Rewriting old features on a new architecture while keeping the old ones working took careful planning with the client-side team.
-- More players with the same feel, on a short timeline, left a lot of testing and debugging to keep the new build stable.
-- The smart contracts had to get faster and stay just as secure, which left no room for shortcuts.
+- Rewrote the whole server in Golang and MongoDB, with a new database schema and leaner code paths, built for many more players than the original game.
+- Built the shop and mission systems on the new architecture.
+- Rewrote most of the Solidity smart contracts for Soneium, keeping them safe and efficient.
+- Kept every old feature working through the rewrite, in lockstep with the client team.
 
 2. **Metal Valley**
 
 # About
 
-A hybrid game that mixes Web2 gameplay with Web3 ownership. Players are mech hunters on a distant archipelago: they find wandering robots, capture and train them, customise them, and restore them to help humanity again.
+A creature collector, except the creatures are robots. Mech hunters roam an archipelago, catch wild Autometa, train them and bolt on new parts, then take them on-chain only if they want to. Web2 gameplay first, Web3 ownership optional.
 
 # Role
 
-- Built the Golang WebSocket layer that links players to the game, made to stay fast, secure and reliable with many players online.
-- Built core mechanics such as capturing and training robots.
-- Kept the socket server and the API server in step by sharing the same MongoDB state.
-- Wrote most of the Solidity smart contracts for the game’s DeFi mechanics on the Bitkub chain, focused on safety and efficiency.
-- Built the website and backend that bridge items between the game and the chain, where players manage their assets and NFTs.
-- Worked with the client-side team so server features fit the game smoothly.
-
-# Challenges
-
-- Many players at once meant fast and secure sockets, planned for scale from day one.
-- The networked game state and the game logic both had to be optimised, without drifting apart.
-- Sharing state between the socket server and the API server, so they always agree.
-- The smart contracts had to be efficient without giving up any security.
-- With blockchain mechanics and NFTs in the mix, testing and debugging never stopped until the game was stable.
+- Built the Golang WebSocket layer that connects every player to the game world, made to stay fast and secure under load.
+- Built the capture and training mechanics.
+- Wrote most of the Solidity smart contracts on Bitkub Chain.
+- Built the bridge, a website and its backend, that turns in-game items into chain assets and back.
 
 3. **Evermoon SocialFi**
 
 # About
 
-Evermoon SocialFi is a platform from Evermoon that rewards people for taking part. Users join monthly quests, complete social media tasks and earn Moon Power (XP) to unlock rewards. With Web3 built in, active users can also collect $EVM tokens, NFTs and exclusive content. The campaign has since ended.
+Moon Mission was the quest hub for Evermoon, a 5v5 Web3 MOBA. Players took on monthly quests and social tasks, earned Moon Power (XP), and climbed toward $EVM tokens and NFTs. It ran for a season, then closed, as planned.
 
 # Role
 
-- Built the server side of the platform in Golang and MongoDB, including the mission system and the quest engine for monthly quests and social-task verification.
-
-# Challenges
-
-- The quest engine had to work hand in hand with the client-side team, so testing and communication mattered as much as the code.
+- Built the server side in Golang and MongoDB.
+- Built the mission system and its quest engine: monthly quests plus social-task verification.
 
 4. **Estic AI**
 
 # About
 
-Estic AI is a real estate platform that helps you find a home by simply talking to it. It pairs generative AI with detailed local data, so every search comes with context, not just listings. It offers features such as conversational search, hyper-local insights, climate-risk simulation, white-label chatbots, and a data marketplace for licensing-grade real estate datasets.
+A Thai property platform where you describe the life you want and the AI finds homes that fit, backed by hyper-local data on livability, travel and climate risk. In Thai and English.
 
 # Role
 
-- Developed the client-side of the platform as a freelance frontend developer with Tetragram: the map, the search and the interface people use every day, in React and TypeScript.
-- Worked with the server-side team so the screens stayed fast with real data behind them.
-
-# Challenges
-
-- The product used new tools and patterns, so the UI framework needed careful groundwork.
-- The map shows 4k+ pins zoomed out and about 1k+ zoomed in, so it asks the backend for only the pins in the current view and clusters them on the client with Leaflet.
-- Many features and data sources meant security had to be part of every integration.
+- Developed the client side as a freelance frontend developer: the map, the search and the interface, in React and TypeScript.
+- Made a map of 4,000+ homes stay smooth: it asks the search API only for the pins inside the current view and clusters them on the client.
+- Laid the UI groundwork first, so new features plug in instead of piling up.
 
 5. **Morning Moon Village**
 
 # About
 
-A farming game with real DeFi yield farming inside it. Players grow crops, gather resources and learn how yield farming works while they play, earning tokens along the way. NFTs add a competitive edge, and the cute 3D world keeps it friendly.
+A 3D farming game with real DeFi yield farming inside. Grow crops, gather, fish and craft, and learn how yield farming works without reading a whitepaper. NFTs add the competition.
 
 # Role
 
-- Learned a Golang backend that had grown for five years under other hands, then extended it with features such as the new shop system and resource spawning.
-- Connected the game to the blockchain so its DeFi mechanics and NFTs work in play.
-- Wrote Solidity smart contracts for the DeFi mechanics, built with security in mind.
-- Worked closely with the client-side team, so new features landed in the game without friction.
-
-# Challenges
-
-- Understanding five years of server-side code written by others, so new features fit instead of fighting it.
-- The DeFi mechanics live in Solidity smart contracts, so every contract had to be secure before it went live.
-- Real money moves through NFTs and DeFi, so testing went deep on both how things work and how they could be abused.
+- Learned a Golang backend that had grown for five years under other hands, then extended it.
+- Built the new shop system and resource spawning.
+- Connected the game server to the chain, so DeFi and NFTs work in play.
+- Wrote Solidity smart contracts on Bitkub Chain.
 
 6. **AADS (Army Air Defense System)**
 
 # About
 
-Software that turns raw radar signals into a live air picture for military operators in Thailand. It tracks aircraft from surveillance radars, lets operators talk and message each other, and raises an alert when an aircraft looks hostile. Access to each control depends on where the operator logs in from.
+Military software for Thailand that turns raw surveillance-radar signals into a live air picture. Operators see every track, flag suspect aircraft, run training scenarios, and talk to each other over voice and text.
 
 # Role
 
-- Built the TypeScript backend as the full-stack developer on a four-person team, from my internship at the university research lab.
-- Decoded radar messages in the TRML and DR127ADV protocols and turned them into readable tracks on a map.
-- Built the socket link between server and client, so every operator sees updates and control changes in real time.
-- Designed the operator screen: a live map with zoom and pan, voice calls, messaging and alerts for suspect aircraft.
+- Owned the server as the full-stack developer on a four-person research lab team: Electron, React, Node.js with TypeScript, Socket.io and MySQL.
+- Decoded the TRML and DR127ADV radar message formats into tracks.
+- Built the socket link that streams tracks and control changes to every operator console.
+- Built IP-based access control for consoles, plus operator voice calls and messaging.
 
 # Features
 
 - Real-time aircraft tracking from surveillance radars
-- Fake aircraft for training and for rehearsing real situations
-- Access control based on the operator's IP address
-- Voice calls and encrypted messaging between operators
+- Simulated aircraft for training and rehearsing real situations
 - Alerts for suspect aircraft, so operators react sooner
-- One-click state changes, like marking an aircraft as friend or enemy
-- A map you can zoom and pan, with alert settings each operator can tune
-
-# Challenges
-
-- The radar protocols are dense and the data never stops, so decoding had to be both exact and fast.
-- The socket link had to stay up and stay private, which meant planning the network and its security together.
-- Operators work under pressure. The screen went through many rounds of testing until it felt obvious to use.
+- One-click track states, like friend or enemy
+- Voice calls and messaging between operators
+- Access control based on where an operator logs in from

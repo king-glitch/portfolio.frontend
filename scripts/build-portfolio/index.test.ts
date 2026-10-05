@@ -1,7 +1,12 @@
 import { expect, test } from "bun:test";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { BlockType, MotifKind } from "@/api/types/portfolio/enums";
+import {
+	BlockType,
+	MotifKind,
+	ProjectLifecycle,
+	ProjectSide,
+} from "@/api/types/portfolio/enums";
 import { buildSeed, snakeKeys } from "./seed";
 import { buildFiles, buildProfile, buildProjects, toTs } from "./index";
 import {
@@ -69,17 +74,14 @@ test("ids and numbers", () => {
 	expect(new Set(projects.map((p) => p.id)).size).toBe(6);
 });
 
-test("tags and stack keywords", () => {
+test("tags and facts come from the page spec", () => {
 	const aads = projects.find((p) => p.id === "aads");
-	expect(aads?.tags).toEqual([
-		"Real-time",
-		"Radar protocols",
-		"Encryption",
-		"Maps",
-	]);
-	expect(aads?.stack).toEqual(
-		expect.arrayContaining(["socket", "trml", "encrypt"]),
-	);
+	expect(aads?.tags).toContain("Radar protocols");
+	expect(aads?.lifecycle).toBe(ProjectLifecycle.Research);
+	expect(aads?.links).toEqual([]);
+	const estic = projects.find((p) => p.id === "estic-ai");
+	expect(estic?.side).toBe(ProjectSide.OnScreen);
+	expect(estic?.artUrl).toBeUndefined();
 	// "permission system" must not read as the Missions keyword
 	expect(hasKeyword("permission system", "mission system")).toBe(false);
 	expect(hasKeyword("the mission system", "mission system")).toBe(true);
@@ -94,75 +96,45 @@ test("categories never contain all", () => {
 	for (const p of projects) expect(p.categories).not.toContain("all");
 });
 
-test("block order per kind", () => {
-	const types = (id: string) =>
-		projects.find((p) => p.id === id)?.blocks.map((b) => b.type);
-	const B = BlockType;
-	expect(types("aads")).toEqual([
-		B.ProjectHeader,
-		B.Quote,
-		B.Mock,
-		B.Architecture,
-		B.FeatureGrid,
-		B.Timeline,
-		B.Zigzag,
-	]);
-	expect(types("morning-moon-village")).toEqual([
-		B.ProjectHeader,
-		B.AboutSplit,
-		B.Mock,
-		B.StackCards,
-		B.Architecture,
-		B.Quote,
-		B.NumberedList,
-	]);
-	expect(types("morning-moon-pocket")).toEqual([
-		B.ProjectHeader,
-		B.Chips,
-		B.Lineage,
-		B.Gallery,
-		B.NumberedList,
-		B.Architecture,
-		B.StackCards,
-	]);
-	expect(types("metal-valley")).toEqual([
-		B.ProjectHeader,
-		B.AboutSplit,
-		B.Gallery,
-		B.Architecture,
-		B.Timeline,
-		B.Zigzag,
-	]);
-	expect(types("evermoon-socialfi")).toEqual([
-		B.ProjectHeader,
-		B.Chips,
-		B.Mock,
-		B.Quote,
-		B.Architecture,
-		B.Quote,
-	]);
-	expect(types("estic-ai")).toEqual([
-		B.ProjectHeader,
-		B.Gallery,
-		B.AboutSplit,
-		B.StackCards,
-		B.NumberedList,
-	]);
+test("every page opens on its cover, then the overview, and names what I built", () => {
+	for (const p of projects) {
+		const types = p.blocks.map((b) => b.type);
+		expect(types.slice(0, 2)).toEqual([
+			BlockType.ProjectHeader,
+			BlockType.Overview,
+		]);
+		expect(types).toContain(BlockType.Contributions);
+		expect(types).toContain(BlockType.Challenge);
+	}
 });
 
-test("AADS payload matches the plan example", () => {
+test("every image is a local asset with a stored size", () => {
+	const assets = projects.flatMap((p) =>
+		p.blocks.flatMap((b) => {
+			if (b.type === BlockType.Filmstrip) return b.params.items;
+			if (b.type === BlockType.Showcase) return [b.params];
+			return [];
+		}),
+	);
+	expect(assets.length).toBeGreaterThan(10);
+	for (const asset of assets) {
+		expect(asset.url).toMatch(/^\/projects\/[a-z-]+\/[a-z0-9-]+\.webp$/);
+		expect(asset.width).toBeGreaterThan(0);
+		expect(asset.height).toBeGreaterThan(0);
+		expect(
+			existsSync(
+				resolve(import.meta.dir, "../../public", `.${asset.url}`),
+			),
+		).toBe(true);
+	}
+});
+
+test("AADS lists the ME.md features in its grid", () => {
 	const aads = projects.find((p) => p.id === "aads");
-	const arch = aads?.blocks[3];
-	expect(
-		arch?.type === BlockType.Architecture && arch.params.nodes[1],
-	).toEqual({
-		name: "Decoder",
-		description: "TRML · DR127ADV → readable",
-	});
-	const grid = aads?.blocks[4];
+	const grid = aads?.blocks.find((b) => b.type === BlockType.FeatureGrid);
 	expect(
 		grid?.type === BlockType.FeatureGrid && grid.params.items,
-	).toHaveLength(7);
+	).toHaveLength(6);
 });
 
 test("profile has the real name and contacts", () => {
@@ -174,7 +146,8 @@ test("profile has the real name and contacts", () => {
 test("output is deterministic and references enums, not literals", () => {
 	const a = buildFiles(me);
 	expect(buildFiles(me)).toEqual(a);
-	expect(a["projects.ts"]).toContain("BlockType.Quote");
+	expect(a["projects.ts"]).toContain("BlockType.Statement");
+	expect(a["projects.ts"]).toContain("MediaFit.Contain");
 	expect(a["projects.ts"]).not.toContain('"project-header"');
 	expect(a["profile.ts"]).toContain("ExperienceKind.Work");
 	expect(() => toTs({ type: "nope" })).toThrow();

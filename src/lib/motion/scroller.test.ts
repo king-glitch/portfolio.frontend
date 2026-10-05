@@ -53,9 +53,16 @@ test("step eases toward the target and settles", () => {
 	expect(stepScroller(s, cfg, true).current).toBe(100);
 });
 
-test("parallax is zero for the panel at the viewport edge", () => {
-	expect(parallaxOffset(500, 500, 1.2, cfg)).toBeCloseTo(0, 5);
-	expect(parallaxOffset(1000, 0, 1, cfg)).toBe(0);
+test("parallax is zero for a centred frame and for speed 1", () => {
+	expect(parallaxOffset(500, 500, 0.8, 40, cfg)).toBeCloseTo(0, 5);
+	expect(parallaxOffset(1000, 0, 1, 40, cfg)).toBe(0);
+});
+
+test("parallax never leaves its frame: the shift is clamped to the limit", () => {
+	expect(parallaxOffset(10_000, 0, 0.5, 40, cfg)).toBe(40);
+	expect(parallaxOffset(-10_000, 0, 0.5, 40, cfg)).toBe(-40);
+	const free = parallaxOffset(100, 0, 0.9, 40, cfg);
+	expect(Math.abs(free)).toBeLessThan(40);
 });
 
 test("push easing starts slow, ends at 1", () => {

@@ -1,27 +1,34 @@
 export enum BlockType {
 	ProjectHeader = "project-header",
-	Quote = "quote",
-	BigNumber = "big-number",
-	AboutSplit = "about-split",
-	NumberedList = "numbered-list",
-	StackCards = "stack-cards",
-	FeatureGrid = "feature-grid",
-	Timeline = "timeline",
-	Zigzag = "zigzag",
-	MotifFull = "motif-full",
-	Chips = "chips",
-	Mock = "mock",
-	Gallery = "gallery",
+	Overview = "overview",
+	Filmstrip = "filmstrip",
+	Showcase = "showcase",
+	Contributions = "contributions",
 	Architecture = "architecture",
+	Challenge = "challenge",
+	Statement = "statement",
+	FeatureGrid = "feature-grid",
 	Lineage = "lineage",
+	Links = "links",
 }
 
-export enum HeaderVariant {
-	Split = "split",
-	SplitRev = "split-rev",
-	Center = "center",
-	Outline = "outline",
-	Vertical = "vertical",
+/** How an image fills its frame: `cover` crops to the frame, `contain` floats a cut-out (no frame). */
+export enum MediaFit {
+	Cover = "cover",
+	Contain = "contain",
+}
+
+/** How an image goes monochrome: `ink` (flat single-colour art) also inverts on the dark theme. */
+export enum MediaTone {
+	Photo = "photo",
+	Ui = "ui",
+	Ink = "ink",
+}
+
+export enum ProjectLifecycle {
+	Live = "live",
+	Ended = "ended",
+	Research = "research",
 }
 
 export enum MotifKind {

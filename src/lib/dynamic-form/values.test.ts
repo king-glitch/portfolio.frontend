@@ -18,18 +18,21 @@ import {
 } from "@/lib/dynamic-form/values";
 import { FieldKind, FieldName } from "@/types/dynamic-form";
 
-const quoteFields = projectBlockSpecs[BlockType.Quote];
+const statementFields = projectBlockSpecs[BlockType.Statement];
 
 describe("dynamic form values", () => {
 	it("starts a block with empty required fields and no optional ones", () => {
-		expect(emptyRecord(quoteFields)).toEqual({ text: "", cite: "" });
+		expect(emptyRecord(statementFields)).toEqual({ text: "" });
 	});
 
 	it("starts required selects on their first choice and lists empty", () => {
-		const header = emptyRecord(projectBlockSpecs[BlockType.ProjectHeader]);
-		expect(header.variant).toBe("split");
-		expect(header.tags).toEqual([]);
-		expect(header.subtitle).toBe("");
+		const feature = emptyRecord(projectBlockSpecs[BlockType.Showcase]);
+		expect(feature.fit).toBe("cover");
+		expect(feature.tone).toBe("photo");
+		expect(feature.url).toBe("");
+		expect(feature).not.toHaveProperty("width");
+		const strip = emptyRecord(projectBlockSpecs[BlockType.Filmstrip]);
+		expect(strip.items).toEqual([]);
 	});
 
 	it("gives a new entry an id and keeps the defaults it is given", () => {
@@ -40,52 +43,70 @@ describe("dynamic form values", () => {
 	});
 
 	it("trims lines, drops blank ones and removes empty optional keys", () => {
-		const fields = projectBlockSpecs[BlockType.AboutSplit];
+		const fields = projectBlockSpecs[BlockType.FeatureGrid];
 		const cleaned = normalize(
-			{ label: " A ", text: "t", list: ["  x ", "", "  "], kind: "" },
+			{ label: " A ", items: ["  x ", "", "  "] },
 			fields,
 		);
-		expect(cleaned).toEqual({ label: "A", text: "t", list: ["x"] });
-		// a list that ends up empty leaves the record, so the backend never sees an empty optional list
-		expect(
-			normalize({ label: "A", text: "t", list: ["", " "] }, fields),
-		).toEqual({ label: "A", text: "t" });
+		expect(cleaned).toEqual({ label: "A", items: ["x"] });
+		const feature = normalize(
+			{ label: "", url: "/a.webp", alt: "a", fit: "cover", tone: "ui" },
+			projectBlockSpecs[BlockType.Showcase],
+		);
+		expect(feature).toEqual({
+			url: "/a.webp",
+			alt: "a",
+			fit: "cover",
+			tone: "ui",
+		});
 	});
 
-	it("cleans nested records of a gallery block", () => {
-		const fields = projectBlockSpecs[BlockType.Gallery];
+	it("cleans nested records of an image strip and keeps stored sizes", () => {
+		const fields = projectBlockSpecs[BlockType.Filmstrip];
 		const cleaned = normalize(
 			{
-				label: "G",
+				label: "S",
 				caption: "",
 				items: [
 					{
-						kind: "pins",
-						screen: "main",
-						view: "phone",
-						caption: "c",
-						image_url: "",
+						url: "/a.webp",
+						alt: " a ",
+						caption: "",
+						fit: "contain",
+						tone: "ink",
+						width: 800,
+						height: 600,
 					},
 				],
 			},
 			fields,
 		);
-		expect(cleaned.items).toEqual([
-			{ kind: "pins", screen: "main", view: "phone", caption: "c" },
-		]);
+		expect(cleaned).toEqual({
+			label: "S",
+			items: [
+				{
+					url: "/a.webp",
+					alt: "a",
+					fit: "contain",
+					tone: "ink",
+					width: 800,
+					height: 600,
+				},
+			],
+		});
 	});
 
 	it("flags a blank required field, even in a nested record", () => {
 		expect(
 			blocksHaveMissing(
-				[{ type: BlockType.Quote, params: { text: "", cite: "c" } }],
+				[{ type: BlockType.Statement, params: { text: "" } }],
 				projectBlockSpecs,
 				true,
 			),
 		).toBe(true);
 		expect(
 			blocksHaveMissing(
-				[{ type: BlockType.Quote, params: { text: "t", cite: "c" } }],
+				[{ type: BlockType.Statement, params: { text: "t" } }],
 				projectBlockSpecs,
 				true,
 			),

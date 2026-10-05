@@ -1,4 +1,9 @@
-import type { MotifKind, ProjectSide } from "@/api/types/portfolio/enums";
+import type {
+	MotifKind,
+	ProjectLifecycle,
+	ProjectSide,
+} from "@/api/types/portfolio/enums";
+import type { ProjectLink } from "@/api/types/portfolio/project";
 import type { ContentStatus } from "@/api/types/admin/enums";
 
 /** A block as stored: validated by the backend against its JSON schema, edited here as JSON. */
@@ -25,6 +30,14 @@ export interface AdminProject {
 	role: string[];
 	/** Uploaded art; "" = none (the motif of `kind` is shown). */
 	artUrl: string;
+	position: string;
+	period: string;
+	team: string;
+	/** "" on projects saved before content version 2. */
+	lifecycle: ProjectLifecycle | "";
+	platforms: string[];
+	chains: string[];
+	links: ProjectLink[];
 	status: ContentStatus;
 	order: number;
 }
@@ -45,6 +58,13 @@ export interface ProjectInput {
 	about: string;
 	role: string[];
 	artUrl: string;
+	position: string;
+	period: string;
+	team: string;
+	lifecycle: ProjectLifecycle;
+	platforms: string[];
+	chains: string[];
+	links: ProjectLink[];
 	status: ContentStatus;
 	blocks: StoredBlock[];
 }

@@ -36,74 +36,36 @@ const file = (
 	accept: FileKind[],
 	flags: Flags = {},
 ): FieldSpec => ({ name, kind: FieldKind.File, accept, ...flags });
-/** Motif preset (`kind`) with its optional uploaded image (`image_url`) as one control. */
-const art = (flags: Flags = {}): FieldSpec => ({
-	name: FieldName.Kind,
-	kind: FieldKind.Art,
-	imageName: FieldName.ImageUrl,
-	...flags,
-});
 const objects = (name: FieldName, fields: FieldSpec[]): FieldSpec => ({
 	name,
 	kind: FieldKind.Objects,
 	fields,
 });
 
-const labelAndItems = [text(FieldName.Label), lines(FieldName.Items)];
+const labelOnly = [text(FieldName.Label)];
 
-const media = [
-	select(FieldName.Kind, OptionSet.Kind),
-	select(FieldName.Screen, OptionSet.Screen),
-	select(FieldName.View, OptionSet.View),
-	text(FieldName.Caption, { allowEmpty: true }),
-	file(FieldName.ImageUrl, [FileKind.Image], { optional: true }),
+/** One image: `width`/`height` are kept as loaded (they reserve the frame; none = a 16:10 frame). */
+const asset = [
+	file(FieldName.Url, [FileKind.Image]),
+	text(FieldName.Alt, { allowEmpty: true }),
+	text(FieldName.Caption, { optional: true }),
+	select(FieldName.Fit, OptionSet.Fit),
+	select(FieldName.Tone, OptionSet.MediaTone),
+	text(FieldName.Width, { optional: true, hidden: true }),
+	text(FieldName.Height, { optional: true, hidden: true }),
 ];
 
 /** Fields of each project block (`params`), mirroring the backend's JSON schema for that block. */
 export const projectBlockSpecs: Record<BlockType, FieldSpec[]> = {
-	[BlockType.ProjectHeader]: [
-		select(FieldName.Variant, OptionSet.Variant),
-		text(FieldName.Title),
-		text(FieldName.Subtitle, { allowEmpty: true }),
-		text(FieldName.Index, { allowEmpty: true }),
-		select(FieldName.Discipline, OptionSet.Side),
-		lines(FieldName.Tags),
-		art(),
-	],
-	[BlockType.Quote]: [
-		area(FieldName.Text),
-		text(FieldName.Cite),
-		select(FieldName.Tone, OptionSet.Tone, { optional: true }),
-	],
-	[BlockType.BigNumber]: [
-		text(FieldName.Value),
+	[BlockType.ProjectHeader]: [text(FieldName.Tagline, { allowEmpty: true })],
+	[BlockType.Overview]: labelOnly,
+	[BlockType.Filmstrip]: [
 		text(FieldName.Label),
-		text(FieldName.Caption),
+		text(FieldName.Caption, { optional: true }),
+		objects(FieldName.Items, asset),
 	],
-	[BlockType.AboutSplit]: [
-		text(FieldName.Label),
-		area(FieldName.Text),
-		art({ optional: true }),
-		lines(FieldName.List, { optional: true }),
-	],
-	[BlockType.NumberedList]: labelAndItems,
-	[BlockType.StackCards]: labelAndItems,
-	[BlockType.FeatureGrid]: labelAndItems,
-	[BlockType.Timeline]: labelAndItems,
-	[BlockType.Zigzag]: labelAndItems,
-	[BlockType.MotifFull]: [art(), text(FieldName.Label, { optional: true })],
-	[BlockType.Chips]: [
-		text(FieldName.Label),
-		text(FieldName.Title),
-		area(FieldName.Text, { allowEmpty: true }),
-		lines(FieldName.Items),
-	],
-	[BlockType.Mock]: [text(FieldName.Label), ...media],
-	[BlockType.Gallery]: [
-		text(FieldName.Label),
-		text(FieldName.Caption, { allowEmpty: true }),
-		objects(FieldName.Items, media),
-	],
+	[BlockType.Showcase]: [text(FieldName.Label, { optional: true }), ...asset],
+	[BlockType.Contributions]: labelOnly,
 	[BlockType.Architecture]: [
 		text(FieldName.Label),
 		objects(FieldName.Nodes, [
@@ -111,6 +73,15 @@ export const projectBlockSpecs: Record<BlockType, FieldSpec[]> = {
 			text(FieldName.Description, { allowEmpty: true }),
 		]),
 	],
+	[BlockType.Challenge]: [
+		text(FieldName.Label),
+		objects(FieldName.Items, [
+			area(FieldName.Problem),
+			area(FieldName.Approach, { optional: true }),
+		]),
+	],
+	[BlockType.Statement]: [area(FieldName.Text)],
+	[BlockType.FeatureGrid]: [text(FieldName.Label), lines(FieldName.Items)],
 	[BlockType.Lineage]: [
 		text(FieldName.Label),
 		text(FieldName.From),
@@ -118,6 +89,7 @@ export const projectBlockSpecs: Record<BlockType, FieldSpec[]> = {
 		area(FieldName.Text, { allowEmpty: true }),
 		{ name: FieldName.FromId, kind: FieldKind.Project, optional: true },
 	],
+	[BlockType.Links]: labelOnly,
 };
 
 /** Fields of each note block (flat: they sit beside `type`). */

@@ -33,14 +33,7 @@ export const NextProjectHead: React.FC<NextProjectHeadProps> = ({ id }) => {
 		);
 	const first = project.data.blocks[0];
 	if (!first) return <Panel />;
-	return (
-		<BlockRenderer
-			block={first}
-			index={1}
-			projectKind={project.data.kind}
-			projectArtUrl={project.data.artUrl}
-		/>
-	);
+	return <BlockRenderer block={first} index={1} project={project.data} />;
 };
 
 export default NextProjectHead;

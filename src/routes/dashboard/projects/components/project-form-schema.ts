@@ -5,10 +5,29 @@ import type {
 	ProjectInput,
 } from "@/api/types/admin/content";
 import { ContentStatus } from "@/api/types/admin/enums";
-import { MotifKind, ProjectSide } from "@/api/types/portfolio/enums";
+import {
+	MotifKind,
+	ProjectLifecycle,
+	ProjectSide,
+} from "@/api/types/portfolio/enums";
+import type { ProjectLink } from "@/api/types/portfolio/project";
 import { projectBlockSpecs } from "@/lib/dynamic-form/specs";
 import { blocksHaveMissing, normalizeBlocks } from "@/lib/dynamic-form/values";
 import { cleanList } from "@/lib/forms";
+
+/** One link per line, written `Label | https://…`. */
+const LINK_LINE = /^(.+?)\s*\|\s*(https?:\/\/\S+)$/;
+
+const linkLine = (link: ProjectLink): string => `${link.label} | ${link.url}`;
+
+function parseLinks(lines: string[]): ProjectLink[] {
+	return cleanList(lines).flatMap((line) => {
+		const match = LINK_LINE.exec(line);
+		return match?.[1] && match[2]
+			? [{ label: match[1], url: match[2] }]
+			: [];
+	});
+}
 
 export const projectFormSchema = (t: TFunction) =>
 	z.object({
@@ -23,6 +42,19 @@ export const projectFormSchema = (t: TFunction) =>
 		stack: z.array(z.string()),
 		role: z.array(z.string()),
 		about: z.string(),
+		position: z.string(),
+		period: z.string(),
+		team: z.string(),
+		lifecycle: z.enum(ProjectLifecycle),
+		platforms: z.array(z.string()),
+		chains: z.array(z.string()),
+		links: z
+			.array(z.string())
+			.refine(
+				(lines) =>
+					cleanList(lines).every((line) => LINK_LINE.test(line)),
+				t("dashboard.errors.link"),
+			),
 		blocks: z
 			.array(z.record(z.string(), z.unknown()))
 			.refine(
@@ -45,6 +77,13 @@ export const emptyProjectForm: ProjectFormValues = {
 	stack: [],
 	role: [],
 	about: "",
+	position: "",
+	period: "",
+	team: "",
+	lifecycle: ProjectLifecycle.Live,
+	platforms: [],
+	chains: [],
+	links: [],
 	blocks: [],
 };
 
@@ -63,6 +102,13 @@ export const toProjectForm = (
 	// role entries are sentences that contain commas: a row each, never split on commas
 	role: project.role,
 	about: project.about,
+	position: project.position,
+	period: project.period,
+	team: project.team,
+	lifecycle: project.lifecycle || ProjectLifecycle.Live,
+	platforms: project.platforms,
+	chains: project.chains,
+	links: project.links.map(linkLine),
 	blocks: project.blocks,
 });
 
@@ -71,6 +117,12 @@ export const toProjectInput = (values: ProjectFormValues): ProjectInput => ({
 	tags: cleanList(values.tags),
 	stack: cleanList(values.stack),
 	role: cleanList(values.role),
+	position: values.position.trim(),
+	period: values.period.trim(),
+	team: values.team.trim(),
+	platforms: cleanList(values.platforms),
+	chains: cleanList(values.chains),
+	links: parseLinks(values.links),
 	blocks: normalizeBlocks(values.blocks, projectBlockSpecs, true),
 });
 

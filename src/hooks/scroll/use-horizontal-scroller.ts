@@ -150,10 +150,16 @@ export function useHorizontalScroller(options: ScrollerOptions) {
 				width: el.offsetWidth,
 				layers: Array.from(
 					el.querySelectorAll<HTMLElement>("[data-speed]"),
-				).map((layer) => ({
-					el: layer,
-					speed: Number(layer.dataset.speed) || 1,
-				})),
+				).map((layer) => {
+					const frame = layer.parentElement ?? layer;
+					return {
+						el: layer,
+						speed: Number(layer.dataset.speed) || 1,
+						center:
+							leftWithin(frame, track) + frame.offsetWidth / 2,
+						limit: frame.offsetWidth * cfg.parallaxMaxShare,
+					};
+				}),
 			}));
 			const own = eng.panels.filter((p) => p.left < eng.max + 1);
 			eng.lastWidth = own[own.length - 1]?.width ?? vp.clientWidth;
@@ -298,10 +304,11 @@ export function useHorizontalScroller(options: ScrollerOptions) {
 		if (barEl) barEl.style.transform = `scaleX(${bar.toFixed(4)})`;
 		if (reduced) return;
 		const reach = window.innerWidth * cfg.visiblePanelViewports;
+		const viewCenter = x + window.innerWidth / 2;
 		for (const p of eng.panels) {
 			if (p.left - x > reach || p.left + p.width - x < -reach) continue;
 			for (const l of p.layers)
-				l.el.style.translate = `${parallaxOffset(p.left, x, l.speed, cfg).toFixed(2)}px 0`;
+				l.el.style.translate = `${parallaxOffset(l.center, viewCenter, l.speed, l.limit, cfg).toFixed(2)}px 0`;
 		}
 	}, !vertical);
 

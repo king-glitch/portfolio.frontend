@@ -380,11 +380,21 @@ export const config = {
 		},
 	},
 	work: {
+		media: {
+			/** Touch devices colour an image while it sits in this centre band of the viewport. */
+			activeBand: "-30% 0px -30% 0px",
+			/** Frame ratio while an image has no stored size. */
+			fallbackRatio: "16 / 10",
+			/** Parallax speed of an image inside its frame (`data-speed`, < 1 lags). */
+			parallaxSpeed: "0.86",
+		},
 		scroller: {
 			lerp: 0.085,
 			/** Duration of the next-project push (ease-in-out). */
 			pushMs: 1100,
 			parallaxFactor: 0.35,
+			/** A layer never moves more than this share of its own frame width (cover images are scaled 1.12). */
+			parallaxMaxShare: 0.05,
 			endEpsilonPx: 1,
 			/** The cover counts as in place (pull may start) within this distance. */
 			endCurrentPx: 48,

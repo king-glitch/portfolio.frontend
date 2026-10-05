@@ -43,6 +43,13 @@ interface ProjectFormProps {
 }
 
 /** Create or edit a project. Blocks are edited with the block editor (one card per block, fields from the block type's spec); the backend validates every block against its schema. Status is chosen by the action bar's buttons. */
+/** The short facts shown on the project page's cover and overview. */
+const factFields = [
+	{ name: "position", labelKey: "dashboard.projects.form.position.label" },
+	{ name: "period", labelKey: "dashboard.projects.form.period.label" },
+	{ name: "team", labelKey: "dashboard.projects.form.team.label" },
+] as const;
+
 export const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
 	const { t } = useTranslation();
 	const navigate = useNavigate();
@@ -155,6 +162,40 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({ project }) => {
 						name="about"
 						label={t("dashboard.projects.form.about.label")}
 						rows={4}
+					/>
+					<div className="grid gap-6 md:grid-cols-3">
+						{factFields.map((field) => (
+							<FormTextField
+								key={field.name}
+								control={form.control}
+								name={field.name}
+								label={t(field.labelKey)}
+							/>
+						))}
+					</div>
+					<FormToggleGroupField
+						control={form.control}
+						name="lifecycle"
+						label={t("dashboard.projects.form.lifecycle.label")}
+						options={selectItems(OptionSet.Lifecycle, t)}
+					/>
+					<FormTagsField
+						control={form.control}
+						name="platforms"
+						label={t("dashboard.projects.form.platforms.label")}
+					/>
+					<FormTagsField
+						control={form.control}
+						name="chains"
+						label={t("dashboard.projects.form.chains.label")}
+					/>
+					<FormLinesField
+						control={form.control}
+						name="links"
+						label={t("dashboard.projects.form.links.label")}
+						description={t(
+							"dashboard.projects.form.links.description",
+						)}
 					/>
 					<BlockEditor
 						label={t("dashboard.projects.form.blocks.label")}

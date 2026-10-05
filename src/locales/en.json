@@ -686,19 +686,35 @@
 			}
 		},
 		"header": {
-			"discipline": "Discipline",
-			"index": "Index",
-			"project": "Project",
 			"scroll": "Scroll to explore →"
 		},
 		"meta": {
 			"title": "Project — William Siefert"
 		},
 		"topbar": {
-			"close": "Close"
+			"close": "Close",
+			"chapter": "/ {{name}}"
 		},
 		"viewport": {
 			"label": "Project {{name}}, scroll horizontally"
+		},
+		"facts": {
+			"position": "Role",
+			"period": "Period",
+			"team": "Team",
+			"lifecycle": "Status",
+			"platforms": "Platform",
+			"chains": "Chain",
+			"stack": "Stack"
+		},
+		"lifecycles": {
+			"live": "Live",
+			"ended": "Ended",
+			"research": "Research project"
+		},
+		"challenge": {
+			"problem": "Problem",
+			"approach": "How I solved it"
 		}
 	},
 	"shell": {
@@ -733,10 +749,6 @@
 				"about": {
 					"sub": "Who I am, in thirty seconds",
 					"title": "About"
-				},
-				"contact": {
-					"sub": "Say hello",
-					"title": "Contact"
 				},
 				"home": {
 					"sub": "Start at the top",
@@ -997,21 +1009,6 @@
 				"behind-the-scenes": "Behind the scenes",
 				"on-screen": "On screen"
 			},
-			"variants": {
-				"split": "Split",
-				"split-rev": "Split, reversed",
-				"center": "Centered",
-				"outline": "Outline",
-				"vertical": "Vertical"
-			},
-			"screens": {
-				"main": "Main",
-				"alt": "Alternate"
-			},
-			"views": {
-				"desktop": "Desktop",
-				"phone": "Phone"
-			},
 			"tones": {
 				"default": "Default",
 				"invert": "Inverted"
@@ -1019,6 +1016,20 @@
 			"experiences": {
 				"work": "Work",
 				"education": "Education"
+			},
+			"fits": {
+				"cover": "Cover (crop to frame)",
+				"contain": "Contain (cut-out, no frame)"
+			},
+			"media-tones": {
+				"photo": "Photo",
+				"ui": "Screenshot",
+				"ink": "Ink (inverts on dark)"
+			},
+			"lifecycles": {
+				"live": "Live",
+				"ended": "Ended",
+				"research": "Research"
 			}
 		},
 		"errors": {
@@ -1030,7 +1041,8 @@
 			"url": "Enter a full web address.",
 			"https": "The address must start with https://",
 			"email": "Enter a valid email address.",
-			"invalid": "This value is not valid."
+			"invalid": "This value is not valid.",
+			"link": "Write each link as \"Label | https://…\"."
 		},
 		"form": {
 			"submit": "Save",
@@ -1170,6 +1182,28 @@
 				},
 				"blocks": {
 					"label": "Blocks"
+				},
+				"position": {
+					"label": "Role"
+				},
+				"period": {
+					"label": "Period"
+				},
+				"team": {
+					"label": "Team"
+				},
+				"lifecycle": {
+					"label": "Status"
+				},
+				"platforms": {
+					"label": "Platforms"
+				},
+				"chains": {
+					"label": "Chains"
+				},
+				"links": {
+					"label": "Links",
+					"description": "One per line: Label | https://…"
 				}
 			}
 		},
@@ -1495,23 +1529,14 @@
 			"lines": {}
 		},
 		"fields": {
-			"variant": "Layout",
 			"title": "Title",
-			"subtitle": "Subtitle",
-			"index": "Index label",
-			"discipline": "Side",
-			"tags": "Tags",
 			"kind": "Art",
 			"text": "Text",
 			"cite": "Cite",
 			"tone": "Tone",
-			"value": "Value",
 			"label": "Label",
 			"caption": "Caption",
-			"list": "List",
 			"items": "Items",
-			"screen": "Screen",
-			"view": "View",
 			"nodes": "Nodes",
 			"name": "Name",
 			"description": "Description",
@@ -1528,8 +1553,15 @@
 			"core": "Core skills",
 			"experience": "Experience",
 			"education": "Education",
-			"image-url": "Image URL",
-			"from-id": "Linked project"
+			"from-id": "Linked project",
+			"fit": "Fit",
+			"tagline": "Tagline",
+			"approach": "How it was solved",
+			"height": "Height",
+			"alt": "Alt text",
+			"problem": "Problem",
+			"width": "Width",
+			"url": "Image"
 		},
 		"blocks": {
 			"hint": "Blocks are shown in this order. The server checks each one.",
@@ -1542,21 +1574,17 @@
 			"remove": "Remove {{name}}",
 			"types": {
 				"project": {
-					"project-header": "Header",
-					"quote": "Quote",
-					"big-number": "Big number",
-					"about-split": "About",
-					"numbered-list": "Numbered list",
-					"stack-cards": "Stack cards",
-					"feature-grid": "Feature grid",
-					"timeline": "Timeline",
-					"zigzag": "Zigzag",
-					"motif-full": "Full motif",
-					"chips": "Chips",
-					"mock": "Screen mock",
-					"gallery": "Gallery",
+					"project-header": "Cover",
+					"overview": "Overview",
+					"filmstrip": "Image strip",
+					"showcase": "Feature image",
+					"contributions": "What I built",
 					"architecture": "Architecture",
-					"lineage": "Lineage"
+					"challenge": "Hard parts",
+					"statement": "Statement",
+					"feature-grid": "Feature grid",
+					"lineage": "Lineage",
+					"links": "Links"
 				},
 				"note": {
 					"p": "Paragraph",

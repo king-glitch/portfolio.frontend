@@ -1,11 +1,11 @@
 import type { ParseKeys, TFunction } from "i18next";
 import {
 	BlockTone,
-	DeviceView,
 	ExperienceKind,
-	HeaderVariant,
-	MockScreen,
+	MediaFit,
+	MediaTone,
 	MotifKind,
+	ProjectLifecycle,
 	ProjectSide,
 } from "@/api/types/portfolio/enums";
 import { FieldName, OptionSet } from "@/types/dynamic-form";
@@ -29,27 +29,26 @@ const sides: Record<ProjectSide, ParseKeys> = {
 	[ProjectSide.OnScreen]: "dashboard.options.sides.on-screen",
 };
 
-const variants: Record<HeaderVariant, ParseKeys> = {
-	[HeaderVariant.Split]: "dashboard.options.variants.split",
-	[HeaderVariant.SplitRev]: "dashboard.options.variants.split-rev",
-	[HeaderVariant.Center]: "dashboard.options.variants.center",
-	[HeaderVariant.Outline]: "dashboard.options.variants.outline",
-	[HeaderVariant.Vertical]: "dashboard.options.variants.vertical",
-};
-
-const screens: Record<MockScreen, ParseKeys> = {
-	[MockScreen.Main]: "dashboard.options.screens.main",
-	[MockScreen.Alt]: "dashboard.options.screens.alt",
-};
-
-const views: Record<DeviceView, ParseKeys> = {
-	[DeviceView.Desktop]: "dashboard.options.views.desktop",
-	[DeviceView.Phone]: "dashboard.options.views.phone",
-};
-
 const tones: Record<BlockTone, ParseKeys> = {
 	[BlockTone.Default]: "dashboard.options.tones.default",
 	[BlockTone.Invert]: "dashboard.options.tones.invert",
+};
+
+const fits: Record<MediaFit, ParseKeys> = {
+	[MediaFit.Cover]: "dashboard.options.fits.cover",
+	[MediaFit.Contain]: "dashboard.options.fits.contain",
+};
+
+const mediaTones: Record<MediaTone, ParseKeys> = {
+	[MediaTone.Photo]: "dashboard.options.media-tones.photo",
+	[MediaTone.Ui]: "dashboard.options.media-tones.ui",
+	[MediaTone.Ink]: "dashboard.options.media-tones.ink",
+};
+
+const lifecycles: Record<ProjectLifecycle, ParseKeys> = {
+	[ProjectLifecycle.Live]: "dashboard.options.lifecycles.live",
+	[ProjectLifecycle.Ended]: "dashboard.options.lifecycles.ended",
+	[ProjectLifecycle.Research]: "dashboard.options.lifecycles.research",
 };
 
 const experiences: Record<ExperienceKind, ParseKeys> = {
@@ -64,10 +63,10 @@ const toOptions = (keys: Record<string, ParseKeys>): SelectOption[] =>
 export const optionSets: Record<OptionSet, SelectOption[]> = {
 	[OptionSet.Kind]: toOptions(kinds),
 	[OptionSet.Side]: toOptions(sides),
-	[OptionSet.Variant]: toOptions(variants),
-	[OptionSet.Screen]: toOptions(screens),
-	[OptionSet.View]: toOptions(views),
 	[OptionSet.Tone]: toOptions(tones),
+	[OptionSet.Fit]: toOptions(fits),
+	[OptionSet.MediaTone]: toOptions(mediaTones),
+	[OptionSet.Lifecycle]: toOptions(lifecycles),
 	[OptionSet.Experience]: toOptions(experiences),
 };
 
@@ -80,24 +79,21 @@ export const selectItems = (set: OptionSet, t: TFunction) =>
 
 /** Label of every dynamic-form field. */
 export const fieldLabels: Record<FieldName, ParseKeys> = {
-	[FieldName.Variant]: "dashboard.fields.variant",
-	[FieldName.Title]: "dashboard.fields.title",
-	[FieldName.Subtitle]: "dashboard.fields.subtitle",
-	[FieldName.Index]: "dashboard.fields.index",
-	[FieldName.Discipline]: "dashboard.fields.discipline",
-	[FieldName.Tags]: "dashboard.fields.tags",
+	[FieldName.Tagline]: "dashboard.fields.tagline",
 	[FieldName.Kind]: "dashboard.fields.kind",
 	[FieldName.Text]: "dashboard.fields.text",
 	[FieldName.Cite]: "dashboard.fields.cite",
 	[FieldName.Tone]: "dashboard.fields.tone",
-	[FieldName.Value]: "dashboard.fields.value",
 	[FieldName.Label]: "dashboard.fields.label",
 	[FieldName.Caption]: "dashboard.fields.caption",
-	[FieldName.List]: "dashboard.fields.list",
 	[FieldName.Items]: "dashboard.fields.items",
-	[FieldName.Screen]: "dashboard.fields.screen",
-	[FieldName.View]: "dashboard.fields.view",
-	[FieldName.ImageUrl]: "dashboard.fields.image-url",
+	[FieldName.Url]: "dashboard.fields.url",
+	[FieldName.Alt]: "dashboard.fields.alt",
+	[FieldName.Width]: "dashboard.fields.width",
+	[FieldName.Height]: "dashboard.fields.height",
+	[FieldName.Fit]: "dashboard.fields.fit",
+	[FieldName.Problem]: "dashboard.fields.problem",
+	[FieldName.Approach]: "dashboard.fields.approach",
 	[FieldName.Nodes]: "dashboard.fields.nodes",
 	[FieldName.Name]: "dashboard.fields.name",
 	[FieldName.Description]: "dashboard.fields.description",
@@ -107,6 +103,7 @@ export const fieldLabels: Record<FieldName, ParseKeys> = {
 	[FieldName.Lang]: "dashboard.fields.lang",
 	[FieldName.Ordered]: "dashboard.fields.ordered",
 	[FieldName.Id]: "dashboard.fields.id",
+	[FieldName.Title]: "dashboard.fields.title",
 	[FieldName.Period]: "dashboard.fields.period",
 	[FieldName.Notes]: "dashboard.fields.notes",
 	[FieldName.Start]: "dashboard.fields.start",

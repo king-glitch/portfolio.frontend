@@ -1,14 +1,13 @@
 import { z } from "zod";
 import type { Block } from "@/api/types/portfolio/block";
 import {
-	BlockTone,
 	BlockType,
-	DeviceView,
 	ExperienceKind,
-	HeaderVariant,
-	MockScreen,
+	MediaFit,
+	MediaTone,
 	MotifKind,
 	PostBlockType,
+	ProjectLifecycle,
 	ProjectSide,
 } from "@/api/types/portfolio/enums";
 import type { GalleryPage } from "@/api/types/portfolio/gallery";
@@ -28,122 +27,67 @@ import { config } from "@/config";
  * error instead of crashing a component. Backend `slug` is the model `id` (it is the URL key).
  */
 
-const media = z
-	.object({
-		kind: z.enum(MotifKind),
-		screen: z.enum(MockScreen),
-		view: z.enum(DeviceView),
-		caption: z.string(),
-		image_url: z.string().optional(),
-	})
-	.transform(({ image_url, ...rest }) => ({ ...rest, imageUrl: image_url }));
-
 const items = z.array(z.string());
 
-/** Optional uploaded art of a block: `image_url` on the wire. */
-const withImage = <T extends { image_url?: string | undefined }>({
-	image_url,
-	...rest
-}: T) => ({ ...rest, imageUrl: image_url });
+const mediaAsset = z.object({
+	url: z.string(),
+	alt: z.string(),
+	caption: z.string().optional(),
+	width: z.number().optional(),
+	height: z.number().optional(),
+	fit: z.enum(MediaFit),
+	tone: z.enum(MediaTone),
+});
 
 const block = <T extends BlockType>(type: T) => z.literal(type);
 
-/** Blocks that are a label over a list of strings. */
-const listBlock = <
-	T extends
-		| BlockType.NumberedList
-		| BlockType.StackCards
-		| BlockType.FeatureGrid
-		| BlockType.Timeline
-		| BlockType.Zigzag,
+/** Blocks whose only param is a label (their content is the project's own fields). */
+const labelBlock = <
+	T extends BlockType.Overview | BlockType.Contributions | BlockType.Links,
 >(
 	type: T,
-) =>
-	z.object({
-		type: block(type),
-		params: z.object({ label: z.string(), items }),
-	});
+) => z.object({ type: block(type), params: z.object({ label: z.string() }) });
 
 const blockSchema: z.ZodType<Block> = z.discriminatedUnion("type", [
 	z.object({
 		type: block(BlockType.ProjectHeader),
-		params: z
-			.object({
-				variant: z.enum(HeaderVariant),
-				title: z.string(),
-				subtitle: z.string(),
-				index: z.string(),
-				discipline: z.enum(ProjectSide),
-				tags: items,
-				kind: z.enum(MotifKind),
-				image_url: z.string().optional(),
-			})
-			.transform(withImage),
+		params: z.object({ tagline: z.string() }),
 	}),
+	labelBlock(BlockType.Overview),
 	z.object({
-		type: block(BlockType.Quote),
-		params: z.object({
-			text: z.string(),
-			cite: z.string(),
-			tone: z.enum(BlockTone).optional(),
-		}),
-	}),
-	z.object({
-		type: block(BlockType.BigNumber),
-		params: z.object({
-			value: z.string(),
-			label: z.string(),
-			caption: z.string(),
-		}),
-	}),
-	z.object({
-		type: block(BlockType.AboutSplit),
-		params: z
-			.object({
-				label: z.string(),
-				text: z.string(),
-				kind: z.enum(MotifKind).optional(),
-				image_url: z.string().optional(),
-				list: items.optional(),
-			})
-			.transform(withImage),
-	}),
-	listBlock(BlockType.NumberedList),
-	listBlock(BlockType.StackCards),
-	listBlock(BlockType.FeatureGrid),
-	listBlock(BlockType.Timeline),
-	listBlock(BlockType.Zigzag),
-	z.object({
-		type: block(BlockType.MotifFull),
-		params: z
-			.object({
-				kind: z.enum(MotifKind),
-				label: z.string().optional(),
-				image_url: z.string().optional(),
-			})
-			.transform(withImage),
-	}),
-	z.object({
-		type: block(BlockType.Chips),
+		type: block(BlockType.Filmstrip),
 		params: z.object({
 			label: z.string(),
-			title: z.string(),
-			text: z.string(),
-			items,
+			caption: z.string().optional(),
+			items: z.array(mediaAsset),
 		}),
 	}),
 	z.object({
-		type: block(BlockType.Mock),
-		params: media.and(z.object({ label: z.string() })),
+		type: block(BlockType.Showcase),
+		params: mediaAsset.extend({ label: z.string().optional() }),
 	}),
+	labelBlock(BlockType.Contributions),
 	z.object({
-		type: block(BlockType.Gallery),
+		type: block(BlockType.Challenge),
 		params: z.object({
 			label: z.string(),
-			items: z.array(media),
-			caption: z.string(),
+			items: z.array(
+				z.object({
+					problem: z.string(),
+					approach: z.string().optional(),
+				}),
+			),
 		}),
 	}),
+	z.object({
+		type: block(BlockType.Statement),
+		params: z.object({ text: z.string() }),
+	}),
+	z.object({
+		type: block(BlockType.FeatureGrid),
+		params: z.object({ label: z.string(), items }),
+	}),
+	labelBlock(BlockType.Links),
 	z.object({
 		type: block(BlockType.Architecture),
 		params: z.object({
@@ -184,6 +128,16 @@ const summaryFields = {
 	about: z.string(),
 	role: items,
 	art_url: z.string().optional(),
+	// absent on projects saved before content version 2
+	position: z.string().default(""),
+	period: z.string().default(""),
+	team: z.string().default(""),
+	lifecycle: z.enum(ProjectLifecycle).optional().catch(undefined),
+	platforms: items.default([]),
+	chains: items.default([]),
+	links: z
+		.array(z.object({ label: z.string(), url: z.string() }))
+		.default([]),
 };
 
 const toSummary = ({

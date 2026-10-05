@@ -72,13 +72,24 @@ export function stepScroller(
 	return { ...s, current };
 }
 
-/** Parallax shift of a `data-speed` layer: faster than 1 drifts ahead, slower lags. */
+/**
+ * Parallax shift of a `data-speed` layer: zero when its frame is centred in the viewport, faster
+ * than 1 drifts ahead, slower lags, never more than `limit` px either way (it stays inside its frame).
+ */
 export const parallaxOffset = (
-	panelLeft: number,
-	x: number,
+	center: number,
+	viewCenter: number,
 	speed: number,
+	limit: number,
 	cfg: ScrollerConfig,
-): number => (panelLeft - x) * (1 - speed) * cfg.parallaxFactor;
+): number =>
+	Math.max(
+		-limit,
+		Math.min(
+			limit,
+			(center - viewCenter) * (1 - speed) * cfg.parallaxFactor,
+		),
+	);
 
 export const progressRatio = (x: number, max: number): number =>
 	max > 0 ? Math.min(1, Math.max(0, x / max)) : 0;

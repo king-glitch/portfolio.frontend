@@ -1,7 +1,6 @@
 import React from "react";
 import { FieldGroup } from "@/components/ui/field";
 import { setField } from "@/lib/dynamic-form/values";
-import { DynamicArtField } from "@/routes/dashboard/components/dynamic-form/dynamic/dynamic-art-field";
 import { DynamicField } from "@/routes/dashboard/components/dynamic-form/dynamic/dynamic-field";
 import {
 	FieldKind,
@@ -28,27 +27,17 @@ export const DynamicFields: React.FC<DynamicFieldsProps> = ({
 		<FieldGroup>
 			{specs
 				.filter((spec) => !spec.hidden)
-				.map((spec) =>
-					spec.kind === FieldKind.Art ? (
-						<DynamicArtField
-							key={spec.name}
-							spec={spec}
-							record={record}
-							invalid={invalid}
-							onChange={onChange}
-						/>
-					) : (
-						<DynamicField
-							key={spec.name}
-							spec={spec}
-							value={record[spec.name]}
-							invalid={invalid}
-							onChange={(value) =>
-								onChange(setField(record, spec, value))
-							}
-						/>
-					),
-				)}
+				.map((spec) => (
+					<DynamicField
+						key={spec.name}
+						spec={spec}
+						value={record[spec.name]}
+						invalid={invalid}
+						onChange={(value) =>
+							onChange(setField(record, spec, value))
+						}
+					/>
+				))}
 		</FieldGroup>
 	);
 };

@@ -17,41 +17,36 @@ export enum FieldKind {
 	Project = "project",
 	/** A stored file of the library, kept as its URL. */
 	File = "file",
-	/** Motif preset (`name`) plus optional uploaded image (`imageName`), edited as one control. */
-	Art = "art",
 }
 
 /** Option lists a `Select` field draws from. */
 export enum OptionSet {
 	Kind = "kind",
 	Side = "side",
-	Variant = "variant",
-	Screen = "screen",
-	View = "view",
 	Tone = "tone",
+	Fit = "fit",
+	MediaTone = "media-tone",
+	Lifecycle = "lifecycle",
 	Experience = "experience",
 }
 
 /** Every field name a dynamic form uses; also the JSON key and the i18n key (`dashboard.fields.<name>`). */
 export enum FieldName {
-	Variant = "variant",
-	Title = "title",
-	Subtitle = "subtitle",
-	Index = "index",
-	Discipline = "discipline",
-	Tags = "tags",
+	Tagline = "tagline",
 	Kind = "kind",
 	Text = "text",
 	Cite = "cite",
 	Tone = "tone",
-	Value = "value",
 	Label = "label",
 	Caption = "caption",
-	List = "list",
 	Items = "items",
-	Screen = "screen",
-	View = "view",
-	ImageUrl = "image_url",
+	Url = "url",
+	Alt = "alt",
+	Width = "width",
+	Height = "height",
+	Fit = "fit",
+	Problem = "problem",
+	Approach = "approach",
 	Nodes = "nodes",
 	Name = "name",
 	Description = "description",
@@ -61,6 +56,7 @@ export enum FieldName {
 	Lang = "lang",
 	Ordered = "ordered",
 	Id = "id",
+	Title = "title",
 	Period = "period",
 	Notes = "notes",
 	Start = "start",
@@ -78,8 +74,6 @@ export interface FieldSpec {
 	options?: OptionSet;
 	/** Kinds a `File` field takes (the picker and its upload are limited to them). */
 	accept?: FileKind[];
-	/** `Art` only: the field that holds the uploaded image next to the preset in `name`. */
-	imageName?: FieldName;
 	/** Sub-fields of an `Objects` list. */
 	fields?: FieldSpec[];
 	/** Dropped from the saved JSON while empty (the backend rejects some empty optional values). */

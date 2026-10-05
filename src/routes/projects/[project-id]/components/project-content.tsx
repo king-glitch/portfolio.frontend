@@ -23,6 +23,7 @@ export const ProjectContent: React.FC<ProjectContentProps> = ({
 	const navigate = useNavigate();
 	const barRef = useRef<HTMLDivElement>(null);
 	const [leaving, setLeaving] = useState(false);
+	const [chapter, setChapter] = useState<string>();
 	const ids = projects?.map((p) => p.id);
 	const position = ids ? ids.indexOf(project.id) + 1 || undefined : undefined;
 	const nextProjectId = ids && nextId(ids, project.id);
@@ -57,6 +58,7 @@ export const ProjectContent: React.FC<ProjectContentProps> = ({
 				nextTo={nextProjectId ? projectPath(nextProjectId) : undefined}
 				onClose={close}
 				leaving={leaving}
+				chapter={chapter}
 				barRef={barRef}
 			/>
 			<ProjectViewport
@@ -65,6 +67,7 @@ export const ProjectContent: React.FC<ProjectContentProps> = ({
 				onNext={goNext}
 				onClose={close}
 				onPushStart={() => setLeaving(true)}
+				onChapter={setChapter}
 				barRef={barRef}
 			/>
 		</div>

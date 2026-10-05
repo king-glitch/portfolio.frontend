@@ -18,10 +18,7 @@ export const BlockArchitecture: React.FC<BlockArchitectureProps> = ({
 	return (
 		<Panel className="flex w-auto flex-col justify-between gap-8 max-desk:overflow-y-auto">
 			<PanelHeading index={index}>{label}</PanelHeading>
-			<div
-				data-speed="1.06"
-				className="flex items-center max-desk:flex-col max-desk:items-stretch"
-			>
+			<div className="flex items-center max-desk:flex-col max-desk:items-stretch">
 				{nodes.map((node, i) => (
 					<React.Fragment key={node.name}>
 						{i > 0 ? (

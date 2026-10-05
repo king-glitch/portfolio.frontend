@@ -1,6 +1,7 @@
 import type React from "react";
 import type { Block } from "@/api/types/portfolio/block";
-import type { BlockType, MotifKind } from "@/api/types/portfolio/enums";
+import type { BlockType } from "@/api/types/portfolio/enums";
+import type { Project } from "@/api/types/portfolio/project";
 
 export enum PanelWidth {
 	Full = "full",
@@ -26,8 +27,8 @@ export interface ScrollerState {
 export interface PanelMeta {
 	left: number;
 	width: number;
-	/** Parallax layers (`data-speed`) with their parsed speed. */
-	layers: { el: HTMLElement; speed: number }[];
+	/** Parallax layers (`data-speed`): parsed speed, centre x of their frame within the track, max shift (px). */
+	layers: { el: HTMLElement; speed: number; center: number; limit: number }[];
 }
 
 type ElementRef<T extends HTMLElement> = React.RefObject<T | null>;
@@ -62,14 +63,11 @@ type BlockParamsMap = { [B in Block as B["type"]]: B["params"] };
 /** `params` of one block type. */
 export type BlockParams<T extends BlockType> = BlockParamsMap[T];
 
-/** What the renderer adds to every block: its 1-based position among non-header blocks and the project's motif. */
+/** What the renderer adds to every block: its 1-based position among non-header blocks and its project. */
 export interface BlockExtras {
 	index: number;
-	projectKind: MotifKind;
-	/** The project's uploaded art: the header's fallback when it has none of its own. */
-	projectArtUrl?: string;
+	project: Project;
 }
 
-/** Props of every block component: its params plus the extras it does not already define (the header's own `index` wins). */
-export type BlockProps<T extends BlockType> = BlockParams<T> &
-	Omit<BlockExtras, keyof BlockParams<T>>;
+/** Props of every block component: its params plus the extras. */
+export type BlockProps<T extends BlockType> = BlockParams<T> & BlockExtras;

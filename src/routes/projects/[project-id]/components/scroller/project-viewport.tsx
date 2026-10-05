@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { BlockType } from "@/api/types/portfolio/enums";
 import type { Project, ProjectSummary } from "@/api/types/portfolio/project";
+import { useChapter } from "@/hooks/scroll/use-chapter";
 import { useHorizontalScroller } from "@/hooks/scroll/use-horizontal-scroller";
 import { cn } from "@/lib/utils";
 import { BlockRenderer } from "@/routes/projects/[project-id]/components/blocks/block-renderer";
@@ -15,6 +16,8 @@ interface ProjectViewportProps {
 	onClose: () => void;
 	/** The push to the next project started. */
 	onPushStart: () => void;
+	/** The section under the viewport's centre changed. */
+	onChapter: (chapter: string) => void;
 	barRef: React.RefObject<HTMLDivElement | null>;
 }
 
@@ -25,6 +28,7 @@ export const ProjectViewport: React.FC<ProjectViewportProps> = ({
 	onNext,
 	onClose,
 	onPushStart,
+	onChapter,
 	barRef,
 }) => {
 	const { t } = useTranslation();
@@ -44,6 +48,7 @@ export const ProjectViewport: React.FC<ProjectViewportProps> = ({
 		onThreshold: () => onNext(vertical),
 		onEscape: onClose,
 	});
+	useChapter(viewportRef, vertical, onChapter);
 	const numbered = project.blocks.map((block, i) => ({
 		block,
 		index:
@@ -83,8 +88,7 @@ export const ProjectViewport: React.FC<ProjectViewportProps> = ({
 							key={`${block.type}-${i}`}
 							block={block}
 							index={index}
-							projectKind={project.kind}
-							projectArtUrl={project.artUrl}
+							project={project}
 						/>
 					))}
 					<NextProject

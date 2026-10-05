@@ -92,6 +92,7 @@ Project memory for agents. Read first, update before finishing any task.
   - **Gallery (`routes/dashboard/gallery/`):** Added `GalleryMetrics` (insights ribbon with total frames, linked projects count, and unique tags count), `GalleryToolbar` (search by project or tag, project filter dropdown with all/unlinked options, tags filter dropdown, sort selector, and grid/table switcher), elevated `FrameCard` with project badge, dimensions and hover zoom, new `GalleryTable` (structured table with preview thumbnail, linked project, tags, and actions), and `FrameLightboxDialog` (fullscreen preview dialog with prev/next navigation).
   - **Types and grouping:** `ViewMode`, `FileSortOption`, and `FrameSortOption` in `src/types/ui.ts`. Frame components grouped in `routes/dashboard/gallery/components/frame/` adhering to `folder-grouping`.
   - **Verification:** `bun run check` (typecheck, lint:style, lint:tw, 367 tests, build) all green.
+- **Project pages v2** (plan: `../portfolio.backend/PROJECTS.md`): blocks are now `project-header{tagline}`, `overview`, `filmstrip`, `showcase`, `contributions`, `architecture`, `challenge`, `statement`, `feature-grid`, `lineage`, `links` (backend `content_version` 2; 11 v1 blocks and their renderers deleted). Header/overview/contributions/links read project fields (`about`, `role`, new `position`, `period`, `team`, `lifecycle`, `platforms`, `chains`, `links`), so `BlockExtras` is `{ index, project }`. **Images:** `components/common/art/media-frame.tsx` (grayscale, colour on hover or, on touch, while centred; `ink` tone inverts on dark; `cover` frames clip, `contain` cut-outs float with no frame). Real images live in `public/projects/<slug>/*.webp` with their sizes in `scripts/build-portfolio/layout.ts` (now the per-project page spec: facts + blocks; ME.md keeps pitch and "What I built"). **Overlap fix:** parallax only on the image inside its own frame, clamped to `parallaxMaxShare` of the frame width (`lib/motion/scroller.ts`); every sibling `data-speed` removed. Top bar shows the current section (`hooks/scroll/use-chapter.ts`, `data-chapter` on a `contents` wrapper per block). Dashboard: project facts fields (links as `Label | https://…` lines), block specs for the new types; `FieldKind.Art` and the art block field deleted. Browser-verified (Chromium, local backend + Mongo): all 6 projects at 1920×1080, 1440×900, 1280×720, 390×844, both themes, no console errors, an overlap probe over 10–12 scroll steps found none; dashboard edit + save of a project fact. Not built: lightbox, layered Evermoon parallax (flattened into one cover), Estic screenshots (motif until real captures exist).
 - Prototype is at `./design/`; source data `content/ME.md`.
 
 ## Plan files
@@ -113,6 +114,7 @@ Project memory for agents. Read first, update before finishing any task.
 - Plan 10 deviations: `FileUploadDialog` is portalled but sits inside the picker's form in the React tree, so it stops `submit` bubbling (`onSubmit` on `DialogContent`). The client allowlist is duplicated in `config.dashboard.fileAccept`; keep it equal to the backend's.
 - Plan 11 deviations: motion tokens are generated `:root` vars (no `@theme` utilities); stat cards are route-scoped (lint `common-reuse`); sidebar brand keeps the letter logo (a second mascot engine would add a rAF loop and window listeners for a 28px icon).
 - Firebase deployment: uses project `rachamon` and site `portfolio-rachamon` matching `ws.archive.client`.
+- Project pages v2: only the 6 projects (user). Images are third-party game art from the official sites, re-hosted under `public/projects/` (cropped/converted to WebP), not hot-linked. No lightbox yet (ponytail: hover colour covers the ask). Unused locale keys `shell.menu.pages.contact.*` removed (left over from the menu change).
 
 
 ## Customized / generated files
@@ -126,7 +128,8 @@ Project memory for agents. Read first, update before finishing any task.
 0. Browser-verify plan 11 Parts A–E (checklist in plan Part F: theme bounce from Void, dashboard route fade, sidebar spring, tooltips, overview states, row hover reveal, Void events, reduced motion). Skipped from plan 11: sidebar active pill, reorder glide, Void head in sidebar brand, recent edits, ⌘K, TOC, ⌘S, status URL filter.
 1. Browser-check Parts A and C against the new backend (picker states, upload dialog reset, files page filters in the URL, 409 delete, block violation on its card). The seed CLI (backend) is next.
 2. Reduced-motion, Lighthouse and keyboard walkthrough (plan 07 steps 5, 7, 8).
-3. Real screenshots; backend.
+3. Real screenshots: Estic AI (map zoomed out/in, chat) and, if wanted, live Pocket captures; add them as `filmstrip`/`showcase` items in `scripts/build-portfolio/layout.ts`, then `bun run build:portfolio`.
+4. Deploy: backend first, then `go run ./commands content seed --file ../portfolio.frontend/content/seed.json --force` against Atlas (updates the 6 projects in place), then the frontend.
 
 ## How to update
 

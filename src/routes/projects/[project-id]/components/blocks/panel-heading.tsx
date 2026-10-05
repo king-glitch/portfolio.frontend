@@ -12,7 +12,7 @@ interface PanelHeadingProps {
 	className?: string;
 }
 
-/** "(01)" plus a big section title; the row drifts slower than the track (`data-speed`). */
+/** "(01)" plus a big section title. */
 export const PanelHeading: React.FC<PanelHeadingProps> = ({
 	index,
 	children,
@@ -20,10 +20,7 @@ export const PanelHeading: React.FC<PanelHeadingProps> = ({
 	className,
 }) => {
 	return (
-		<div
-			data-speed="0.88"
-			className={cn("flex flex-wrap items-baseline gap-5", className)}
-		>
+		<div className={cn("flex flex-wrap items-baseline gap-5", className)}>
 			<Eyebrow>({padCount(index)})</Eyebrow>
 			<DisplayHeading variant={variant}>{children}</DisplayHeading>
 		</div>

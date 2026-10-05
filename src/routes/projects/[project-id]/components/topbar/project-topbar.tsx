@@ -25,6 +25,8 @@ interface ProjectTopbarProps {
 	onClose: () => void;
 	/** Next project is pushing in: title and counter fade out (the next page fades its own in). */
 	leaving: boolean;
+	/** Section under the viewport's centre; shown after the title. */
+	chapter?: string;
 	barRef: React.Ref<HTMLDivElement>;
 }
 
@@ -39,6 +41,7 @@ export const ProjectTopbar: React.FC<ProjectTopbarProps> = ({
 	nextTo,
 	onClose,
 	leaving,
+	chapter,
 	barRef,
 }) => {
 	const { t } = useTranslation();
@@ -68,8 +71,17 @@ export const ProjectTopbar: React.FC<ProjectTopbarProps> = ({
 					{t("projects.topbar.close")}
 				</PillButton>
 			</div>
-			<span className="text-sm font-semibold whitespace-nowrap transition-opacity duration-500 group-data-leaving/topbar:opacity-0 max-desk:hidden starting:opacity-0">
+			<span className="flex items-baseline gap-2.5 text-sm font-semibold whitespace-nowrap transition-opacity duration-500 group-data-leaving/topbar:opacity-0 max-desk:hidden starting:opacity-0">
 				{num} — {name}
+				{chapter ? (
+					<span
+						key={chapter}
+						aria-live="polite"
+						className="font-medium text-muted-foreground transition-[opacity,translate] duration-500 starting:translate-y-1 starting:opacity-0"
+					>
+						{t("projects.topbar.chapter", { name: chapter })}
+					</span>
+				) : null}
 			</span>
 			<div className="flex items-center gap-3.5 justify-self-end">
 				<div className="transition-opacity duration-500 group-data-leaving/topbar:opacity-0 starting:opacity-0">

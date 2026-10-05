@@ -16,7 +16,11 @@ import {
 } from "@/api/types/admin/storage";
 import type { AdminUser, Session } from "@/api/types/admin/auth";
 import type { Setting } from "@/api/types/admin/setting";
-import { MotifKind, ProjectSide } from "@/api/types/portfolio/enums";
+import {
+	MotifKind,
+	ProjectLifecycle,
+	ProjectSide,
+} from "@/api/types/portfolio/enums";
 
 /** Admin responses (snake_case wire) parsed into the dashboard's models. */
 
@@ -67,6 +71,15 @@ const projectFields = {
 	about: z.string(),
 	role: items,
 	art_url: z.string().optional(),
+	position: z.string().default(""),
+	period: z.string().default(""),
+	team: z.string().default(""),
+	lifecycle: z.enum(ProjectLifecycle).or(z.literal("")).catch(""),
+	platforms: items.default([]),
+	chains: items.default([]),
+	links: z
+		.array(z.object({ label: z.string(), url: z.string() }))
+		.default([]),
 	status: z.enum(ContentStatus),
 	order: z.number(),
 };

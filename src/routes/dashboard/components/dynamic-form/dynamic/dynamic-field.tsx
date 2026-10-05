@@ -164,7 +164,6 @@ export const DynamicField: React.FC<DynamicFieldProps> = ({
 					/>
 				);
 			case FieldKind.Objects:
-			case FieldKind.Art:
 				return null;
 			case FieldKind.Text:
 				return (

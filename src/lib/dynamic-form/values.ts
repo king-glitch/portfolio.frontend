@@ -1,7 +1,6 @@
 import { optionSets } from "@/lib/dynamic-form/options";
 import {
 	FieldKind,
-	OptionSet,
 	type FieldSpec,
 	type FormRecord,
 } from "@/types/dynamic-form";
@@ -59,10 +58,10 @@ export function emptyRecord(
 	const record: FormRecord = {};
 	for (const spec of fields) {
 		if (spec.optional) continue;
-		if (spec.kind === FieldKind.Select || spec.kind === FieldKind.Art)
+		if (spec.kind === FieldKind.Select)
 			record[spec.name] = spec.options
 				? (optionSets[spec.options][0]?.value ?? "")
-				: (optionSets[OptionSet.Kind][0]?.value ?? "");
+				: "";
 		else if (
 			spec.kind === FieldKind.Lines ||
 			spec.kind === FieldKind.Objects

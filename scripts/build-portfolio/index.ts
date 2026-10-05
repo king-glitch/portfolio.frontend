@@ -5,7 +5,7 @@ import { format, resolveConfig } from "prettier";
 import * as enums from "@/api/types/portfolio/enums";
 import type { Profile } from "@/api/types/portfolio/profile";
 import type { Project } from "@/api/types/portfolio/project";
-import { layoutBlocks } from "./layout";
+import { pageFor } from "./layout";
 import { parseMe, type ParsedMe } from "./parse";
 import { buildSeed } from "./seed";
 
@@ -39,31 +39,40 @@ export function buildProfile(me: ParsedMe): Profile {
 }
 
 export function buildProjects(me: ParsedMe): Project[] {
-	return me.projects.map((p) => ({
-		id: p.id,
-		num: p.num,
-		name: p.name,
-		full: p.full,
-		kind: p.kind,
-		side: p.side,
-		tags: p.tags,
-		categories: p.categories,
-		stack: p.stack,
-		about: p.about,
-		role: p.role,
-		blocks: layoutBlocks(p),
-	}));
+	return me.projects.map((p) => {
+		const page = pageFor(p);
+		return {
+			id: p.id,
+			num: p.num,
+			name: p.name,
+			full: p.full,
+			kind: p.kind,
+			side: page.side,
+			tags: page.tags,
+			categories: page.categories,
+			stack: page.stack,
+			about: p.about,
+			role: p.role,
+			artUrl: page.artUrl,
+			position: page.position,
+			period: page.period,
+			team: page.team,
+			lifecycle: page.lifecycle,
+			platforms: page.platforms,
+			chains: page.chains,
+			links: page.links,
+			blocks: page.blocks,
+		};
+	});
 }
 
 /** Property name -> the enum its string values come from, so fixtures are emitted as `Enum.Member`, never as literals. */
 const ENUM_BY_KEY: Record<string, Record<string, string>> = {
 	type: enums.BlockType,
-	variant: enums.HeaderVariant,
-	screen: enums.MockScreen,
-	view: enums.DeviceView,
-	discipline: enums.ProjectSide,
 	side: enums.ProjectSide,
-	tone: enums.BlockTone,
+	fit: enums.MediaFit,
+	tone: enums.MediaTone,
+	lifecycle: enums.ProjectLifecycle,
 };
 
 function enumRef(
