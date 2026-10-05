@@ -1,10 +1,8 @@
 import React, { useEffect, useSyncExternalStore } from "react";
 import { Navigate, Outlet, redirect } from "react-router";
-import { Companion } from "@/components/shared/shell/companion";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { config } from "@/config";
-import { PreloaderProvider } from "@/contexts/preloader-context";
 import { hasSession, subscribeSession } from "@/lib/auth/session";
 import { ShellSidebar } from "@/routes/dashboard/components/shell/shell-sidebar";
 import { ShellTopbar } from "@/routes/dashboard/components/shell/shell-topbar";

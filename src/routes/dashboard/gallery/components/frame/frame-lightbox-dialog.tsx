@@ -16,7 +16,6 @@ import {
 	Dialog,
 	DialogContent,
 	DialogDescription,
-	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
@@ -31,7 +30,7 @@ interface FrameLightboxDialogProps {
 	onDelete: (frame: AdminFrame) => void;
 }
 
-/** Full-resolution lightbox preview dialog for gallery frames with quick actions. */
+/** Full-resolution lightbox preview dialog for gallery frames with compact header actions. */
 export const FrameLightboxDialog: React.FC<FrameLightboxDialogProps> = ({
 	frame,
 	open,
@@ -66,13 +65,13 @@ export const FrameLightboxDialog: React.FC<FrameLightboxDialogProps> = ({
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent className="max-w-4xl p-0 sm:max-w-4xl">
-				<DialogHeader className="p-4 pb-2">
-					<div className="flex items-center justify-between gap-4 pr-6">
-						<div className="flex flex-col gap-0.5">
-							<DialogTitle className="truncate text-base font-semibold">
+				<DialogHeader className="p-3 pb-2">
+					<div className="flex items-center justify-between gap-3 pr-7">
+						<div className="flex min-w-0 flex-col gap-0.5">
+							<DialogTitle className="truncate text-sm font-semibold">
 								{name}
 							</DialogTitle>
-							<DialogDescription className="font-mono text-xs">
+							<DialogDescription className="font-mono text-[11px]">
 								{frame
 									? t(
 											"dashboard.gallery.lightbox.dimensions",
@@ -85,15 +84,13 @@ export const FrameLightboxDialog: React.FC<FrameLightboxDialogProps> = ({
 							</DialogDescription>
 						</div>
 						{frame ? (
-							<div className="flex items-center gap-1.5">
+							<div className="flex shrink-0 items-center gap-1">
 								<Button
 									size="icon-sm"
 									variant="outline"
 									aria-label={t(
 										"dashboard.files.copy.aria-label",
-										{
-											name,
-										},
+										{ name },
 									)}
 									onClick={() => void copyUrl()}
 								>
@@ -108,9 +105,7 @@ export const FrameLightboxDialog: React.FC<FrameLightboxDialogProps> = ({
 									variant="outline"
 									aria-label={t(
 										"dashboard.files.open.aria-label",
-										{
-											name,
-										},
+										{ name },
 									)}
 									nativeButton={false}
 									render={
@@ -123,13 +118,41 @@ export const FrameLightboxDialog: React.FC<FrameLightboxDialogProps> = ({
 								>
 									<RiExternalLinkLine />
 								</Button>
+								<Button
+									size="icon-sm"
+									variant="outline"
+									aria-label={t(
+										"dashboard.gallery.card.edit.aria-label",
+										{ name },
+									)}
+									onClick={() => {
+										onOpenChange(false);
+										onEdit(frame);
+									}}
+								>
+									<RiEditLine />
+								</Button>
+								<Button
+									size="icon-sm"
+									variant="outline"
+									aria-label={t(
+										"dashboard.gallery.card.delete.aria-label",
+										{ name },
+									)}
+									onClick={() => {
+										onOpenChange(false);
+										onDelete(frame);
+									}}
+								>
+									<RiDeleteBinLine />
+								</Button>
 							</div>
 						) : null}
 					</div>
 				</DialogHeader>
 
 				{frame ? (
-					<div className="relative flex max-h-[70vh] items-center justify-center overflow-hidden bg-black/90 p-2">
+					<div className="relative flex max-h-[75vh] items-center justify-center overflow-hidden bg-black/90 p-2">
 						<img
 							src={frame.imageUrl}
 							alt={
@@ -138,7 +161,7 @@ export const FrameLightboxDialog: React.FC<FrameLightboxDialogProps> = ({
 							}
 							width={frame.width}
 							height={frame.height}
-							className="max-h-[66vh] w-auto rounded-md object-contain"
+							className="max-h-[70vh] w-auto rounded-md object-contain"
 						/>
 						{onStep ? (
 							<div className="pointer-events-none absolute inset-x-2 flex items-center justify-between">
@@ -146,7 +169,7 @@ export const FrameLightboxDialog: React.FC<FrameLightboxDialogProps> = ({
 									variant="secondary"
 									size="icon"
 									aria-label={t("dashboard.form.cancel")}
-									className="pointer-events-auto size-9 rounded-full bg-background/80 shadow-md backdrop-blur-xs"
+									className="pointer-events-auto size-8 rounded-full bg-background/80 shadow-md backdrop-blur-xs"
 									onClick={() => onStep(-1)}
 								>
 									<RiArrowLeftSLine />
@@ -155,7 +178,7 @@ export const FrameLightboxDialog: React.FC<FrameLightboxDialogProps> = ({
 									variant="secondary"
 									size="icon"
 									aria-label={t("dashboard.form.cancel")}
-									className="pointer-events-auto size-9 rounded-full bg-background/80 shadow-md backdrop-blur-xs"
+									className="pointer-events-auto size-8 rounded-full bg-background/80 shadow-md backdrop-blur-xs"
 									onClick={() => onStep(1)}
 								>
 									<RiArrowRightSLine />
@@ -165,42 +188,19 @@ export const FrameLightboxDialog: React.FC<FrameLightboxDialogProps> = ({
 					</div>
 				) : null}
 
-				<div className="flex flex-wrap items-center justify-between gap-2 px-4 py-2">
-					<div className="flex flex-wrap items-center gap-1">
-						{frame?.tags.map((tag) => (
-							<Badge key={tag} variant="secondary">
+				{frame && frame.tags.length > 0 ? (
+					<div className="flex flex-wrap items-center gap-1 p-2.5 pt-2">
+						{frame.tags.map((tag) => (
+							<Badge
+								key={tag}
+								variant="secondary"
+								className="text-[10px]"
+							>
 								{tag}
 							</Badge>
 						))}
 					</div>
-				</div>
-
-				<DialogFooter className="border-t p-3">
-					<Button
-						variant="outline"
-						onClick={() => {
-							if (frame) {
-								onOpenChange(false);
-								onEdit(frame);
-							}
-						}}
-					>
-						<RiEditLine data-icon="inline-start" />
-						{t("dashboard.gallery.edit.title")}
-					</Button>
-					<Button
-						variant="destructive"
-						onClick={() => {
-							if (frame) {
-								onOpenChange(false);
-								onDelete(frame);
-							}
-						}}
-					>
-						<RiDeleteBinLine data-icon="inline-start" />
-						{t("dashboard.delete.confirm")}
-					</Button>
-				</DialogFooter>
+				) : null}
 			</DialogContent>
 		</Dialog>
 	);
