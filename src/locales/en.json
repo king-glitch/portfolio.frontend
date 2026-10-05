@@ -1292,7 +1292,48 @@
 					"label": "Project"
 				}
 			},
-			"created": "Frame added."
+			"created": "Frame added.",
+			"metrics": {
+				"total": "Total frames",
+				"projects": "Linked projects",
+				"tags": "Unique tags"
+			},
+			"views": {
+				"grid": "Grid view",
+				"table": "Table view"
+			},
+			"sort": {
+				"label": "Sort frames",
+				"newest": "Newest first",
+				"oldest": "Oldest first",
+				"project": "Project name"
+			},
+			"toolbar": {
+				"search": {
+					"placeholder": "Search by project or tag",
+					"aria-label": "Search gallery frames"
+				},
+				"projects": {
+					"all": "All projects",
+					"unlinked": "Unlinked only"
+				},
+				"tags": {
+					"all": "All tags"
+				}
+			},
+			"table": {
+				"columns": {
+					"preview": "Preview",
+					"project": "Linked project",
+					"tags": "Tags",
+					"dimensions": "Dimensions",
+					"actions": "Actions"
+				}
+			},
+			"lightbox": {
+				"zoom": "Zoom frame from {{name}}",
+				"dimensions": "{{width}} × {{height}} px"
+			}
 		},
 		"settings": {
 			"meta": {
@@ -1637,6 +1678,41 @@
 					"title": "File in use",
 					"description": "A gallery frame still shows this file. Remove or change the frame first."
 				}
+			},
+			"metrics": {
+				"total": "Total storage"
+			},
+			"views": {
+				"grid": "Grid view",
+				"table": "Table view"
+			},
+			"sort": {
+				"label": "Sort files",
+				"newest": "Newest first",
+				"oldest": "Oldest first",
+				"name": "Name A–Z",
+				"size": "File size"
+			},
+			"table": {
+				"columns": {
+					"file": "File",
+					"kind": "Type",
+					"dimensions": "Dimensions",
+					"size": "Size",
+					"date": "Uploaded",
+					"actions": "Actions"
+				}
+			},
+			"detail": {
+				"title": "File details",
+				"description": "Metadata and storage properties.",
+				"inspect": "Inspect file {{name}}",
+				"dimensions": "Dimensions",
+				"size": "File size",
+				"mime": "MIME type",
+				"created": "Uploaded at",
+				"url": "Public URL",
+				"alt": "Alt text"
 			},
 			"form": {
 				"name": {

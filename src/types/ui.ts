@@ -198,3 +198,24 @@ export enum SettingsTab {
 	Profile = "profile",
 	Categories = "categories",
 }
+
+/** Layout presentation mode for media asset collections. */
+export enum ViewMode {
+	Grid = "grid",
+	Table = "table",
+}
+
+/** Sorting criteria for stored dashboard files. */
+export enum FileSortOption {
+	Newest = "newest",
+	Oldest = "oldest",
+	Name = "name",
+	Size = "size",
+}
+
+/** Sorting criteria for gallery frames. */
+export enum FrameSortOption {
+	Newest = "newest",
+	Oldest = "oldest",
+	Project = "project",
+}

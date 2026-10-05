@@ -1,4 +1,4 @@
-import React, { useDeferredValue, useState } from "react";
+import React, { useDeferredValue, useMemo, useState } from "react";
 import { RiUploadLine } from "@remixicon/react";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router";
@@ -19,20 +19,21 @@ import { DeleteDialog } from "@/routes/dashboard/components/delete-dialog";
 import { PageHeader } from "@/routes/dashboard/components/page-header";
 import { FileUploadDialog } from "@/routes/dashboard/components/storage/file/upload/file-upload-dialog";
 import { FileCard } from "@/routes/dashboard/files/components/file/file-card";
+import { FileDetailSheet } from "@/routes/dashboard/files/components/file/file-detail-sheet";
 import { FileEditDialog } from "@/routes/dashboard/files/components/file/file-edit-dialog";
-import { FileRow } from "@/routes/dashboard/files/components/file/file-row";
+import { FilesMetrics } from "@/routes/dashboard/files/components/files-metrics";
 import { FilesSkeleton } from "@/routes/dashboard/files/components/files-skeleton";
+import { FilesTable } from "@/routes/dashboard/files/components/files-table";
 import { FilesToolbar } from "@/routes/dashboard/files/components/files-toolbar";
+import { FileSortOption, ViewMode } from "@/types/ui";
 
 export function meta() {
 	return [{ title: i18n.t("dashboard.files.meta.title") }];
 }
 
-const MEDIA_KINDS: FileKind[] = [FileKind.Image, FileKind.Video];
-
 interface FilesProps {}
 
-/** The file library: every upload, filtered by kind and search (both in the URL). */
+/** Redesigned file manager with storage metrics, grid/table views and inspection sheet. */
 const Files: React.FC<FilesProps> = () => {
 	const { t } = useTranslation();
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -41,17 +42,29 @@ const Files: React.FC<FilesProps> = () => {
 	const files = useAdminFiles({ kinds: kind ? [kind] : [], q: search });
 	const remove = useDeleteFile();
 
+	const [sort, setSort] = useState<FileSortOption>(FileSortOption.Newest);
+	const [mode, setMode] = useState<ViewMode>(ViewMode.Grid);
+
 	const [uploadOpen, setUploadOpen] = useState(false);
 	const [uploadSession, setUploadSession] = useState(0);
 	const [editing, setEditing] = useState<AdminFile>();
 	const [editOpen, setEditOpen] = useState(false);
 	const [editSession, setEditSession] = useState(0);
+	const [inspecting, setInspecting] = useState<AdminFile>();
+	const [inspectOpen, setInspectOpen] = useState(false);
 	const [deleting, setDeleting] = useState<AdminFile>();
 	const [deleteOpen, setDeleteOpen] = useState(false);
+
 	const retainedEditing = useRetainedValue(editing);
+	const retainedInspecting = useRetainedValue(inspecting);
 	const retainedDeleting = useRetainedValue(deleting);
 
-	const setFilters = (next: { kind: FileKind | undefined; q: string }) => {
+	const setFilters = (next: {
+		kind: FileKind | undefined;
+		q: string;
+		sort: FileSortOption;
+		mode: ViewMode;
+	}) => {
 		const names = config.dashboard.fileSearchParams;
 		const params = new URLSearchParams(searchParams);
 		if (next.kind) params.set(names.kind, next.kind);
@@ -59,25 +72,37 @@ const Files: React.FC<FilesProps> = () => {
 		if (next.q) params.set(names.q, next.q);
 		else params.delete(names.q);
 		setSearchParams(params, { replace: true });
+		setSort(next.sort);
+		setMode(next.mode);
 	};
+
 	const openUpload = () => {
 		setUploadSession((current) => current + 1);
 		setUploadOpen(true);
 	};
+
+	const askInspect = (file: AdminFile) => {
+		setInspecting(file);
+		setInspectOpen(true);
+	};
+
 	const askEdit = (file: AdminFile) => {
 		setEditing(file);
 		setEditSession((current) => current + 1);
 		setEditOpen(true);
 	};
+
 	const askDelete = (file: AdminFile) => {
 		setDeleting(file);
 		setDeleteOpen(true);
 	};
+
 	const confirmDelete = () => {
 		if (!deleting) return;
 		remove.mutate(deleting.id, {
 			onSuccess: () => {
 				setDeleteOpen(false);
+				setInspectOpen(false);
 				toast.add({
 					type: "success",
 					title: t("dashboard.files.deleted"),
@@ -97,10 +122,63 @@ const Files: React.FC<FilesProps> = () => {
 	};
 
 	const all = files.data?.pages.flatMap((page) => page.files);
-	const media = all?.filter((file) => MEDIA_KINDS.includes(file.kind)) ?? [];
-	const others =
-		all?.filter((file) => !MEDIA_KINDS.includes(file.kind)) ?? [];
+
+	const counts = useMemo(() => {
+		if (!all) return undefined;
+		const tally: Record<string, number> = { all: all.length };
+		for (const item of all) {
+			tally[item.kind] = (tally[item.kind] ?? 0) + 1;
+		}
+		return tally;
+	}, [all]);
+
+	const sortedFiles = useMemo(() => {
+		if (!all) return [];
+		const list = [...all];
+		switch (sort) {
+			case FileSortOption.Oldest:
+				return list.sort((a, b) =>
+					a.createdAt.localeCompare(b.createdAt),
+				);
+			case FileSortOption.Name:
+				return list.sort((a, b) => a.name.localeCompare(b.name));
+			case FileSortOption.Size:
+				return list.sort((a, b) => b.size - a.size);
+			case FileSortOption.Newest:
+			default:
+				return list.sort((a, b) =>
+					b.createdAt.localeCompare(a.createdAt),
+				);
+		}
+	}, [all, sort]);
+
 	const filtered = Boolean(kind) || search !== "";
+
+	const renderContent = () => {
+		if (mode === ViewMode.Table) {
+			return (
+				<FilesTable
+					files={sortedFiles}
+					onInspect={askInspect}
+					onEdit={askEdit}
+					onDelete={askDelete}
+				/>
+			);
+		}
+		return (
+			<div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+				{sortedFiles.map((file) => (
+					<FileCard
+						key={file.id}
+						file={file}
+						onInspect={askInspect}
+						onEdit={askEdit}
+						onDelete={askDelete}
+					/>
+				))}
+			</div>
+		);
+	};
 
 	const renderBody = () => {
 		if (files.isPending) return <FilesSkeleton />;
@@ -125,30 +203,7 @@ const Files: React.FC<FilesProps> = () => {
 			);
 		return (
 			<div className="flex flex-col items-center gap-6">
-				{media.length ? (
-					<div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-						{media.map((file) => (
-							<FileCard
-								key={file.id}
-								file={file}
-								onEdit={askEdit}
-								onDelete={askDelete}
-							/>
-						))}
-					</div>
-				) : null}
-				{others.length ? (
-					<ul className="flex w-full flex-col gap-2">
-						{others.map((file) => (
-							<FileRow
-								key={file.id}
-								file={file}
-								onEdit={askEdit}
-								onDelete={askDelete}
-							/>
-						))}
-					</ul>
-				) : null}
+				{renderContent()}
 				{files.isFetchNextPageError ? (
 					<QueryErrorAlert
 						onRetry={() => void files.fetchNextPage()}
@@ -183,7 +238,15 @@ const Files: React.FC<FilesProps> = () => {
 					</Button>
 				}
 			/>
-			<FilesToolbar kind={kind} q={q} onChange={setFilters} />
+			{all?.length ? <FilesMetrics files={all} /> : null}
+			<FilesToolbar
+				kind={kind}
+				q={q}
+				sort={sort}
+				mode={mode}
+				counts={counts}
+				onChange={setFilters}
+			/>
 			{renderBody()}
 			<FileUploadDialog
 				open={uploadOpen}
@@ -191,6 +254,13 @@ const Files: React.FC<FilesProps> = () => {
 				accept={kind ? [kind] : []}
 				multiple
 				session={uploadSession}
+			/>
+			<FileDetailSheet
+				file={retainedInspecting}
+				open={inspectOpen}
+				onOpenChange={setInspectOpen}
+				onEdit={askEdit}
+				onDelete={askDelete}
 			/>
 			<FileEditDialog
 				open={editOpen}

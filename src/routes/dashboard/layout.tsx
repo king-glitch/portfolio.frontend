@@ -51,10 +51,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = () => {
 					</div>
 				</SidebarInset>
 			</SidebarProvider>
-			{/* no preloader here: Void is there from the start */}
-			<PreloaderProvider initialLoaded>
-				<Companion />
-			</PreloaderProvider>
 		</TooltipProvider>
 	);
 };

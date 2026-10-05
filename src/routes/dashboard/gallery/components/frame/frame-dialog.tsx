@@ -8,7 +8,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import { FrameForm } from "@/routes/dashboard/gallery/components/frame-form";
+import { FrameForm } from "@/routes/dashboard/gallery/components/frame/frame-form";
 
 interface FrameDialogProps {
 	open: boolean;
