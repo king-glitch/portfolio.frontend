@@ -39,6 +39,7 @@ export const IndexPreview: React.FC<IndexPreviewProps> = ({
 					key={project.id}
 					kind={project.kind}
 					imageUrl={project.artUrl}
+					active={hoveredId === project.id}
 					className={cn(
 						"transition-[opacity,scale] duration-700 ease-(--ease-out-expo)",
 						hoveredId === project.id

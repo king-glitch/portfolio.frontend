@@ -96,6 +96,7 @@ const POCKET = "morning-moon-pocket";
 const METAL = "metal-valley";
 const EVERMOON = "evermoon-socialfi";
 const VILLAGE = "morning-moon-village";
+const ESTIC = "estic-ai";
 const AADS = "aads";
 
 const PAGES: Record<MotifKind, ProjectPage> = {
@@ -350,6 +351,7 @@ const PAGES: Record<MotifKind, ProjectPage> = {
 		categories: [CATEGORY_SLUGS.platforms],
 		tags: ["React", "TypeScript", "Leaflet", "Maps", "AI search"],
 		stack: ["react", "typescript", "leaflet"],
+		artUrl: `/projects/${ESTIC}/map.webp`,
 		position: "Frontend developer (freelance)",
 		period: "1 year",
 		team: "Tetragram",
@@ -360,6 +362,18 @@ const PAGES: Record<MotifKind, ProjectPage> = {
 		blocks: [
 			header("Find a home by talking."),
 			overview,
+			feature(
+				"The map",
+				image(
+					ESTIC,
+					"map.webp",
+					[2400, 1500],
+					"Map of Bangkok with numbered pin clusters beside a grid of property listings",
+					"Zoomed out: thousands of homes, clustered on the client",
+					MediaFit.Cover,
+					MediaTone.Ui,
+				),
+			),
 			built,
 			hard(
 				[
@@ -371,6 +385,44 @@ const PAGES: Record<MotifKind, ProjectPage> = {
 					"Laid the UI groundwork first, so features plug in instead of piling up.",
 				],
 			),
+			strip("Screens", "Captured from the live site", [
+				image(
+					ESTIC,
+					"ai-search.webp",
+					[1600, 640],
+					"Home page with an AI search box and suggested questions",
+					"Ask in plain words",
+					MediaFit.Cover,
+					MediaTone.Ui,
+				),
+				image(
+					ESTIC,
+					"map-zoomed.webp",
+					[2400, 1500],
+					"Map zoomed into central Bangkok with smaller clusters and a temperature chart",
+					"Zoomed in, with the climate layer on",
+					MediaFit.Cover,
+					MediaTone.Ui,
+				),
+				image(
+					ESTIC,
+					"climate-risk.webp",
+					[2400, 1500],
+					"Temperature risk legend over the map and a yearly temperature chart",
+					"Climate risk beside every search",
+					MediaFit.Cover,
+					MediaTone.Ui,
+				),
+				image(
+					ESTIC,
+					"phone.webp",
+					[860, 1864],
+					"Phone layout with a listing card and a bottom bar to switch to the map",
+					"On a phone",
+					MediaFit.Cover,
+					MediaTone.Ui,
+				),
+			]),
 			statement("4,000 pins. One smooth map."),
 			nodes(
 				["Map and chat", "React, TypeScript, Leaflet"],

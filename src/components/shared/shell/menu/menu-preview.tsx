@@ -43,6 +43,7 @@ export const MenuPreview: React.FC<MenuPreviewProps> = ({ active }) => {
 						<ProjectPreviewMock
 							kind={active.project.kind}
 							imageUrl={active.project.artUrl}
+							active
 						/>
 					</div>
 				) : null}

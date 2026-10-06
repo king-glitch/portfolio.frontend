@@ -439,7 +439,7 @@
 				"Made a map of 4,000+ homes stay smooth: it asks the search API only for the pins inside the current view and clusters them on the client.",
 				"Laid the UI groundwork first, so new features plug in instead of piling up."
 			],
-			"art_url": "",
+			"art_url": "/projects/estic-ai/map.webp",
 			"position": "Frontend developer (freelance)",
 			"period": "1 year",
 			"team": "Tetragram",
@@ -454,6 +454,19 @@
 					"params": { "tagline": "Find a home by talking." }
 				},
 				{ "type": "overview", "params": { "label": "Overview" } },
+				{
+					"type": "showcase",
+					"params": {
+						"label": "The map",
+						"url": "/projects/estic-ai/map.webp",
+						"alt": "Map of Bangkok with numbered pin clusters beside a grid of property listings",
+						"caption": "Zoomed out: thousands of homes, clustered on the client",
+						"width": 2400,
+						"height": 1500,
+						"fit": "cover",
+						"tone": "ui"
+					}
+				},
 				{
 					"type": "contributions",
 					"params": { "label": "What I built" }
@@ -470,6 +483,51 @@
 							{
 								"problem": "A new product with new patterns.",
 								"approach": "Laid the UI groundwork first, so features plug in instead of piling up."
+							}
+						]
+					}
+				},
+				{
+					"type": "filmstrip",
+					"params": {
+						"label": "Screens",
+						"caption": "Captured from the live site",
+						"items": [
+							{
+								"url": "/projects/estic-ai/ai-search.webp",
+								"alt": "Home page with an AI search box and suggested questions",
+								"caption": "Ask in plain words",
+								"width": 1600,
+								"height": 640,
+								"fit": "cover",
+								"tone": "ui"
+							},
+							{
+								"url": "/projects/estic-ai/map-zoomed.webp",
+								"alt": "Map zoomed into central Bangkok with smaller clusters and a temperature chart",
+								"caption": "Zoomed in, with the climate layer on",
+								"width": 2400,
+								"height": 1500,
+								"fit": "cover",
+								"tone": "ui"
+							},
+							{
+								"url": "/projects/estic-ai/climate-risk.webp",
+								"alt": "Temperature risk legend over the map and a yearly temperature chart",
+								"caption": "Climate risk beside every search",
+								"width": 2400,
+								"height": 1500,
+								"fit": "cover",
+								"tone": "ui"
+							},
+							{
+								"url": "/projects/estic-ai/phone.webp",
+								"alt": "Phone layout with a listing card and a bottom bar to switch to the map",
+								"caption": "On a phone",
+								"width": 860,
+								"height": 1864,
+								"fit": "cover",
+								"tone": "ui"
 							}
 						]
 					}

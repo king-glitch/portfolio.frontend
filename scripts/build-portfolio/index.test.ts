@@ -81,7 +81,7 @@ test("tags and facts come from the page spec", () => {
 	expect(aads?.links).toEqual([]);
 	const estic = projects.find((p) => p.id === "estic-ai");
 	expect(estic?.side).toBe(ProjectSide.OnScreen);
-	expect(estic?.artUrl).toBeUndefined();
+	expect(estic?.artUrl).toBe("/projects/estic-ai/map.webp");
 	// "permission system" must not read as the Missions keyword
 	expect(hasKeyword("permission system", "mission system")).toBe(false);
 	expect(hasKeyword("the mission system", "mission system")).toBe(true);
