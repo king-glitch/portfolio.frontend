@@ -1,10 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import {
-	countUpValue,
-	easeOut,
-	wordOpacity,
-	wordRevealProgress,
-} from "@/lib/motion/reveal";
+import { easeOut, wordOpacity, wordRevealProgress } from "@/lib/motion/reveal";
 
 const cfg = {
 	startViewport: 0.85,
@@ -31,10 +26,7 @@ describe("reveal", () => {
 		);
 	});
 
-	test("count-up finishes at the target in 1600ms", () => {
-		expect(countUpValue(0, 1600, 11, 4)).toBe(0);
-		expect(countUpValue(1600, 1600, 11, 4)).toBe(11);
-		expect(countUpValue(9999, 1600, 11, 4)).toBe(11);
+	test("easeOut follows quart curve", () => {
 		expect(easeOut(0.5, 4)).toBeCloseTo(0.9375, 5);
 	});
 });

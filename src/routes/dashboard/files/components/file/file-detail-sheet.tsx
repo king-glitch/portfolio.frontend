@@ -41,13 +41,22 @@ export const FileDetailSheet: React.FC<FileDetailSheetProps> = ({
 }) => {
 	const { t } = useTranslation();
 	const [copied, setCopied] = React.useState(false);
+	const timerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+	const clearCopyTimer = () => {
+		if (timerRef.current) {
+			clearTimeout(timerRef.current);
+			timerRef.current = null;
+		}
+	};
 
 	const copyUrl = async () => {
 		if (!file) return;
 		try {
 			await navigator.clipboard.writeText(file.url);
+			clearCopyTimer();
 			setCopied(true);
-			setTimeout(() => setCopied(false), 2000);
+			timerRef.current = setTimeout(() => setCopied(false), 2000);
 			toast.add({
 				type: "success",
 				title: t("dashboard.files.copy.success"),
@@ -63,7 +72,16 @@ export const FileDetailSheet: React.FC<FileDetailSheetProps> = ({
 	const hasDimensions = Boolean(file && file.width > 0 && file.height > 0);
 
 	return (
-		<Sheet open={open} onOpenChange={onOpenChange}>
+		<Sheet
+			open={open}
+			onOpenChange={onOpenChange}
+			onOpenChangeComplete={(isOpen) => {
+				if (!isOpen) {
+					clearCopyTimer();
+					setCopied(false);
+				}
+			}}
+		>
 			<SheetContent side="right" className="w-full sm:max-w-md">
 				<SheetHeader>
 					<SheetTitle>{t("dashboard.files.detail.title")}</SheetTitle>
@@ -149,7 +167,7 @@ export const FileDetailSheet: React.FC<FileDetailSheetProps> = ({
 										className="h-8 font-mono text-xs"
 									/>
 									<Button
-										size="icon-sm"
+										size="icon"
 										variant="outline"
 										aria-label={t(
 											"dashboard.files.copy.aria-label",
@@ -166,7 +184,7 @@ export const FileDetailSheet: React.FC<FileDetailSheetProps> = ({
 										)}
 									</Button>
 									<Button
-										size="icon-sm"
+										size="icon"
 										variant="outline"
 										aria-label={t(
 											"dashboard.files.open.aria-label",

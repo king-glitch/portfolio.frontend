@@ -87,7 +87,10 @@ const Gallery: React.FC<GalleryProps> = () => {
 		});
 	};
 
-	const all = frames.data?.pages.flatMap((page) => page.frames);
+	const all = useMemo(
+		() => frames.data?.pages.flatMap((page) => page.frames),
+		[frames.data?.pages],
+	);
 
 	const projectOptions = useMemo(() => {
 		if (!all) return [];

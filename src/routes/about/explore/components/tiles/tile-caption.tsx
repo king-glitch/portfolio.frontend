@@ -14,7 +14,7 @@ export const TileCaption: React.FC<TileCaptionProps> = ({
 }) => {
 	const { t } = useTranslation();
 	const text = data.captionKey
-		? t(data.captionKey, data.captionValues)
+		? t(data.captionKey, data.captionValues ?? {})
 		: data.caption;
 	return (
 		<span

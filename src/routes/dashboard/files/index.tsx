@@ -121,7 +121,10 @@ const Files: React.FC<FilesProps> = () => {
 		});
 	};
 
-	const all = files.data?.pages.flatMap((page) => page.files);
+	const all = useMemo(
+		() => files.data?.pages.flatMap((page) => page.files),
+		[files.data?.pages],
+	);
 
 	const counts = useMemo(() => {
 		if (!all) return undefined;

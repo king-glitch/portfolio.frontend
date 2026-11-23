@@ -49,16 +49,6 @@ export function wordOpacity(
 	return cfg.minOpacity + (1 - cfg.minOpacity) * own;
 }
 
-/** Counter value after `elapsedMs`, rounded; reaches `target` exactly at `durationMs`. */
-export function countUpValue(
-	elapsedMs: number,
-	durationMs: number,
-	target: number,
-	power: number,
-): number {
-	return Math.round(target * easeOut(elapsedMs / durationMs, power));
-}
-
 export function padCount(value: number, pad: number): string {
 	return String(value).padStart(pad, "0");
 }

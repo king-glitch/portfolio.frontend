@@ -20,7 +20,7 @@ interface TerminalLineProps {
 /** One output line; translates `key` at render, prints `prefix`/`raw` data as is. */
 export const TerminalLine: React.FC<TerminalLineProps> = ({ line }) => {
 	const { t } = useTranslation();
-	const text = line.key ? t(line.key, line.values) : line.raw;
+	const text = line.key ? t(line.key, line.values ?? {}) : line.raw;
 	return (
 		<p
 			style={{ opacity: config.terminal.lineOpacities[line.opacity] }}

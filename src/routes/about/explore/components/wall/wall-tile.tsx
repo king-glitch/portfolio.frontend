@@ -90,7 +90,7 @@ export const WallTile: React.FC<WallTileProps> = ({
 					data-cursor={tile.data.link.cursor}
 					aria-label={t(
 						tile.data.link.labelKey,
-						tile.data.link.labelValues,
+						tile.data.link.labelValues ?? {},
 					)}
 					onClick={(e) => {
 						if (wasDragged()) e.preventDefault();

@@ -313,8 +313,6 @@ export const config = {
 			skewMaxDeg: 12,
 		},
 		hello: {
-			countUpMs: 1600,
-			countUpEasePower: 4,
 			countStartViewport: 0.9,
 			wordReveal: {
 				startViewport: 0.85,

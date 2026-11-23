@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { HeroTag } from "@/types/home";
 
 const tagVariants = cva(
-	"pointer-events-none absolute z-50 animate-bob gated motion-reduce:animate-none max-[1024px]:hidden",
+	"pointer-events-none absolute z-50 animate-bob gated motion-reduce:animate-none max-lg:hidden",
 	{
 		variants: {
 			tag: {

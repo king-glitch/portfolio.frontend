@@ -41,6 +41,14 @@ export const FrameLightboxDialog: React.FC<FrameLightboxDialogProps> = ({
 }) => {
 	const { t } = useTranslation();
 	const [copied, setCopied] = React.useState(false);
+	const timerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+	const clearCopyTimer = () => {
+		if (timerRef.current) {
+			clearTimeout(timerRef.current);
+			timerRef.current = null;
+		}
+	};
 
 	const name = frame?.project?.name ?? t("dashboard.gallery.card.untitled");
 
@@ -48,8 +56,9 @@ export const FrameLightboxDialog: React.FC<FrameLightboxDialogProps> = ({
 		if (!frame) return;
 		try {
 			await navigator.clipboard.writeText(frame.imageUrl);
+			clearCopyTimer();
 			setCopied(true);
-			setTimeout(() => setCopied(false), 2000);
+			timerRef.current = setTimeout(() => setCopied(false), 2000);
 			toast.add({
 				type: "success",
 				title: t("dashboard.files.copy.success"),
@@ -63,7 +72,16 @@ export const FrameLightboxDialog: React.FC<FrameLightboxDialogProps> = ({
 	};
 
 	return (
-		<Dialog open={open} onOpenChange={onOpenChange}>
+		<Dialog
+			open={open}
+			onOpenChange={onOpenChange}
+			onOpenChangeComplete={(isOpen) => {
+				if (!isOpen) {
+					clearCopyTimer();
+					setCopied(false);
+				}
+			}}
+		>
 			<DialogContent className="max-w-4xl p-0 sm:max-w-4xl">
 				<DialogHeader className="p-3 pb-2">
 					<div className="flex items-center justify-between gap-3 pr-7">
@@ -168,7 +186,9 @@ export const FrameLightboxDialog: React.FC<FrameLightboxDialogProps> = ({
 								<Button
 									variant="secondary"
 									size="icon"
-									aria-label={t("dashboard.form.cancel")}
+									aria-label={t(
+										"dashboard.gallery.lightbox.prev.aria-label",
+									)}
 									className="pointer-events-auto size-8 rounded-full bg-background/80 shadow-md backdrop-blur-xs"
 									onClick={() => onStep(-1)}
 								>
@@ -177,7 +197,9 @@ export const FrameLightboxDialog: React.FC<FrameLightboxDialogProps> = ({
 								<Button
 									variant="secondary"
 									size="icon"
-									aria-label={t("dashboard.form.cancel")}
+									aria-label={t(
+										"dashboard.gallery.lightbox.next.aria-label",
+									)}
 									className="pointer-events-auto size-8 rounded-full bg-background/80 shadow-md backdrop-blur-xs"
 									onClick={() => onStep(1)}
 								>

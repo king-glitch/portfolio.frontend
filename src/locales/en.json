@@ -1366,7 +1366,13 @@
 			},
 			"lightbox": {
 				"zoom": "Zoom frame from {{name}}",
-				"dimensions": "{{width}} × {{height}} px"
+				"dimensions": "{{width}} × {{height}} px",
+				"prev": {
+					"aria-label": "Previous frame"
+				},
+				"next": {
+					"aria-label": "Next frame"
+				}
 			}
 		},
 		"settings": {
