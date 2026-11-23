@@ -84,6 +84,7 @@ export const BlockProjectHeader: React.FC<BlockProjectHeaderProps> = ({
 							fit: MediaFit.Cover,
 							tone: MediaTone.Photo,
 						}}
+						priority
 						className="size-full rounded-[28px]"
 					/>
 				) : (
@@ -91,7 +92,7 @@ export const BlockProjectHeader: React.FC<BlockProjectHeaderProps> = ({
 						<ProjectMotif kind={project.kind} />
 					</div>
 				)}
-				<Eyebrow className="pointer-events-none absolute bottom-4.5 left-5 rounded-pill bg-background px-3 py-1.5 font-semibold tracking-normal text-foreground normal-case">
+				<Eyebrow className="pointer-events-none absolute bottom-4.5 left-5 rounded-pill bg-background px-3 py-1.5 font-semibold tracking-normal text-foreground">
 					{t("projects.header.scroll")}
 				</Eyebrow>
 			</div>

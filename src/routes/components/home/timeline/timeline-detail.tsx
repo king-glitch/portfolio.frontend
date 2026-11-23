@@ -7,12 +7,12 @@ interface TimelineDetailProps {
 	entry: TimelineEntry;
 }
 
-/** Period, title and notes of the selected bar. */
+/** Editorial readout of the selected career bar: oversized tabular period + role beside engineering notes. */
 export const TimelineDetail: React.FC<TimelineDetailProps> = ({ entry }) => {
 	return (
-		<div className="mt-12 grid gap-12 border-t pt-8 desk:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
-			<div className="flex flex-col gap-2.5">
-				<span className="text-sm text-muted-foreground tabular-nums">
+		<div className="mt-10 grid gap-8 desk:grid-cols-[minmax(0,1fr)_minmax(0,1.8fr)] desk:gap-16">
+			<div className="flex flex-col gap-3">
+				<span className="text-[clamp(22px,2.2vw,34px)] leading-none font-light tracking-tight text-muted-foreground tabular-nums">
 					{entry.period}
 				</span>
 				<DisplayHeading
@@ -22,11 +22,11 @@ export const TimelineDetail: React.FC<TimelineDetailProps> = ({ entry }) => {
 					{entry.title}
 				</DisplayHeading>
 			</div>
-			<div className="flex flex-col gap-4">
+			<div className="flex flex-col divide-y divide-border/60 border-t border-border/60">
 				{entry.notes.map((note) => (
 					<p
 						key={note}
-						className="m-0 text-lg leading-relaxed text-muted-foreground"
+						className="m-0 py-4 text-[15px] leading-relaxed text-muted-foreground first:pt-4"
 					>
 						{note}
 					</p>

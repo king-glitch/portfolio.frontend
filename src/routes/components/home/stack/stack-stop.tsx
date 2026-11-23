@@ -1,16 +1,15 @@
 import React from "react";
 import { cva } from "class-variance-authority";
-import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
-import type { StackStop as StackStopModel } from "@/types/home";
+import type { StackStop as StackStopModel } from "@/api/types/portfolio/project";
 
 const stopVariants = cva(
-	"h-auto min-h-45 w-[clamp(136px,12.5vw,184px)] flex-none flex-col items-start justify-between gap-4 rounded-[22px] border-0 p-4.5 text-left whitespace-normal transition-[background-color,color,translate,opacity] duration-600 ease-(--ease-out-expo) max-desk:min-h-0 max-desk:w-auto max-desk:translate-y-0 max-desk:items-stretch",
+	"group/stop flex h-auto w-full items-baseline justify-between gap-4 rounded-none border-0 border-b border-border bg-transparent px-1 py-6 text-left whitespace-normal transition-colors duration-200 hover:bg-transparent dark:hover:bg-transparent",
 	{
 		variants: {
 			selected: {
-				true: "-translate-y-3 bg-foreground text-background hover:bg-foreground hover:text-background dark:hover:bg-foreground",
-				false: "bg-card text-foreground opacity-70 ring-1 ring-border hover:bg-card hover:text-foreground dark:hover:bg-card",
+				true: "border-foreground text-foreground hover:text-foreground",
+				false: "text-muted-foreground hover:text-foreground",
 			},
 		},
 	},
@@ -24,34 +23,50 @@ interface StackStopProps {
 	count?: number;
 	selected: boolean;
 	onSelect: () => void;
+	/** Pointer hover; omitted while the section is scroll-pinned so hovering never scrolls the page. */
+	onHover?: () => void;
 }
 
-/** One stop of the flow. Hover, focus and click all select it (same behaviour for keyboard). */
+/** One interactive layer row in the split-stage inspector. */
 export const StackStop: React.FC<StackStopProps> = ({
 	stop,
 	index,
 	count,
 	selected,
 	onSelect,
+	onHover,
 }) => {
-	const { t } = useTranslation();
 	const n = String(index + 1).padStart(2, "0");
 	const used = count === undefined ? "--" : String(count).padStart(2, "0");
 	return (
 		<Button
 			variant="ghost"
 			aria-pressed={selected}
-			onMouseEnter={onSelect}
+			onMouseEnter={onHover}
 			onFocus={onSelect}
 			onClick={onSelect}
 			className={stopVariants({ selected })}
 		>
-			<span className="text-xs font-bold tabular-nums opacity-60">{`${n} · ${used}`}</span>
-			<span className="text-xl leading-[1.05] font-extrabold tracking-[-0.03em]">
-				{t(stop.nameKey)}
+			<span className="flex min-w-0 items-baseline gap-5">
+				<span className="font-mono text-xs font-medium tabular-nums opacity-60">
+					{n}
+				</span>
+				<span className="text-[clamp(20px,1.9vw,28px)] leading-tight font-semibold tracking-tight transition-transform duration-300 ease-(--ease-out-expo) group-hover/stop:translate-x-1.5">
+					{stop.name}
+				</span>
 			</span>
-			<span className="text-[13px] leading-[1.4] font-normal opacity-70">
-				{t(stop.descriptionKey)}
+			<span className="inline-flex shrink-0 items-center gap-3 font-mono text-xs tabular-nums">
+				<span className="opacity-55">{used}</span>
+				<span
+					aria-hidden="true"
+					className={
+						selected
+							? "translate-x-0 opacity-100 transition-all duration-300"
+							: "-translate-x-1.5 opacity-0 transition-all duration-300 group-hover/stop:translate-x-0 group-hover/stop:opacity-60"
+					}
+				>
+					→
+				</span>
 			</span>
 		</Button>
 	);

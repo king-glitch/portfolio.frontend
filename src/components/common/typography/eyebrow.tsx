@@ -6,12 +6,12 @@ interface EyebrowProps {
 	className?: string;
 }
 
-/** Small tracked uppercase label (prototype `.lbl`). */
+/** Small editorial meta label (sentence case, quiet tracking). */
 export const Eyebrow: React.FC<EyebrowProps> = ({ children, className }) => {
 	return (
 		<span
 			className={cn(
-				"text-[13px] font-medium tracking-[0.16em] text-muted-foreground uppercase",
+				"text-[13px] font-medium tracking-[0.02em] text-muted-foreground",
 				className,
 			)}
 		>

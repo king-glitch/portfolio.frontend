@@ -10,25 +10,31 @@ import { cn } from "@/lib/utils";
 import { CursorLabel } from "@/types/cursor";
 import { PostCardVariant } from "@/types/ui";
 
-const coverVariants = cva("block overflow-hidden ring-1 ring-border", {
-	variants: {
-		variant: {
-			[PostCardVariant.Teaser]: "aspect-4/3 rounded-2xl",
-			[PostCardVariant.Grid]: "aspect-16/10 rounded-3xl",
+const coverVariants = cva(
+	"block overflow-hidden rounded-2xl ring-1 ring-border transition-colors duration-200 group-hover/post:ring-foreground/30",
+	{
+		variants: {
+			variant: {
+				[PostCardVariant.Teaser]: "aspect-video",
+				[PostCardVariant.Grid]: "aspect-16/10",
+			},
 		},
 	},
-});
+);
 
-const titleVariants = cva("font-extrabold", {
-	variants: {
-		variant: {
-			[PostCardVariant.Teaser]:
-				"text-[clamp(22px,2vw,30px)] leading-[1.05] tracking-[-0.04em]",
-			[PostCardVariant.Grid]:
-				"text-[clamp(26px,2.6vw,40px)] leading-[1.02] tracking-[-0.045em]",
+const titleVariants = cva(
+	"font-semibold transition-opacity duration-200 group-hover/post:opacity-75",
+	{
+		variants: {
+			variant: {
+				[PostCardVariant.Teaser]:
+					"text-[clamp(19px,1.5vw,24px)] leading-snug tracking-tight",
+				[PostCardVariant.Grid]:
+					"text-[clamp(24px,2.2vw,34px)] leading-tight tracking-tight",
+			},
 		},
 	},
-});
+);
 
 interface PostCardProps {
 	post: PostSummary;
@@ -50,12 +56,15 @@ export const PostCard: React.FC<PostCardProps> = ({
 			to={notePath(post.slug)}
 			viewTransition
 			data-cursor={CursorLabel.Read}
-			className={cn("flex flex-col gap-4 text-left", className)}
+			className={cn(
+				"group/post flex flex-col gap-3.5 text-left",
+				className,
+			)}
 		>
 			<span className={coverVariants({ variant })}>
 				<ProjectMotif kind={post.kind} imageUrl={post.artUrl} />
 			</span>
-			<span className="flex justify-between gap-3 text-[13px] text-muted-foreground">
+			<span className="flex justify-between gap-3 font-mono text-xs text-muted-foreground tabular-nums">
 				<span>{meta}</span>
 				<span className="flex items-center gap-2">
 					{post.sample ? (
@@ -66,7 +75,7 @@ export const PostCard: React.FC<PostCardProps> = ({
 			</span>
 			<span className={titleVariants({ variant })}>{post.title}</span>
 			{isGrid ? (
-				<span className="text-base leading-relaxed text-muted-foreground">
+				<span className="text-[15px] leading-relaxed text-muted-foreground">
 					{post.excerpt}
 				</span>
 			) : null}

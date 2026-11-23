@@ -48,7 +48,7 @@
 					"title": "Five habits"
 				},
 				"hello": {
-					"title": "Say hello."
+					"title": "Say hello"
 				},
 				"hero": {
 					"eyebrow": "About",
@@ -225,7 +225,7 @@
 					"description": "The requested page could not be found."
 				},
 				"status": "Error",
-				"title": "Oops!"
+				"title": "Something went wrong"
 			},
 			"kinds": {
 				"network": {
@@ -390,7 +390,7 @@
 				"text": "Hiring, freelance, or a hard backend problem? Bangkok, remote or abroad."
 			},
 			"terminal": ">_ open the terminal",
-			"title": "Say hello.",
+			"title": "Say hello",
 			"top": "Back to top ↑"
 		},
 		"habits": {
@@ -398,33 +398,10 @@
 				"title": "No habits listed yet"
 			},
 			"eyebrow": "How I work",
-			"hint": "Keep scrolling — this section moves sideways.",
-			"items": {
-				"1": {
-					"title": "Build it general",
-					"body": "Not one-off. A generic queue or type that every service and project can reuse."
-				},
-				"2": {
-					"title": "Scale before it has to",
-					"body": "Design for ten times the traffic early, so launch day is a non-event."
-				},
-				"3": {
-					"title": "Measure, then optimise",
-					"body": "Find the slow part with numbers, fix that one, then measure again."
-				},
-				"4": {
-					"title": "Treat keys like loaded guns",
-					"body": "Money and keys get reviewed twice: for how they work and how they could be abused."
-				},
-				"5": {
-					"title": "Keep it boring",
-					"body": "Clear structure and plain code, so the next person, or me in a year, can change it safely."
-				}
-			},
 			"lines": {
 				"1": "Rules",
 				"2": "I build",
-				"3": "by."
+				"3": "by"
 			},
 			"next": "Timeline ↓"
 		},
@@ -433,20 +410,7 @@
 			"empty": {
 				"title": "Nothing written here yet"
 			},
-			"eyebrow": "Hello",
-			"stats": {
-				"languages": {
-					"label": "Languages I argue in"
-				},
-				"projects": {
-					"label": "Launch days survived"
-				},
-				"years": {
-					"label": "Years of breaking things on purpose",
-					"hint": "Since {{year}}",
-					"suffix": "y"
-				}
-			}
+			"eyebrow": "Hello"
 		},
 		"hero": {
 			"behind": "behind",
@@ -456,14 +420,14 @@
 					"aria-label": "Open project {{name}}"
 				}
 			},
-			"eyebrow": "William Siefert — software engineer",
+			"eyebrow": "William Siefert — Software engineer",
 			"lede": {
-				"accent": "and the simple UI on top, so the whole thing stays fast, secure and online.",
-				"text": "I build scalable backends, real-time systems and smart contracts —"
+				"accent": "plus the frontend on top. Built to stay fast and online.",
+				"text": "Go backends, WebSockets and smart contracts,"
 			},
 			"lines": {
 				"1": "Quiet code",
-				"2": "loud products."
+				"2": "loud products"
 			},
 			"scroll": {
 				"aria-label": "Scroll to About"
@@ -498,17 +462,17 @@
 		},
 		"marquee": {
 			"phrases": {
-				"1": "Optimization",
-				"2": "Performance",
-				"3": "Scalability",
-				"4": "Reliability",
-				"5": "Security",
-				"6": "Maintainability"
+				"1": "Go",
+				"2": "WebSocket",
+				"3": "MongoDB",
+				"4": "Solidity",
+				"5": "React",
+				"6": "TypeScript"
 			}
 		},
 		"meta": {
-			"description": "Bangkok-based software developer building scalable backends, real-time systems and smart contracts, plus the clean UI on top.",
-			"title": "William Siefert — Software developer, Go · TypeScript · Web3"
+			"description": "William Siefert — Go, TypeScript and Solidity engineer in Bangkok building high-concurrency game backends, real-time sockets and on-chain systems.",
+			"title": "William Siefert — Software engineer, Go · TypeScript · Web3"
 		},
 		"notes": {
 			"all": "All notes →",
@@ -518,63 +482,47 @@
 			"eyebrow": "Notes",
 			"lines": {
 				"1": "Written",
-				"2": "down."
+				"2": "down"
 			}
 		},
 		"spotlight": {
 			"aria-label": "What you see, and what I see",
 			"reveal": {
 				"eyebrow": "What I see",
-				"hint": "The part that has to keep working at 3 a.m.",
+				"hint": "Built to stay up under load",
 				"lines": {
-					"1": "General,",
-					"2": "dynamic, scalable,",
-					"3": "optimized, secure."
+					"1": "Go services,",
+					"2": "live sockets,",
+					"3": "tested contracts"
 				}
 			},
 			"see": {
 				"eyebrow": "What you see",
-				"hint": "Hover or tap here to look behind the screen.",
+				"hint": "Hover or tap to see the stack behind it",
 				"lines": {
-					"1": "It loads.",
-					"2": "It syncs.",
-					"3": "It works."
+					"1": "It loads",
+					"2": "It syncs",
+					"3": "It holds"
 				}
 			}
 		},
 		"stack": {
-			"description": "Every tap travels through these five stops before anything changes on your screen. Hover or tap a stop to see which of my projects use it.",
-			"eyebrow": "Under the hood",
+			"description": "What happens between your finger and the screen, in order. Each stop lists the projects I built it into.",
+			"eyebrow": "The stack",
+			"scroll": {
+				"hint": "Scroll to follow the tap"
+			},
 			"flow": {
 				"aria-label": "Stack stops"
 			},
 			"lines": {
-				"1": "How a tap",
-				"2": "becomes a thing."
+				"1": "One tap,",
+				"2": "five stops"
 			},
-			"stops": {
-				"1": {
-					"name": "Your screen",
-					"description": "React and TypeScript: a game, a site, an app in your pocket"
-				},
-				"2": {
-					"name": "A live line",
-					"description": "WebSocket: messages flowing both ways, instantly"
-				},
-				"3": {
-					"name": "The brain",
-					"description": "Go: the API, queues, shops, missions and the rules of play"
-				},
-				"4": {
-					"name": "The memory",
-					"description": "MongoDB and PostgreSQL: every player, item and bit of progress"
-				},
-				"5": {
-					"name": "The ledger",
-					"description": "Solidity on Soneium and Bitkub: rules nobody can quietly rewrite"
-				}
-			},
-			"used-in": "{{name}} — used in"
+			"used-in": "Built into",
+			"empty": {
+				"title": "No stops listed yet"
+			}
 		},
 		"timeline": {
 			"bars": {
@@ -584,29 +532,31 @@
 				"title": "Nothing on the timeline yet"
 			},
 			"eyebrow": "Timeline",
-			"hint": "Pick a bar to see what I was doing then.",
+			"hint": "Select a bar to view that role",
 			"kinds": {
 				"education": "Education",
 				"work": "Work"
 			}
 		},
 		"toolkit": {
-			"aria-label": "Skills, as draggable bubbles",
-			"count-one": "{{count}} tool I use — drag it around",
-			"count-other": "{{count}} tools I use — drag them around",
+			"all": "All",
+			"aria-label": "Filter skills by discipline",
+			"count-one": "{{count}} tool I ship with",
+			"count-other": "{{count}} tools I ship with",
 			"empty": {
 				"title": "No tools listed yet"
 			},
 			"eyebrow": "Toolkit",
 			"lines": {
-				"1": "Throw it",
-				"2": "around."
-			},
-			"shake": "Shake the box"
+				"1": "What I",
+				"2": "build with"
+			}
 		}
 	},
 	"notes": {
 		"card": {
+			"meta-one": "{{date}} · {{count}} min read",
+			"meta-other": "{{date}} · {{count}} min read",
 			"read-time-one": "{{count}} min read",
 			"read-time-other": "{{count}} min read"
 		},
@@ -679,16 +629,17 @@
 			"button": "Next project",
 			"eyebrow": "(Next project)",
 			"scroll": {
-				"hint": "Keep scrolling to push into the next project."
+				"hint": "Keep scrolling to open the next project"
 			},
 			"touch": {
-				"hint": "Tap to open the next project. The list loops back to the start."
+				"hint": "Tap to open the next project"
 			}
 		},
 		"header": {
-			"scroll": "Scroll to explore →"
+			"scroll": "Scroll right →"
 		},
 		"meta": {
+			"project": "{{name}} — William Siefert",
 			"title": "Project — William Siefert"
 		},
 		"topbar": {
@@ -802,9 +753,9 @@
 				"1": "Spinning up goroutines…",
 				"2": "Opening the sockets…",
 				"3": "Reading the contract twice…",
-				"4": "Ready. Say hi."
+				"4": "Ready"
 			},
-			"hint": "Say hi. Void is watching you."
+			"hint": "Void is watching"
 		},
 		"skip-link": {
 			"label": "Skip to content"
@@ -1390,7 +1341,8 @@
 				"general": "General",
 				"seo": "SEO",
 				"profile": "Profile",
-				"categories": "Categories"
+				"categories": "Categories",
+				"stack": "Stack"
 			},
 			"general": {
 				"meta": {
@@ -1488,6 +1440,36 @@
 					"invalid": "2 to 32 lowercase letters, digits or hyphens"
 				},
 				"unique": "Slugs must be unique"
+			},
+			"stack": {
+				"meta": {
+					"title": "Stack"
+				},
+				"label": "Stack stops",
+				"hint": "The stops in home section 04, top to bottom. Keywords are matched against each project's stack to list the projects that use a stop. An id can be changed only until you save.",
+				"add": "Add stop",
+				"remove": "Remove {{name}}",
+				"move": {
+					"up": "Move {{name}} up",
+					"down": "Move {{name}} down"
+				},
+				"name": {
+					"label": "Name"
+				},
+				"id": {
+					"label": "Id",
+					"invalid": "2 to 32 lowercase letters, digits or hyphens"
+				},
+				"description": {
+					"label": "Description"
+				},
+				"keywords": {
+					"label": "Keywords",
+					"required": "Add at least one keyword",
+					"max": "At most {{max}} keywords"
+				},
+				"max": "At most {{max}} stops",
+				"unique": "Ids must be unique"
 			}
 		},
 		"authentication": {

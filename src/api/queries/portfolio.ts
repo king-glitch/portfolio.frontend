@@ -6,6 +6,7 @@ import {
 	listGallery,
 	listGalleryTags,
 	listProjectCategories,
+	listStackStops,
 	listPosts,
 	listProjects,
 } from "@/api/services/portfolio";
@@ -22,6 +23,9 @@ export const projectCategoriesQuery = () =>
 		queryKey: [keys.categories],
 		queryFn: listProjectCategories,
 	});
+
+export const stackStopsQuery = () =>
+	queryOptions({ queryKey: [keys.stops], queryFn: listStackStops });
 
 export const projectsQuery = () =>
 	queryOptions({ queryKey: [keys.projects.list], queryFn: listProjects });

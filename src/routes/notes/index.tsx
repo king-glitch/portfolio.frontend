@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router";
-import { usePosts } from "@/api/hooks/portfolio/use-posts";
+import { usePosts } from "@/api/hooks/portfolio/post/use-posts";
 import { QueryEmpty } from "@/components/common/feedback/query-empty";
 import { QueryErrorAlert } from "@/components/common/feedback/query-error-alert";
 import { Eyebrow } from "@/components/common/typography/eyebrow";

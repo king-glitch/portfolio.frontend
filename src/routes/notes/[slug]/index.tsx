@@ -1,6 +1,6 @@
 import React from "react";
 import { isNotFound } from "@/api/errors";
-import { usePost } from "@/api/hooks/portfolio/use-post";
+import { usePost } from "@/api/hooks/portfolio/post/use-post";
 import { QueryEmpty } from "@/components/common/feedback/query-empty";
 import { QueryErrorAlert } from "@/components/common/feedback/query-error-alert";
 import { config } from "@/config";

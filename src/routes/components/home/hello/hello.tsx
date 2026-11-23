@@ -1,148 +1,108 @@
-import React from "react";
-import type { ParseKeys } from "i18next";
+import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { useProfile } from "@/api/hooks/portfolio/use-profile";
-import { useProjects } from "@/api/hooks/portfolio/use-projects";
 import { PillButton } from "@/components/common/buttons/pill-button";
 import { QueryEmpty } from "@/components/common/feedback/query-empty";
 import { QueryErrorAlert } from "@/components/common/feedback/query-error-alert";
+import { MetaCode } from "@/components/common/typography/meta-code";
 import { SectionLabel } from "@/components/common/typography/section-label";
 import { Skeleton } from "@/components/ui/skeleton";
 import { config } from "@/config";
-import { yearsSince } from "@/lib/portfolio/time";
-import { HelloStatCell } from "@/routes/components/home/hello/hello-stat-cell";
-import { HelloStat } from "@/routes/components/home/hello/hello-stat";
-import { HelloWords } from "@/routes/components/home/hello/hello-words";
+import { usePinnedSteps } from "@/hooks/scroll/use-pinned-steps";
+import { padCount } from "@/lib/motion/reveal";
+import { sentences } from "@/lib/portfolio/lead";
+import { cn } from "@/lib/utils";
+import { HelloLines } from "@/routes/components/home/hello/hello-lines";
 import { HomeSection } from "@/routes/components/home/home-section";
 import { HomePad } from "@/types/home";
-import { PillSize, PillVariant } from "@/types/ui";
+import { PillVariant } from "@/types/ui";
 
-interface StatDef {
-	id: string;
-	labelKey: ParseKeys;
-	pad: number;
-}
-
-const STATS: StatDef[] = [
-	{ id: "projects", labelKey: "home.hello.stats.projects.label", pad: 2 },
-	{ id: "languages", labelKey: "home.hello.stats.languages.label", pad: 2 },
-	{ id: "years", labelKey: "home.hello.stats.years.label", pad: 2 },
-];
-
-const SKELETON_BARS = [
-	"h-4 w-8",
-	"h-[clamp(79px,11.7vw,198px)] w-48",
-	"h-3.5 w-44",
-];
+const LINE_BARS = ["h-12 w-full", "h-12 w-3/5", "h-12 w-11/12", "h-12 w-4/5"];
 
 interface HelloProps {}
 
-/** About section: scroll-revealed paragraph plus three counted stats, all derived from the profile. */
+/**
+ * About section: `profile.about`, one sentence per line. On desktop the section pins and
+ * scrolling steps through the lines, lighting one at a time; a thin rail and counter show
+ * how far along you are. Narrow, touch and reduced-motion get every line lit, no pinning.
+ */
 export const Hello: React.FC<HelloProps> = () => {
 	const { t } = useTranslation();
 	const profile = useProfile();
-	const projects = useProjects();
-	const pending = profile.isPending || projects.isPending;
-	const failed = profile.isError || projects.isError;
-	const about = profile.data?.about ?? "";
+	const lines = sentences(profile.data?.about ?? "");
+	const trackRef = useRef<HTMLDivElement>(null);
+	const [index, setIndex] = useState(0);
+	const { pinned } = usePinnedSteps(trackRef, lines.length, setIndex);
+	const active = Math.min(index, Math.max(lines.length - 1, 0));
 
-	const retry = () => {
-		void profile.refetch();
-		void projects.refetch();
-	};
-
-	const values = (): Record<
-		string,
-		{ value: number; suffix?: string; hint: string }
-	> => {
-		const languages = profile.data?.skills[0]?.items ?? [];
-		const names = projects.data?.map((p) => p.name) ?? [];
-		// Years of coding: the education entry starts when the first code was written.
-		const start = profile.data?.education[0]?.start;
-		return {
-			projects: { value: names.length, hint: names.join(" · ") },
-			languages: { value: languages.length, hint: languages.join(" · ") },
-			years: {
-				value: start ? yearsSince(start) : 0,
-				suffix: t("home.hello.stats.years.suffix"),
-				hint: t("home.hello.stats.years.hint", {
-					year: start?.slice(0, 4),
-				}),
-			},
-		};
-	};
-
-	const renderWords = () => {
-		if (failed) return <QueryErrorAlert onRetry={retry} />;
-		if (pending)
+	const renderLines = () => {
+		if (profile.isError)
+			return <QueryErrorAlert onRetry={() => void profile.refetch()} />;
+		if (profile.isPending)
 			return (
-				<div className="flex flex-col gap-3">
-					{Array.from({ length: 4 }, (_, i) => (
-						<Skeleton
-							key={i}
-							className={
-								i === 3
-									? "h-[clamp(26px,3.4vw,54px)] w-2/3"
-									: "h-[clamp(26px,3.4vw,54px)] w-full"
-							}
-						/>
+				<div className="flex flex-col gap-6 desk:ml-[16.66%]">
+					{LINE_BARS.map((bar) => (
+						<Skeleton key={bar} className={bar} />
 					))}
 				</div>
 			);
-		if (!about) return <QueryEmpty titleKey="home.hello.empty.title" />;
-		return <HelloWords text={about} />;
-	};
-
-	const renderStats = () => {
-		if (failed || (!pending && !about)) return null;
-		const map = values();
-		return STATS.map(({ id, labelKey, pad }, i) => {
-			const stat = map[id];
-			if (pending || !stat)
-				return (
-					<HelloStatCell key={id}>
-						{SKELETON_BARS.map((bar) => (
-							<Skeleton key={bar} className={bar} />
-						))}
-					</HelloStatCell>
-				);
-			return (
-				<HelloStat
-					key={id}
-					index={i + 1}
-					hint={stat.hint}
-					value={stat.value}
-					pad={pad}
-					suffix={stat.suffix}
-					label={t(labelKey)}
-				/>
-			);
-		});
+		if (!lines.length)
+			return <QueryEmpty titleKey="home.hello.empty.title" />;
+		return (
+			<div className="grid items-center gap-10 desk:grid-cols-12 desk:gap-12">
+				{pinned ? (
+					<div
+						aria-hidden="true"
+						className="flex flex-col gap-4 desk:col-span-2"
+					>
+						<MetaCode>{`${padCount(active + 1, 2)} / ${padCount(lines.length, 2)}`}</MetaCode>
+						<div className="h-40 w-px bg-foreground/15">
+							<div
+								className="h-full w-px origin-top bg-foreground transition-[scale] duration-700 ease-(--ease-out-expo)"
+								style={{
+									scale: `1 ${(active + 1) / lines.length}`,
+								}}
+							/>
+						</div>
+					</div>
+				) : null}
+				<div className="desk:col-span-10 desk:col-start-3">
+					<HelloLines lines={lines} active={active} pinned={pinned} />
+				</div>
+			</div>
+		);
 	};
 
 	return (
 		<HomeSection id={config.sections.about} pad={HomePad.Top}>
-			<div className="grid gap-12 desk:grid-cols-[minmax(0,1fr)_minmax(0,2.6fr)]">
-				<div className="flex flex-col items-start gap-6">
-					<SectionLabel index={1}>
-						{t("home.hello.eyebrow")}
-					</SectionLabel>
-					<PillButton
-						variant={PillVariant.Outline}
-						magnetic
-						nativeButton={false}
-						render={
-							<Link to={config.routes.about} viewTransition />
-						}
-					>
-						{t("home.hello.cta")}
-					</PillButton>
-				</div>
-				<div className="min-w-0">{renderWords()}</div>
+			<div className="mb-[clamp(32px,4vw,64px)] flex items-center justify-between gap-6">
+				<SectionLabel index={1}>{t("home.hello.eyebrow")}</SectionLabel>
+				<PillButton
+					variant={PillVariant.Outline}
+					magnetic
+					nativeButton={false}
+					render={<Link to={config.routes.about} viewTransition />}
+				>
+					{t("home.hello.cta")}
+				</PillButton>
 			</div>
-			<div className="mt-[clamp(72px,9vw,140px)] grid grid-cols-1 border-t desk:grid-cols-3">
-				{renderStats()}
+			<div
+				ref={trackRef}
+				style={
+					pinned
+						? { height: `${lines.length * 60 + 100}svh` }
+						: undefined
+				}
+			>
+				<div
+					className={cn(
+						pinned &&
+							"sticky top-0 flex h-svh flex-col justify-center pt-20",
+					)}
+				>
+					{renderLines()}
+				</div>
 			</div>
 		</HomeSection>
 	);

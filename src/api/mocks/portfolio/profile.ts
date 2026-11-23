@@ -4,7 +4,7 @@ import type { Profile } from "@/api/types/portfolio/profile";
 export const profile: Profile = {
 	name: "William Siefert",
 	headline: "Software engineer",
-	about: "Hi, I’m William, or Tiger. I write Go and TypeScript, mostly the kind with sockets, queues and smart contracts behind it. I like systems that are general, dynamic and still standing when traffic triples, and I build the simple front end on top because a clean UI is half of a reliable product. I learned by building, breaking and rebuilding. Off the clock: games, green tea and too much Reddit.",
+	about: "I build the servers behind games and apps, and the quiet front end on top. Hi, I’m William. I write Golang and TypeScript, mostly sockets, queues and smart contracts. I like systems that stay up when traffic triples. Off the clock: games, green tea and too much Reddit.",
 	skills: [
 		{
 			label: "Programming Languages",
@@ -57,24 +57,24 @@ export const profile: Profile = {
 	],
 	core: [
 		{
-			label: "Backend Development",
-			text: "General, dynamic servers that scale with traffic and keep data safe.",
+			label: "Build it general",
+			text: "Write the queue or the type once, so every service and project can reuse it.",
 		},
 		{
-			label: "Smart Contract Development",
-			text: "Solidity contracts for games and apps on Soneium and Bitkub, written with security in mind from the first line.",
+			label: "Scale before it has to",
+			text: "Plan for ten times the expected traffic, so launch day is uneventful.",
 		},
 		{
-			label: "Socket Communication",
-			text: "Real-time links between players and servers, so every screen shows the same thing at the same moment.",
+			label: "Measure, then optimise",
+			text: "Find the slow part with numbers, fix that one, then measure again.",
 		},
 		{
-			label: "Performance Optimization",
-			text: "Measuring first, then fixing the slow parts of code and architecture without breaking the rest.",
+			label: "Review money and keys twice",
+			text: "Code that moves money or holds keys gets two reviews: how it works, and how it could be abused.",
 		},
 		{
-			label: "Security Measures",
-			text: "Encryption, authentication and careful coding, so the only people inside are the ones invited.",
+			label: "Keep it boring",
+			text: "Plain structure and plain code, so the next person, or me in a year, can change it safely.",
 		},
 	],
 	experience: [

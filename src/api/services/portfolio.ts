@@ -9,6 +9,7 @@ import {
 	profileSchema,
 	projectListSchema,
 	publicCategoriesSchema,
+	publicStackStopsSchema,
 	projectSchema,
 	projectSlugsSchema,
 } from "@/api/schemas/portfolio";
@@ -23,6 +24,7 @@ import type { Profile } from "@/api/types/portfolio/profile";
 import type {
 	Project,
 	ProjectCategory,
+	StackStop,
 	ProjectSummary,
 } from "@/api/types/portfolio/project";
 import { config } from "@/config";
@@ -45,6 +47,9 @@ export const getProfile = (): Promise<Profile> =>
 
 export const listProjectCategories = (): Promise<ProjectCategory[]> =>
 	fetchParsed(publicCategoriesSchema, paths.settingsPublic);
+
+export const listStackStops = (): Promise<StackStop[]> =>
+	fetchParsed(publicStackStopsSchema, paths.settingsPublic);
 
 export const listProjects = (): Promise<ProjectSummary[]> =>
 	fetchParsed(projectListSchema, paths.projects);

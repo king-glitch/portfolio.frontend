@@ -92,6 +92,13 @@ export default [
 					),
 					"routes/dashboard/settings/categories/index.tsx",
 				),
+				route(
+					segment(
+						config.routes.dashboardSettingsStack,
+						config.routes.dashboardSettings,
+					),
+					"routes/dashboard/settings/stack/index.tsx",
+				),
 			],
 		),
 		route(

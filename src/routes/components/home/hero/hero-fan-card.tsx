@@ -44,7 +44,8 @@ export const HeroFanCard: React.FC<HeroFanCardProps> = ({
 			{project ? (
 				<ProjectPreviewCard
 					project={project}
-					className="shadow-2xl transition-transform duration-800 ease-(--ease-out-expo) group-hover/fan:-translate-y-8 group-hover/fan:scale-105 group-focus-visible/fan:-translate-y-8 group-focus-visible/fan:scale-105 group-focus-visible/fan:ring-3 group-focus-visible/fan:ring-foreground"
+					priority
+					className="shadow-xl transition-transform duration-400 ease-(--ease-out-expo) group-hover/fan:-translate-y-4 group-focus-visible/fan:-translate-y-4 group-focus-visible/fan:ring-3 group-focus-visible/fan:ring-foreground"
 				/>
 			) : (
 				<Skeleton className="size-full rounded-2xl" />

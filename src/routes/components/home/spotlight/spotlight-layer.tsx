@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { SpotlightSide } from "@/types/home";
 
 const layerVariants = cva(
-	"absolute inset-0 flex flex-col justify-between px-[clamp(16px,4vw,48px)] py-[clamp(48px,7vw,96px)]",
+	"absolute inset-0 flex flex-col justify-between px-[max(clamp(16px,4vw,48px),calc(50%-680px+clamp(16px,4vw,48px)))] py-[clamp(48px,7vw,96px)]",
 	{
 		variants: {
 			side: {

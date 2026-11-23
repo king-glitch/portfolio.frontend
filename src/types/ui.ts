@@ -197,6 +197,7 @@ export enum SettingsTab {
 	Seo = "seo",
 	Profile = "profile",
 	Categories = "categories",
+	Stack = "stack",
 }
 
 /** Layout presentation mode for media asset collections. */

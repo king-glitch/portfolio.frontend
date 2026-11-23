@@ -4,23 +4,22 @@ import { config } from "@/config";
 
 interface ToolkitSkeletonProps {}
 
-/** Circles in a wrapped grid inside the play box; no physics until data arrives. */
+/** Four discipline rows matching the loaded typographic matrix. */
 export const ToolkitSkeleton: React.FC<ToolkitSkeletonProps> = () => {
 	return (
-		<div className="flex flex-wrap content-start gap-3 p-6 pt-14">
-			{Array.from(
-				{ length: config.home.toolkit.skeletonCount },
-				(_, i) => (
-					<Skeleton
-						key={i}
-						className="rounded-full"
-						style={{
-							width: 84 + (i % 4) * 22,
-							height: 84 + (i % 4) * 22,
-						}}
-					/>
-				),
-			)}
+		<div className="divide-y divide-border border-y">
+			{Array.from({ length: config.home.toolkit.groups }, (_, i) => (
+				<div
+					key={i}
+					className="grid gap-6 py-9 desk:grid-cols-[240px_minmax(0,1fr)] desk:gap-12"
+				>
+					<div className="flex flex-col gap-2">
+						<Skeleton className="h-4 w-8" />
+						<Skeleton className="h-6 w-36" />
+					</div>
+					<Skeleton className="h-10 w-full max-w-2xl" />
+				</div>
+			))}
 		</div>
 	);
 };

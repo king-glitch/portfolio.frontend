@@ -21,14 +21,6 @@ export enum HabitTone {
 	Outline = "outline",
 }
 
-/** One stop of "How a tap becomes a thing": copy keys plus the keywords matched against `ProjectSummary.stack`. */
-export interface StackStop {
-	id: string;
-	nameKey: ParseKeys;
-	descriptionKey: ParseKeys;
-	keywords: string[];
-}
-
 /** The three floating hero tags; also the `home.hero.tags.<tag>` i18n key segment. */
 export enum HeroTag {
 	Scalable = "scalable",

@@ -9,6 +9,7 @@ export enum SettingKey {
 	FeatureToggles = "feature_toggles",
 	MaintenanceMode = "maintenance_mode",
 	ProjectCategories = "project_categories",
+	StackStops = "stack_stops",
 }
 
 export enum ThemeDefault {

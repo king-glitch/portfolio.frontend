@@ -2,7 +2,7 @@
 
 ## About Me
 
-Hi, I’m William, or Tiger. I write Go and TypeScript, mostly the kind with sockets, queues and smart contracts behind it. I like systems that are general, dynamic and still standing when traffic triples, and I build the simple front end on top because a clean UI is half of a reliable product. I learned by building, breaking and rebuilding. Off the clock: games, green tea and too much Reddit.
+I build the servers behind games and apps, and the quiet front end on top. Hi, I’m William. I write Golang and TypeScript, mostly sockets, queues and smart contracts. I like systems that stay up when traffic triples. Off the clock: games, green tea and too much Reddit.
 
 ## Skills
 - Programming Languages: Golang, Typescript, Solidity, Python, PHP, Java, C#
@@ -23,11 +23,11 @@ Hi, I’m William, or Tiger. I write Go and TypeScript, mostly the kind with soc
   - Bachelor of Science in Computer Science, majoring in multimedia intelligent technology. GPA 3.90. Senior project: the School Bus Backend and Administration System.
 
 ## Core Skills
-- Backend Development: General, dynamic servers that scale with traffic and keep data safe.
-- Smart Contract Development: Solidity contracts for games and apps on Soneium and Bitkub, written with security in mind from the first line.
-- Socket Communication: Real-time links between players and servers, so every screen shows the same thing at the same moment.
-- Performance Optimization: Measuring first, then fixing the slow parts of code and architecture without breaking the rest.
-- Security Measures: Encryption, authentication and careful coding, so the only people inside are the ones invited.
+- Build it general: Write the queue or the type once, so every service and project can reuse it.
+- Scale before it has to: Plan for ten times the expected traffic, so launch day is uneventful.
+- Measure, then optimise: Find the slow part with numbers, fix that one, then measure again.
+- Review money and keys twice: Code that moves money or holds keys gets two reviews: how it works, and how it could be abused.
+- Keep it boring: Plain structure and plain code, so the next person, or me in a year, can change it safely.
 
 ## Projects
 

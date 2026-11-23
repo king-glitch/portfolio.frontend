@@ -114,7 +114,7 @@ export const ProjectIndex: React.FC<ProjectIndexProps> = () => {
 			/>
 			<div
 				aria-hidden="true"
-				className="mt-10 hidden grid-cols-[96px_minmax(0,1fr)_minmax(0,0.9fr)_130px_40px] gap-6 px-1 pb-3 text-[11px] font-medium tracking-widest text-muted-foreground uppercase desk:grid"
+				className="mt-10 hidden grid-cols-[96px_minmax(0,1.6fr)_minmax(0,0.7fr)_130px_40px] gap-6 px-1 pb-3 text-xs font-medium text-muted-foreground desk:grid"
 			>
 				{COLUMNS.map((key) => (
 					<span key={key}>{t(key)}</span>

@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { usePosts } from "@/api/hooks/portfolio/use-posts";
+import { usePosts } from "@/api/hooks/portfolio/post/use-posts";
 import { useProjects } from "@/api/hooks/portfolio/use-projects";
 import { PillButton } from "@/components/common/buttons/pill-button";
 import { Skeleton } from "@/components/ui/skeleton";

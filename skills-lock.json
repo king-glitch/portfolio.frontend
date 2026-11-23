@@ -1,0 +1,40 @@
+{
+  "version": 2,
+  "skills": {
+    "anti-ui-slop": {
+      "source": "uizze/uizze",
+      "commit": "fc401e9e654cbafe427b0c98142fc8bccd0c4e7e",
+      "sourceType": "github",
+      "skillPath": "skills/anti-ui-slop/SKILL.md",
+      "computedHash": "29e29b5bcb0bce74d329abe9c3c66be67ccd040afe31588a07871e623623afb4"
+    },
+    "image-to-ui": {
+      "source": "uizze/uizze",
+      "commit": "fc401e9e654cbafe427b0c98142fc8bccd0c4e7e",
+      "sourceType": "github",
+      "skillPath": "skills/image-to-ui/SKILL.md",
+      "computedHash": "68d82d6ad06a3b0e93afb9927df621c6194765d250fae25810a9bd7adc6b453b"
+    },
+    "ui-design": {
+      "source": "uizze/uizze",
+      "commit": "fc401e9e654cbafe427b0c98142fc8bccd0c4e7e",
+      "sourceType": "github",
+      "skillPath": "skills/ui-design/SKILL.md",
+      "computedHash": "9dbb19fe0cb4bef7fb04d78fbcefd1e9fc6ea191deb0245bc4f0c0493a2724b0"
+    },
+    "ui-radar": {
+      "source": "uizze/uizze",
+      "commit": "fc401e9e654cbafe427b0c98142fc8bccd0c4e7e",
+      "sourceType": "github",
+      "skillPath": "skills/ui-radar/SKILL.md",
+      "computedHash": "674969a1fe8de031c30f5e8f6d98acaa2451fc20416c1284a7e0ed1f6bb4ed8e"
+    },
+    "uizze-ui": {
+      "source": "uizze/uizze",
+      "commit": "fc401e9e654cbafe427b0c98142fc8bccd0c4e7e",
+      "sourceType": "github",
+      "skillPath": "skills/uizze-ui/SKILL.md",
+      "computedHash": "f06dec4c69d265bd48487594cb5e663d5f5c0ea7bc96d568d82adcf6f6ed2bef"
+    }
+  }
+}

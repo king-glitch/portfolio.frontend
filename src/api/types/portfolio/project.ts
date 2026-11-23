@@ -46,3 +46,12 @@ export interface ProjectCategory {
 	slug: string;
 	label: string;
 }
+
+/** One stop of the home "how a tap travels" section (public `stack_stops` setting). `keywords`
+ *  are matched case-insensitively against each project's `stack` entries. */
+export interface StackStop {
+	id: string;
+	name: string;
+	description: string;
+	keywords: string[];
+}

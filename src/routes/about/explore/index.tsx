@@ -1,6 +1,6 @@
 import React from "react";
 import { useProfile } from "@/api/hooks/portfolio/use-profile";
-import { usePosts } from "@/api/hooks/portfolio/use-posts";
+import { usePosts } from "@/api/hooks/portfolio/post/use-posts";
 import { useProjects } from "@/api/hooks/portfolio/use-projects";
 import {
 	postsQuery,

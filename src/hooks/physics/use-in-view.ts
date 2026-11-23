@@ -4,9 +4,11 @@ import { useEffect, useState, type RefObject } from "react";
 export function useInView(
 	ref: RefObject<Element | null>,
 	rootMargin = "0px",
+	enabled = true,
 ): boolean {
 	const [inView, setInView] = useState(false);
 	useEffect(() => {
+		if (!enabled) return;
 		const el = ref.current;
 		if (!el) return;
 		const observer = new IntersectionObserver(
@@ -15,6 +17,6 @@ export function useInView(
 		);
 		observer.observe(el);
 		return () => observer.disconnect();
-	}, [ref, rootMargin]);
-	return inView;
+	}, [ref, rootMargin, enabled]);
+	return enabled && inView;
 }

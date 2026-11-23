@@ -14,8 +14,17 @@ export function clientLoader({ params }: Route.ClientLoaderArgs) {
 	);
 }
 
-export function meta(_args: Route.MetaArgs) {
-	return [{ title: i18n.t("projects.meta.title") }];
+export function meta({ params }: Route.MetaArgs) {
+	const project = queryClient.getQueryData(
+		projectQuery(params.projectId).queryKey,
+	);
+	return [
+		{
+			title: project
+				? i18n.t("projects.meta.project", { name: project.name })
+				: i18n.t("projects.meta.title"),
+		},
+	];
 }
 
 interface ProjectRouteProps extends Route.ComponentProps {}

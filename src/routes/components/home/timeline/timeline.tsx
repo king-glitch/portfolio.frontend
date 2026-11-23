@@ -15,7 +15,7 @@ import { HomePad } from "@/types/home";
 
 interface TimelineProps {}
 
-/** Career ruler: bars positioned by date, the selected one inverts and its notes show below. */
+/** Open architectural career ruler: positioned hairline tracks and a typographic readout below. */
 export const Timeline: React.FC<TimelineProps> = () => {
 	const { t } = useTranslation();
 	const { data, isPending, isError, refetch } = useProfile();
@@ -32,22 +32,22 @@ export const Timeline: React.FC<TimelineProps> = () => {
 			return <QueryEmpty titleKey="home.timeline.empty.title" />;
 		return (
 			<>
-				<div role="presentation" className="relative h-7 border-b">
+				<div role="presentation" className="relative h-8 border-b">
 					{model.ticks.map((tick) => (
 						<span
 							key={tick.year}
 							style={{ left: `${tick.leftPct}%` }}
-							className="absolute bottom-0 flex -translate-x-1/2 flex-col items-center gap-1.5 text-xs font-semibold text-muted-foreground tabular-nums"
+							className="absolute bottom-0 flex -translate-x-1/2 flex-col items-center gap-2 font-mono text-xs font-medium text-muted-foreground tabular-nums"
 						>
 							{tick.year}
-							<span className="h-2 w-px bg-border" />
+							<span className="h-2.5 w-px bg-border" />
 						</span>
 					))}
 				</div>
 				<div
 					role="group"
 					aria-label={t("home.timeline.bars.aria-label")}
-					className="mt-4.5 flex flex-col gap-2.5"
+					className="divide-y divide-border/50 border-b"
 				>
 					{model.entries.map((item, i) => (
 						<TimelineBar

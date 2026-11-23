@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
-import { usePosts } from "@/api/hooks/portfolio/use-posts";
+import { usePosts } from "@/api/hooks/portfolio/post/use-posts";
 import { useProfile } from "@/api/hooks/portfolio/use-profile";
 import { useProjects } from "@/api/hooks/portfolio/use-projects";
 import { useGoSection } from "@/hooks/use-go-section";

@@ -5,12 +5,12 @@ import { Button } from "@/components/ui/button";
 import type { TimelineEntry } from "@/lib/portfolio/timeline";
 
 const barVariants = cva(
-	"absolute inset-y-0 flex h-auto min-w-30 items-center justify-between gap-3 overflow-hidden rounded-pill border-0 px-5 text-sm font-bold whitespace-nowrap shadow-[inset_0_0_0_1px_var(--border)] transition-colors duration-300 outline-none focus-visible:ring-3 focus-visible:ring-ring/50",
+	"absolute inset-y-2 flex h-auto min-w-30 items-center justify-between gap-3 overflow-hidden rounded-sm border-0 px-4 text-sm font-medium whitespace-nowrap transition-colors duration-200 outline-none focus-visible:ring-3 focus-visible:ring-ring/50",
 	{
 		variants: {
 			selected: {
-				true: "bg-foreground text-background",
-				false: "bg-card text-foreground",
+				true: "bg-foreground text-background hover:bg-foreground hover:text-background dark:hover:bg-foreground",
+				false: "bg-transparent text-foreground ring-1 ring-border hover:bg-muted/50 hover:text-foreground hover:ring-foreground/50 dark:hover:bg-muted/40",
 			},
 		},
 	},
@@ -22,7 +22,7 @@ interface TimelineBarProps {
 	onPick: () => void;
 }
 
-/** One positioned bar of the ruler; hover, focus and click all select it. */
+/** One positioned architectural track bar; hover, focus and click all select it. */
 export const TimelineBar: React.FC<TimelineBarProps> = ({
 	entry,
 	selected,
@@ -33,6 +33,7 @@ export const TimelineBar: React.FC<TimelineBarProps> = ({
 		<div className="relative h-14">
 			<Button
 				type="button"
+				variant="ghost"
 				aria-pressed={selected}
 				onClick={onPick}
 				onMouseEnter={onPick}
@@ -44,7 +45,7 @@ export const TimelineBar: React.FC<TimelineBarProps> = ({
 				className={barVariants({ selected })}
 			>
 				<span className="truncate">{entry.shortTitle}</span>
-				<span className="font-medium opacity-60 max-desk:hidden">
+				<span className="font-mono text-xs font-normal opacity-60 max-desk:hidden">
 					{t(`home.timeline.kinds.${entry.kind}`)}
 				</span>
 			</Button>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import { usePosts } from "@/api/hooks/portfolio/use-posts";
+import { usePosts } from "@/api/hooks/portfolio/post/use-posts";
 import { QueryErrorAlert } from "@/components/common/feedback/query-error-alert";
 import { Skeleton } from "@/components/ui/skeleton";
 import { nextPost } from "@/lib/portfolio/tags";

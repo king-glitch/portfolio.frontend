@@ -10,6 +10,8 @@ interface ProjectPreviewMockProps {
 	kind: MotifKind;
 	/** The project's uploaded art; the mock screen is the fallback. */
 	imageUrl?: string;
+	/** Eager-load above-the-fold LCP images. */
+	priority?: boolean;
 	className?: string;
 }
 
@@ -17,6 +19,7 @@ interface ProjectPreviewMockProps {
 export const ProjectPreviewMock: React.FC<ProjectPreviewMockProps> = ({
 	kind,
 	imageUrl,
+	priority = false,
 	className,
 }) => {
 	const [failedUrl, setFailedUrl] = useState<string | null>(null);
@@ -33,7 +36,9 @@ export const ProjectPreviewMock: React.FC<ProjectPreviewMockProps> = ({
 				<img
 					src={imageUrl}
 					alt=""
-					loading="lazy"
+					loading={priority ? "eager" : "lazy"}
+					fetchPriority={priority ? "high" : undefined}
+					decoding="async"
 					onError={() => setFailedUrl(imageUrl)}
 					className="size-full object-cover"
 				/>

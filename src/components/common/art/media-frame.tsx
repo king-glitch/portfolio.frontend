@@ -18,7 +18,7 @@ const frameVariants = cva("group/media relative block", {
 
 // Monochrome until hovered (or, on touch, until centred); the colour eases in.
 const imageVariants = cva(
-	"block size-full grayscale transition-[filter] duration-700 ease-out group-hover/media:grayscale-0 group-data-active/media:grayscale-0 motion-reduce:transition-none",
+	"block size-full grayscale transition-[filter] duration-300 ease-out group-hover/media:grayscale-0 group-data-active/media:grayscale-0 motion-reduce:transition-none",
 	{
 		variants: {
 			fit: {
@@ -40,6 +40,8 @@ const imageVariants = cva(
 
 interface MediaFrameProps {
 	asset: MediaAsset;
+	/** Eager-load above-the-fold project cover images for LCP. */
+	priority?: boolean;
 	className?: string;
 }
 
@@ -48,10 +50,14 @@ interface MediaFrameProps {
  * frame and carry the scroller's parallax layer (`data-speed`), so they move inside their own box
  * and never across a neighbour; `contain` cut-outs float on the panel without a frame.
  */
-export const MediaFrame: React.FC<MediaFrameProps> = ({ asset, className }) => {
+export const MediaFrame: React.FC<MediaFrameProps> = ({
+	asset,
+	priority = false,
+	className,
+}) => {
 	const ref = useRef<HTMLDivElement>(null);
 	const coarse = useCoarsePointer();
-	const centred = useInView(ref, config.work.media.activeBand);
+	const centred = useInView(ref, config.work.media.activeBand, coarse);
 	const ratio =
 		asset.width && asset.height
 			? `${asset.width} / ${asset.height}`
@@ -68,7 +74,8 @@ export const MediaFrame: React.FC<MediaFrameProps> = ({ asset, className }) => {
 				alt={asset.alt}
 				width={asset.width}
 				height={asset.height}
-				loading="lazy"
+				loading={priority ? "eager" : "lazy"}
+				fetchPriority={priority ? "high" : undefined}
 				decoding="async"
 				draggable={false}
 				data-speed={

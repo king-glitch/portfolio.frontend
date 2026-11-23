@@ -3,27 +3,24 @@ import { cva } from "class-variance-authority";
 import { useTranslation } from "react-i18next";
 import { HeroTag } from "@/types/home";
 
-const tagVariants = cva(
-	"pointer-events-none absolute z-50 animate-bob gated motion-reduce:animate-none max-lg:hidden",
-	{
-		variants: {
-			tag: {
-				[HeroTag.Scalable]: "-top-4.5 left-[13%]",
-				[HeroTag.Optimized]: "-bottom-7.5 left-[40%]",
-				[HeroTag.Secure]: "-top-3 right-[12%]",
-			},
+const tagVariants = cva("pointer-events-none absolute z-50 max-lg:hidden", {
+	variants: {
+		tag: {
+			[HeroTag.Scalable]: "-top-4.5 left-[13%]",
+			[HeroTag.Optimized]: "-bottom-7.5 left-[40%]",
+			[HeroTag.Secure]: "-top-3 right-[12%]",
 		},
 	},
-);
+});
 
 const pillVariants = cva(
-	"relative inline-block rounded-pill bg-foreground px-5 py-2.75 text-[17px] font-bold text-background shadow-[0_14px_30px_-12px_rgb(0_0_0/0.6)]",
+	"relative inline-block rounded-pill bg-foreground px-4.5 py-2 text-[15px] font-semibold text-background shadow-md",
 	{
 		variants: {
 			tag: {
-				[HeroTag.Scalable]: "-rotate-12",
-				[HeroTag.Optimized]: "-rotate-4",
-				[HeroTag.Secure]: "rotate-10",
+				[HeroTag.Scalable]: "-rotate-8",
+				[HeroTag.Optimized]: "-rotate-3",
+				[HeroTag.Secure]: "rotate-7",
 			},
 		},
 	},
@@ -46,12 +43,11 @@ export const HeroTags: React.FC<HeroTagsProps> = () => {
 	const { t } = useTranslation();
 	return (
 		<>
-			{Object.values(HeroTag).map((tag, i) => (
+			{Object.values(HeroTag).map((tag) => (
 				<span
 					key={tag}
 					aria-hidden="true"
 					className={tagVariants({ tag })}
-					style={{ animationDelay: `${-i * 1.5}s` }}
 				>
 					<span className={pillVariants({ tag })}>
 						{t(`home.hero.tags.${tag}`)}

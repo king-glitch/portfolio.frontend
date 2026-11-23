@@ -33,12 +33,14 @@ export const config = {
 		dashboardSettingsSeo: "/dashboard/settings/seo",
 		dashboardSettingsProfile: "/dashboard/settings/profile",
 		dashboardSettingsCategories: "/dashboard/settings/categories",
+		dashboardSettingsStack: "/dashboard/settings/stack",
 		dashboardAccount: "/dashboard/account",
 	},
 	queryKeys: {
 		portfolio: {
 			profile: "portfolio.profile",
 			categories: "portfolio.categories",
+			stops: "portfolio.stops",
 			projects: {
 				list: "portfolio.projects.list",
 				detail: "portfolio.projects.detail",
@@ -314,12 +316,6 @@ export const config = {
 		},
 		hello: {
 			countStartViewport: 0.9,
-			wordReveal: {
-				startViewport: 0.85,
-				endViewport: 0.55,
-				minOpacity: 0.16,
-				overshoot: 1.1,
-			},
 		},
 		spotlight: {
 			maxRadiusPx: 240,

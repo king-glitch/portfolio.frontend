@@ -1,4 +1,3 @@
-// style-lint-ignore-file common-reuse -- reached through form-tags-field today; the plain chip input for any non-form use
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {

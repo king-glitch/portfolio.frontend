@@ -18,16 +18,16 @@ export const BlockArchitecture: React.FC<BlockArchitectureProps> = ({
 	return (
 		<Panel className="flex w-auto flex-col justify-between gap-8 max-desk:overflow-y-auto">
 			<PanelHeading index={index}>{label}</PanelHeading>
-			<div className="flex items-center max-desk:flex-col max-desk:items-stretch">
+			<div className="flex items-center max-lg:flex-col max-lg:items-stretch">
 				{nodes.map((node, i) => (
 					<React.Fragment key={node.name}>
 						{i > 0 ? (
 							<div
 								aria-hidden="true"
-								className="relative h-px w-22 shrink-0 bg-foreground opacity-50 max-desk:h-7 max-desk:w-px max-desk:self-center"
+								className="relative h-px w-22 shrink-0 bg-foreground opacity-50 max-lg:h-7 max-lg:w-px max-lg:self-center"
 							>
 								<span
-									className="absolute -top-0.75 left-0 size-1.75 rounded-full bg-foreground motion-safe:animate-packet max-desk:hidden"
+									className="absolute -top-0.75 left-0 size-1.75 rounded-full bg-foreground motion-safe:animate-packet max-lg:hidden"
 									style={{
 										animationDelay: `${(-i * 0.4).toFixed(1)}s`,
 									}}

@@ -16,6 +16,7 @@ import type { Profile } from "@/api/types/portfolio/profile";
 import type {
 	Project,
 	ProjectCategory,
+	StackStop,
 	ProjectSummary,
 } from "@/api/types/portfolio/project";
 import { SettingKey } from "@/api/types/admin/setting";
@@ -291,3 +292,18 @@ export const publicCategoriesSchema = z
 		[SettingKey.ProjectCategories]: projectCategoriesSchema.optional(),
 	})
 	.transform((settings) => settings[SettingKey.ProjectCategories] ?? []);
+
+/** The `stack_stops` setting value. */
+export const stackStopsSchema: z.ZodType<StackStop[]> = z.array(
+	z.object({
+		id: z.string(),
+		name: z.string(),
+		description: z.string(),
+		keywords: z.array(z.string()),
+	}),
+);
+
+/** A `stack_stops` key the owner never saved reads as no stops. */
+export const publicStackStopsSchema = z
+	.object({ [SettingKey.StackStops]: stackStopsSchema.optional() })
+	.transform((settings) => settings[SettingKey.StackStops] ?? []);
